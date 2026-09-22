@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Guide to Colour Theory in Design</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            blue: '#3B82F6',
+                            indigo: '#4F46E5',
+                            darkBlue: '#1E1B4B',
+                            orange: '#F97316',
+                            brightOrange: '#FF6B00',
+                            peach: '#FFEDD5',
+                            dark: '#0F172A',
+                            surface: '#1E293B',
+                            surfaceLight: '#334155'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Alpine.js -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0B0F19;
+            color: #F8FAFC;
+        }
+        .glow-orange {
+            box-shadow: 0 0 25px -5px rgba(249, 115, 22, 0.4);
+        }
+        .glow-blue {
+            box-shadow: 0 0 25px -5px rgba(59, 130, 246, 0.4);
+        }
+        .gradient-text {
+            background: linear-gradient(135deg, #FF6B00 0%, #F97316 35%, #3B82F6 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        /* Custom RGB Light Blend Mode */
+        .light-screen {
+            mix-blend-mode: screen;
+        }
+    </style>
+</head>
+<body x-data="appData()" class="min-h-screen pb-20 selection:bg-brand-orange selection:text-white">
+
+    <!-- Sticky Header Navigation -->
+    <header class="sticky top-0 z-50 glass-card border-b border-slate-800/80 px-4 py-3">
+        <div class="max-w-6xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-orange to-brand-blue flex items-center justify-center font-bold text-white shadow-lg">
+                    <i class="fa-solid font-bold fa-palette text-lg"></i>
+                </div>
+                <div>
+                    <span class="font-extrabold text-lg tracking-tight">COLOUR<span class="text-brand-orange">LAB</span></span>
+                    <span class="hidden sm:inline-block text-xs bg-slate-800 text-slate-300 px-2 py-0.5 rounded-full ml-2 border border-slate-700">Form 6 & Gen-Z Design Hub</span>
+                </div>
+            </div>
+
+            <!-- Quick Jump Nav -->
+            <nav class="hidden md:flex items-center gap-1 text-xs font-medium text-slate-300">
+                <a href="#wheel" class="hover:text-brand-orange px-2.5 py-1.5 rounded-lg transition hover:bg-slate-800/50">1. Wheel</a>
+                <a href="#variations" class="hover:text-brand-orange px-2.5 py-1.5 rounded-lg transition hover:bg-slate-800/50">2. Variations</a>
+                <a href="#harmonies" class="hover:text-brand-orange px-2.5 py-1.5 rounded-lg transition hover:bg-slate-800/50">3. Harmonies</a>
+                <a href="#mixing" class="hover:text-brand-orange px-2.5 py-1.5 rounded-lg transition hover:bg-slate-800/50">4. Digital Mix</a>
+                <a href="#psychology" class="hover:text-brand-orange px-2.5 py-1.5 rounded-lg transition hover:bg-slate-800/50">5. Psychology</a>
+                <a href="#casestudy" class="hover:text-brand-orange px-2.5 py-1.5 rounded-lg transition hover:bg-slate-800/50">6. Study App</a>
+            </nav>
+
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-semibold text-slate-400">Score:</span>
+                <span class="px-2.5 py-1 rounded-full bg-brand-orange/20 border border-brand-orange/40 text-brand-orange text-xs font-bold" x-text="`${score}/${totalQuestions}`">0/6</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative overflow-hidden py-16 px-4">
+        <div class="absolute -top-24 -left-24 w-96 h-96 bg-brand-blue/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div class="absolute top-1/2 -right-24 w-96 h-96 bg-brand-orange/20 rounded-full blur-3xl pointer-events-none"></div>
+
+        <div class="max-w-4xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/80 border border-slate-700 text-brand-orange text-xs font-semibold mb-6">
+                <i class="fa-solid fa-bolt text-brand-brightOrange"></i> Complementary Colour Scheme Edition
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight mb-4">
+                Mastering <span class="gradient-text">Colour Theory</span>
+            </h1>
+            <p class="text-slate-300 text-lg sm:text-xl max-w-2xl mx-auto font-normal leading-relaxed mb-8">
+                Colour is the loudest tool in design. Learn how to map, mix, match, and manipulate hues like a pro designer.
+            </p>
+
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto text-left">
+                <div class="glass-card p-4 rounded-2xl border-l-4 border-l-brand-blue">
+                    <div class="text-2xl font-bold text-white mb-1">RGB vs Paint</div>
+                    <div class="text-xs text-slate-400">Additive vs Subtractive mixing rules</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border-l-4 border-l-brand-orange">
+                    <div class="text-2xl font-bold text-white mb-1">Harmonies</div>
+                    <div class="text-xs text-slate-400">4 formula combinations that hit</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border-l-4 border-l-brand-blue">
+                    <div class="text-2xl font-bold text-white mb-1">UI Scales</div>
+                    <div class="text-xs text-slate-400">Tints, shades & active states</div>
+                </div>
+                <div class="glass-card p-4 rounded-2xl border-l-4 border-l-brand-orange">
+                    <div class="text-2xl font-bold text-white mb-1">Psychology</div>
+                    <div class="text-xs text-slate-400">Warm vs Cool visual impact</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="max-w-5xl mx-auto px-4 space-y-20">
+
+        <!-- SECTION 1: THE COLOUR WHEEL -->
+        <section id="wheel" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-blue/20 text-brand-blue border border-brand-blue/30 flex items-center justify-center font-extrabold text-lg">01</div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">The Colour Wheel: Your Map of Colour</h2>
+                    <p class="text-slate-400 text-sm">Every design system originates from relationships on the wheel.</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Interactive SVG Wheel -->
+                <div class="lg:col-span-6 glass-card p-6 rounded-3xl text-center relative overflow-hidden">
+                    <h3 class="text-sm font-semibold text-slate-300 mb-4">Click a slice to inspect hue relationships</h3>
+                    
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 mx-auto">
+                        <!-- Render SVG Colour Wheel -->
+                        <svg viewBox="0 0 100 100" class="w-full h-full transform -rotate-90 drop-shadow-xl cursor-pointer">
+                            <path :d="describeArc(50, 50, 45, 0, 30)" :fill="wheelSlices[0].color" :class="selectedSlice === 0 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 0" />
+                            <path :d="describeArc(50, 50, 45, 30, 60)" :fill="wheelSlices[1].color" :class="selectedSlice === 1 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 1" />
+                            <path :d="describeArc(50, 50, 45, 60, 90)" :fill="wheelSlices[2].color" :class="selectedSlice === 2 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 2" />
+                            <path :d="describeArc(50, 50, 45, 90, 120)" :fill="wheelSlices[3].color" :class="selectedSlice === 3 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 3" />
+                            <path :d="describeArc(50, 50, 45, 120, 150)" :fill="wheelSlices[4].color" :class="selectedSlice === 4 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 4" />
+                            <path :d="describeArc(50, 50, 45, 150, 180)" :fill="wheelSlices[5].color" :class="selectedSlice === 5 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 5" />
+                            <path :d="describeArc(50, 50, 45, 180, 210)" :fill="wheelSlices[6].color" :class="selectedSlice === 6 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 6" />
+                            <path :d="describeArc(50, 50, 45, 210, 240)" :fill="wheelSlices[7].color" :class="selectedSlice === 7 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 7" />
+                            <path :d="describeArc(50, 50, 45, 240, 270)" :fill="wheelSlices[8].color" :class="selectedSlice === 8 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 8" />
+                            <path :d="describeArc(50, 50, 45, 270, 300)" :fill="wheelSlices[9].color" :class="selectedSlice === 9 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 9" />
+                            <path :d="describeArc(50, 50, 45, 300, 330)" :fill="wheelSlices[10].color" :class="selectedSlice === 10 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 10" />
+                            <path :d="describeArc(50, 50, 45, 330, 360)" :fill="wheelSlices[11].color" :class="selectedSlice === 11 ? 'opacity-100 stroke-white stroke-2 scale-105' : 'opacity-85 hover:opacity-100 transition-all'" @click="selectedSlice = 11" />
+                            <circle cx="50" cy="50" r="22" fill="#0F172A" class="stroke-slate-700 stroke-1" />
+                        </svg>
+                        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Selected</span>
+                            <span class="text-sm font-extrabold text-white" x-text="wheelSlices[selectedSlice].name"></span>
+                            <span class="text-[10px] px-2 py-0.5 rounded-full font-semibold mt-1"
+                                  :class="wheelSlices[selectedSlice].type === 'Primary' ? 'bg-red-500/30 text-red-300' : (wheelSlices[selectedSlice].type === 'Secondary' ? 'bg-orange-500/30 text-orange-300' : 'bg-indigo-500/30 text-indigo-300')"
+                                  x-text="wheelSlices[selectedSlice].type"></span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex justify-center gap-2 text-xs">
+                        <span class="flex items-center gap-1 text-slate-300"><span class="w-3 h-3 rounded-full bg-red-500 inline-block"></span> Primary (3)</span>
+                        <span class="flex items-center gap-1 text-slate-300"><span class="w-3 h-3 rounded-full bg-orange-500 inline-block"></span> Secondary (3)</span>
+                        <span class="flex items-center gap-1 text-slate-300"><span class="w-3 h-3 rounded-full bg-indigo-500 inline-block"></span> Tertiary (6)</span>
+                    </div>
+                </div>
+
+                <!-- Theory Details & Analogy -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-red-500">
+                        <h4 class="font-bold text-white text-base flex items-center justify-between">
+                            1. Primary Colours <span class="text-xs font-normal text-slate-400">Red, Yellow, Blue</span>
+                        </h4>
+                        <p class="text-sm text-slate-300 mt-1">The origin elements. They cannot be created by mixing any other colors together.</p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-orange-500">
+                        <h4 class="font-bold text-white text-base flex items-center justify-between">
+                            2. Secondary Colours <span class="text-xs font-normal text-slate-400">Orange, Green, Violet</span>
+                        </h4>
+                        <p class="text-sm text-slate-300 mt-1">Created by mixing equal 50/50 parts of two primaries (e.g., Red + Yellow = Orange).</p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-indigo-500">
+                        <h4 class="font-bold text-white text-base flex items-center justify-between">
+                            3. Tertiary Colours <span class="text-xs font-normal text-slate-400">Hyphenated Names</span>
+                        </h4>
+                        <p class="text-sm text-slate-300 mt-1">Made by mixing a primary with its neighbouring secondary (e.g., Red-Orange, Blue-Green).</p>
+                    </div>
+
+                    <!-- Analogy Box -->
+                    <div class="bg-brand-orange/10 border border-brand-orange/30 p-4 rounded-2xl flex items-start gap-3">
+                        <div class="p-2 bg-brand-orange/20 rounded-xl text-brand-orange shrink-0">
+                            <i class="fa-solid fa-sitemap"></i>
+                        </div>
+                        <div>
+                            <span class="text-xs font-bold text-brand-orange uppercase tracking-wider block">The Family Tree Analogy</span>
+                            <p class="text-xs text-slate-200 mt-0.5">
+                                Primaries are the **grandparents** (the source). Secondaries are their **children**. Tertiaries are the **grandchildren** — a blend of both generations!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 1 QUIZ -->
+            <div class="mt-8 glass-card p-6 rounded-3xl border-2 border-brand-blue/30 relative">
+                <div class="flex items-center gap-2 mb-3 text-brand-blue text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-question"></i> Knowledge Check #1
+                </div>
+                <h4 class="text-lg font-bold text-white mb-4" x-text="quiz1.question"></h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <template x-for="(opt, idx) in quiz1.options" :key="idx">
+                        <button @click="answerQuiz(1, idx)"
+                                :disabled="quiz1.answered"
+                                :class="{
+                                    'border-slate-700 bg-slate-800/80 hover:border-brand-blue': !quiz1.answered,
+                                    'border-green-500 bg-green-500/20 text-green-300': quiz1.answered && idx === quiz1.correct,
+                                    'border-red-500 bg-red-500/20 text-red-300': quiz1.answered && quiz1.selected === idx && idx !== quiz1.correct,
+                                    'opacity-50': quiz1.answered && idx !== quiz1.selected && idx !== quiz1.correct
+                                }"
+                                class="p-3.5 rounded-xl text-left border text-sm font-medium transition flex items-center justify-between">
+                            <span x-text="opt"></span>
+                            <i x-show="quiz1.answered && idx === quiz1.correct" class="fa-solid fa-circle-check text-green-400"></i>
+                            <i x-show="quiz1.answered && quiz1.selected === idx && idx !== quiz1.correct" class="fa-solid fa-circle-xmark text-red-400"></i>
+                        </button>
+                    </template>
+                </div>
+                <div x-show="quiz1.answered" x-transition class="mt-4 p-3 bg-slate-800/90 rounded-xl border border-slate-700 text-xs text-slate-300">
+                    <span class="font-bold text-white">Explanation:</span> <span x-text="quiz1.explanation"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: TINTS, SHADES & TONES -->
+        <section id="variations" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-orange/20 text-brand-orange border border-brand-orange/30 flex items-center justify-center font-extrabold text-lg">02</div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Tints, Shades, and Tones: Single Colour Depth</h2>
+                    <p class="text-slate-400 text-sm">How designers build full interactive UI scale palettes from just one base hue.</p>
+                </div>
+            </div>
+
+            <!-- Formula cards -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="glass-card p-5 rounded-2xl text-center relative overflow-hidden group hover:border-brand-orange transition">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-white/10 flex items-center justify-center text-xl text-white">
+                        <i class="fa-solid fa-plus text-xs mr-1 text-slate-400"></i><i class="fa-solid fa-circle text-white"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Tint</h3>
+                    <div class="text-xs font-semibold text-brand-orange mb-2">Base Colour + White</div>
+                    <p class="text-xs text-slate-300">Lighter and softer feel. Ideal for disabled buttons, card backgrounds, and subtle badges.</p>
+                    <div class="mt-4 text-xs font-mono py-1 px-2 rounded bg-slate-800 text-slate-300">Pink = Red + White</div>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl text-center relative overflow-hidden group hover:border-brand-orange transition">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-slate-900 flex items-center justify-center text-xl text-black">
+                        <i class="fa-solid fa-plus text-xs mr-1 text-slate-400"></i><i class="fa-solid fa-circle text-slate-950"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Shade</h3>
+                    <div class="text-xs font-semibold text-brand-orange mb-2">Base Colour + Black</div>
+                    <p class="text-xs text-slate-300">Darker and heavier feel. Used for hover states, active press states, shadows, and text headings.</p>
+                    <div class="mt-4 text-xs font-mono py-1 px-2 rounded bg-slate-800 text-slate-300">Maroon = Red + Black</div>
+                </div>
+
+                <div class="glass-card p-5 rounded-2xl text-center relative overflow-hidden group hover:border-brand-orange transition">
+                    <div class="w-12 h-12 mx-auto mb-3 rounded-2xl bg-slate-500/30 flex items-center justify-center text-xl text-slate-400">
+                        <i class="fa-solid fa-plus text-xs mr-1 text-slate-400"></i><i class="fa-solid fa-circle text-slate-400"></i>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-1">Tone</h3>
+                    <div class="text-xs font-semibold text-brand-orange mb-2">Base Colour + Gray</div>
+                    <p class="text-xs text-slate-300">Muted and sophisticated feel. Perfect for background surfaces that shouldn't distract.</p>
+                    <div class="mt-4 text-xs font-mono py-1 px-2 rounded bg-slate-800 text-slate-300">Dusty Rose = Red + Gray</div>
+                </div>
+            </div>
+
+            <!-- UI Button Interactive Scale Simulator -->
+            <div class="glass-card p-6 rounded-3xl border border-slate-700">
+                <h3 class="text-base font-bold text-white mb-2 flex items-center gap-2">
+                    <i class="fa-solid fa-laptop-code text-brand-orange"></i> Live UI Design System Generator
+                </h3>
+                <p class="text-xs text-slate-400 mb-6">Change the base hue slider to see how tints and shades build a full button state system in real time.</p>
+
+                <div class="mb-6 max-w-md">
+                    <label class="text-xs font-semibold text-slate-300 flex justify-between mb-1">
+                        <span>Base Hue Picker:</span>
+                        <span class="font-mono text-brand-orange" x-text="`Hue: ${uiHue}°`"></span>
+                    </label>
+                    <input type="range" min="0" max="360" x-model="uiHue" class="w-full h-2 bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-orange">
+                </div>
+
+                <!-- Interactive UI Component Demo -->
+                <div class="p-6 rounded-2xl bg-slate-900 border border-slate-800 grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div>
+                        <div class="text-[11px] font-semibold text-slate-400 mb-2">Pale Tint (Disabled)</div>
+                        <button class="w-full py-2.5 px-3 rounded-xl text-xs font-semibold cursor-not-allowed transition"
+                                :style="`background-color: hsl(${uiHue}, 70%, 90%); color: hsl(${uiHue}, 30%, 50%);`">
+                            Disabled State
+                        </button>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-semibold text-slate-400 mb-2">Base Hue (Default)</div>
+                        <button class="w-full py-2.5 px-3 rounded-xl text-xs font-semibold text-white shadow-md transition"
+                                :style="`background-color: hsl(${uiHue}, 75%, 50%);`">
+                            Default Button
+                        </button>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-semibold text-slate-400 mb-2">Slight Shade (Hover)</div>
+                        <button class="w-full py-2.5 px-3 rounded-xl text-xs font-semibold text-white shadow-lg transition"
+                                :style="`background-color: hsl(${uiHue}, 80%, 38%);`">
+                            Hover State
+                        </button>
+                    </div>
+                    <div>
+                        <div class="text-[11px] font-semibold text-slate-400 mb-2">Deep Shade (Active/Pressed)</div>
+                        <button class="w-full py-2.5 px-3 rounded-xl text-xs font-semibold text-white shadow-inner transition"
+                                :style="`background-color: hsl(${uiHue}, 85%, 25%);`">
+                            Active State
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 2 QUIZ -->
+            <div class="mt-8 glass-card p-6 rounded-3xl border-2 border-brand-orange/30 relative">
+                <div class="flex items-center gap-2 mb-3 text-brand-orange text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-question"></i> Knowledge Check #2
+                </div>
+                <h4 class="text-lg font-bold text-white mb-4" x-text="quiz2.question"></h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <template x-for="(opt, idx) in quiz2.options" :key="idx">
+                        <button @click="answerQuiz(2, idx)"
+                                :disabled="quiz2.answered"
+                                :class="{
+                                    'border-slate-700 bg-slate-800/80 hover:border-brand-orange': !quiz2.answered,
+                                    'border-green-500 bg-green-500/20 text-green-300': quiz2.answered && idx === quiz2.correct,
+                                    'border-red-500 bg-red-500/20 text-red-300': quiz2.answered && quiz2.selected === idx && idx !== quiz2.correct,
+                                    'opacity-50': quiz2.answered && idx !== quiz2.selected && idx !== quiz2.correct
+                                }"
+                                class="p-3.5 rounded-xl text-left border text-sm font-medium transition flex items-center justify-between">
+                            <span x-text="opt"></span>
+                            <i x-show="quiz2.answered && idx === quiz2.correct" class="fa-solid fa-circle-check text-green-400"></i>
+                            <i x-show="quiz2.answered && quiz2.selected === idx && idx !== quiz2.correct" class="fa-solid fa-circle-xmark text-red-400"></i>
+                        </button>
+                    </template>
+                </div>
+                <div x-show="quiz2.answered" x-transition class="mt-4 p-3 bg-slate-800/90 rounded-xl border border-slate-700 text-xs text-slate-300">
+                    <span class="font-bold text-white">Explanation:</span> <span x-text="quiz2.explanation"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: COLOUR HARMONY RULES -->
+        <section id="harmonies" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-blue/20 text-brand-blue border border-brand-blue/30 flex items-center justify-center font-extrabold text-lg">03</div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Colour Harmony Rules: Tested Recipes</h2>
+                    <p class="text-slate-400 text-sm">Four proven mathematical combinations that guarantee visual contrast and balance.</p>
+                </div>
+            </div>
+
+            <!-- Harmony Rule Selector Tabs -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                <template x-for="rule in harmonyRules" :key="rule.id">
+                    <button @click="activeHarmony = rule.id"
+                            :class="activeHarmony === rule.id ? 'bg-gradient-to-r from-brand-orange to-brand-brightOrange text-white shadow-lg glow-orange font-bold' : 'glass-card text-slate-300 hover:text-white'"
+                            class="p-3.5 rounded-2xl text-xs sm:text-sm text-center transition flex flex-col items-center gap-1">
+                        <i :class="rule.icon" class="text-base mb-0.5"></i>
+                        <span x-text="rule.name"></span>
+                    </button>
+                </template>
+            </div>
+
+            <!-- Active Harmony Display -->
+            <div class="glass-card p-6 sm:p-8 rounded-3xl grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                <div class="md:col-span-5 space-y-4">
+                    <div class="inline-block px-3 py-1 rounded-full bg-slate-800 border border-slate-700 text-brand-orange text-xs font-bold uppercase tracking-wider"
+                         x-text="getCurrentHarmony().angleInfo">
+                    </div>
+                    <h3 class="text-2xl font-black text-white" x-text="getCurrentHarmony().name"></h3>
+                    <p class="text-sm text-slate-300 leading-relaxed" x-text="getCurrentHarmony().description"></p>
+
+                    <div class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-2">
+                        <div class="text-xs font-bold text-brand-blue flex items-center gap-1.5">
+                            <i class="fa-solid fa-lightbulb"></i> Designer's Golden Rule:
+                        </div>
+                        <p class="text-xs text-slate-300" x-text="getCurrentHarmony().ruleOfThumb"></p>
+                    </div>
+                </div>
+
+                <!-- Live Color Preview Swatches -->
+                <div class="md:col-span-7 flex flex-col items-center justify-center space-y-4">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Palette Combination Preview</div>
+                    <div class="w-full flex h-28 rounded-2xl overflow-hidden shadow-2xl border border-slate-700">
+                        <template x-for="(col, idx) in getCurrentHarmony().palette" :key="idx">
+                            <div class="h-full flex-1 flex flex-col items-center justify-end pb-3 text-[11px] font-mono font-bold transition-all hover:flex-[1.5]"
+                                 :style="`background-color: ${col.hex}; color: ${col.isDark ? '#FFF' : '#000'};`">
+                                <span class="bg-black/40 backdrop-blur-md px-2 py-0.5 rounded text-[10px] text-white" x-text="col.hex"></span>
+                            </div>
+                        </template>
+                    </div>
+
+                    <!-- Music Analogy Callout -->
+                    <div class="w-full p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60 flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-brand-blue/20 text-brand-blue flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-music text-lg"></i>
+                        </div>
+                        <div class="text-xs text-slate-300">
+                            <strong class="text-white">Musical Analogy:</strong>
+                            <span x-text="getCurrentHarmony().musicAnalogy"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 3 QUIZ -->
+            <div class="mt-8 glass-card p-6 rounded-3xl border-2 border-brand-blue/30 relative">
+                <div class="flex items-center gap-2 mb-3 text-brand-blue text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-question"></i> Knowledge Check #3
+                </div>
+                <h4 class="text-lg font-bold text-white mb-4" x-text="quiz3.question"></h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <template x-for="(opt, idx) in quiz3.options" :key="idx">
+                        <button @click="answerQuiz(3, idx)"
+                                :disabled="quiz3.answered"
+                                :class="{
+                                    'border-slate-700 bg-slate-800/80 hover:border-brand-blue': !quiz3.answered,
+                                    'border-green-500 bg-green-500/20 text-green-300': quiz3.answered && idx === quiz3.correct,
+                                    'border-red-500 bg-red-500/20 text-red-300': quiz3.answered && quiz3.selected === idx && idx !== quiz3.correct,
+                                    'opacity-50': quiz3.answered && idx !== quiz3.selected && idx !== quiz3.correct
+                                }"
+                                class="p-3.5 rounded-xl text-left border text-sm font-medium transition flex items-center justify-between">
+                            <span x-text="opt"></span>
+                            <i x-show="quiz3.answered && idx === quiz3.correct" class="fa-solid fa-circle-check text-green-400"></i>
+                            <i x-show="quiz3.answered && quiz3.selected === idx && idx !== quiz3.correct" class="fa-solid fa-circle-xmark text-red-400"></i>
+                        </button>
+                    </template>
+                </div>
+                <div x-show="quiz3.answered" x-transition class="mt-4 p-3 bg-slate-800/90 rounded-xl border border-slate-700 text-xs text-slate-300">
+                    <span class="font-bold text-white">Explanation:</span> <span x-text="quiz3.explanation"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: DIGITAL COLOUR MIXING (LIGHT VS PAINT) -->
+        <section id="mixing" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-orange/20 text-brand-orange border border-brand-orange/30 flex items-center justify-center font-extrabold text-lg">04</div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Digital Colour Mixing: On-Screen Light</h2>
+                    <p class="text-slate-400 text-sm">Screens don't use paint — they emit light (RGB Additive Mixing).</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- RGB Spotlight Simulator -->
+                <div class="lg:col-span-6 glass-card p-6 rounded-3xl text-center">
+                    <h3 class="text-sm font-bold text-white mb-2">Interactive RGB Light Mixing Stage</h3>
+                    <p class="text-xs text-slate-400 mb-4">Adjust Red, Green, and Blue light intensities. Combine all three light beams to produce White!</p>
+
+                    <!-- Overlapping Light Stage -->
+                    <div class="relative w-64 h-64 mx-auto rounded-2xl bg-black border border-slate-800 overflow-hidden flex items-center justify-center mb-6 shadow-inner">
+                        <div class="absolute w-36 h-36 rounded-full bg-red-600 light-screen transition-all transform -translate-x-8 -translate-y-6 blur-sm"
+                             :style="`opacity: ${rgb.r / 255};`"></div>
+                        <div class="absolute w-36 h-36 rounded-full bg-green-500 light-screen transition-all transform translate-x-8 -translate-y-6 blur-sm"
+                             :style="`opacity: ${rgb.g / 255};`"></div>
+                        <div class="absolute w-36 h-36 rounded-full bg-blue-600 light-screen transition-all transform translate-y-8 blur-sm"
+                             :style="`opacity: ${rgb.b / 255};`"></div>
+                        
+                        <!-- Result Indicator Badge -->
+                        <div class="absolute bottom-2 right-2 px-2.5 py-1 rounded bg-slate-900/90 border border-slate-700 font-mono text-[11px] text-white"
+                             x-text="`rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`"></div>
+                    </div>
+
+                    <!-- RGB Sliders -->
+                    <div class="space-y-3 max-w-sm mx-auto text-xs">
+                        <div class="flex items-center gap-3">
+                            <span class="w-12 font-bold text-red-400 text-left">Red</span>
+                            <input type="range" min="0" max="255" x-model="rgb.r" class="flex-1 h-2 bg-slate-800 rounded appearance-none accent-red-500 cursor-pointer">
+                            <span class="w-8 font-mono text-slate-300" x-text="rgb.r"></span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-12 font-bold text-green-400 text-left">Green</span>
+                            <input type="range" min="0" max="255" x-model="rgb.g" class="flex-1 h-2 bg-slate-800 rounded appearance-none accent-green-500 cursor-pointer">
+                            <span class="w-8 font-mono text-slate-300" x-text="rgb.g"></span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-12 font-bold text-blue-400 text-left">Blue</span>
+                            <input type="range" min="0" max="255" x-model="rgb.b" class="flex-1 h-2 bg-slate-800 rounded appearance-none accent-blue-500 cursor-pointer">
+                            <span class="w-8 font-mono text-slate-300" x-text="rgb.b"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Theory Breakdown & Modern Tools -->
+                <div class="lg:col-span-6 space-y-4">
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-brand-blue">
+                        <h4 class="font-bold text-white text-base">Additive Mixing (RGB Light)</h4>
+                        <p class="text-sm text-slate-300 mt-1">
+                            Unlike paint (subtractive mixing which turns dark brown/muddy), mixing light **adds brightness**. Combining Red + Green + Blue light at full power equals **White**.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-brand-orange">
+                        <h4 class="font-bold text-white text-base">Modern Digital Spaces: HSL & OKLCH</h4>
+                        <p class="text-sm text-slate-300 mt-1">
+                            <strong>HSL</strong> (Hue, Saturation, Lightness) mirrors human visual perception. <strong>OKLCH</strong> is the modern web standard for perceptually uniform color gradients.
+                        </p>
+                    </div>
+
+                    <div class="glass-card p-5 rounded-2xl border-l-4 border-indigo-500">
+                        <h4 class="font-bold text-white text-base flex items-center justify-between">
+                            CSS dynamic mixing
+                            <span class="text-[11px] font-mono bg-slate-800 px-2 py-0.5 rounded text-indigo-300">color-mix()</span>
+                        </h4>
+                        <p class="text-sm text-slate-300 mt-1">
+                            Modern web stylesheets generate tints on the fly using code:
+                        </p>
+                        <pre class="mt-2 p-3 rounded-xl bg-slate-950 font-mono text-xs text-brand-orange overflow-x-auto">background: color-mix(in oklch, blue 70%, white);</pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4 QUIZ -->
+            <div class="mt-8 glass-card p-6 rounded-3xl border-2 border-brand-orange/30 relative">
+                <div class="flex items-center gap-2 mb-3 text-brand-orange text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-question"></i> Knowledge Check #4
+                </div>
+                <h4 class="text-lg font-bold text-white mb-4" x-text="quiz4.question"></h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <template x-for="(opt, idx) in quiz4.options" :key="idx">
+                        <button @click="answerQuiz(4, idx)"
+                                :disabled="quiz4.answered"
+                                :class="{
+                                    'border-slate-700 bg-slate-800/80 hover:border-brand-orange': !quiz4.answered,
+                                    'border-green-500 bg-green-500/20 text-green-300': quiz4.answered && idx === quiz4.correct,
+                                    'border-red-500 bg-red-500/20 text-red-300': quiz4.answered && quiz4.selected === idx && idx !== quiz4.correct,
+                                    'opacity-50': quiz4.answered && idx !== quiz4.selected && idx !== quiz4.correct
+                                }"
+                                class="p-3.5 rounded-xl text-left border text-sm font-medium transition flex items-center justify-between">
+                            <span x-text="opt"></span>
+                            <i x-show="quiz4.answered && idx === quiz4.correct" class="fa-solid fa-circle-check text-green-400"></i>
+                            <i x-show="quiz4.answered && quiz4.selected === idx && idx !== quiz4.correct" class="fa-solid fa-circle-xmark text-red-400"></i>
+                        </button>
+                    </template>
+                </div>
+                <div x-show="quiz4.answered" x-transition class="mt-4 p-3 bg-slate-800/90 rounded-xl border border-slate-700 text-xs text-slate-300">
+                    <span class="font-bold text-white">Explanation:</span> <span x-text="quiz4.explanation"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: PSYCHOLOGY & ACCESSIBILITY -->
+        <section id="psychology" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-blue/20 text-brand-blue border border-brand-blue/30 flex items-center justify-center font-extrabold text-lg">05</div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Colour Psychology & Visual Impact</h2>
+                    <p class="text-slate-400 text-sm">Colours drive emotion, user focus, and accessibility standards.</p>
+                </div>
+            </div>
+
+            <!-- Warm vs Cool Interactive Breakdown -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <!-- Cool Colours Card -->
+                <div class="glass-card p-6 rounded-3xl border-t-4 border-t-blue-500 relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-xl font-extrabold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-snowflake text-blue-400"></i> Cool Colours
+                        </h3>
+                        <span class="text-xs bg-blue-500/20 text-blue-300 font-bold px-2.5 py-1 rounded-full">Blues, Greens, Violets</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+                        Promote <strong>concentration, calm, and stability</strong>. Preferred for body interfaces, productivity apps, and dashboards because they minimize eye strain during long screen sessions.
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="font-bold text-blue-400 block mb-0.5">Blue</span> Trust, security, stability.
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="font-bold text-emerald-400 block mb-0.5">Green</span> Growth, success, confirmation.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Warm Colours Card -->
+                <div class="glass-card p-6 rounded-3xl border-t-4 border-t-brand-orange relative overflow-hidden">
+                    <div class="flex items-center justify-between mb-3">
+                        <h3 class="text-xl font-extrabold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-fire text-brand-orange"></i> Warm Colours
+                        </h3>
+                        <span class="text-xs bg-brand-orange/20 text-brand-orange font-bold px-2.5 py-1 rounded-full">Reds, Oranges, Yellows</span>
+                    </div>
+                    <p class="text-xs text-slate-300 mb-4 leading-relaxed">
+                        Generate <strong>attention, urgency, and arousal</strong>. Use deliberately and sparingly (e.g., call-to-action buttons, notifications) to create focal points.
+                    </p>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="font-bold text-red-400 block mb-0.5">Red</span> Urgency, critical error, passion.
+                        </div>
+                        <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                            <span class="font-bold text-amber-400 block mb-0.5">Yellow</span> Optimism, warning highlights.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accessibility Spotlight -->
+            <div class="glass-card p-6 rounded-3xl border border-indigo-500/30">
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+                    <div>
+                        <h3 class="text-lg font-bold text-white flex items-center gap-2">
+                            <i class="fa-solid fa-universal-access text-indigo-400"></i> Accessibility & Inclusive Contrast
+                        </h3>
+                        <p class="text-xs text-slate-400">1 in 12 people have colour vision deficiency. Never rely on colour alone to convey state!</p>
+                    </div>
+
+                    <!-- Color blindness Simulator Toggle -->
+                    <div class="flex items-center gap-2 bg-slate-900 p-1.5 rounded-xl border border-slate-800 text-xs">
+                        <span class="text-slate-400 font-medium pl-2">Filter Sim:</span>
+                        <select x-model="cbMode" class="bg-slate-800 text-white px-2.5 py-1 rounded-lg border border-slate-700 outline-none cursor-pointer">
+                            <option value="none">Normal Vision</option>
+                            <option value="protan">Protanopia (Red-Blind)</option>
+                            <option value="deuteran">Deuteranopia (Green-Blind)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Simulation Interactive Area -->
+                <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 grid grid-cols-1 sm:grid-cols-2 gap-4"
+                     :class="{'filter grayscale contrast-125': cbMode === 'protan', 'filter hue-rotate-90': cbMode === 'deuteran'}">
+                    <div class="p-4 rounded-xl bg-red-950/80 border border-red-500/40 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-red-300 block">Bad Practice: Colour Only</span>
+                            <span class="text-sm font-semibold text-white">Error: Invalid Password</span>
+                        </div>
+                        <span class="text-xs text-red-400 font-bold">Only Red Text</span>
+                    </div>
+
+                    <div class="p-4 rounded-xl bg-red-950/80 border border-red-500/40 flex items-center justify-between">
+                        <div>
+                            <span class="text-xs font-bold text-green-300 block">Good Practice: Colour + Icon + Label</span>
+                            <span class="text-sm font-semibold text-white flex items-center gap-1.5">
+                                <i class="fa-solid fa-circle-exclamation text-red-400"></i> Error: Invalid Password
+                            </span>
+                        </div>
+                        <span class="text-xs text-green-400 font-bold"><i class="fa-solid fa-check"></i> Accessible</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 5 QUIZ -->
+            <div class="mt-8 glass-card p-6 rounded-3xl border-2 border-brand-blue/30 relative">
+                <div class="flex items-center gap-2 mb-3 text-brand-blue text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-question"></i> Knowledge Check #5
+                </div>
+                <h4 class="text-lg font-bold text-white mb-4" x-text="quiz5.question"></h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <template x-for="(opt, idx) in quiz5.options" :key="idx">
+                        <button @click="answerQuiz(5, idx)"
+                                :disabled="quiz5.answered"
+                                :class="{
+                                    'border-slate-700 bg-slate-800/80 hover:border-brand-blue': !quiz5.answered,
+                                    'border-green-500 bg-green-500/20 text-green-300': quiz5.answered && idx === quiz5.correct,
+                                    'border-red-500 bg-red-500/20 text-red-300': quiz5.answered && quiz5.selected === idx && idx !== quiz5.correct,
+                                    'opacity-50': quiz5.answered && idx !== quiz5.selected && idx !== quiz5.correct
+                                }"
+                                class="p-3.5 rounded-xl text-left border text-sm font-medium transition flex items-center justify-between">
+                            <span x-text="opt"></span>
+                            <i x-show="quiz5.answered && idx === quiz5.correct" class="fa-solid fa-circle-check text-green-400"></i>
+                            <i x-show="quiz5.answered && quiz5.selected === idx && idx !== quiz5.correct" class="fa-solid fa-circle-xmark text-red-400"></i>
+                        </button>
+                    </template>
+                </div>
+                <div x-show="quiz5.answered" x-transition class="mt-4 p-3 bg-slate-800/90 rounded-xl border border-slate-700 text-xs text-slate-300">
+                    <span class="font-bold text-white">Explanation:</span> <span x-text="quiz5.explanation"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: WORKED EXAMPLE (STUDY APP CASE STUDY) -->
+        <section id="casestudy" class="scroll-mt-20">
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-xl bg-brand-orange/20 text-brand-orange border border-brand-orange/30 flex items-center justify-center font-extrabold text-lg">06</div>
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-extrabold text-white">Worked Example: Form 6 Study App</h2>
+                    <p class="text-slate-400 text-sm">Real-world workflow breakdown applying the 80/20 complementary palette rule.</p>
+                </div>
+            </div>
+
+            <!-- Interactive UI Palette Inspector -->
+            <div class="glass-card p-6 sm:p-8 rounded-3xl border border-slate-700">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Left: Step Breakdown -->
+                    <div class="lg:col-span-6 space-y-4">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-orange/20 text-brand-orange text-xs font-bold">
+                            <i class="fa-solid fa-graduation-cap"></i> Form 6 Focus App System
+                        </div>
+                        <h3 class="text-xl font-bold text-white">6-Step Palette Architecture</h3>
+
+                        <ol class="space-y-3 text-xs text-slate-300">
+                            <li class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-blue-600 text-white font-bold flex items-center justify-center shrink-0">1</span>
+                                <div>
+                                    <strong class="text-white block">Base Colour (Cool Dominant 80%):</strong>
+                                    Deep Blue <code class="text-brand-orange font-mono">#1E40AF</code> for calm focus and concentration.
+                                </div>
+                            </li>
+                            <li class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-brand-orange text-white font-bold flex items-center justify-center shrink-0">2</span>
+                                <div>
+                                    <strong class="text-white block">Complementary Accent (Warm 20%):</strong>
+                                    Energetic Orange <code class="text-brand-orange font-mono">#F97316</code> reserved STRICTLY for main actions.
+                                </div>
+                            </li>
+                            <li class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-teal-500 text-white font-bold flex items-center justify-center shrink-0">3</span>
+                                <div>
+                                    <strong class="text-white block">Analogous Tertiary Accent:</strong>
+                                    Teal <code class="text-brand-orange font-mono">#14B8A6</code> for status badges without clashing.
+                                </div>
+                            </li>
+                            <li class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-start gap-3">
+                                <span class="w-5 h-5 rounded-full bg-slate-600 text-white font-bold flex items-center justify-center shrink-0">4</span>
+                                <div>
+                                    <strong class="text-white block">Tinted Cool Neutrals:</strong>
+                                    Greys with a tiny hint of cool blue hue (<code class="text-brand-orange font-mono">#F8FAFC</code>, <code class="text-brand-orange font-mono">#64748B</code>) keeping harmony cohesive.
+                                </div>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <!-- Right: Simulated App UI Mockup -->
+                    <div class="lg:col-span-6 bg-slate-950 p-5 rounded-2xl border border-slate-800 shadow-2xl flex flex-col justify-between">
+                        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                            <div class="flex items-center gap-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-[11px] font-mono text-slate-400">StudyDash v1.0</span>
+                        </div>
+
+                        <!-- App Content Mockup -->
+                        <div class="my-4 space-y-4">
+                            <!-- Card with Cool Blue Theme -->
+                            <div class="p-4 rounded-xl bg-[#1E40AF]/20 border border-[#1E40AF]/40">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="text-xs font-bold text-white">Pure Maths — Unit 2 Quiz</span>
+                                    <span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-[#14B8A6]/20 text-[#14B8A6] border border-[#14B8A6]/40">In Progress</span>
+                                </div>
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden mb-3">
+                                    <div class="bg-[#14B8A6] h-full w-2/3"></div>
+                                </div>
+                                <div class="flex items-center justify-between text-[11px] text-slate-300">
+                                    <span>12/18 Questions Answered</span>
+                                    <span class="font-bold text-white">67%</span>
+                                </div>
+                            </div>
+
+                            <!-- 80/20 Action Callout with High Energy Orange -->
+                            <div class="p-4 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                                <div>
+                                    <div class="text-xs font-bold text-white">Ready for your daily flashcards?</div>
+                                    <div class="text-[10px] text-slate-400">Streak: 5 Days Active</div>
+                                </div>
+                                <!-- Complementary Accent Button -->
+                                <button class="px-4 py-2 rounded-xl bg-[#F97316] hover:bg-[#EA580C] text-white font-bold text-xs shadow-lg glow-orange transition flex items-center gap-1.5">
+                                    <i class="fa-solid fa-play text-[10px]"></i> Start Session
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="text-center text-[11px] text-slate-400 bg-slate-900 p-2 rounded-lg border border-slate-800/80">
+                            <i class="fa-solid fa-circle-info text-brand-orange"></i> Notice how the high-contrast <strong>Orange</strong> immediately commands your eye!
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 6 QUIZ -->
+            <div class="mt-8 glass-card p-6 rounded-3xl border-2 border-brand-orange/30 relative">
+                <div class="flex items-center gap-2 mb-3 text-brand-orange text-xs font-bold uppercase tracking-wider">
+                    <i class="fa-solid fa-circle-question"></i> Knowledge Check #6
+                </div>
+                <h4 class="text-lg font-bold text-white mb-4" x-text="quiz6.question"></h4>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <template x-for="(opt, idx) in quiz6.options" :key="idx">
+                        <button @click="answerQuiz(6, idx)"
+                                :disabled="quiz6.answered"
+                                :class="{
+                                    'border-slate-700 bg-slate-800/80 hover:border-brand-orange': !quiz6.answered,
+                                    'border-green-500 bg-green-500/20 text-green-300': quiz6.answered && idx === quiz6.correct,
+                                    'border-red-500 bg-red-500/20 text-red-300': quiz6.answered && quiz6.selected === idx && idx !== quiz6.correct,
+                                    'opacity-50': quiz6.answered && idx !== quiz6.selected && idx !== quiz6.correct
+                                }"
+                                class="p-3.5 rounded-xl text-left border text-sm font-medium transition flex items-center justify-between">
+                            <span x-text="opt"></span>
+                            <i x-show="quiz6.answered && idx === quiz6.correct" class="fa-solid fa-circle-check text-green-400"></i>
+                            <i x-show="quiz6.answered && quiz6.selected === idx && idx !== quiz6.correct" class="fa-solid fa-circle-xmark text-red-400"></i>
+                        </button>
+                    </template>
+                </div>
+                <div x-show="quiz6.answered" x-transition class="mt-4 p-3 bg-slate-800/90 rounded-xl border border-slate-700 text-xs text-slate-300">
+                    <span class="font-bold text-white">Explanation:</span> <span x-text="quiz6.explanation"></span>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL SUMMARY SCORECARD -->
+        <section class="glass-card p-8 rounded-3xl border border-brand-orange/40 text-center relative overflow-hidden">
+            <div class="max-w-xl mx-auto space-y-4">
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-brand-orange to-brand-blue flex items-center justify-center text-2xl text-white font-bold mx-auto shadow-xl">
+                    <i class="fa-solid fa-award"></i>
+                </div>
+                <h2 class="text-3xl font-black text-white">Colour Theory Mastery Complete!</h2>
+                <p class="text-sm text-slate-300">
+                    You've navigated through the colour wheel, digital light mixing, harmony formulas, and UI palette building.
+                </p>
+
+                <div class="inline-block p-4 rounded-2xl bg-slate-900 border border-slate-800 my-2">
+                    <div class="text-xs text-slate-400 mb-1">Your Total Assessment Score</div>
+                    <div class="text-4xl font-extrabold text-brand-orange" x-text="`${score} / ${totalQuestions}`"></div>
+                    <div class="text-xs font-semibold mt-2"
+                         :class="score === 6 ? 'text-green-400' : 'text-amber-400'"
+                         x-text="score === 6 ? '🎉 Perfect Score! You are a Certified Colour Master!' : 'Keep practicing to get a 100% score!'">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Alpine.js Application State & Logic -->
+    <script>
+        function appData() {
+            return {
+                score: 0,
+                totalQuestions: 6,
+                selectedSlice: 0,
+                uiHue: 220,
+                activeHarmony: 'complementary',
+                cbMode: 'none',
+                rgb: { r: 255, g: 100, b: 50 },
+
+                // 12-Slice Colour Wheel
+                wheelSlices: [
+                    { name: 'Red', color: '#EF4444', type: 'Primary' },
+                    { name: 'Red-Orange', color: '#F97316', type: 'Tertiary' },
+                    { name: 'Orange', color: '#F59E0B', type: 'Secondary' },
+                    { name: 'Yellow-Orange', color: '#EAB308', type: 'Tertiary' },
+                    { name: 'Yellow', color: '#FACC15', type: 'Primary' },
+                    { name: 'Yellow-Green', color: '#84CC16', type: 'Tertiary' },
+                    { name: 'Green', color: '#10B981', type: 'Secondary' },
+                    { name: 'Blue-Green', color: '#14B8A6', type: 'Tertiary' },
+                    { name: 'Blue', color: '#3B82F6', type: 'Primary' },
+                    { name: 'Blue-Violet', color: '#6366F1', type: 'Tertiary' },
+                    { name: 'Violet', color: '#8B5CF6', type: 'Secondary' },
+                    { name: 'Red-Violet', color: '#EC4899', type: 'Tertiary' }
+                ],
+
+                // SVG Arc Calculation Helper
+                describeArc(cx, cy, radius, startAngle, endAngle) {
+                    const polarToCartesian = (centerX, centerY, r, angleInDegrees) => {
+                        const angleInRadians = (angleInDegrees - 90) * Math.PI / 180.0;
+                        return {
+                            x: centerX + (r * Math.cos(angleInRadians)),
+                            y: centerY + (r * Math.sin(angleInRadians))
+                        };
+                    };
+                    const start = polarToCartesian(cx, cy, radius, endAngle);
+                    const end = polarToCartesian(cx, cy, radius, startAngle);
+                    const largeArcFlag = endAngle - startAngle <= 180 ? "0" : "1";
+                    return [
+                        "M", cx, cy,
+                        "L", start.x, start.y,
+                        "A", radius, radius, 0, largeArcFlag, 0, end.x, end.y,
+                        "Z"
+                    ].join(" ");
+                },
+
+                // Harmony Rules Configuration
+                harmonyRules: [
+                    { id: 'complementary', name: 'Complementary', icon: 'fa-solid fa-arrows-left-right' },
+                    { id: 'analogous', name: 'Analogous', icon: 'fa-solid fa-[#FF6B00] fa-layer-group' },
+                    { id: 'triadic', name: 'Triadic', icon: 'fa-solid fa-shapes' },
+                    { id: 'tetradic', name: 'Tetradic', icon: 'fa-solid fa-[#FF6B00] fa-border-all' }
+                ],
+
+                getCurrentHarmony() {
+                    const data = {
+                        complementary: {
+                            name: 'Complementary Harmony',
+                            angleInfo: 'Directly Opposite (180° Apart)',
+                            description: 'High energy, maximum visual contrast. When placed side-by-side, each hue makes the other appear brighter.',
+                            ruleOfThumb: 'Use the 80/20 rule! Let 1 color dominate 80% of the UI, and use the opposite color strictly for 20% accent pop.',
+                            musicAnalogy: 'Call-and-response dynamics. Bold contrast that demands attention.',
+                            palette: [
+                                { hex: '#1E40AF', isDark: true },
+                                { hex: '#3B82F6', isDark: true },
+                                { hex: '#FFEDD5', isDark: false },
+                                { hex: '#F97316', isDark: true }
+                            ]
+                        },
+                        analogous: {
+                            name: 'Analogous Harmony',
+                            angleInfo: 'Neighbours on Wheel (within 30°)',
+                            description: 'Serene, harmonious, and comfortable. Commonly found in nature like autumn leaves or oceanic sunsets.',
+                            ruleOfThumb: 'Always choose ONE dominant hue. Otherwise, adjacent colors wash together into a blurry gradient.',
+                            musicAnalogy: 'A smooth chord progression played on a single acoustic instrument.',
+                            palette: [
+                                { hex: '#1D4ED8', isDark: true },
+                                { hex: '#0284C7', isDark: true },
+                                { hex: '#0D9488', isDark: true },
+                                { hex: '#10B981', isDark: true }
+                            ]
+                        },
+                        triadic: {
+                            name: 'Triadic Harmony',
+                            angleInfo: 'Equal 120° Spacing',
+                            description: 'Vibrant and playful while maintaining strong balance. Extremely popular in youthful branding and gaming UI.',
+                            ruleOfThumb: 'Let one color act as background/anchor while the other two serve as supporting accents.',
+                            musicAnalogy: 'A energetic three-part vocal harmony.',
+                            palette: [
+                                { hex: '#EF4444', isDark: true },
+                                { hex: '#EAB308', isDark: false },
+                                { hex: '#3B82F6', isDark: true }
+                            ]
+                        },
+                        tetradic: {
+                            name: 'Tetradic Harmony',
+                            angleInfo: 'Two Complementary Pairs (Rectangle)',
+                            description: 'Rich, complex, and varied palette. Offers plenty of variation but requires careful balance.',
+                            ruleOfThumb: 'Use tints, shades, and tones of each colour rather than pure saturated hues to avoid visual chaos.',
+                            musicAnalogy: 'A full grand orchestra — rich texture, but tricky to tune!',
+                            palette: [
+                                { hex: '#3B82F6', isDark: true },
+                                { hex: '#F97316', isDark: true },
+                                { hex: '#84CC16', isDark: false },
+                                { hex: '#EC4899', isDark: true }
+                            ]
+                        }
+                    };
+                    return data[this.activeHarmony];
+                },
+
+                // Quizzes State
+                quiz1: {
+                    question: "How is a Tertiary colour formed on the Colour Wheel?",
+                    options: [
+                        "By mixing all three primary colours in equal parts",
+                        "By mixing a Primary colour with its neighbouring Secondary colour",
+                        "By adding pure White to a Primary colour",
+                        "By mixing two Secondary colours together"
+                    ],
+                    correct: 1,
+                    selected: null,
+                    answered: false,
+                    explanation: "Tertiary colours (like Blue-Green or Red-Orange) are formed by mixing a primary colour with its adjacent secondary colour on the wheel."
+                },
+                quiz2: {
+                    question: "What is the key difference between a Tint and a Shade?",
+                    options: [
+                        "Tint = Colour + Black; Shade = Colour + White",
+                        "Tint = Colour + Gray; Shade = Colour + White",
+                        "Tint = Colour + White; Shade = Colour + Black",
+                        "Tint and Shade are both formed by adding Black"
+                    ],
+                    correct: 2,
+                    selected: null,
+                    answered: false,
+                    explanation: "Adding White yields a lighter Tint (e.g., Pink from Red). Adding Black yields a darker Shade (e.g., Maroon from Red)."
+                },
+                quiz3: {
+                    question: "Which rule of thumb prevents visual fatigue when using a Complementary colour scheme?",
+                    options: [
+                        "Use a 50/50 split of both colours across the screen",
+                        "Use one colour as dominant (80%) and the opposite as an accent (20%)",
+                        "Never use complementary colours together on digital screens",
+                        "Always mix both colours with equal parts grey"
+                    ],
+                    correct: 1,
+                    selected: null,
+                    answered: false,
+                    explanation: "A 50/50 split causes intense visual fight. The 80/20 rule ensures clarity while keeping high contrast for focal elements."
+                },
+                quiz4: {
+                    question: "What happens in digital RGB light mixing when Red, Green, and Blue light are all turned on at 100% intensity?",
+                    options: [
+                        "The output becomes Black",
+                        "The output becomes Muddy Brown",
+                        "The output becomes Pure White",
+                        "The output becomes Cyan"
+                    ],
+                    correct: 2,
+                    selected: null,
+                    answered: false,
+                    explanation: "On digital screens, colour is additive light. Combining all three primary light sources at maximum power produces White."
+                },
+                quiz5: {
+                    question: "Why should interface designs NEVER rely on colour alone to convey critical status (e.g., errors)?",
+                    options: [
+                        "About 1 in 12 people have colour vision deficiency and may miss the state",
+                        "Colour rendering is too expensive for mobile batteries",
+                        "Complementary colours do not display properly in modern web code",
+                        "Text labels slow down screen rendering speed"
+                    ],
+                    correct: 0,
+                    selected: null,
+                    answered: false,
+                    explanation: "Accessibility guidelines require pairing colours with icons and textual labels so users with colour blindness can navigate effortlessly."
+                },
+                quiz6: {
+                    question: "In the Form 6 Study App example, why was high-energy Orange chosen for the primary action button?",
+                    options: [
+                        "Because Orange is a cool colour that calms the student",
+                        "Because Orange is the complementary accent to the dominant cool Blue base",
+                        "Because Orange takes up 80% of the screen surface",
+                        "Because it was the only color available in CSS color-mix()"
+                    ],
+                    correct: 1,
+                    selected: null,
+                    answered: false,
+                    explanation: "Deep Blue creates a calm focus environment (80%), while its complementary opposite Orange (20%) immediately draws attention to key actions."
+                },
+
+                answerQuiz(qNum, optIdx) {
+                    const qKey = `quiz${qNum}`;
+                    if (this[qKey].answered) return;
+                    
+                    this[qKey].selected = optIdx;
+                    this[qKey].answered = true;
+                    if (optIdx === this[qKey].correct) {
+                        this.score++;
+                    }
+                }
+            };
+        }
+    </script>
+</body>
+</html>

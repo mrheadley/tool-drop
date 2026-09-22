@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Media Collaboration Tool Stack - Form 6 / 11th Grade Guide</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#f0f5ff',
+                            100: '#e0ebff',
+                            500: '#4f46e5',
+                            600: '#4338ca',
+                            700: '#3730a3',
+                            900: '#1e1b4b',
+                        },
+                        accent: {
+                            cyan: '#06b6d4',
+                            emerald: '#10b981',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            purple: '#8b5cf6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- Google Fonts Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(229, 231, 235, 0.8);
+        }
+        .dark .glass-card {
+            background: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(51, 65, 85, 0.6);
+        }
+        .pipeline-glow {
+            box-shadow: 0 0 25px -5px rgba(79, 70, 229, 0.3);
+        }
+        .badge-pulse {
+            animation: pulse-slow 3s infinite;
+        }
+        @keyframes pulse-slow {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.85; transform: scale(1.03); }
+        }
+        /* Custom scrollbars */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+        .dark ::-webkit-scrollbar-thumb { background: #334155; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-100 min-h-screen transition-colors duration-300">
+
+    <!-- Toast Notification Container -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-slate-900 text-white dark:bg-slate-100 dark:text-slate-900 px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3 border border-slate-700 dark:border-slate-300">
+        <svg class="w-5 h-5 text-emerald-400 dark:text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        <span id="toast-msg" class="text-sm font-semibold">Action completed successfully!</span>
+    </div>
+
+    <!-- Navigation Bar -->
+    <header class="sticky top-0 z-40 w-full backdrop-blur-md bg-white/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 transition-colors">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-purple-600 to-pink-500 flex items-center justify-center text-white shadow-md font-black text-xl">
+                    ⚡
+                </div>
+                <div>
+                    <h1 class="font-extrabold text-base sm:text-lg tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 dark:from-indigo-400 dark:via-purple-400 dark:to-pink-400">
+                        CollabStack <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 ml-1">Form 6 / 11th Grade</span>
+                    </h1>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 hidden sm:block">Digital Media Unit 2 • Pre-Production & Proposal Planning</p>
+                </div>
+            </div>
+
+            <nav class="hidden md:flex items-center gap-6 text-sm font-medium">
+                <a href="#pipeline" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Workflow Stack</a>
+                <a href="#categories" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Tool Categories</a>
+                <a href="#builder" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Stack Builder</a>
+                <a href="#quiz" class="text-slate-600 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-indigo-400 transition">Knowledge Quiz</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <button id="theme-toggle" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition" title="Toggle Theme">
+                    <svg id="theme-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    <svg id="theme-moon" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-12">
+
+        <!-- Hero Banner -->
+        <section class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-indigo-900 via-slate-900 to-purple-950 text-white p-8 sm:p-12 shadow-2xl border border-indigo-800/40">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -left-24 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl space-y-6">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs sm:text-sm font-semibold tracking-wide">
+                    <span>🚀 Unit 2: Pre-Production & Proposal Writing</span>
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                </div>
+
+                <h2 class="text-3xl sm:text-5xl font-black tracking-tight leading-tight">
+                    Master the <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 via-pink-300 to-amber-300">Digital Media Collaboration Tool Stack</span>
+                </h2>
+
+                <p class="text-slate-300 text-base sm:text-lg leading-relaxed">
+                    Great digital media products don't happen by accident. Whether building interactive websites, mobile apps, animations, or e-books, high-performing student teams use a structured <strong>collaboration tool stack</strong> to ideate, organize, write proposals, design assets, and deliver on time.
+                </p>
+
+                <div class="pt-2 flex flex-wrap items-center gap-4 text-xs font-semibold text-slate-300">
+                    <div class="flex items-center gap-2 bg-slate-800/80 px-3 py-2 rounded-lg border border-slate-700">
+                        <span class="text-indigo-400">📊</span> 6 Essential Stack Layers
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-800/80 px-3 py-2 rounded-lg border border-slate-700">
+                        <span class="text-purple-400">💡</span> Real-World Industry Tools
+                    </div>
+                    <div class="flex items-center gap-2 bg-slate-800/80 px-3 py-2 rounded-lg border border-slate-700">
+                        <span class="text-emerald-400">📝</span> SBA Proposal Ready
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pipeline Diagram Section -->
+        <section id="pipeline" class="space-y-6">
+            <div class="text-center max-w-2xl mx-auto space-y-2">
+                <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight">The Pre-Production Workflow Pipeline</h3>
+                <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base">
+                    Click any pipeline stage below to filter tools and see how information flows from initial spark to final submission.
+                </p>
+            </div>
+
+            <!-- Pipeline Cards Grid -->
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
+                <!-- Step 1 -->
+                <button onclick="filterCategory('ideation')" class="pipeline-btn group p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-500 dark:hover:border-amber-500 transition-all text-left shadow-sm hover:shadow-md relative overflow-hidden">
+                    <div class="w-2 h-full bg-amber-500 absolute left-0 top-0"></div>
+                    <div class="text-amber-500 font-bold text-xs uppercase tracking-wider mb-1">Step 1</div>
+                    <div class="font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100 group-hover:text-amber-500 transition-colors">Ideation & Whiteboards</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">Brainstorming concepts, moodboards & mind maps.</p>
+                </button>
+
+                <!-- Step 2 -->
+                <button onclick="filterCategory('communication')" class="pipeline-btn group p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-cyan-500 dark:hover:border-cyan-500 transition-all text-left shadow-sm hover:shadow-md relative overflow-hidden">
+                    <div class="w-2 h-full bg-cyan-500 absolute left-0 top-0"></div>
+                    <div class="text-cyan-500 font-bold text-xs uppercase tracking-wider mb-1">Step 2</div>
+                    <div class="font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100 group-hover:text-cyan-500 transition-colors">Team Communication</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">Real-time messaging, audio/video & standups.</p>
+                </button>
+
+                <!-- Step 3 -->
+                <button onclick="filterCategory('management')" class="pipeline-btn group p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-500 dark:hover:border-indigo-500 transition-all text-left shadow-sm hover:shadow-md relative overflow-hidden">
+                    <div class="w-2 h-full bg-indigo-500 absolute left-0 top-0"></div>
+                    <div class="text-indigo-500 font-bold text-xs uppercase tracking-wider mb-1">Step 3</div>
+                    <div class="font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100 group-hover:text-indigo-500 transition-colors">Task Management</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">Kanban boards, sprint schedules & assignments.</p>
+                </button>
+
+                <!-- Step 4 -->
+                <button onclick="filterCategory('proposal')" class="pipeline-btn group p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-purple-500 dark:hover:border-purple-500 transition-all text-left shadow-sm hover:shadow-md relative overflow-hidden">
+                    <div class="w-2 h-full bg-purple-500 absolute left-0 top-0"></div>
+                    <div class="text-purple-500 font-bold text-xs uppercase tracking-wider mb-1">Step 4</div>
+                    <div class="font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100 group-hover:text-purple-500 transition-colors">Proposal Writing</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">Co-authoring project overview, budget & specs.</p>
+                </button>
+
+                <!-- Step 5 -->
+                <button onclick="filterCategory('design')" class="pipeline-btn group p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-pink-500 dark:hover:border-pink-500 transition-all text-left shadow-sm hover:shadow-md relative overflow-hidden">
+                    <div class="w-2 h-full bg-pink-500 absolute left-0 top-0"></div>
+                    <div class="text-pink-500 font-bold text-xs uppercase tracking-wider mb-1">Step 5</div>
+                    <div class="font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100 group-hover:text-pink-500 transition-colors">Design & Wireframing</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">Collaborative UI/UX, storyboards & asset feedback.</p>
+                </button>
+
+                <!-- Step 6 -->
+                <button onclick="filterCategory('storage')" class="pipeline-btn group p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-emerald-500 dark:hover:border-emerald-500 transition-all text-left shadow-sm hover:shadow-md relative overflow-hidden">
+                    <div class="w-2 h-full bg-emerald-500 absolute left-0 top-0"></div>
+                    <div class="text-emerald-500 font-bold text-xs uppercase tracking-wider mb-1">Step 6</div>
+                    <div class="font-extrabold text-sm sm:text-base text-slate-800 dark:text-slate-100 group-hover:text-emerald-500 transition-colors">Cloud & Version Hub</div>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 line-clamp-2">Asset repository, version history & backups.</p>
+                </button>
+            </div>
+        </section>
+
+        <!-- Search & Filter Controls -->
+        <section id="categories" class="space-y-6 pt-4">
+            <div class="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-4 bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm">
+                
+                <!-- Category Filter Buttons -->
+                <div class="flex flex-wrap items-center gap-2 overflow-x-auto pb-2 sm:pb-0">
+                    <button onclick="filterCategory('all')" id="btn-all" class="filter-chip active-chip px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-indigo-600 text-white shadow-sm">
+                        All Categories
+                    </button>
+                    <button onclick="filterCategory('ideation')" id="btn-ideation" class="filter-chip px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        💡 Ideation
+                    </button>
+                    <button onclick="filterCategory('communication')" id="btn-communication" class="filter-chip px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        💬 Communication
+                    </button>
+                    <button onclick="filterCategory('management')" id="btn-management" class="filter-chip px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        📋 Task Tracking
+                    </button>
+                    <button onclick="filterCategory('proposal')" id="btn-proposal" class="filter-chip px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        ✍️ Proposal Docs
+                    </button>
+                    <button onclick="filterCategory('design')" id="btn-design" class="filter-chip px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        🎨 Design & Media
+                    </button>
+                    <button onclick="filterCategory('storage')" id="btn-storage" class="filter-chip px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold transition bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">
+                        ☁️ Cloud Storage
+                    </button>
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative w-full sm:w-64">
+                    <input type="text" id="search-input" onkeyup="searchTools()" placeholder="Search tools or features..." class="w-full pl-9 pr-4 py-2 rounded-xl text-sm bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:text-white">
+                    <svg class="w-4 h-4 text-slate-400 absolute left-3 top-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                </div>
+            </div>
+
+            <!-- Tool Stack Cards Container -->
+            <div id="cards-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+                <!-- CARD 1: Ideation & Whiteboards -->
+                <div class="tool-card glass-card rounded-3xl p-6 space-y-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border" data-category="ideation">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-amber-100 dark:bg-amber-950 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800">
+                            STEP 1 • BRAINSTORMING
+                        </span>
+                        <span class="text-2xl">💡</span>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Visual Ideation & Whiteboards</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Pre-production concept mapping & visual research</p>
+                    </div>
+
+                    <div class="space-y-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-2xl">
+                        <div class="font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider text-[10px]">Core Purpose</div>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Enables synchronous visual brainstorming, moodboarding, target audience persona maps, wireframe sticky notes, and site mapping before writing the project proposal.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Top Tool Examples:</div>
+                        
+                        <div class="space-y-2">
+                            <!-- Tool item -->
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-amber-500 text-white flex items-center justify-center font-bold text-xs">M</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Miro</div>
+                                        <div class="text-[10px] text-slate-500">Infinite visual canvas & mind maps</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Tier</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-purple-600 text-white flex items-center justify-center font-bold text-xs">FJ</div>
+                                    <div>
+                                        <div class="text-xs font-bold">FigJam</div>
+                                        <div class="text-[10px] text-slate-500">Interactive whiteboard integrated with Figma</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Education Free</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-pink-500 text-white flex items-center justify-center font-bold text-xs">P</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Padlet / Canva Boards</div>
+                                        <div class="text-[10px] text-slate-500">Simple sticky-note collaboration</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Tier</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1">
+                        <span>🎯 Proposal Deliverable:</span> Moodboards, Wireframe drafts & Flowcharts.
+                    </div>
+                </div>
+
+                <!-- CARD 2: Communication & Messaging -->
+                <div class="tool-card glass-card rounded-3xl p-6 space-y-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border" data-category="communication">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-cyan-100 dark:bg-cyan-950 text-cyan-700 dark:text-cyan-300 border border-cyan-200 dark:border-cyan-800">
+                            STEP 2 • TEAM SYNC
+                        </span>
+                        <span class="text-2xl">💬</span>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Communication & Messaging</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Real-time team discussions & audio calls</p>
+                    </div>
+
+                    <div class="space-y-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-2xl">
+                        <div class="font-semibold text-cyan-600 dark:text-cyan-400 uppercase tracking-wider text-[10px]">Core Purpose</div>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Keeps all project conversations organized into channels (e.g., #general, #design, #research) so key decisions aren't lost in chaotic personal group chats.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Top Tool Examples:</div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">S</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Slack</div>
+                                        <div class="text-[10px] text-slate-500">Channel-based team workspace</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Tier</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-indigo-600 text-white flex items-center justify-center font-bold text-xs">D</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Discord</div>
+                                        <div class="text-[10px] text-slate-500">Voice channels, screen sharing & chat</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500 text-white flex items-center justify-center font-bold text-xs">G</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Google Meet / Zoom</div>
+                                        <div class="text-[10px] text-slate-500">Synchronous video pitch practice</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1">
+                        <span>🎯 Proposal Deliverable:</span> Meeting logs & team communication record.
+                    </div>
+                </div>
+
+                <!-- CARD 3: Project & Task Management -->
+                <div class="tool-card glass-card rounded-3xl p-6 space-y-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border" data-category="management">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-100 dark:bg-indigo-950 text-indigo-700 dark:text-indigo-300 border border-indigo-200 dark:border-indigo-800">
+                            STEP 3 • WORKFLOW
+                        </span>
+                        <span class="text-2xl">📋</span>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Project & Task Management</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Kanban boards, timelines & task assignments</p>
+                    </div>
+
+                    <div class="space-y-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-2xl">
+                        <div class="font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider text-[10px]">Core Purpose</div>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Organizes pre-production tasks into "To Do", "In Progress", and "Done". Tracks team deadlines, assigns roles, and ensures project schedules are met.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Top Tool Examples:</div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">T</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Trello</div>
+                                        <div class="text-[10px] text-slate-500">Visual Kanban cards & drag-and-drop boards</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Tier</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-rose-500 text-white flex items-center justify-center font-bold text-xs">A</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Asana</div>
+                                        <div class="text-[10px] text-slate-500">List, board, and timeline scheduling</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Tier</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-slate-900 dark:bg-slate-100 text-white dark:text-slate-900 flex items-center justify-center font-bold text-xs">N</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Notion</div>
+                                        <div class="text-[10px] text-slate-500">All-in-one workspace & database tracker</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Personal</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1">
+                        <span>🎯 Proposal Deliverable:</span> Action Schedule / Gantt chart in proposal.
+                    </div>
+                </div>
+
+                <!-- CARD 4: Proposal Writing & Documentation -->
+                <div class="tool-card glass-card rounded-3xl p-6 space-y-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border" data-category="proposal">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                            STEP 4 • PROPOSAL DOCS
+                        </span>
+                        <span class="text-2xl">✍️</span>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Proposal & Content Writing</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Real-time co-authoring & live commenting</p>
+                    </div>
+
+                    <div class="space-y-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-2xl">
+                        <div class="font-semibold text-purple-600 dark:text-purple-400 uppercase tracking-wider text-[10px]">Core Purpose</div>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Allows multiple students to write the Proposal overview, concept description, methodology, target market profile, and budget synchronously without version conflicts.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Top Tool Examples:</div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-500 text-white flex items-center justify-center font-bold text-xs">GD</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Google Docs / Slides</div>
+                                        <div class="text-[10px] text-slate-500">Industry standard multi-user live editing</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-700 text-white flex items-center justify-center font-bold text-xs">MS</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Microsoft 365 (Word Online)</div>
+                                        <div class="text-[10px] text-slate-500">Cloud co-authoring with track changes</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">School Account</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-pink-600 text-white flex items-center justify-center font-bold text-xs">P</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Pitch / Coda</div>
+                                        <div class="text-[10px] text-slate-500">Interactive slide decks & proposal hubs</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Tier</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1">
+                        <span>🎯 Proposal Deliverable:</span> Final Written Proposal & Pitch Deck.
+                    </div>
+                </div>
+
+                <!-- CARD 5: Design, Wireframing & Media -->
+                <div class="tool-card glass-card rounded-3xl p-6 space-y-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border" data-category="design">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-pink-100 dark:bg-pink-950 text-pink-700 dark:text-pink-300 border border-pink-200 dark:border-pink-800">
+                            STEP 5 • UI/UX & ASSETS
+                        </span>
+                        <span class="text-2xl">🎨</span>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Design & Prototyping</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Interactive UI wireframes & graphic assets</p>
+                    </div>
+
+                    <div class="space-y-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-2xl">
+                        <div class="font-semibold text-pink-600 dark:text-pink-400 uppercase tracking-wider text-[10px]">Core Purpose</div>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Enables designers, developers, and writers to collaborate on app screens, e-book layouts, animation storyboards, and interactive prototypes with real-time feedback.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Top Tool Examples:</div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-slate-900 text-white flex items-center justify-center font-bold text-xs">F</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Figma</div>
+                                        <div class="text-[10px] text-slate-500">UI/UX prototyping, wireframes & component libraries</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Edu</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-cyan-600 text-white flex items-center justify-center font-bold text-xs">C</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Canva for Teams</div>
+                                        <div class="text-[10px] text-slate-500">Quick graphics, banners & pitch assets</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Tier</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold text-xs">Ad</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Adobe Creative Cloud / Frame.io</div>
+                                        <div class="text-[10px] text-slate-500">Video review, Photoshop & Illustrator sharing</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Paid/School</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1">
+                        <span>🎯 Proposal Deliverable:</span> Screen Mockups & Interactive Prototypes.
+                    </div>
+                </div>
+
+                <!-- CARD 6: Cloud Storage & Version History -->
+                <div class="tool-card glass-card rounded-3xl p-6 space-y-5 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl border" data-category="storage">
+                    <div class="flex items-center justify-between">
+                        <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-emerald-100 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800">
+                            STEP 6 • ASSET REPOSITORY
+                        </span>
+                        <span class="text-2xl">☁️</span>
+                    </div>
+
+                    <div>
+                        <h4 class="text-xl font-bold text-slate-900 dark:text-white">Cloud Storage & Revision Hub</h4>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Central file storage & version history protection</p>
+                    </div>
+
+                    <div class="space-y-2 text-xs sm:text-sm bg-slate-50 dark:bg-slate-800/60 p-3.5 rounded-2xl">
+                        <div class="font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider text-[10px]">Core Purpose</div>
+                        <p class="text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Centralizes high-res video files, audio stems, raw images, and code. Prevents accidental file deletion and provides revision history if work gets overwritten.
+                        </p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div class="text-xs font-bold text-slate-700 dark:text-slate-300 uppercase tracking-wider">Top Tool Examples:</div>
+                        
+                        <div class="space-y-2">
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center font-bold text-xs">Drive</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Google Drive / OneDrive</div>
+                                        <div class="text-[10px] text-slate-500">Shared folder structure & version restore</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">15GB Free</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center font-bold text-xs">GH</div>
+                                    <div>
+                                        <div class="text-xs font-bold">GitHub / GitLab</div>
+                                        <div class="text-[10px] text-slate-500">Version control for web apps & animations</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free</span>
+                            </div>
+
+                            <div class="flex items-center justify-between p-2.5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700">
+                                <div class="flex items-center gap-2.5">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-600 text-white flex items-center justify-center font-bold text-xs">DB</div>
+                                    <div>
+                                        <div class="text-xs font-bold">Dropbox</div>
+                                        <div class="text-[10px] text-slate-500">Large media asset sync & client links</div>
+                                    </div>
+                                </div>
+                                <span class="text-[10px] bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 px-2 py-0.5 rounded font-medium">Free Tier</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-slate-100 dark:border-slate-800 pt-3 text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold flex items-center gap-1">
+                        <span>🎯 Proposal Deliverable:</span> Master Asset Directory & Backup Log.
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Stack Builder & Proposal Configurator -->
+        <section id="builder" class="bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-indigo-800/40 space-y-8">
+            <div class="max-w-2xl space-y-2">
+                <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-indigo-500/20 text-indigo-300 border border-indigo-400/30">
+                    🛠️ Interactive Tool
+                </span>
+                <h3 class="text-2xl sm:text-3xl font-extrabold">Build Your Team's Digital Media Stack</h3>
+                <p class="text-slate-300 text-sm sm:text-base">
+                    Select 1 tool per category below to generate your official <strong>Pre-Production Tool Stack Summary</strong>. Copy this directly into your Form 6 Proposal Document!
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                <!-- Ideation selection -->
+                <div class="space-y-2 bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+                    <label class="block text-xs font-extrabold text-amber-400 uppercase tracking-wider">1. Ideation & Whiteboard</label>
+                    <select id="select-ideation" onchange="updateStackSummary()" class="w-full bg-slate-900 text-white text-sm p-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="Miro">Miro (Infinite Mind Maps)</option>
+                        <option value="FigJam">FigJam (Figma Interactive Canvas)</option>
+                        <option value="Canva Whiteboards">Canva Whiteboards</option>
+                        <option value="Padlet">Padlet (Sticky Notes & Links)</option>
+                    </select>
+                </div>
+
+                <!-- Communication selection -->
+                <div class="space-y-2 bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+                    <label class="block text-xs font-extrabold text-cyan-400 uppercase tracking-wider">2. Team Communication</label>
+                    <select id="select-communication" onchange="updateStackSummary()" class="w-full bg-slate-900 text-white text-sm p-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="Discord">Discord (Voice & Chat Channels)</option>
+                        <option value="Slack">Slack (Structured Workspace)</option>
+                        <option value="Google Meet">Google Meet (Video Pitch Sync)</option>
+                        <option value="Microsoft Teams">Microsoft Teams</option>
+                    </select>
+                </div>
+
+                <!-- Management selection -->
+                <div class="space-y-2 bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+                    <label class="block text-xs font-extrabold text-indigo-400 uppercase tracking-wider">3. Task Management</label>
+                    <select id="select-management" onchange="updateStackSummary()" class="w-full bg-slate-900 text-white text-sm p-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="Trello">Trello (Visual Kanban Cards)</option>
+                        <option value="Notion">Notion (Database & Workspace)</option>
+                        <option value="Asana">Asana (Task Lists & Schedules)</option>
+                        <option value="ClickUp">ClickUp (Sprint Boards)</option>
+                    </select>
+                </div>
+
+                <!-- Proposal selection -->
+                <div class="space-y-2 bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+                    <label class="block text-xs font-extrabold text-purple-400 uppercase tracking-wider">4. Proposal Writing</label>
+                    <select id="select-proposal" onchange="updateStackSummary()" class="w-full bg-slate-900 text-white text-sm p-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="Google Docs & Slides">Google Docs & Slides (Live Co-authoring)</option>
+                        <option value="Microsoft 365 Online">Microsoft 365 Word & PowerPoint</option>
+                        <option value="Pitch">Pitch (Interactive Pitch Decks)</option>
+                        <option value="Notion Docs">Notion Document Pages</option>
+                    </select>
+                </div>
+
+                <!-- Design selection -->
+                <div class="space-y-2 bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+                    <label class="block text-xs font-extrabold text-pink-400 uppercase tracking-wider">5. Design & UI Prototyping</label>
+                    <select id="select-design" onchange="updateStackSummary()" class="w-full bg-slate-900 text-white text-sm p-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="Figma">Figma (Interactive UI/UX Wireframing)</option>
+                        <option value="Canva Teams">Canva for Teams (Graphic Assets)</option>
+                        <option value="Adobe Frame.io">Adobe Creative Cloud & Frame.io</option>
+                    </select>
+                </div>
+
+                <!-- Storage selection -->
+                <div class="space-y-2 bg-slate-800/60 p-4 rounded-2xl border border-slate-700">
+                    <label class="block text-xs font-extrabold text-emerald-400 uppercase tracking-wider">6. Asset Cloud & Revision</label>
+                    <select id="select-storage" onchange="updateStackSummary()" class="w-full bg-slate-900 text-white text-sm p-3 rounded-xl border border-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                        <option value="Google Drive">Google Drive (Shared Folder System)</option>
+                        <option value="GitHub">GitHub (Repository & Version History)</option>
+                        <option value="OneDrive">Microsoft OneDrive</option>
+                        <option value="Dropbox">Dropbox (Large File Sync)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Output Box -->
+            <div class="bg-slate-950 p-6 rounded-2xl border border-indigo-500/30 space-y-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-2">
+                        <span class="w-3 h-3 rounded-full bg-emerald-400"></span>
+                        <h4 class="font-extrabold text-sm sm:text-base text-indigo-200">Generated Pre-Production Proposal Excerpt</h4>
+                    </div>
+                    <button onclick="copyStackToClipboard()" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold transition flex items-center gap-2 shadow-lg">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 012-2v-8a2 2 0 01-2-2h-8a2 2 0 01-2 2v8a2 2 0 012 2z"></path></svg>
+                        Copy Proposal Text
+                    </button>
+                </div>
+
+                <div id="stack-summary-text" class="font-mono text-xs sm:text-sm text-slate-300 bg-slate-900 p-4 rounded-xl leading-relaxed whitespace-pre-wrap border border-slate-800">
+<!-- Dynamic text generated via JS -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Quiz Section -->
+        <section id="quiz" class="glass-card rounded-3xl p-6 sm:p-10 space-y-6 border">
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                <div class="space-y-1">
+                    <span class="px-3 py-1 rounded-full text-xs font-extrabold bg-purple-100 dark:bg-purple-950 text-purple-700 dark:text-purple-300 border border-purple-200 dark:border-purple-800">
+                        ⚡ QUICK CHALLENGE
+                    </span>
+                    <h3 class="text-2xl font-extrabold text-slate-900 dark:text-white">Form 6 Collaboration Stack Quiz</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Test your knowledge on matching project tasks to the correct tool category!</p>
+                </div>
+
+                <div class="bg-indigo-50 dark:bg-indigo-950/60 border border-indigo-200 dark:border-indigo-800 px-4 py-2 rounded-2xl text-center">
+                    <div class="text-xs text-indigo-600 dark:text-indigo-400 font-bold uppercase">Score</div>
+                    <div id="quiz-score-display" class="text-2xl font-black text-indigo-700 dark:text-indigo-300">0 / 4</div>
+                </div>
+            </div>
+
+            <!-- Quiz Cards Container -->
+            <div id="quiz-container" class="space-y-6">
+                <!-- Question 1 -->
+                <div class="quiz-card bg-slate-50 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3" data-q="1">
+                    <div class="font-bold text-sm sm:text-base text-slate-800 dark:text-slate-100">
+                        1. Your team needs to create a visual moodboard and map out the user flow for a new mobile app before writing the proposal. Which tool category is BEST suited for this task?
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                        <button onclick="checkAnswer(1, 'A', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">A) Task Management (Trello)</button>
+                        <button onclick="checkAnswer(1, 'B', true, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">B) Visual Ideation & Whiteboard (Miro / FigJam)</button>
+                        <button onclick="checkAnswer(1, 'C', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">C) Cloud Storage (Google Drive)</button>
+                        <button onclick="checkAnswer(1, 'D', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">D) Proposal Writing (Google Docs)</button>
+                    </div>
+                    <div id="feedback-1" class="hidden text-xs p-3 rounded-xl font-semibold"></div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="quiz-card bg-slate-50 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3" data-q="2">
+                    <div class="font-bold text-sm sm:text-base text-slate-800 dark:text-slate-100">
+                        2. Which collaboration tool is designed specifically for tracking sprint deadlines, assigning task cards ("To Do / In Progress / Done"), and building project timelines?
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                        <button onclick="checkAnswer(2, 'A', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">A) Discord</button>
+                        <button onclick="checkAnswer(2, 'B', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">B) Figma</button>
+                        <button onclick="checkAnswer(2, 'C', true, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">C) Trello / Asana</button>
+                        <button onclick="checkAnswer(2, 'D', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">D) Canva</button>
+                    </div>
+                    <div id="feedback-2" class="hidden text-xs p-3 rounded-xl font-semibold"></div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="quiz-card bg-slate-50 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3" data-q="3">
+                    <div class="font-bold text-sm sm:text-base text-slate-800 dark:text-slate-100">
+                        3. What is the main advantage of using Google Drive or GitHub as a Cloud Storage and Revision Hub during pre-production?
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                        <button onclick="checkAnswer(3, 'A', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">A) It creates digital audio voice channels</button>
+                        <button onclick="checkAnswer(3, 'B', true, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">B) It preserves version history and restores files if work is accidentally deleted</button>
+                        <button onclick="checkAnswer(3, 'C', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">C) It generates automatic project budgets</button>
+                        <button onclick="checkAnswer(3, 'D', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">D) It automatically writes your pitch deck</button>
+                    </div>
+                    <div id="feedback-3" class="hidden text-xs p-3 rounded-xl font-semibold"></div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="quiz-card bg-slate-50 dark:bg-slate-900 p-5 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-3" data-q="4">
+                    <div class="font-bold text-sm sm:text-base text-slate-800 dark:text-slate-100">
+                        4. When building an interactive UI prototype for a Digital Media website or mobile app, which tool allows real-time collaborative design and user feedback?
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs sm:text-sm">
+                        <button onclick="checkAnswer(4, 'A', true, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">A) Figma</button>
+                        <button onclick="checkAnswer(4, 'B', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">B) WhatsApp</button>
+                        <button onclick="checkAnswer(4, 'C', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">C) Microsoft Word</button>
+                        <button onclick="checkAnswer(4, 'D', false, this)" class="q-btn text-left p-3 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:border-indigo-500 transition font-medium">D) Padlet</button>
+                    </div>
+                    <div id="feedback-4" class="hidden text-xs p-3 rounded-xl font-semibold"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SBA Proposal & Teamwork Cheat Sheet -->
+        <section class="glass-card rounded-3xl p-6 sm:p-8 space-y-6 border">
+            <div class="flex items-center gap-3">
+                <div class="p-3 rounded-2xl bg-indigo-600 text-white font-bold text-xl">💡</div>
+                <div>
+                    <h3 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Form 6 Proposal Writing & Collaboration Rules</h3>
+                    <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400">Essential rules for achieving high marks in Digital Media Unit 2</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-5 text-xs sm:text-sm">
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
+                    <div class="font-bold text-indigo-600 dark:text-indigo-400 flex items-center gap-2">
+                        <span>📌 1. Document Everything</span>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Take screenshots of your Trello board, Miro mind maps, and Google Docs version history. Include these in your proposal appendix to prove active collaboration!
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
+                    <div class="font-bold text-emerald-600 dark:text-emerald-400 flex items-center gap-2">
+                        <span>⚡ 2. Assign Clear Roles</span>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Avoid "everyone does everything." Designate a Lead Researcher, UI Designer, Proposal Writer, and Media Manager on your Task Management board.
+                    </p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 space-y-2">
+                    <div class="font-bold text-pink-600 dark:text-pink-400 flex items-center gap-2">
+                        <span>🔒 3. Maintain Folder Structure</span>
+                    </div>
+                    <p class="text-slate-600 dark:text-slate-400 leading-relaxed">
+                        Organize your Cloud Drive into folders: `/01_Research`, `/02_Proposal_Drafts`, `/03_Design_Assets`, and `/04_Final_Submission`. Name files with version numbers (e.g., `Proposal_v2.docx`).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 border-t border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 py-8 text-center text-xs text-slate-500 dark:text-slate-400">
+        <div class="max-w-7xl mx-auto px-4 space-y-2">
+            <p class="font-semibold text-slate-700 dark:text-slate-300">Digital Media Unit 2 • Form 6 / 11th Grade Collaboration Tool Stack Guide</p>
+            <p>Designed for interactive learning, proposal writing, and team project success.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // Theme Toggle Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const themeSun = document.getElementById('theme-sun');
+        const themeMoon = document.getElementById('theme-moon');
+
+        function initTheme() {
+            if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.classList.add('dark');
+                themeSun.classList.remove('hidden');
+                themeMoon.classList.add('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                themeSun.classList.add('hidden');
+                themeMoon.classList.remove('hidden');
+            }
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.theme = 'light';
+                themeSun.classList.add('hidden');
+                themeMoon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.theme = 'dark';
+                themeSun.classList.remove('hidden');
+                themeMoon.classList.add('hidden');
+            }
+        });
+
+        initTheme();
+
+        // Category Filtering Logic
+        function filterCategory(category) {
+            const cards = document.querySelectorAll('.tool-card');
+            const chips = document.querySelectorAll('.filter-chip');
+
+            // Reset active chips
+            chips.forEach(chip => {
+                chip.classList.remove('bg-indigo-600', 'text-white');
+                chip.classList.add('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+            });
+
+            // Set active chip
+            const activeBtn = document.getElementById('btn-' + category);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-100', 'dark:bg-slate-800', 'text-slate-600', 'dark:text-slate-300');
+                activeBtn.classList.add('bg-indigo-600', 'text-white');
+            }
+
+            // Show/Hide Cards
+            cards.forEach(card => {
+                if (category === 'all' || card.dataset.category === category) {
+                    card.style.display = 'block';
+                    card.classList.add('animate-fadeIn');
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Search Bar Logic
+        function searchTools() {
+            const query = document.getElementById('search-input').value.toLowerCase();
+            const cards = document.querySelectorAll('.tool-card');
+
+            cards.forEach(card => {
+                const text = card.textContent.toLowerCase();
+                if (text.includes(query)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Stack Builder Summary Logic
+        function updateStackSummary() {
+            const ideation = document.getElementById('select-ideation').value;
+            const communication = document.getElementById('select-communication').value;
+            const management = document.getElementById('select-management').value;
+            const proposal = document.getElementById('select-proposal').value;
+            const design = document.getElementById('select-design').value;
+            const storage = document.getElementById('select-storage').value;
+
+            const summaryText = 
+`PROJECT PROPOSAL EXCERPT - SECTION 3.2: COLLABORATION TOOL STACK
+
+To ensure seamless teamwork, task allocation, and pre-production workflow, our Digital Media team will utilize the following integrated tool stack:
+
+1. Visual Brainstorming & Concepting: ${ideation}
+   - Purpose: Real-time visual mind-mapping, target audience persona boards, and initial flowcharts.
+
+2. Communication & Team Sync: ${communication}
+   - Purpose: Scheduled standup meetings, team messaging, and synchronous decision logs.
+
+3. Project Schedule & Task Management: ${management}
+   - Purpose: Kanban-style task tracking ("To Do", "In Progress", "Done"), deadlines, and role assignments.
+
+4. Proposal Co-Authoring & Documentation: ${proposal}
+   - Purpose: Live multi-user draft writing, budget table calculations, and peer commenting.
+
+5. Visual Design & Prototyping: ${design}
+   - Purpose: Interactive UI wireframing, layout drafts, graphic creation, and prototype testing.
+
+6. Cloud Repository & Revision Control: ${storage}
+   - Purpose: Centralized asset storage, backup management, and revision history protection.`;
+
+            document.getElementById('stack-summary-text').textContent = summaryText;
+        }
+
+        updateStackSummary();
+
+        // Copy Stack to Clipboard
+        function copyStackToClipboard() {
+            const textToCopy = document.getElementById('stack-summary-text').textContent;
+            
+            // Fallback execCommand method for iframe compatibility
+            const tempTextArea = document.createElement("textarea");
+            tempTextArea.value = textToCopy;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            
+            try {
+                document.execCommand('copy');
+                showToast("Proposal tool stack copied to clipboard!");
+            } catch (err) {
+                showToast("Failed to copy. Please manually select text.");
+            }
+            
+            document.body.removeChild(tempTextArea);
+        }
+
+        // Toast Notification System
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            toastMsg.textContent = message;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 3000);
+        }
+
+        // Quiz State Management
+        let userScore = 0;
+        const answeredQuestions = new Set();
+
+        function checkAnswer(questionNum, option, isCorrect, btnElement) {
+            if (answeredQuestions.has(questionNum)) return; // Prevent re-answering
+            answeredQuestions.add(questionNum);
+
+            const feedbackEl = document.getElementById(`feedback-${questionNum}`);
+            const parentCard = btnElement.closest('.quiz-card');
+            const allBtns = parentCard.querySelectorAll('.q-btn');
+
+            // Disable all buttons in this question
+            allBtns.forEach(b => b.disabled = true);
+
+            if (isCorrect) {
+                userScore++;
+                btnElement.classList.remove('bg-white', 'dark:bg-slate-800');
+                btnElement.classList.add('bg-emerald-500', 'text-white', 'border-emerald-600');
+                
+                feedbackEl.textContent = "Correct! High-five 🎯 You nailed the tool category purpose.";
+                feedbackEl.classList.remove('hidden');
+                feedbackEl.classList.add('bg-emerald-100', 'dark:bg-emerald-950', 'text-emerald-700', 'dark:text-emerald-300', 'border', 'border-emerald-300');
+            } else {
+                btnElement.classList.remove('bg-white', 'dark:bg-slate-800');
+                btnElement.classList.add('bg-rose-500', 'text-white', 'border-rose-600');
+
+                feedbackEl.textContent = "Not quite! Check the card above for a refresher on this tool category.";
+                feedbackEl.classList.remove('hidden');
+                feedbackEl.classList.add('bg-rose-100', 'dark:bg-rose-950', 'text-rose-700', 'dark:text-rose-300', 'border', 'border-rose-300');
+            }
+
+            document.getElementById('quiz-score-display').textContent = `${userScore} / 4`;
+        }
+    </script>
+</body>
+</html>

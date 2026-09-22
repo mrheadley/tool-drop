@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Principles of Design Infographic</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Space Grotesk & Plus Jakarta Sans -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              bg: '#090D16',
+              card: '#111827',
+              cyan: '#00F0FF',
+              yellow: '#FFE600',
+              pink: '#FF007A',
+              green: '#00FF66',
+              purple: '#9D00FF',
+              orange: '#FF6B00'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #090D16;
+      color: #F3F4F6;
+    }
+    .neo-box {
+      box-shadow: 4px 4px 0px 0px #00F0FF;
+      transition: all 0.2s ease-in-out;
+    }
+    .neo-box:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px 0px #00F0FF;
+    }
+    .neo-box-yellow { box-shadow: 4px 4px 0px 0px #FFE600; }
+    .neo-box-yellow:hover { box-shadow: 6px 6px 0px 0px #FFE600; }
+    .neo-box-pink { box-shadow: 4px 4px 0px 0px #FF007A; }
+    .neo-box-pink:hover { box-shadow: 6px 6px 0px 0px #FF007A; }
+    .neo-box-green { box-shadow: 4px 4px 0px 0px #00FF66; }
+    .neo-box-green:hover { box-shadow: 6px 6px 0px 0px #00FF66; }
+    .neo-box-purple { box-shadow: 4px 4px 0px 0px #9D00FF; }
+    .neo-box-purple:hover { box-shadow: 6px 6px 0px 0px #9D00FF; }
+    .neo-box-orange { box-shadow: 4px 4px 0px 0px #FF6B00; }
+    .neo-box-orange:hover { box-shadow: 6px 6px 0px 0px #FF6B00; }
+    
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #090D16;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #1E293B;
+      border-radius: 5px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #00F0FF;
+    }
+  </style>
+</head>
+<body class="font-sans antialiased text-gray-100 min-h-screen flex flex-col justify-between">
+
+  <!-- HEADER & NAVBAR -->
+  <header class="sticky top-0 z-50 bg-slate-950/90 backdrop-blur-md border-b-2 border-brand-cyan px-4 py-3">
+    <div class="max-w-6xl mx-auto flex flex-wrap justify-between items-center gap-3">
+      <div class="flex items-center space-x-3">
+        <span class="w-4 h-4 rounded-full bg-brand-cyan animate-pulse"></span>
+        <h1 class="font-display font-bold text-lg sm:text-xl text-white tracking-wider uppercase">
+          DESIGN PRINCIPLES <span class="text-brand-cyan">// GRAMMAR OF VISUAL ART</span>
+        </h1>
+      </div>
+      
+      <div class="flex items-center space-x-3">
+        <!-- Sticky Live Quiz Score Badge -->
+        <div class="bg-slate-900 border border-brand-yellow px-3 py-1.5 rounded-lg flex items-center space-x-2">
+          <span class="text-xs font-mono text-gray-400">QUIZ SCORE:</span>
+          <span id="global-score" class="font-display font-bold text-brand-yellow text-base">0 / 12</span>
+        </div>
+
+        <button onclick="downloadHTML()" class="bg-brand-cyan hover:bg-cyan-300 text-black font-display font-bold text-xs px-3 py-2 rounded-lg transition flex items-center space-x-1 shadow-md">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+          <span class="hidden sm:inline">Save Page</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="max-w-6xl mx-auto px-4 py-8 space-y-12 flex-grow">
+
+    <!-- HERO TITLE BLOCK -->
+    <section class="text-center space-y-4 max-w-3xl mx-auto">
+      <div class="inline-block bg-brand-cyan text-black font-display font-bold text-xs uppercase tracking-widest px-3 py-1 rounded-full">
+        Visual Foundations Series • Lesson 02
+      </div>
+      <h1 class="font-display text-4xl sm:text-6xl font-extrabold text-white leading-tight">
+        Mastering The <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-brand-yellow to-brand-pink">Principles</span> of Design
+      </h1>
+      <p class="text-gray-300 text-sm sm:text-base leading-relaxed">
+        If design <em>elements</em> are the building blocks, <strong>principles</strong> are the rules of grammar. They govern how elements unite to create visual hierarchy, harmony, and effortless usability.
+      </p>
+
+      <!-- QUICK NAV STAT CARDS -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 pt-4 text-left">
+        <a href="#pr-balance" class="p-3 bg-brand-card rounded-xl neo-box border-l-4 border-l-brand-cyan">
+          <div class="text-brand-cyan font-display font-bold text-base sm:text-lg">01. BALANCE</div>
+          <div class="text-[11px] text-gray-400">Weight & Harmony</div>
+        </a>
+        <a href="#pr-contrast" class="p-3 bg-brand-card rounded-xl neo-box neo-box-pink border-l-4 border-l-brand-pink">
+          <div class="text-brand-pink font-display font-bold text-base sm:text-lg">02. CONTRAST</div>
+          <div class="text-[11px] text-gray-400">Emphasis & Pop</div>
+        </a>
+        <a href="#pr-alignment" class="p-3 bg-brand-card rounded-xl neo-box neo-box-yellow border-l-4 border-l-brand-yellow">
+          <div class="text-brand-yellow font-display font-bold text-base sm:text-lg">03. ALIGNMENT</div>
+          <div class="text-[11px] text-gray-400">Grid & Structure</div>
+        </a>
+        <a href="#pr-repetition" class="p-3 bg-brand-card rounded-xl neo-box neo-box-green border-l-4 border-l-brand-green">
+          <div class="text-brand-green font-display font-bold text-base sm:text-lg">04. REPETITION</div>
+          <div class="text-[11px] text-gray-400">Cohesion & Rhythm</div>
+        </a>
+        <a href="#pr-proximity" class="p-3 bg-brand-card rounded-xl neo-box neo-box-purple border-l-4 border-l-brand-purple">
+          <div class="text-brand-purple font-display font-bold text-base sm:text-lg">05. PROXIMITY</div>
+          <div class="text-[11px] text-gray-400">Spatial Grouping</div>
+        </a>
+        <a href="#pr-hierarchy" class="p-3 bg-brand-card rounded-xl neo-box neo-box-orange border-l-4 border-l-brand-orange">
+          <div class="text-brand-orange font-display font-bold text-base sm:text-lg">06. HIERARCHY</div>
+          <div class="text-[11px] text-gray-400">Visual Dominance</div>
+        </a>
+      </div>
+    </section>
+
+    <!-- 01. BALANCE -->
+    <article id="pr-balance" class="bg-brand-card rounded-2xl p-6 sm:p-8 neo-box border-2 border-brand-cyan/30 space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-4">
+          <div class="flex items-center space-x-3">
+            <span class="bg-brand-cyan text-black font-display font-bold text-sm px-3 py-1 rounded">01 PRINCIPLE</span>
+            <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">// Equilibrium & Weight</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white">Balance: Symmetrical vs Asymmetrical</h2>
+          <p class="text-gray-300 leading-relaxed">
+            Balance distributes visual weight across a design so no single part feels overly heavy or unstable. Weight is influenced by element size, dark values, color saturation, and density.
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
+            <div class="p-3 bg-slate-900/80 rounded-lg border border-slate-700">
+              <strong class="text-brand-cyan block mb-1">Symmetrical Balance</strong>
+              <span class="text-xs text-gray-400">Elements mirror across a central axis. Creates formal, calm, elegant stability.</span>
+            </div>
+            <div class="p-3 bg-slate-900/80 rounded-lg border border-slate-700">
+              <strong class="text-brand-pink block mb-1">Asymmetrical Balance</strong>
+              <span class="text-xs text-gray-400">Unmatched elements offset each other by size/color. Creates energetic, modern compositions.</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- BALANCE SVG GRAPHIC -->
+        <div class="lg:col-span-6 bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col items-center justify-center">
+          <svg viewBox="0 0 400 220" class="w-full h-auto max-h-56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Center Axis Line -->
+            <line x1="200" y1="20" x2="200" y2="180" stroke="#334155" stroke-dasharray="4 4" stroke-width="2"/>
+            
+            <!-- Left Side: Symmetrical Mirror (Equal Boxes) -->
+            <rect x="40" y="60" width="50" height="50" rx="6" fill="#00F0FF" />
+            <rect x="110" y="60" width="50" height="50" rx="6" fill="#00F0FF" />
+            <text x="50" y="145" fill="#00F0FF" font-size="11" font-family="Space Grotesk" font-weight="bold">SYMMETRICAL</text>
+            <text x="45" y="160" fill="#94A3B8" font-size="10" font-family="Space Grotesk">Equal Mirrored Weight</text>
+
+            <!-- Right Side: Asymmetrical Balance (1 Large vs 3 Small) -->
+            <rect x="230" y="50" width="70" height="70" rx="8" fill="#FF007A" />
+            <circle cx="330" cy="55" r="10" fill="#FFE600" />
+            <circle cx="355" cy="55" r="10" fill="#00FF66" />
+            <circle cx="342" cy="85" r="14" fill="#9D00FF" />
+            <text x="245" y="145" fill="#FF007A" font-size="11" font-family="Space Grotesk" font-weight="bold">ASYMMETRICAL</text>
+            <text x="235" y="160" fill="#94A3B8" font-size="10" font-family="Space Grotesk">1 Heavy Object balanced by 3 Small</text>
+          </svg>
+        </div>
+      </div>
+
+      <!-- INLINE QUIZ: 2 QUESTIONS AT END OF BALANCE -->
+      <div class="border-t border-slate-800 pt-6 space-y-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-brand-cyan font-display font-bold text-sm">⚡ SECTION CHECK POINT: BALANCE</span>
+          <span class="text-xs text-gray-500 font-mono">(2 Questions)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Q1 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="A">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">1. How can a small element visually balance a much larger element?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-cyan transition" data-opt="A">A) By using vibrant color, high contrast, or isolated positioning.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-cyan transition" data-opt="B">B) By making the small element invisible.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-cyan transition" data-opt="C">C) Small elements can never balance larger ones.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+          <!-- Q2 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="C">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">2. Which type of balance mirrors design components across a central axis?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-cyan transition" data-opt="A">A) Asymmetrical Balance</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-cyan transition" data-opt="B">B) Gestalt Proximity</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-cyan transition" data-opt="C">C) Symmetrical Balance</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 02. CONTRAST -->
+    <article id="pr-contrast" class="bg-brand-card rounded-2xl p-6 sm:p-8 neo-box neo-box-pink border-2 border-brand-pink/30 space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- SVG FIRST ON LARGE -->
+        <div class="lg:col-span-6 order-2 lg:order-1 bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col items-center justify-center">
+          <svg viewBox="0 0 400 220" class="w-full h-auto max-h-56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Low Contrast Box -->
+            <rect x="20" y="30" width="170" height="150" rx="10" fill="#1E293B" stroke="#334155" stroke-width="2"/>
+            <text x="35" y="60" fill="#475569" font-size="12" font-family="Space Grotesk" font-weight="bold">LOW CONTRAST</text>
+            <rect x="35" y="80" width="140" height="35" rx="6" fill="#334155" />
+            <text x="45" y="102" fill="#64748B" font-size="11" font-family="Space Grotesk">Muted Button</text>
+            <text x="35" y="145" fill="#475569" font-size="10" font-family="Space Grotesk">❌ Hard to read / low impact</text>
+
+            <!-- High Contrast Box -->
+            <rect x="210" y="30" width="170" height="150" rx="10" fill="#0A0C10" stroke="#FF007A" stroke-width="2"/>
+            <text x="225" y="60" fill="#FF007A" font-size="12" font-family="Space Grotesk" font-weight="bold">HIGH CONTRAST</text>
+            <rect x="225" y="80" width="140" height="35" rx="6" fill="#FF007A" />
+            <text x="245" y="102" fill="#FFFFFF" font-size="11" font-family="Space Grotesk" font-weight="bold">CLICK ME NOW!</text>
+            <text x="225" y="145" fill="#00FF66" font-size="10" font-family="Space Grotesk">✓ Instant CTA focus & clarity</text>
+          </svg>
+        </div>
+
+        <div class="lg:col-span-6 order-1 lg:order-2 space-y-4">
+          <div class="flex items-center space-x-3">
+            <span class="bg-brand-pink text-white font-display font-bold text-sm px-3 py-1 rounded">02 PRINCIPLE</span>
+            <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">// Visual Impact & Focus</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white">Contrast: Establishing Focus</h2>
+          <p class="text-gray-300 leading-relaxed">
+            Contrast occurs when two opposing elements are placed together. It commands instant user attention, creates focus, and ensures screen accessibility.
+          </p>
+          <div class="space-y-2 text-sm">
+            <div class="p-3 bg-slate-900/80 rounded-lg border-l-4 border-l-brand-pink border-t border-r border-b border-slate-700">
+              <strong class="text-white block">Dimensions of Contrast:</strong> Contrast isn't just color! It works through differences in <em>Scale</em> (huge vs tiny), <em>Weight</em> (bold vs thin), <em>Shape</em> (circle vs square), and <em>Space</em>.
+            </div>
+            <div class="p-3 bg-slate-900/80 rounded-lg border-l-4 border-l-brand-green border-t border-r border-b border-slate-700">
+              <strong class="text-white block">Accessibility Standard (WCAG):</strong> High contrast ensures text remains readable for users with visual impairments or on bright phone screens.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INLINE QUIZ: 2 QUESTIONS AT END OF CONTRAST -->
+      <div class="border-t border-slate-800 pt-6 space-y-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-brand-pink font-display font-bold text-sm">⚡ SECTION CHECK POINT: CONTRAST</span>
+          <span class="text-xs text-gray-500 font-mono">(2 Questions)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Q1 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="B">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">1. Which of the following is TRUE regarding design contrast?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-pink transition" data-opt="A">A) Contrast only refers to light and dark colors.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-pink transition" data-opt="B">B) Contrast can be achieved through size, color, typography weight, and shape.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-pink transition" data-opt="C">C) High contrast makes text harder to read on mobile displays.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+          <!-- Q2 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="A">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">2. What is the primary functional goal of high contrast on a primary CTA button?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-pink transition" data-opt="A">A) To make the button immediately noticeable and guide user action.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-pink transition" data-opt="B">B) To blend the button seamlessly into the background shadow.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-pink transition" data-opt="C">C) To save smartphone battery life.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 03. ALIGNMENT -->
+    <article id="pr-alignment" class="bg-brand-card rounded-2xl p-6 sm:p-8 neo-box neo-box-yellow border-2 border-brand-yellow/30 space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-4">
+          <div class="flex items-center space-x-3">
+            <span class="bg-brand-yellow text-black font-display font-bold text-sm px-3 py-1 rounded">03 PRINCIPLE</span>
+            <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">// Grid & Visual Order</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white">Alignment: Connection & Order</h2>
+          <p class="text-gray-300 leading-relaxed">
+            Alignment connects visual elements along invisible axes. Every element on screen should have a deliberate spatial relationship with other elements.
+          </p>
+          <ul class="space-y-2 text-sm text-gray-300">
+            <li class="flex items-center space-x-2">
+              <span class="text-brand-yellow font-bold">✓</span>
+              <span><strong>Edge Alignment:</strong> Left-aligned text aligns perfectly to a vertical grid, creating clean reading paths.</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="text-brand-yellow font-bold">✓</span>
+              <span><strong>Eliminates Randomness:</strong> Prevents elements from looking accidentally scattered.</span>
+            </li>
+            <li class="flex items-center space-x-2">
+              <span class="text-brand-yellow font-bold">✓</span>
+              <span><strong>Grid Systems:</strong> Professional UI uses 4, 8, or 12-column grid systems for structured layouts.</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="lg:col-span-6 bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col items-center justify-center">
+          <svg viewBox="0 0 400 220" class="w-full h-auto max-h-56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Unaligned Side -->
+            <g transform="translate(10, 20)">
+              <rect x="10" y="20" width="80" height="25" fill="#EF4444" opacity="0.8"/>
+              <rect x="35" y="55" width="110" height="25" fill="#EF4444" opacity="0.8"/>
+              <rect x="5" y="90" width="95" height="25" fill="#EF4444" opacity="0.8"/>
+              <text x="15" y="145" fill="#EF4444" font-size="11" font-family="Space Grotesk" font-weight="bold">❌ CHAOTIC / MISALIGNED</text>
+            </g>
+
+            <!-- Divider Line -->
+            <line x1="190" y1="20" x2="190" y2="190" stroke="#334155" stroke-dasharray="4 4"/>
+
+            <!-- Aligned Side -->
+            <g transform="translate(210, 20)">
+              <!-- Laser Alignment Axis -->
+              <line x1="15" y1="10" x2="15" y2="130" stroke="#FFE600" stroke-width="2" stroke-dasharray="3 3"/>
+              
+              <rect x="15" y="20" width="120" height="25" rx="4" fill="#FFE600" />
+              <rect x="15" y="55" width="140" height="25" rx="4" fill="#1E293B" stroke="#FFE600" stroke-width="1.5"/>
+              <rect x="15" y="90" width="100" height="25" rx="4" fill="#FFE600" />
+              <text x="15" y="145" fill="#FFE600" font-size="11" font-family="Space Grotesk" font-weight="bold">✓ GRID ALIGNED (LEFT AXIS)</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- INLINE QUIZ: 2 QUESTIONS AT END OF ALIGNMENT -->
+      <div class="border-t border-slate-800 pt-6 space-y-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-brand-yellow font-display font-bold text-sm">⚡ SECTION CHECK POINT: ALIGNMENT</span>
+          <span class="text-xs text-gray-500 font-mono">(2 Questions)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Q1 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="C">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">1. What is the main benefit of strict visual alignment in website layouts?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-yellow transition" data-opt="A">A) It allows text to fit inside circular frames easily.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-yellow transition" data-opt="B">B) It forces every image to be the exact same file size.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-yellow transition" data-opt="C">C) It creates visual order, leads the eye smoothly, and eliminates random layout clutter.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+          <!-- Q2 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="A">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">2. True or False: Every element on a page should align to an intentional grid or axis line.</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-yellow transition" data-opt="A">A) True — random placement creates visual chaos.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-yellow transition" data-opt="B">B) False — elements look best when scattered arbitrarily.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 04. REPETITION & CONSISTENCY -->
+    <article id="pr-repetition" class="bg-brand-card rounded-2xl p-6 sm:p-8 neo-box neo-box-green border-2 border-brand-green/30 space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 order-2 lg:order-1 bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col items-center justify-center">
+          <svg viewBox="0 0 400 220" class="w-full h-auto max-h-56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Repeating Design System Cards -->
+            <g transform="translate(30, 40)">
+              <rect x="0" y="0" width="100" height="110" rx="8" fill="#1E293B" stroke="#00FF66" stroke-width="2"/>
+              <circle cx="50" cy="35" r="16" fill="#00FF66" />
+              <rect x="20" y="65" width="60" height="8" rx="4" fill="#FFFFFF" />
+              <rect x="30" y="80" width="40" height="6" rx="3" fill="#64748B" />
+            </g>
+
+            <g transform="translate(150, 40)">
+              <rect x="0" y="0" width="100" height="110" rx="8" fill="#1E293B" stroke="#00FF66" stroke-width="2"/>
+              <circle cx="50" cy="35" r="16" fill="#00FF66" />
+              <rect x="20" y="65" width="60" height="8" rx="4" fill="#FFFFFF" />
+              <rect x="30" y="80" width="40" height="6" rx="3" fill="#64748B" />
+            </g>
+
+            <g transform="translate(270, 40)">
+              <rect x="0" y="0" width="100" height="110" rx="8" fill="#1E293B" stroke="#00FF66" stroke-width="2"/>
+              <circle cx="50" cy="35" r="16" fill="#00FF66" />
+              <rect x="20" y="65" width="60" height="8" rx="4" fill="#FFFFFF" />
+              <rect x="30" y="80" width="40" height="6" rx="3" fill="#64748B" />
+            </g>
+            <text x="100" y="180" fill="#00FF66" font-size="12" font-family="Space Grotesk" font-weight="bold">CONSISTENT REPEATING UI PATTERNS</text>
+          </svg>
+        </div>
+
+        <div class="lg:col-span-6 order-1 lg:order-2 space-y-4">
+          <div class="flex items-center space-x-3">
+            <span class="bg-brand-green text-black font-display font-bold text-sm px-3 py-1 rounded">04 PRINCIPLE</span>
+            <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">// Cohesion & Rhythm</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white">Repetition: Visual Cohesion</h2>
+          <p class="text-gray-300 leading-relaxed">
+            Repetition reuses visual elements—fonts, colors, border styles, icon sets, and spacing—throughout a project. Like the chorus of a song, repetition reinforces identity and builds user familiarity.
+          </p>
+          <div class="p-3 bg-slate-900 rounded-lg border border-slate-700 text-xs text-gray-300 space-y-1">
+            <p><strong class="text-white">Design Systems:</strong> Frameworks like Material Design rely on strict repetition of radii, typography scales, and button elevation.</p>
+            <p><strong class="text-white">Mental Models:</strong> Consistent buttons tell users: <em>"If it looks like a card, it will behave like a card."</em></p>
+          </div>
+        </div>
+      </div>
+
+      <!-- INLINE QUIZ: 2 QUESTIONS AT END OF REPETITION -->
+      <div class="border-t border-slate-800 pt-6 space-y-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-brand-green font-display font-bold text-sm">⚡ SECTION CHECK POINT: REPETITION</span>
+          <span class="text-xs text-gray-500 font-mono">(2 Questions)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Q1 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="B">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">1. Why is visual repetition compared to "the chorus of a song"?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-green transition" data-opt="A">A) Because good design always plays background music.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-green transition" data-opt="B">B) It creates familiar anchor points that tie the whole experience together.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-green transition" data-opt="C">C) It requires designers to repeat words in every headline.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+          <!-- Q2 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="C">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">2. Which design pitfall happens when repetition is ignored?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-green transition" data-opt="A">A) Screen resolutions become blurry.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-green transition" data-opt="B">B) Buttons click automatically.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-green transition" data-opt="C">C) Disjointed experience with inconsistent button styles, fonts, and colors.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 05. PROXIMITY -->
+    <article id="pr-proximity" class="bg-brand-card rounded-2xl p-6 sm:p-8 neo-box neo-box-purple border-2 border-brand-purple/30 space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <div class="lg:col-span-6 space-y-4">
+          <div class="flex items-center space-x-3">
+            <span class="bg-brand-purple text-white font-display font-bold text-sm px-3 py-1 rounded">05 PRINCIPLE</span>
+            <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">// Spatial Relationships</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white">Proximity: Grouping Related Items</h2>
+          <p class="text-gray-300 leading-relaxed">
+            The Gestalt law of proximity states that objects placed near each other are perceived as a unified group. Distance signals difference; closeness signals relationship.
+          </p>
+          <div class="p-3 bg-slate-900 rounded-lg border border-slate-700 space-y-2 text-xs text-gray-300">
+            <div class="flex items-center space-x-2">
+              <span class="text-brand-purple font-bold">●</span>
+              <span><strong>Form Labels & Inputs:</strong> Keep labels tight to their corresponding text input fields.</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="text-brand-purple font-bold">●</span>
+              <span><strong>Card Containers:</strong> Group image, title, and button inside a single enclosed boundary.</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-6 bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col items-center justify-center">
+          <svg viewBox="0 0 400 220" class="w-full h-auto max-h-56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Poor Proximity (Disassociated) -->
+            <g transform="translate(30, 30)">
+              <text x="0" y="15" fill="#EF4444" font-size="11" font-family="Space Grotesk" font-weight="bold">BAD PROXIMITY</text>
+              <rect x="0" y="25" width="80" height="12" fill="#94A3B8" />
+              <!-- Label far from input -->
+              <rect x="0" y="80" width="130" height="30" rx="4" fill="#1E293B" stroke="#EF4444" stroke-width="1.5"/>
+              <text x="0" y="130" fill="#EF4444" font-size="9" font-family="Space Grotesk">Confusing distance</text>
+            </g>
+
+            <!-- Good Proximity (Grouped) -->
+            <g transform="translate(230, 30)">
+              <text x="0" y="15" fill="#9D00FF" font-size="11" font-family="Space Grotesk" font-weight="bold">GOOD PROXIMITY</text>
+              <rect x="0" y="25" width="80" height="12" fill="#9D00FF" />
+              <!-- Label tight to input -->
+              <rect x="0" y="42" width="130" height="30" rx="4" fill="#1E293B" stroke="#9D00FF" stroke-width="1.5"/>
+              <text x="0" y="90" fill="#00FF66" font-size="9" font-family="Space Grotesk">✓ Clearly connected</text>
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <!-- INLINE QUIZ: 2 QUESTIONS AT END OF PROXIMITY -->
+      <div class="border-t border-slate-800 pt-6 space-y-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-brand-purple font-display font-bold text-sm">⚡ SECTION CHECK POINT: PROXIMITY</span>
+          <span class="text-xs text-gray-500 font-mono">(2 Questions)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Q1 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="A">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">1. According to Gestalt proximity, how does distance affect perception?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-purple transition" data-opt="A">A) Items placed close together are automatically perceived as belonging to the same group.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-purple transition" data-opt="B">B) Items placed close together look larger in 3D space.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-purple transition" data-opt="C">C) Distance changes text font size automatically.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+          <!-- Q2 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="B">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">2. What happens when an input field's label is placed too far away from the box?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-purple transition" data-opt="A">A) The text input speeds up execution.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-purple transition" data-opt="B">B) Users suffer cognitive friction trying to connect which label belongs to which box.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-purple transition" data-opt="C">C) The interface gains extra screen resolution.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- 06. HIERARCHY -->
+    <article id="pr-hierarchy" class="bg-brand-card rounded-2xl p-6 sm:p-8 neo-box neo-box-orange border-2 border-brand-orange/30 space-y-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        <!-- SVG FIRST ON LARGE -->
+        <div class="lg:col-span-6 order-2 lg:order-1 bg-slate-950 p-6 rounded-xl border border-slate-800 flex flex-col items-center justify-center">
+          <svg viewBox="0 0 400 220" class="w-full h-auto max-h-56" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <g transform="translate(30, 20)">
+              <!-- Level 1 Focal point -->
+              <rect x="0" y="10" width="340" height="40" rx="6" fill="#FF6B00" />
+              <text x="15" y="35" fill="#FFFFFF" font-size="14" font-family="Space Grotesk" font-weight="bold">1. PRIMARY HEADLINE (FOCAL POINT)</text>
+              
+              <!-- Level 2 Subheading -->
+              <rect x="0" y="65" width="260" height="25" rx="4" fill="#1E293B" stroke="#FF6B00" stroke-width="1.5"/>
+              <text x="15" y="82" fill="#FF6B00" font-size="11" font-family="Space Grotesk">2. Secondary Subhead (Supporting context)</text>
+
+              <!-- Level 3 Body -->
+              <rect x="0" y="100" width="300" height="12" rx="3" fill="#475569" />
+              <rect x="0" y="118" width="240" height="12" rx="3" fill="#334155" />
+              <text x="0" y="155" fill="#00FF66" font-size="10" font-family="Space Grotesk">✓ Eye scans naturally top-down: H1 → H2 → Body</text>
+            </g>
+          </svg>
+        </div>
+
+        <div class="lg:col-span-6 order-1 lg:order-2 space-y-4">
+          <div class="flex items-center space-x-3">
+            <span class="bg-brand-orange text-white font-display font-bold text-sm px-3 py-1 rounded">06 PRINCIPLE</span>
+            <span class="text-gray-400 text-xs font-mono uppercase tracking-wider">// Visual Dominance</span>
+          </div>
+          <h2 class="font-display text-3xl font-bold text-white">Visual Hierarchy: Directing Attention</h2>
+          <p class="text-gray-300 leading-relaxed">
+            Hierarchy guides the viewer’s eyes through content in order of importance. Without clear hierarchy, every element competes for attention at once, overwhelming the user.
+          </p>
+          <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+            <div class="p-2.5 rounded bg-slate-900 border border-slate-700">
+              <span class="text-brand-orange font-bold block">1. Scale / Size</span>
+              Large elements get scanned first.
+            </div>
+            <div class="p-2.5 rounded bg-slate-900 border border-slate-700">
+              <span class="text-brand-yellow font-bold block">2. Color / Weight</span>
+              Vibrant & bold elements pop out.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- INLINE QUIZ: 2 QUESTIONS AT END OF HIERARCHY -->
+      <div class="border-t border-slate-800 pt-6 space-y-4">
+        <div class="flex items-center space-x-2">
+          <span class="text-brand-orange font-display font-bold text-sm">⚡ SECTION CHECK POINT: HIERARCHY</span>
+          <span class="text-xs text-gray-500 font-mono">(2 Questions)</span>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Q1 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="C">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">1. What happens when a screen lacks visual hierarchy?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-orange transition" data-opt="A">A) The webpage loads faster.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-orange transition" data-opt="B">B) Users automatically know where to click.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-orange transition" data-opt="C">C) Everything competes for attention simultaneously, causing cognitive overload.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+          <!-- Q2 -->
+          <div class="q-block bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-3" data-correct="A">
+            <p class="font-display font-bold text-white text-xs sm:text-sm">2. Which design variable is most effective for creating instant primary hierarchy?</p>
+            <div class="space-y-1.5 text-xs">
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-orange transition" data-opt="A">A) Large scale & high visual contrast.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-orange transition" data-opt="B">B) Using a tiny gray caption font.</button>
+              <button class="opt-btn w-full p-2.5 bg-slate-900 text-left rounded border border-slate-700 hover:border-brand-orange transition" data-opt="C">C) Hiding buttons behind drop-down menus.</button>
+            </div>
+            <div class="feedback hidden text-[11px] font-bold pt-1"></div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- INTERACTIVE PRINCIPLES LAB / SANDBOX -->
+    <section class="bg-brand-card rounded-2xl p-6 sm:p-8 neo-box neo-box-purple border-2 border-brand-purple/40 space-y-6">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 border-b border-slate-800 pb-4">
+        <div>
+          <span class="text-brand-purple font-mono text-xs font-bold uppercase tracking-wider">// INTERACTIVE SANDBOX</span>
+          <h3 class="font-display text-2xl font-bold text-white">Principles Design Lab</h3>
+        </div>
+        <p class="text-xs text-gray-400">Tweak real-time parameters to observe layout principles in action.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        
+        <!-- CONTROL PANEL -->
+        <div class="space-y-5 bg-slate-950 p-5 rounded-xl border border-slate-800">
+          
+          <!-- Slider 1: Hierarchy Scale -->
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-mono">
+              <label class="text-brand-orange font-bold">1. Headline Scale (Hierarchy)</label>
+              <span id="lab-scale-val" class="text-gray-400">24px</span>
+            </div>
+            <input type="range" id="labScaleSlider" min="16" max="44" value="24" class="w-full accent-brand-orange cursor-pointer">
+          </div>
+
+          <!-- Slider 2: Contrast Ratio -->
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-mono">
+              <label class="text-brand-pink font-bold">2. Accent Contrast (CTA Pop)</label>
+              <span id="lab-contrast-val" class="text-gray-400">High (#FF007A)</span>
+            </div>
+            <input type="range" id="labContrastSlider" min="0" max="100" value="90" class="w-full accent-brand-pink cursor-pointer">
+          </div>
+
+          <!-- Slider 3: Proximity Gap -->
+          <div class="space-y-2">
+            <div class="flex justify-between text-xs font-mono">
+              <label class="text-brand-purple font-bold">3. Item Spacing (Proximity)</label>
+              <span id="lab-gap-val" class="text-gray-400">12px</span>
+            </div>
+            <input type="range" id="labGapSlider" min="4" max="40" value="12" class="w-full accent-brand-purple cursor-pointer">
+          </div>
+
+          <!-- Toggle: Alignment Mode -->
+          <div class="space-y-2">
+            <label class="text-brand-yellow font-bold text-xs font-mono block">4. Alignment Mode</label>
+            <div class="flex space-x-2">
+              <button id="btnAlignLeft" class="flex-1 py-2 text-xs font-bold font-display rounded bg-brand-yellow text-black transition">Left Align</button>
+              <button id="btnAlignCenter" class="flex-1 py-2 text-xs font-bold font-display rounded bg-slate-800 text-gray-300 transition">Center Align</button>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- LIVE DISPLAY PREVIEW -->
+        <div class="flex flex-col justify-center items-center bg-brand-bg rounded-xl border border-slate-700 p-6" id="labPreviewContainer">
+          
+          <div id="labCard" class="w-full max-w-sm transition-all duration-200 border-2 border-slate-700 bg-slate-900 rounded-xl p-5 flex flex-col text-left space-y-3">
+            
+            <div class="flex items-center space-x-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-brand-cyan"></span>
+              <span class="text-[10px] font-mono text-gray-400 uppercase">Interactive Preview</span>
+            </div>
+
+            <!-- Heading (Hierarchy) -->
+            <h4 id="labHeading" class="font-display font-bold text-white leading-tight" style="font-size: 24px;">
+              Master Visual Balance
+            </h4>
+
+            <!-- Body text -->
+            <p class="text-xs text-gray-300 leading-relaxed">
+              Observe how shifting hierarchy scale, button contrast, item proximity spacing, and text alignment transforms usability.
+            </p>
+
+            <!-- Grouped elements (Proximity Gap) -->
+            <div id="labGroup" class="flex flex-col space-y-3 pt-2">
+              <input type="text" placeholder="Enter your email..." class="w-full px-3 py-2 bg-slate-950 border border-slate-700 rounded text-xs text-white focus:outline-none focus:border-brand-cyan" readonly>
+              
+              <button id="labCTA" class="w-full py-2.5 font-display font-bold text-xs rounded uppercase tracking-wider transition" style="background-color: rgb(255, 0, 122); color: white;">
+                Submit Application
+              </button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-xs text-gray-500">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-3">
+      <span>Visual Design Foundations • Principles of Design Infographic</span>
+      <span class="font-mono text-brand-cyan">High-Contrast Interactive Learning Module</span>
+    </div>
+  </footer>
+
+  <script>
+    // GLOBAL QUIZ STATE TRACKER
+    let score = 0;
+    const answeredBlocks = new Set();
+    const TOTAL_QUESTIONS = 12;
+
+    // INTERACTIVE QUIZ OPTION SELECTION
+    document.querySelectorAll('.q-block').forEach((block, index) => {
+      const correctOpt = block.getAttribute('data-correct');
+      const buttons = block.querySelectorAll('.opt-btn');
+      const feedback = block.querySelector('.feedback');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (answeredBlocks.has(block)) return; // Prevent re-answering
+          answeredBlocks.add(block);
+
+          const selected = btn.getAttribute('data-opt');
+          if (selected === correctOpt) {
+            score++;
+            btn.classList.remove('bg-slate-900', 'border-slate-700');
+            btn.classList.add('bg-green-500/20', 'border-green-500', 'text-green-300');
+            feedback.textContent = '✓ Correct! Great eye.';
+            feedback.classList.remove('hidden');
+            feedback.classList.add('text-green-400');
+          } else {
+            btn.classList.remove('bg-slate-900', 'border-slate-700');
+            btn.classList.add('bg-red-500/20', 'border-red-500', 'text-red-300');
+            
+            // Highlight the correct answer
+            buttons.forEach(b => {
+              if (b.getAttribute('data-opt') === correctOpt) {
+                b.classList.add('border-green-500', 'text-green-400');
+              }
+            });
+
+            feedback.textContent = `❌ Incorrect. The correct answer was (${correctOpt}).`;
+            feedback.classList.remove('hidden');
+            feedback.classList.add('text-red-400');
+          }
+
+          // Disable all buttons in this block
+          buttons.forEach(b => b.classList.add('cursor-not-allowed', 'opacity-80'));
+
+          // Update Global Score Header
+          document.getElementById('global-score').textContent = `${score} / ${TOTAL_QUESTIONS}`;
+        });
+      });
+    });
+
+    // PRINCIPLES LAB SANDBOX INTERACTIVITY
+    const labScaleSlider = document.getElementById('labScaleSlider');
+    const labScaleVal = document.getElementById('lab-scale-val');
+    const labHeading = document.getElementById('labHeading');
+
+    const labContrastSlider = document.getElementById('labContrastSlider');
+    const labContrastVal = document.getElementById('lab-contrast-val');
+    const labCTA = document.getElementById('labCTA');
+
+    const labGapSlider = document.getElementById('labGapSlider');
+    const labGapVal = document.getElementById('lab-gap-val');
+    const labGroup = document.getElementById('labGroup');
+
+    const btnAlignLeft = document.getElementById('btnAlignLeft');
+    const btnAlignCenter = document.getElementById('btnAlignCenter');
+    const labCard = document.getElementById('labCard');
+
+    // 1. Headline Scale
+    labScaleSlider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      labScaleVal.textContent = `${val}px`;
+      labHeading.style.fontSize = `${val}px`;
+    });
+
+    // 2. Accent Contrast
+    labContrastSlider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      if (val < 30) {
+        labContrastVal.textContent = 'Low (#334155)';
+        labCTA.style.backgroundColor = '#334155';
+        labCTA.style.color = '#94A3B8';
+      } else if (val < 70) {
+        labContrastVal.textContent = 'Medium (#9D00FF)';
+        labCTA.style.backgroundColor = '#9D00FF';
+        labCTA.style.color = '#FFFFFF';
+      } else {
+        labContrastVal.textContent = 'High (#FF007A)';
+        labCTA.style.backgroundColor = '#FF007A';
+        labCTA.style.color = '#FFFFFF';
+      }
+    });
+
+    // 3. Proximity Gap
+    labGapSlider.addEventListener('input', (e) => {
+      const val = e.target.value;
+      labGapVal.textContent = `${val}px`;
+      labGroup.style.gap = `${val}px`;
+    });
+
+    // 4. Alignment Buttons
+    btnAlignLeft.addEventListener('click', () => {
+      labCard.classList.remove('text-center', 'items-center');
+      labCard.classList.add('text-left', 'items-start');
+      btnAlignLeft.classList.replace('bg-slate-800', 'bg-brand-yellow');
+      btnAlignLeft.classList.replace('text-gray-300', 'text-black');
+      btnAlignCenter.classList.replace('bg-brand-yellow', 'bg-slate-800');
+      btnAlignCenter.classList.replace('text-black', 'text-gray-300');
+    });
+
+    btnAlignCenter.addEventListener('click', () => {
+      labCard.classList.remove('text-left', 'items-start');
+      labCard.classList.add('text-center', 'items-center');
+      btnAlignCenter.classList.replace('bg-slate-800', 'bg-brand-yellow');
+      btnAlignCenter.classList.replace('text-gray-300', 'text-black');
+      btnAlignLeft.classList.replace('bg-brand-yellow', 'bg-slate-800');
+      btnAlignLeft.classList.replace('text-black', 'text-gray-300');
+    });
+
+    // DOWNLOAD HTML FUNCTION
+    function downloadHTML() {
+      const htmlContent = "<!DOCTYPE html>\n" + document.documentElement.outerHTML;
+      const blob = new Blob([htmlContent], { type: 'text/html' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'principles_of_design_infographic.html';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+  </script>
+
+</body>
+</html>

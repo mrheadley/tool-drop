@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Digital Citizenship - Types of Digital Users</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        native: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#06b6d4',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                        },
+                        immigrant: {
+                            50: '#fdf4ff',
+                            100: '#fae8ff',
+                            500: '#d946ef',
+                            600: '#c026d3',
+                            700: '#a21caf',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .gradient-native {
+            background: linear-gradient(135deg, #0ea5e9 0%, #3b82f6 50%, #6366f1 100%);
+        }
+        .gradient-immigrant {
+            background: linear-gradient(135deg, #ec4899 0%, #d946ef 50%, #8b5cf6 100%);
+        }
+        .gradient-hero {
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #311042 100%);
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-full flex flex-col items-center justify-start pb-12 selection:bg-indigo-500 selection:text-white">
+
+    <!-- Responsive Main Shell: Mobile first width, expands gracefully to max-w-4xl on larger displays -->
+    <div class="w-full max-w-4xl min-h-screen bg-slate-950 flex flex-col relative shadow-2xl overflow-x-hidden sm:border-x border-slate-800/80">
+
+        <!-- App Header with Scaled Text -->
+        <header class="gradient-hero pt-8 pb-8 px-5 sm:px-8 relative overflow-hidden rounded-b-3xl shadow-xl border-b border-indigo-500/20">
+            <!-- Decorative Glow Effects -->
+            <div class="absolute -top-10 -right-10 w-44 h-44 bg-cyan-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-10 -left-10 w-44 h-44 bg-fuchsia-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 max-w-3xl mx-auto">
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+                    <span class="px-3.5 py-1.5 bg-indigo-500/25 border border-indigo-400/40 text-indigo-200 text-xs sm:text-sm font-extrabold rounded-full tracking-wider uppercase backdrop-blur-md">
+                        Form 2 IT • Digital Citizenship
+                    </span>
+                    <span class="text-xs sm:text-sm font-bold text-slate-300 flex items-center gap-1.5 bg-slate-900/60 px-3 py-1 rounded-lg">
+                        <i data-lucide="smartphone" class="w-4 h-4 text-cyan-400"></i> Mobile & Screen Guide
+                    </span>
+                </div>
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight">
+                    Types of <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-sky-300 to-fuchsia-400">Digital Users</span>
+                </h1>
+                <p class="text-sm sm:text-base md:text-lg text-slate-300 mt-2.5 font-medium leading-relaxed">
+                    Interactive mobile visual guide for quick revision, classroom learning, and exam prep.
+                </p>
+            </div>
+        </header>
+
+        <!-- Navigation Segment Bar -->
+        <div class="sticky top-0 z-30 bg-slate-950/95 backdrop-blur-md px-4 sm:px-8 py-3.5 border-b border-slate-800">
+            <div class="max-w-3xl mx-auto grid grid-cols-2 sm:grid-cols-4 gap-2 p-1.5 bg-slate-900 rounded-2xl border border-slate-800 text-sm sm:text-base font-bold">
+                <button onclick="switchTab('natives')" id="tab-natives" class="py-3 px-3 rounded-xl transition-all flex items-center justify-center gap-2 text-cyan-400 bg-slate-800 shadow-md">
+                    <i data-lucide="zap" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    <span>Natives</span>
+                </button>
+                <button onclick="switchTab('immigrants')" id="tab-immigrants" class="py-3 px-3 rounded-xl transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
+                    <i data-lucide="compass" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    <span>Immigrants</span>
+                </button>
+                <button onclick="switchTab('compare')" id="tab-compare" class="py-3 px-3 rounded-xl transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
+                    <i data-lucide="columns-2" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    <span>Compare</span>
+                </button>
+                <button onclick="switchTab('quiz')" id="tab-quiz" class="py-3 px-3 rounded-xl transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200">
+                    <i data-lucide="help-circle" class="w-4 h-4 sm:w-5 sm:h-5"></i>
+                    <span>Quiz</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 px-4 sm:px-8 py-6 space-y-8 max-w-3xl mx-auto w-full">
+
+            <!-- SECTION 1: DIGITAL NATIVES TAB -->
+            <div id="view-natives" class="space-y-6 animate-fadeIn">
+                
+                <!-- Core Native Banner Card -->
+                <div class="gradient-native p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 opacity-15">
+                        <i data-lucide="sparkles" class="w-48 h-48"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-2.5 mb-3">
+                            <div class="p-2.5 bg-white/20 rounded-xl backdrop-blur-md">
+                                <i data-lucide="sparkles" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <span class="text-xs sm:text-sm font-black uppercase tracking-widest text-cyan-100">Category 01</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-black mb-3">The Digital Native</h2>
+                        
+                        <div class="bg-slate-950/40 backdrop-blur-md rounded-2xl p-4 border border-white/25 mb-4 shadow-inner">
+                            <span class="text-xs uppercase font-black text-cyan-200 tracking-wider block mb-1">Core Rule</span>
+                            <p class="text-base sm:text-lg font-extrabold text-white">
+                                Born <span class="bg-amber-400 text-slate-950 px-2 py-0.5 rounded-md font-black uppercase text-sm sm:text-base">AFTER</span> widespread adoption of digital tech.
+                            </p>
+                        </div>
+                        <p class="text-sm sm:text-base md:text-lg text-sky-100 leading-relaxed font-medium">
+                            Children & young people who grew up from an early age using technology such as the <strong>internet, computers, and mobile devices</strong>.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between px-1 pt-2">
+                    <h3 class="text-base sm:text-lg font-black uppercase tracking-wider text-cyan-400 flex items-center gap-2">
+                        <i data-lucide="layers" class="w-5 h-5"></i>
+                        3 Sub-Categories of Natives
+                    </h3>
+                </div>
+
+                <!-- Responsive Grid for Sub-categories -->
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-5">
+
+                    <!-- Sub-category 1: Native Avoider -->
+                    <div class="bg-slate-900 border-2 border-cyan-500/30 rounded-2xl p-5 shadow-lg hover:border-cyan-500/60 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-2 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 shrink-0">
+                                        <i data-lucide="shield-off" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-black uppercase text-slate-400 tracking-wider">Type 1</span>
+                                        <h4 class="text-lg sm:text-xl font-black text-white">Avoiders</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="space-y-3 text-sm sm:text-base text-slate-300">
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="x-circle" class="w-5 h-5 text-rose-400 shrink-0 mt-0.5"></i>
+                                    <span>Do <strong>NOT</strong> feel any love or interest in technology.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="mail" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                                    <span>Maintain <strong>mandatory emails</strong> only for essential obligations (school/work).</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="ban" class="w-5 h-5 text-rose-400 shrink-0 mt-0.5"></i>
+                                    <span>Do <strong>NOT</strong> use social media.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800">
+                            <span class="inline-block px-3 py-1 bg-slate-800 text-slate-300 text-xs font-extrabold rounded-lg border border-slate-700">Disinterested</span>
+                        </div>
+                    </div>
+
+                    <!-- Sub-category 2: Native Minimalist -->
+                    <div class="bg-slate-900 border-2 border-cyan-500/30 rounded-2xl p-5 shadow-lg hover:border-cyan-500/60 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-2 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800 flex items-center justify-center text-cyan-400 shrink-0">
+                                        <i data-lucide="minus-circle" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-black uppercase text-cyan-400 tracking-wider">Type 2</span>
+                                        <h4 class="text-lg sm:text-xl font-black text-white">Minimalists</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="space-y-3 text-sm sm:text-base text-slate-300">
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="check-circle-2" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i>
+                                    <span>Realize technology is a necessary part of today's world.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="sliders" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i>
+                                    <span>Engage <strong>minimally</strong> and only when strictly necessary.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="shopping-cart" class="w-5 h-5 text-cyan-400 shrink-0 mt-0.5"></i>
+                                    <span>Use search engines <em>only if required</em>; buy online <em>only as last resort</em>.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800">
+                            <span class="inline-block px-3 py-1 bg-cyan-950 text-cyan-300 text-xs font-extrabold rounded-lg border border-cyan-800">Practical Need</span>
+                        </div>
+                    </div>
+
+                    <!-- Sub-category 3: Native Enthusiastic Participant -->
+                    <div class="bg-gradient-to-br from-cyan-950/90 to-slate-900 border-2 border-cyan-400/80 rounded-2xl p-5 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-2 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-2xl bg-cyan-400 text-slate-950 flex items-center justify-center font-black shadow-lg shadow-cyan-500/30 shrink-0">
+                                        <i data-lucide="rocket" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-black uppercase text-cyan-300 tracking-wider">Majority Group</span>
+                                        <h4 class="text-lg sm:text-xl font-black text-white">Enthusiastic Participants</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="space-y-3 text-sm sm:text-base text-slate-200">
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="heart" class="w-5 h-5 text-pink-400 shrink-0 mt-0.5"></i>
+                                    <span>Thoroughly <strong>enjoy and thrive</strong> on using modern tech & gadgets.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="cpu" class="w-5 h-5 text-cyan-300 shrink-0 mt-0.5"></i>
+                                    <span>Technology is fully integrated into their daily routines & lifestyle.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-cyan-900/50">
+                            <span class="inline-block px-3 py-1 bg-cyan-400 text-slate-950 text-xs font-black rounded-lg uppercase tracking-wider">Most Natives</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SECTION 2: DIGITAL IMMIGRANTS TAB -->
+            <div id="view-immigrants" class="space-y-6 hidden animate-fadeIn">
+                
+                <!-- Core Immigrant Banner Card -->
+                <div class="gradient-immigrant p-6 sm:p-8 rounded-3xl shadow-xl text-white relative overflow-hidden">
+                    <div class="absolute -right-6 -bottom-6 opacity-15">
+                        <i data-lucide="compass" class="w-48 h-48"></i>
+                    </div>
+                    <div class="relative z-10">
+                        <div class="flex items-center gap-2.5 mb-3">
+                            <div class="p-2.5 bg-white/20 rounded-xl backdrop-blur-md">
+                                <i data-lucide="compass" class="w-6 h-6 text-white"></i>
+                            </div>
+                            <span class="text-xs sm:text-sm font-black uppercase tracking-widest text-fuchsia-100">Category 02</span>
+                        </div>
+                        <h2 class="text-3xl sm:text-4xl font-black mb-3">The Digital Immigrant</h2>
+                        
+                        <div class="bg-slate-950/40 backdrop-blur-md rounded-2xl p-4 border border-white/25 mb-4 shadow-inner">
+                            <span class="text-xs uppercase font-black text-fuchsia-200 tracking-wider block mb-1">Core Rule</span>
+                            <p class="text-base sm:text-lg font-extrabold text-white">
+                                Born <span class="bg-amber-400 text-slate-950 px-2 py-0.5 rounded-md font-black uppercase text-sm sm:text-base">BEFORE</span> widespread adoption of digital tech.
+                            </p>
+                        </div>
+                        <p class="text-sm sm:text-base md:text-lg text-fuchsia-100 leading-relaxed font-medium">
+                            Includes individuals who were <strong>not exposed to digital technology at an early age</strong> and had to learn & adapt later in adult life.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between px-1 pt-2">
+                    <h3 class="text-base sm:text-lg font-black uppercase tracking-wider text-fuchsia-400 flex items-center gap-2">
+                        <i data-lucide="layers" class="w-5 h-5"></i>
+                        3 Sub-Categories of Immigrants
+                    </h3>
+                </div>
+
+                <!-- Responsive Grid for Immigrant Types -->
+                <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-3 gap-5">
+
+                    <!-- Immigrant Sub 1: Avoider -->
+                    <div class="bg-slate-900 border-2 border-fuchsia-500/30 rounded-2xl p-5 shadow-lg hover:border-fuchsia-500/60 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-2 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-slate-300 shrink-0">
+                                        <i data-lucide="phone-off" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-black uppercase text-slate-400 tracking-wider">Type 1</span>
+                                        <h4 class="text-lg sm:text-xl font-black text-white">Avoiders</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="space-y-3 text-sm sm:text-base text-slate-300">
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="slash" class="w-5 h-5 text-rose-400 shrink-0 mt-0.5"></i>
+                                    <span>Prefer a lifestyle with <strong>minimal technology attachments</strong>.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="phone-call" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                                    <span>Prefer traditional communication: <strong>landline phones and postal mail</strong>.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="shield-alert" class="w-5 h-5 text-amber-400 shrink-0 mt-0.5"></i>
+                                    <span>Resist shifting to digital methods.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800">
+                            <span class="inline-block px-3 py-1 bg-slate-800 text-slate-300 text-xs font-extrabold rounded-lg border border-slate-700">Traditional</span>
+                        </div>
+                    </div>
+
+                    <!-- Immigrant Sub 2: Reluctant Adopter -->
+                    <div class="bg-slate-900 border-2 border-fuchsia-500/30 rounded-2xl p-5 shadow-lg hover:border-fuchsia-500/60 transition-all flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-2 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-2xl bg-fuchsia-950/80 border border-fuchsia-800 flex items-center justify-center text-fuchsia-400 shrink-0">
+                                        <i data-lucide="help-circle" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-black uppercase text-fuchsia-400 tracking-wider">Type 2</span>
+                                        <h4 class="text-lg sm:text-xl font-black text-white">Reluctant Adopters</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="space-y-3 text-sm sm:text-base text-slate-300">
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="check" class="w-5 h-5 text-fuchsia-400 shrink-0 mt-0.5"></i>
+                                    <span>Engage minimally and only when strictly necessary.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="search" class="w-5 h-5 text-fuchsia-400 shrink-0 mt-0.5"></i>
+                                    <span>Use search engines <em>if required</em>; buy online <em>only when no offline option exists</em>.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-800">
+                            <span class="inline-block px-3 py-1 bg-fuchsia-950 text-fuchsia-300 text-xs font-extrabold rounded-lg border border-fuchsia-800">Hesitant</span>
+                        </div>
+                    </div>
+
+                    <!-- Immigrant Sub 3: Enthusiastic Adopter -->
+                    <div class="bg-gradient-to-br from-fuchsia-950/90 to-slate-900 border-2 border-fuchsia-400/80 rounded-2xl p-5 shadow-lg flex flex-col justify-between">
+                        <div>
+                            <div class="flex items-start justify-between gap-2 mb-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-12 h-12 rounded-2xl bg-fuchsia-400 text-slate-950 flex items-center justify-center font-black shadow-lg shadow-fuchsia-500/30 shrink-0">
+                                        <i data-lucide="award" class="w-6 h-6"></i>
+                                    </div>
+                                    <div>
+                                        <span class="text-xs font-black uppercase text-fuchsia-300 tracking-wider">High Tech</span>
+                                        <h4 class="text-lg sm:text-xl font-black text-white">Enthusiastic Adopters</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <ul class="space-y-3 text-sm sm:text-base text-slate-200">
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="trending-up" class="w-5 h-5 text-emerald-400 shrink-0 mt-0.5"></i>
+                                    <span>Can comfortably <strong>keep pace with Digital Natives</strong> due to high comfort & capacity.</span>
+                                </li>
+                                <li class="flex items-start gap-2.5">
+                                    <i data-lucide="lightbulb" class="w-5 h-5 text-amber-300 shrink-0 mt-0.5"></i>
+                                    <span>Clearly see the value of tech and have a <strong>natural knack</strong> for learning gadgets.</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-fuchsia-900/50">
+                            <span class="inline-block px-3 py-1 bg-fuchsia-400 text-slate-950 text-xs font-black rounded-lg uppercase tracking-wider">Tech-Savvy</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- SECTION 3: COMPARISON MATRIX TAB -->
+            <div id="view-compare" class="space-y-6 hidden animate-fadeIn">
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+                    <h3 class="text-xl sm:text-2xl font-black text-white mb-2 flex items-center gap-2.5">
+                        <i data-lucide="columns-2" class="w-6 h-6 text-indigo-400"></i>
+                        Side-by-Side User Comparison
+                    </h3>
+                    <p class="text-sm sm:text-base text-slate-300 mb-6 leading-relaxed">
+                        Direct breakdown matching Digital Native profiles against Digital Immigrant profiles by engagement level.
+                    </p>
+
+                    <div class="space-y-5">
+                        <!-- Engagement Level 1 -->
+                        <div class="bg-slate-950 rounded-2xl p-4 sm:p-5 border border-slate-800">
+                            <span class="px-3 py-1 bg-slate-800 text-slate-200 text-xs sm:text-sm font-extrabold rounded-md uppercase tracking-wider block w-max mb-3">
+                                Low / No Interest
+                            </span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm sm:text-base">
+                                <div class="bg-cyan-950/50 p-4 rounded-xl border border-cyan-800/60">
+                                    <strong class="text-cyan-300 block text-base sm:text-lg mb-1 font-bold">Native: Avoider</strong>
+                                    <p class="text-slate-300 leading-relaxed">Mandatory email only for school/work. Absolutely no social media. Disinterested in gadgets.</p>
+                                </div>
+                                <div class="bg-fuchsia-950/50 p-4 rounded-xl border border-fuchsia-800/60">
+                                    <strong class="text-fuchsia-300 block text-base sm:text-lg mb-1 font-bold">Immigrant: Avoider</strong>
+                                    <p class="text-slate-300 leading-relaxed">Prefers landline phones & postal mail. Minimal attachments to tech.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Engagement Level 2 -->
+                        <div class="bg-slate-950 rounded-2xl p-4 sm:p-5 border border-slate-800">
+                            <span class="px-3 py-1 bg-slate-800 text-slate-200 text-xs sm:text-sm font-extrabold rounded-md uppercase tracking-wider block w-max mb-3">
+                                Need-Based Usage
+                            </span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm sm:text-base">
+                                <div class="bg-cyan-950/50 p-4 rounded-xl border border-cyan-800/60">
+                                    <strong class="text-cyan-300 block text-base sm:text-lg mb-1 font-bold">Native: Minimalist</strong>
+                                    <p class="text-slate-300 leading-relaxed">Knows tech is necessary in modern life; engages minimally and only when strictly needed.</p>
+                                </div>
+                                <div class="bg-fuchsia-950/50 p-4 rounded-xl border border-fuchsia-800/60">
+                                    <strong class="text-fuchsia-300 block text-base sm:text-lg mb-1 font-bold">Immigrant: Reluctant Adopter</strong>
+                                    <p class="text-slate-300 leading-relaxed">Cautious & hesitant; uses search engines or online buying only when no offline alternative exists.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Engagement Level 3 -->
+                        <div class="bg-slate-950 rounded-2xl p-4 sm:p-5 border border-slate-800">
+                            <span class="px-3 py-1 bg-amber-500/20 border border-amber-500/40 text-amber-300 text-xs sm:text-sm font-extrabold rounded-md uppercase tracking-wider block w-max mb-3">
+                                High Interest / Thriving
+                            </span>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm sm:text-base">
+                                <div class="bg-cyan-950/50 p-4 rounded-xl border border-cyan-800/60">
+                                    <strong class="text-cyan-300 block text-base sm:text-lg mb-1 font-bold">Native: Enthusiastic Participant</strong>
+                                    <p class="text-slate-300 leading-relaxed">Represents most Digital Natives. Thoroughly enjoys, thrives on, and integrates tech into daily life.</p>
+                                </div>
+                                <div class="bg-fuchsia-950/50 p-4 rounded-xl border border-fuchsia-800/60">
+                                    <strong class="text-fuchsia-300 block text-base sm:text-lg mb-1 font-bold">Immigrant: Enthusiastic Adopter</strong>
+                                    <p class="text-slate-300 leading-relaxed">Comfortably keeps pace with Digital Natives; clearly sees value and has a natural knack for learning gadgets.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SECTION 4: INTERACTIVE QUIZ TAB -->
+            <div id="view-quiz" class="space-y-6 hidden animate-fadeIn">
+                <div class="bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-xl">
+                    <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
+                        <h3 class="text-xl sm:text-2xl font-black text-white flex items-center gap-2.5">
+                            <i data-lucide="help-circle" class="w-6 h-6 text-amber-400"></i>
+                            Self-Test Study Flashcards
+                        </h3>
+                        <span class="text-xs sm:text-sm font-bold text-slate-400 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">Tap cards to check answers</span>
+                    </div>
+                    <p class="text-sm sm:text-base text-slate-300 mb-6 leading-relaxed">
+                        Test your Form 2 Information Technology digital user knowledge!
+                    </p>
+
+                    <div class="space-y-4">
+                        <!-- Flashcard 1 -->
+                        <div onclick="toggleAnswer('q1')" class="bg-slate-950 border-2 border-slate-800 rounded-2xl p-5 cursor-pointer hover:border-indigo-500/60 transition-all shadow-md">
+                            <div class="flex items-start justify-between gap-3">
+                                <span class="text-xs sm:text-sm font-black text-indigo-400 uppercase tracking-wider">Question 1</span>
+                                <i data-lucide="chevron-down" id="arrow-q1" class="w-5 h-5 text-slate-400 transition-transform shrink-0"></i>
+                            </div>
+                            <p class="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                                What single factor determines whether someone is a Digital Native or Digital Immigrant?
+                            </p>
+                            <div id="ans-q1" class="hidden mt-4 pt-4 border-t border-slate-800 text-sm sm:text-base md:text-lg text-emerald-300 font-medium leading-relaxed">
+                                💡 <strong>Answer:</strong> Whether they were born <strong>AFTER</strong> (Native) or <strong>BEFORE</strong> (Immigrant) the widespread adoption of digital technology.
+                            </div>
+                        </div>
+
+                        <!-- Flashcard 2 -->
+                        <div onclick="toggleAnswer('q2')" class="bg-slate-950 border-2 border-slate-800 rounded-2xl p-5 cursor-pointer hover:border-indigo-500/60 transition-all shadow-md">
+                            <div class="flex items-start justify-between gap-3">
+                                <span class="text-xs sm:text-sm font-black text-indigo-400 uppercase tracking-wider">Question 2</span>
+                                <i data-lucide="chevron-down" id="arrow-q2" class="w-5 h-5 text-slate-400 transition-transform shrink-0"></i>
+                            </div>
+                            <p class="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                                How does a Native Avoider differ from a Native Minimalist on social media?
+                            </p>
+                            <div id="ans-q2" class="hidden mt-4 pt-4 border-t border-slate-800 text-sm sm:text-base md:text-lg text-emerald-300 font-medium leading-relaxed">
+                                💡 <strong>Answer:</strong> Native Avoiders do <strong>NOT use social media at all</strong> and have no interest in tech. Minimalists acknowledge tech is necessary in today's world and use it when strictly required.
+                            </div>
+                        </div>
+
+                        <!-- Flashcard 3 -->
+                        <div onclick="toggleAnswer('q3')" class="bg-slate-950 border-2 border-slate-800 rounded-2xl p-5 cursor-pointer hover:border-indigo-500/60 transition-all shadow-md">
+                            <div class="flex items-start justify-between gap-3">
+                                <span class="text-xs sm:text-sm font-black text-indigo-400 uppercase tracking-wider">Question 3</span>
+                                <i data-lucide="chevron-down" id="arrow-q3" class="w-5 h-5 text-slate-400 transition-transform shrink-0"></i>
+                            </div>
+                            <p class="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                                Which category of Digital Immigrant can comfortably keep pace with Digital Natives?
+                            </p>
+                            <div id="ans-q3" class="hidden mt-4 pt-4 border-t border-slate-800 text-sm sm:text-base md:text-lg text-emerald-300 font-medium leading-relaxed">
+                                💡 <strong>Answer:</strong> <strong>Enthusiastic Adopters</strong> (they see technology's value and have a natural knack for learning gadgets).
+                            </div>
+                        </div>
+
+                        <!-- Flashcard 4 -->
+                        <div onclick="toggleAnswer('q4')" class="bg-slate-950 border-2 border-slate-800 rounded-2xl p-5 cursor-pointer hover:border-indigo-500/60 transition-all shadow-md">
+                            <div class="flex items-start justify-between gap-3">
+                                <span class="text-xs sm:text-sm font-black text-indigo-400 uppercase tracking-wider">Question 4</span>
+                                <i data-lucide="chevron-down" id="arrow-q4" class="w-5 h-5 text-slate-400 transition-transform shrink-0"></i>
+                            </div>
+                            <p class="text-base sm:text-lg font-bold text-white mt-2 leading-snug">
+                                Name two traditional communication methods preferred by Immigrant Avoiders.
+                            </p>
+                            <div id="ans-q4" class="hidden mt-4 pt-4 border-t border-slate-800 text-sm sm:text-base md:text-lg text-emerald-300 font-medium leading-relaxed">
+                                💡 <strong>Answer:</strong> <strong>Landline phones</strong> and <strong>postal mail</strong>.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </main>
+
+        <!-- Footer Note -->
+        <footer class="p-6 text-center border-t border-slate-800/80 bg-slate-950/90 text-xs sm:text-sm text-slate-400 font-semibold">
+            Form 2 Information Technology • Digital Citizenship Interactive Guide
+        </footer>
+
+    </div>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        function switchTab(tabId) {
+            // Hide all view panels
+            document.getElementById('view-natives').classList.add('hidden');
+            document.getElementById('view-immigrants').classList.add('hidden');
+            document.getElementById('view-compare').classList.add('hidden');
+            document.getElementById('view-quiz').classList.add('hidden');
+
+            // Reset tab styles
+            const tabs = ['natives', 'immigrants', 'compare', 'quiz'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                btn.className = "py-3 px-3 rounded-xl transition-all flex items-center justify-center gap-2 text-slate-400 hover:text-slate-200 font-bold";
+            });
+
+            // Show selected view panel & highlight active tab button
+            document.getElementById(`view-${tabId}`).classList.remove('hidden');
+            const activeBtn = document.getElementById(`tab-${tabId}`);
+
+            if (tabId === 'natives') {
+                activeBtn.className = "py-3 px-3 rounded-xl transition-all flex items-center justify-center gap-2 text-cyan-400 bg-slate-800 shadow-md font-bold";
+            } else if (tabId === 'immigrants') {
+                activeBtn.className = "py-3 px-3 rounded-xl transition-all flex items-center justify-center gap-2 text-fuchsia-400 bg-slate-800 shadow-md font-bold";
+            } else if (tabId === 'compare') {
+                activeBtn.className = "py-3 px-3 rounded-xl transition-all flex items-center justify-center gap-2 text-indigo-400 bg-slate-800 shadow-md font-bold";
+            } else if (tabId === 'quiz') {
+                activeBtn.className = "py-3 px-3 rounded-xl transition-all flex items-center justify-center gap-2 text-amber-400 bg-slate-800 shadow-md font-bold";
+            }
+        }
+
+        function toggleAnswer(id) {
+            const ans = document.getElementById(`ans-${id}`);
+            const arrow = document.getElementById(`arrow-${id}`);
+            if (ans.classList.contains('hidden')) {
+                ans.classList.remove('hidden');
+                arrow.classList.add('rotate-180');
+            } else {
+                ans.classList.add('hidden');
+                arrow.classList.remove('rotate-180');
+            }
+        }
+    </script>
+</body>
+</html>

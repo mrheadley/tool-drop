@@ -1,0 +1,1483 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Elements of Design | Interactive Infographic Hub</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,600;0,800;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        violet: {
+                            50: '#f5f3ff',
+                            100: '#ede9fe',
+                            600: '#7c3aed',
+                            700: '#6d28d9',
+                            800: '#5b21b6',
+                            900: '#4c1d95',
+                            950: '#2e1065',
+                        },
+                        amber: {
+                            400: '#fbbf24',
+                            50: '#fffbeb',
+                            500: '#f59e0b',
+                            600: '#d97706',
+                        },
+                        darkbg: '#0F0E17',
+                        cardbg: '#1A1825',
+                        cardborder: '#2E2B44'
+                    },
+                    fontFamily: {
+                        heading: ['Syne', 'sans-serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0F0E17;
+            color: #FFFFFE;
+        }
+        .font-heading {
+            font-family: 'Syne', sans-serif;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0F0E17;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4C1D95;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #F59E0B;
+        }
+        .glass-card {
+            background: rgba(26, 24, 37, 0.85);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(124, 58, 237, 0.25);
+        }
+        .accent-gradient-text {
+            background: linear-gradient(135deg, #FBBF24 0%, #F59E0B 50%, #A855F7 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .accent-gradient-bg {
+            background: linear-gradient(135deg, #7C3AED 0%, #4C1D95 100%);
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background: #ffffff !important;
+                color: #000000 !important;
+            }
+            .glass-card {
+                background: #ffffff !important;
+                border: 1px solid #ccc !important;
+                color: #000 !important;
+                box-shadow: none !important;
+            }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber-500 selection:text-slate-900 min-h-screen flex flex-col">
+
+    <!-- Sticky Top Navigation -->
+    <header class="sticky top-0 z-50 glass-card border-b border-violet-900/40 px-4 lg:px-8 py-3 no-print">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-violet-600 to-amber-500 flex items-center justify-center font-heading text-slate-950 font-extrabold text-xl shadow-lg shadow-amber-500/20">
+                    EoD
+                </div>
+                <div>
+                    <h1 class="font-heading font-bold text-lg leading-tight tracking-wide text-white">THE DESIGN LAB</h1>
+                    <p class="text-xs text-amber-400 font-medium">Elements of Design • Interactive Visual Guide</p>
+                </div>
+            </div>
+
+            <!-- Quick Nav Jump Bar -->
+            <nav class="hidden md:flex items-center space-x-1 lg:space-x-2 text-xs font-semibold">
+                <a href="#line" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-violet-900/30 transition">1. Line</a>
+                <a href="#shape" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-violet-900/30 transition">2. Shape</a>
+                <a href="#form" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-violet-900/30 transition">3. Form</a>
+                <a href="#color" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-violet-900/30 transition">4. Color</a>
+                <a href="#value" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-violet-900/30 transition">5. Value</a>
+                <a href="#texture" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-violet-900/30 transition">6. Texture</a>
+                <a href="#space" class="px-2.5 py-1.5 rounded-lg text-slate-300 hover:text-amber-400 hover:bg-violet-900/30 transition">7. Space</a>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <!-- Score Counter Badge -->
+                <div class="bg-violet-950/80 border border-violet-700/50 px-3 py-1.5 rounded-full flex items-center gap-2 text-xs font-bold text-amber-400">
+                    <i class="fa-solid fa-trophy text-amber-400"></i>
+                    <span>Score: <span id="overall-score">0</span> / 14</span>
+                </div>
+                <button onclick="window.print()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-3 py-1.5 rounded-lg text-xs flex items-center gap-1.5 transition shadow-lg shadow-amber-500/20">
+                    <i class="fa-solid fa-download"></i>
+                    <span class="hidden sm:inline">Export PDF</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow max-w-7xl w-full mx-auto px-4 lg:px-8 py-8 space-y-16">
+        
+        <!-- Hero Section -->
+        <section class="relative rounded-3xl overflow-hidden p-8 md:p-12 border border-violet-800/40 bg-gradient-to-br from-violet-950 via-slate-900 to-slate-950 shadow-2xl">
+            <!-- Background Decorative Glows -->
+            <div class="absolute -top-24 -left-24 w-96 h-96 bg-violet-600/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+            <div class="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <div class="lg:col-span-8 space-y-4">
+                    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-wider">
+                        <i class="fa-solid fa-bolt"></i> Visual Arts & Graphic Design Masterclass
+                    </div>
+                    <h1 class="font-heading text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                        MASTER THE <span class="accent-gradient-text">ELEMENTS</span> OF DESIGN
+                    </h1>
+                    <p class="text-slate-300 text-base sm:text-lg max-w-2xl leading-relaxed">
+                        The 7 building blocks of all visual art, graphics, and UI design. Explore each element interactively, test your mastery with check-for-understanding quizzes, and build your creative intuition!
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-4 text-xs font-semibold text-slate-300">
+                        <span class="flex items-center gap-1.5 bg-violet-900/40 px-3 py-1.5 rounded-lg border border-violet-700/30"><i class="fa-solid fa-palette text-amber-400"></i> Complementary Palette Scheme</span>
+                        <span class="flex items-center gap-1.5 bg-violet-900/40 px-3 py-1.5 rounded-lg border border-violet-700/30"><i class="fa-solid fa-sliders text-amber-400"></i> Live Interactive Controls</span>
+                        <span class="flex items-center gap-1.5 bg-violet-900/40 px-3 py-1.5 rounded-lg border border-violet-700/30"><i class="fa-solid fa-clipboard-question text-amber-400"></i> 14 Mastery Questions</span>
+                    </div>
+                </div>
+                
+                <!-- Quick Navigation Grid Card -->
+                <div class="lg:col-span-4 bg-slate-900/90 border border-violet-700/40 rounded-2xl p-5 shadow-xl">
+                    <h2 class="font-heading font-bold text-amber-400 text-sm mb-3 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-compass"></i> Interactive Roadmap
+                    </h2>
+                    <div class="grid grid-cols-2 gap-2 text-xs">
+                        <a href="#line" class="p-2.5 rounded-xl bg-violet-950/60 hover:bg-amber-500 hover:text-slate-950 text-slate-200 transition font-semibold flex items-center gap-2 border border-violet-800/40">
+                            <i class="fa-solid fa-slash text-amber-400"></i> 1. Line
+                        </a>
+                        <a href="#shape" class="p-2.5 rounded-xl bg-violet-950/60 hover:bg-amber-500 hover:text-slate-950 text-slate-200 transition font-semibold flex items-center gap-2 border border-violet-800/40">
+                            <i class="fa-solid fa-shapes text-amber-400"></i> 2. Shape
+                        </a>
+                        <a href="#form" class="p-2.5 rounded-xl bg-violet-950/60 hover:bg-amber-500 hover:text-slate-950 text-slate-200 transition font-semibold flex items-center gap-2 border border-violet-800/40">
+                            <i class="fa-solid fa-cube text-amber-400"></i> 3. Form
+                        </a>
+                        <a href="#color" class="p-2.5 rounded-xl bg-violet-950/60 hover:bg-amber-500 hover:text-slate-950 text-slate-200 transition font-semibold flex items-center gap-2 border border-violet-800/40">
+                            <i class="fa-solid fa-droplet text-amber-400"></i> 4. Color
+                        </a>
+                        <a href="#value" class="p-2.5 rounded-xl bg-violet-950/60 hover:bg-amber-500 hover:text-slate-950 text-slate-200 transition font-semibold flex items-center gap-2 border border-violet-800/40">
+                            <i class="fa-solid fa-circle-half-stroke text-amber-400"></i> 5. Value
+                        </a>
+                        <a href="#texture" class="p-2.5 rounded-xl bg-violet-950/60 hover:bg-amber-500 hover:text-slate-950 text-slate-200 transition font-semibold flex items-center gap-2 border border-violet-800/40">
+                            <i class="fa-solid fa-hand text-amber-400"></i> 6. Texture
+                        </a>
+                        <a href="#space" class="p-2.5 rounded-xl bg-violet-950/60 hover:bg-amber-500 hover:text-slate-950 text-slate-200 transition font-semibold flex items-center gap-2 border border-violet-800/40 col-span-2">
+                            <i class="fa-solid fa-vector-square text-amber-400"></i> 7. Space & Perspective
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: LINE -->
+        <section id="line" class="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl space-y-8 scroll-mt-20">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-violet-800/30 pb-4 gap-4">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-heading font-extrabold text-2xl shadow-md">
+                        01
+                    </span>
+                    <div>
+                        <h2 class="font-heading text-3xl font-extrabold text-white">LINE</h2>
+                        <p class="text-sm text-amber-400">The Path of a Moving Point</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Direction</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Weight</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Emotion</span>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Theory Column -->
+                <div class="lg:col-span-6 space-y-4 text-slate-300 text-sm leading-relaxed">
+                    <p>
+                        A <strong class="text-white font-semibold">Line</strong> is the most fundamental element of design. It is a mark made by a tool (pencil, brush, vector node) moving across a space. Lines define boundaries, guide the viewer's eye, create structure, and convey distinct psychological moods.
+                    </p>
+                    <div class="grid grid-cols-2 gap-3 pt-2">
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <h4 class="font-bold text-amber-400 text-xs uppercase mb-1"><i class="fa-solid fa-arrows-left-right"></i> Horizontal Lines</h4>
+                            <p class="text-xs">Convey calm, stability, rest, and tranquility (like the horizon).</p>
+                        </div>
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <h4 class="font-bold text-amber-400 text-xs uppercase mb-1"><i class="fa-solid fa-arrows-up-down"></i> Vertical Lines</h4>
+                            <p class="text-xs">Communicate power, strength, height, and formality.</p>
+                        </div>
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <h4 class="font-bold text-amber-400 text-xs uppercase mb-1"><i class="fa-solid fa-bolt"></i> Diagonal Lines</h4>
+                            <p class="text-xs">Express movement, action, tension, and dynamic energy.</p>
+                        </div>
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <h4 class="font-bold text-amber-400 text-xs uppercase mb-1"><i class="fa-solid fa-wave-square"></i> Curved Lines</h4>
+                            <p class="text-xs">Suggest softness, elegance, organic rhythm, and grace.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Visual Graphic Canvas -->
+                <div class="lg:col-span-6 bg-slate-950/80 rounded-2xl p-4 border border-violet-800/40 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-sliders"></i> Line Dynamics Simulator
+                        </span>
+                        <span class="text-xs text-slate-400" id="line-style-label">Curved Harmonic</span>
+                    </div>
+
+                    <canvas id="lineCanvas" class="w-full h-48 bg-slate-900 rounded-xl border border-violet-900/50 cursor-pointer"></canvas>
+
+                    <!-- Controls -->
+                    <div class="mt-4 grid grid-cols-3 gap-2 text-xs">
+                        <button onclick="setLineMode('harmonic')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition text-center">
+                            Curved Harmonic
+                        </button>
+                        <button onclick="setLineMode('zigzag')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition text-center">
+                            Diagonal Tension
+                        </button>
+                        <button onclick="setLineMode('contour')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition text-center">
+                            Cross-Contour Weight
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section (2 Questions) -->
+            <div class="bg-violet-950/30 rounded-2xl p-6 border border-amber-500/20 space-y-6">
+                <h3 class="font-heading font-bold text-lg text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question"></i> Check For Understanding: Section 1 (Line)
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Q1 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q1-box">
+                        <p class="text-sm font-semibold text-slate-100">1. If a poster designer wants to convey high energy, urgency, and fast motion, which type of line is most effective?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q1', 'B', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) Thick horizontal lines across the baseline
+                            </button>
+                            <button onclick="checkAnswer('q1', 'B', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) Sharp diagonal lines angled across the composition
+                            </button>
+                            <button onclick="checkAnswer('q1', 'C', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) Symmetrical vertical grid lines
+                            </button>
+                        </div>
+                        <div id="q1-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q2 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q2-box">
+                        <p class="text-sm font-semibold text-slate-100">2. What is an "implied line" in visual composition?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q2', 'A', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) A line created by a row of dots or the direction a character is looking
+                            </button>
+                            <button onclick="checkAnswer('q2', 'B', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) A continuous outline drawn with a dark marker
+                            </button>
+                            <button onclick="checkAnswer('q2', 'C', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) A 3D wireframe mesh used in modeling
+                            </button>
+                        </div>
+                        <div id="q2-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: SHAPE -->
+        <section id="shape" class="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl space-y-8 scroll-mt-20">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-violet-800/30 pb-4 gap-4">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-heading font-extrabold text-2xl shadow-md">
+                        02
+                    </span>
+                    <div>
+                        <h2 class="font-heading text-3xl font-extrabold text-white">SHAPE</h2>
+                        <p class="text-sm text-amber-400">Two-Dimensional Enclosed Boundaries</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Geometric</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Organic</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Abstract</span>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Theory Column -->
+                <div class="lg:col-span-6 space-y-4 text-slate-300 text-sm leading-relaxed">
+                    <p>
+                        A <strong class="text-white font-semibold">Shape</strong> is a two-dimensional flat area defined by lines, color boundaries, or surrounding values. Shapes have width and height, but no depth.
+                    </p>
+                    <div class="space-y-3 pt-1">
+                        <div class="p-3.5 bg-violet-950/40 rounded-xl border border-violet-800/40 flex gap-3 items-start">
+                            <div class="p-2 rounded-lg bg-amber-500/20 text-amber-400 font-bold"><i class="fa-solid fa-square"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white text-xs uppercase">Geometric Shapes</h4>
+                                <p class="text-xs text-slate-300">Precise, mathematical shapes like circles, squares, and triangles. They suggest order, logic, structure, and artificial technology.</p>
+                            </div>
+                        </div>
+                        <div class="p-3.5 bg-violet-950/40 rounded-xl border border-violet-800/40 flex gap-3 items-start">
+                            <div class="p-2 rounded-lg bg-violet-600/30 text-violet-300 font-bold"><i class="fa-solid fa-leaf"></i></div>
+                            <div>
+                                <h4 class="font-bold text-white text-xs uppercase">Organic (Freeform) Shapes</h4>
+                                <p class="text-xs text-slate-300">Irregular, asymmetrical shapes found in nature (clouds, leaves, puddles, human silhouettes). They convey flexibility and natural flow.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Visual Shape Morph Visualizer -->
+                <div class="lg:col-span-6 bg-slate-950/80 rounded-2xl p-4 border border-violet-800/40 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-draw-polygon"></i> Shape Classification Studio
+                        </span>
+                        <span class="text-xs text-slate-400" id="shape-type-display">Geometric Grid</span>
+                    </div>
+
+                    <div class="w-full h-48 bg-slate-900 rounded-xl border border-violet-900/50 flex items-center justify-center p-4 relative overflow-hidden" id="shapeDisplayContainer">
+                        <!-- SVG Shape Interactive Rendering -->
+                        <svg id="shapeSvg" class="w-full h-full" viewBox="0 0 400 200">
+                            <!-- Populated dynamically via JS -->
+                        </svg>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-3 gap-2 text-xs">
+                        <button onclick="renderShapeType('geometric')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Geometric
+                        </button>
+                        <button onclick="renderShapeType('organic')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Organic
+                        </button>
+                        <button onclick="renderShapeType('abstract')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Abstract Hybrid
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section (2 Questions) -->
+            <div class="bg-violet-950/30 rounded-2xl p-6 border border-amber-500/20 space-y-6">
+                <h3 class="font-heading font-bold text-lg text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question"></i> Check For Understanding: Section 2 (Shape)
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Q3 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q3-box">
+                        <p class="text-sm font-semibold text-slate-100">3. A tech branding studio creates a logo using sharp triangles and perfect circles. Which category of shape are they utilizing?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q3', 'A', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) Geometric Shapes
+                            </button>
+                            <button onclick="checkAnswer('q3', 'B', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) Organic Shapes
+                            </button>
+                            <button onclick="checkAnswer('q3', 'C', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) Tactile Textures
+                            </button>
+                        </div>
+                        <div id="q3-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q4 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q4-box">
+                        <p class="text-sm font-semibold text-slate-100">4. How does a 2D Shape differ fundamentally from a 3D Form?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q4', 'A', 'C')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) Shapes have volume and shadow, while Forms do not
+                            </button>
+                            <button onclick="checkAnswer('q4', 'B', 'C')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) Shapes are only rendered in black and white
+                            </button>
+                            <button onclick="checkAnswer('q4', 'C', 'C')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) Shapes have height and width only (flat), whereas Form incorporates 3D depth
+                            </button>
+                        </div>
+                        <div id="q4-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: FORM -->
+        <section id="form" class="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl space-y-8 scroll-mt-20">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-violet-800/30 pb-4 gap-4">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-heading font-extrabold text-2xl shadow-md">
+                        03
+                    </span>
+                    <div>
+                        <h2 class="font-heading text-3xl font-extrabold text-white">FORM</h2>
+                        <p class="text-sm text-amber-400">Three-Dimensional Depth and Volume</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Depth</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Light & Shadow</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Volume</span>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Theory Column -->
+                <div class="lg:col-span-6 space-y-4 text-slate-300 text-sm leading-relaxed">
+                    <p>
+                        <strong class="text-white font-semibold">Form</strong> describes three-dimensional objects with height, width, and depth. In 2D digital art and graphic design, artists create the illusion of form using light source highlights, midtones, core shadows, and cast shadows.
+                    </p>
+                    <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <span class="text-amber-400 font-bold block mb-1">Highlight</span>
+                            Where the light source directly strikes the object's surface at full intensity.
+                        </div>
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <span class="text-amber-400 font-bold block mb-1">Midtone</span>
+                            The true natural color of the object, transitioning away from direct light.
+                        </div>
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <span class="text-amber-400 font-bold block mb-1">Core Shadow</span>
+                            The darkest area on the object where light cannot reach.
+                        </div>
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <span class="text-amber-400 font-bold block mb-1">Cast Shadow</span>
+                            The shadow thrown onto the surrounding surface by the object blocking light.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive 3D Form Light Source Slider -->
+                <div class="lg:col-span-6 bg-slate-950/80 rounded-2xl p-4 border border-violet-800/40 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-2">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-sun"></i> Interactive 3D Light Source Studio
+                        </span>
+                        <span class="text-xs text-slate-400" id="light-angle-val">Light Angle: 45°</span>
+                    </div>
+
+                    <!-- 3D Sphere Shading Canvas -->
+                    <div class="w-full h-48 bg-slate-900 rounded-xl border border-violet-900/50 flex items-center justify-center relative overflow-hidden">
+                        <canvas id="formCanvas" class="w-full h-full"></canvas>
+                    </div>
+
+                    <div class="mt-4 space-y-2">
+                        <div class="flex items-center justify-between text-xs text-slate-300">
+                            <span>Rotate Light Source:</span>
+                            <span class="text-amber-400 font-bold" id="angle-readout">45 deg</span>
+                        </div>
+                        <input type="range" id="lightSlider" min="0" max="360" value="45" class="w-full accent-amber-500 bg-violet-950 rounded-lg cursor-pointer">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section (2 Questions) -->
+            <div class="bg-violet-950/30 rounded-2xl p-6 border border-amber-500/20 space-y-6">
+                <h3 class="font-heading font-bold text-lg text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question"></i> Check For Understanding: Section 3 (Form)
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Q5 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q5-box">
+                        <p class="text-sm font-semibold text-slate-100">5. Which visual technique is required to convert a flat 2D circle into a realistic 3D sphere on a canvas?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q5', 'A', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) Adding a dashed outline around the perimeter
+                            </button>
+                            <button onclick="checkAnswer('q5', 'B', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) Graduated shading featuring highlights, midtones, core shadow, and a cast shadow
+                            </button>
+                            <button onclick="checkAnswer('q5', 'C', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) Increasing the canvas resolution only
+                            </button>
+                        </div>
+                        <div id="q5-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q6 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q6-box">
+                        <p class="text-sm font-semibold text-slate-100">6. What is the difference between a core shadow and a cast shadow?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q6', 'A', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) Core shadow rests directly on the object; cast shadow is projected onto adjacent surfaces
+                            </button>
+                            <button onclick="checkAnswer('q6', 'B', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) Core shadow is bright yellow; cast shadow is pure cyan
+                            </button>
+                            <button onclick="checkAnswer('q6', 'C', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) Cast shadow occurs only under natural sunlight
+                            </button>
+                        </div>
+                        <div id="q6-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: COLOR -->
+        <section id="color" class="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl space-y-8 scroll-mt-20">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-violet-800/30 pb-4 gap-4">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-heading font-extrabold text-2xl shadow-md">
+                        04
+                    </span>
+                    <div>
+                        <h2 class="font-heading text-3xl font-extrabold text-white">COLOR</h2>
+                        <p class="text-sm text-amber-400">Hue, Saturation, Value & Harmonies</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Complementary</span>
+                    <span class="px-3 py-1 rounded-full bg-amber-500/20 text-xs text-amber-400 border border-amber-500/30">Violet & Amber</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Psychology</span>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Theory Column -->
+                <div class="lg:col-span-6 space-y-4 text-slate-300 text-sm leading-relaxed">
+                    <p>
+                        <strong class="text-white font-semibold">Color</strong> is produced when light striking an object is reflected back to the eye. It is characterized by three core properties: <span class="text-amber-400 font-semibold">Hue</span> (color name like Violet or Amber), <span class="text-amber-400 font-semibold">Chroma/Saturation</span> (intensity/purity), and <span class="text-amber-400 font-semibold">Value</span> (lightness vs darkness).
+                    </p>
+                    <div class="p-4 bg-violet-950/60 rounded-xl border border-violet-700/40 space-y-2">
+                        <h4 class="font-bold text-amber-400 text-xs uppercase flex items-center gap-2">
+                            <i class="fa-solid fa-palette"></i> Complementary Scheme Highlight (Violet + Amber)
+                        </h4>
+                        <p class="text-xs text-slate-300">
+                            Colors directly opposite each other on the color wheel (such as Electric Violet <span class="inline-block w-3 h-3 rounded-full bg-violet-600 align-middle"></span> and Warm Amber <span class="inline-block w-3 h-3 rounded-full bg-amber-500 align-middle"></span>) create maximum dynamic contrast, vibrant energy, and high visual legibility.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Interactive Color Harmony Generator -->
+                <div class="lg:col-span-6 bg-slate-950/80 rounded-2xl p-4 border border-violet-800/40 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-circle-dot"></i> Interactive Color Harmony Wheel
+                        </span>
+                        <span class="text-xs text-slate-400" id="harmony-mode-title">Complementary Pair</span>
+                    </div>
+
+                    <div class="w-full h-48 bg-slate-900 rounded-xl border border-violet-900/50 flex items-center justify-center p-4">
+                        <canvas id="colorWheelCanvas" class="w-40 h-40"></canvas>
+                        <div id="paletteSwatches" class="ml-4 flex flex-col gap-2">
+                            <!-- Populated dynamically via JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-3 gap-2 text-xs">
+                        <button onclick="setColorHarmony('complementary')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Complementary
+                        </button>
+                        <button onclick="setColorHarmony('analogous')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Analogous
+                        </button>
+                        <button onclick="setColorHarmony('triadic')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Triadic
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section (2 Questions) -->
+            <div class="bg-violet-950/30 rounded-2xl p-6 border border-amber-500/20 space-y-6">
+                <h3 class="font-heading font-bold text-lg text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question"></i> Check For Understanding: Section 4 (Color)
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Q7 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q7-box">
+                        <p class="text-sm font-semibold text-slate-100">7. Which color pair represents a complementary scheme that creates maximum visual contrast?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q7', 'A', 'C')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) Blue and Cyan
+                            </button>
+                            <button onclick="checkAnswer('q7', 'B', 'C')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) Violet and Magenta
+                            </button>
+                            <button onclick="checkAnswer('q7', 'C', 'C')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) Deep Violet and Warm Amber/Yellow
+                            </button>
+                        </div>
+                        <div id="q7-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q8 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q8-box">
+                        <p class="text-sm font-semibold text-slate-100">8. What property of color describes its purity or intensity (how vivid vs dull it appears)?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q8', 'A', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) Hue
+                            </button>
+                            <button onclick="checkAnswer('q8', 'B', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) Saturation (Chroma)
+                            </button>
+                            <button onclick="checkAnswer('q8', 'C', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) Perspective scale
+                            </button>
+                        </div>
+                        <div id="q8-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: VALUE -->
+        <section id="value" class="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl space-y-8 scroll-mt-20">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-violet-800/30 pb-4 gap-4">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-heading font-extrabold text-2xl shadow-md">
+                        05
+                    </span>
+                    <div>
+                        <h2 class="font-heading text-3xl font-extrabold text-white">VALUE</h2>
+                        <p class="text-sm text-amber-400">Lightness or Darkness of a Tone</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Grayscale</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">High-Key</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Low-Key</span>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Theory Column -->
+                <div class="lg:col-span-6 space-y-4 text-slate-300 text-sm leading-relaxed">
+                    <p>
+                        <strong class="text-white font-semibold">Value</strong> refers to the relative lightness or darkness of a color or tone, spanning from pure white (100% light) to pure black (0% light). High contrast (extreme value differences) creates focus and dramatic emphasis, while low contrast feels subtle and serene.
+                    </p>
+                    <div class="space-y-2 pt-2">
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40 flex justify-between items-center text-xs">
+                            <span><strong>High-Key Artwork:</strong> Dominated by light values (tints)</span>
+                            <span class="px-2 py-0.5 rounded bg-slate-200 text-slate-950 font-bold">Bright</span>
+                        </div>
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40 flex justify-between items-center text-xs">
+                            <span><strong>Low-Key Artwork:</strong> Dominated by dark values (shades)</span>
+                            <span class="px-2 py-0.5 rounded bg-slate-950 text-amber-400 font-bold border border-violet-700">Moody</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive 9-Step Value Scale Studio -->
+                <div class="lg:col-span-6 bg-slate-950/80 rounded-2xl p-4 border border-violet-800/40 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-border-all"></i> 9-Step Value Scale & Focal Contrast
+                        </span>
+                        <span class="text-xs text-slate-400">Click steps to test contrast</span>
+                    </div>
+
+                    <div class="w-full space-y-3">
+                        <div class="grid grid-cols-9 gap-1 h-16 rounded-xl overflow-hidden border border-violet-900/50" id="valueScaleBar">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                        <div class="p-4 bg-slate-900 rounded-xl border border-violet-900/50 text-center">
+                            <p class="text-xs text-slate-400 mb-2">Simulated Text Readability on Chosen Tone:</p>
+                            <div id="valuePreviewBox" class="p-3 rounded-lg font-bold text-sm transition">
+                                Sample UI Design Text Contrast Check
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section (2 Questions) -->
+            <div class="bg-violet-950/30 rounded-2xl p-6 border border-amber-500/20 space-y-6">
+                <h3 class="font-heading font-bold text-lg text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question"></i> Check For Understanding: Section 5 (Value)
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Q9 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q9-box">
+                        <p class="text-sm font-semibold text-slate-100">9. What happens to visual emphasis when you place a bright white element on a pitch-black background?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q9', 'A', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) It creates maximum value contrast, drawing immediate visual attention
+                            </button>
+                            <button onclick="checkAnswer('q9', 'B', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) It flattens the shape into a 3D sphere
+                            </button>
+                            <button onclick="checkAnswer('q9', 'C', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) It reduces legibility completely
+                            </button>
+                        </div>
+                        <div id="q9-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q10 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q10-box">
+                        <p class="text-sm font-semibold text-slate-100">10. Adding black to a pure color creates a ________, while adding white creates a ________.</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q10', 'A', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) Tint; Shade
+                            </button>
+                            <button onclick="checkAnswer('q10', 'B', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) Shade; Tint
+                            </button>
+                            <button onclick="checkAnswer('q10', 'C', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) Hue; Saturation
+                            </button>
+                        </div>
+                        <div id="q10-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 6: TEXTURE -->
+        <section id="texture" class="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl space-y-8 scroll-mt-20">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-violet-800/30 pb-4 gap-4">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-heading font-extrabold text-2xl shadow-md">
+                        06
+                    </span>
+                    <div>
+                        <h2 class="font-heading text-3xl font-extrabold text-white">TEXTURE</h2>
+                        <p class="text-sm text-amber-400">Tactile & Implied Surface Quality</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Tactile</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Visual (Implied)</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Pattern</span>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Theory Column -->
+                <div class="lg:col-span-6 space-y-4 text-slate-300 text-sm leading-relaxed">
+                    <p>
+                        <strong class="text-white font-semibold">Texture</strong> refers to the surface quality of an artwork or design—how something feels to the touch (physical/tactile) or how it looks like it would feel (visual/implied).
+                    </p>
+                    <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <span class="text-amber-400 font-bold block mb-1">Physical / Tactile</span>
+                            Actual 3D textures you can physically touch (embossed foil paper, thick impasto oil paint, carved wood).
+                        </div>
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <span class="text-amber-400 font-bold block mb-1">Visual / Implied</span>
+                            The 2D illusion of texture created digitally through repeating patterns, noise, grain, and micro-shading.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Visual Texture Switcher -->
+                <div class="lg:col-span-6 bg-slate-950/80 rounded-2xl p-4 border border-violet-800/40 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-fingerprint"></i> Implied Texture Engine
+                        </span>
+                        <span class="text-xs text-slate-400" id="texture-mode-label">Halftone Dot Grid</span>
+                    </div>
+
+                    <div class="w-full h-48 bg-slate-900 rounded-xl border border-violet-900/50 flex items-center justify-center p-4 relative overflow-hidden" id="textureBox">
+                        <!-- Canvas texture populated via JS -->
+                        <canvas id="textureCanvas" class="w-full h-full rounded-lg"></canvas>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-3 gap-2 text-xs">
+                        <button onclick="setTextureMode('halftone')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Halftone Dot
+                        </button>
+                        <button onclick="setTextureMode('grain')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Film Grain
+                        </button>
+                        <button onclick="setTextureMode('grid')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Digital Grid
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section (2 Questions) -->
+            <div class="bg-violet-950/30 rounded-2xl p-6 border border-amber-500/20 space-y-6">
+                <h3 class="font-heading font-bold text-lg text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question"></i> Check For Understanding: Section 6 (Texture)
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Q11 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q11-box">
+                        <p class="text-sm font-semibold text-slate-100">11. On a flat glass smartphone screen, a digital UI button rendered with a realistic leather pattern is an example of what?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q11', 'A', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) Physical tactile texture
+                            </button>
+                            <button onclick="checkAnswer('q11', 'B', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) Implied (visual) texture
+                            </button>
+                            <button onclick="checkAnswer('q11', 'C', 'B')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) 3D perspective geometry
+                            </button>
+                        </div>
+                        <div id="q11-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q12 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q12-box">
+                        <p class="text-sm font-semibold text-slate-100">12. Why do UI designers add subtle noise grain or texture to modern web interfaces?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q12', 'A', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) To add depth, tactile realism, and visual interest to flat surfaces
+                            </button>
+                            <button onclick="checkAnswer('q12', 'B', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) To obscure readability deliberately
+                            </button>
+                            <button onclick="checkAnswer('q12', 'C', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) To eliminate all color contrast
+                            </button>
+                        </div>
+                        <div id="q12-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 7: SPACE -->
+        <section id="space" class="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 shadow-xl space-y-8 scroll-mt-20">
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-violet-800/30 pb-4 gap-4">
+                <div class="flex items-center gap-4">
+                    <span class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center text-slate-950 font-heading font-extrabold text-2xl shadow-md">
+                        07
+                    </span>
+                    <div>
+                        <h2 class="font-heading text-3xl font-extrabold text-white">SPACE</h2>
+                        <p class="text-sm text-amber-400">Positive/Negative Space & Spatial Illusion</p>
+                    </div>
+                </div>
+                <div class="flex gap-2">
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Positive Space</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Negative Space</span>
+                    <span class="px-3 py-1 rounded-full bg-violet-900/40 text-xs text-violet-300 border border-violet-700/50">Perspective</span>
+                </div>
+            </div>
+
+            <!-- Content Grid -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+                <!-- Theory Column -->
+                <div class="lg:col-span-6 space-y-4 text-slate-300 text-sm leading-relaxed">
+                    <p>
+                        <strong class="text-white font-semibold">Space</strong> refers to the area around, between, or within components of a piece. It can be 2D (flat composition) or 3D (illusion of depth via perspective, overlapping, and size scaling).
+                    </p>
+                    <div class="grid grid-cols-2 gap-3 pt-2 text-xs">
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <span class="text-amber-400 font-bold block mb-1">Positive Space</span>
+                            The primary subject or main graphical focal point in the composition.
+                        </div>
+                        <div class="p-3 bg-violet-950/40 rounded-xl border border-violet-800/40">
+                            <span class="text-amber-400 font-bold block mb-1">Negative Space (White Space)</span>
+                            The empty area surrounding the focal point. Crucial for breathing room and visual clarity.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interactive Space Illusion Canvas -->
+                <div class="lg:col-span-6 bg-slate-950/80 rounded-2xl p-4 border border-violet-800/40 flex flex-col justify-between">
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="text-xs font-bold text-amber-400 uppercase tracking-wider flex items-center gap-1.5">
+                            <i class="fa-solid fa-expand"></i> Rubin's Vase Illusion & Depth Scaling
+                        </span>
+                        <span class="text-xs text-slate-400" id="space-mode-title">Negative Space Illusion</span>
+                    </div>
+
+                    <div class="w-full h-48 bg-slate-900 rounded-xl border border-violet-900/50 flex items-center justify-center relative overflow-hidden">
+                        <canvas id="spaceCanvas" class="w-full h-full"></canvas>
+                    </div>
+
+                    <div class="mt-4 grid grid-cols-2 gap-2 text-xs">
+                        <button onclick="setSpaceMode('rubin')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            Rubin's Vase (Positive/Negative)
+                        </button>
+                        <button onclick="setSpaceMode('perspective')" class="p-2 rounded-lg bg-violet-900/50 hover:bg-violet-700 text-white font-medium border border-violet-700/50 transition">
+                            1-Point Perspective Depth
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section (2 Questions) -->
+            <div class="bg-violet-950/30 rounded-2xl p-6 border border-amber-500/20 space-y-6">
+                <h3 class="font-heading font-bold text-lg text-amber-400 flex items-center gap-2">
+                    <i class="fa-solid fa-circle-question"></i> Check For Understanding: Section 7 (Space)
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Q13 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q13-box">
+                        <p class="text-sm font-semibold text-slate-100">13. In modern graphic layout design, what is the role of generous "negative space" (white space)?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q13', 'A', 'C')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) It indicates that the layout is incomplete
+                            </button>
+                            <button onclick="checkAnswer('q13', 'B', 'C')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) It wastes precious screen real estate without purpose
+                            </button>
+                            <button onclick="checkAnswer('q13', 'C', 'C')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) It prevents visual clutter, improves legibility, and guides viewer focus
+                            </button>
+                        </div>
+                        <div id="q13-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+
+                    <!-- Q14 -->
+                    <div class="bg-slate-900/90 p-5 rounded-xl border border-violet-800/50 space-y-3" id="q14-box">
+                        <p class="text-sm font-semibold text-slate-100">14. When overlapping two shapes in a digital drawing, which shape appears closer to the viewer?</p>
+                        <div class="space-y-2 text-xs">
+                            <button onclick="checkAnswer('q14', 'A', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                A) The shape placed on top that partially obscures the other shape
+                            </button>
+                            <button onclick="checkAnswer('q14', 'B', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                B) The shape placed at the very back layer
+                            </button>
+                            <button onclick="checkAnswer('q14', 'C', 'A')" class="q-btn w-full text-left p-3 rounded-lg bg-slate-800 hover:bg-violet-900/40 border border-slate-700 transition">
+                                C) The smallest shape regardless of layer order
+                            </button>
+                        </div>
+                        <div id="q14-feedback" class="hidden text-xs p-2.5 rounded-lg"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL ASSESSMENT SCORE BANNER & DOWNLOAD SECTION -->
+        <section class="glass-card rounded-3xl p-8 border border-amber-500/30 text-center space-y-6 relative overflow-hidden">
+            <div class="absolute -right-16 -top-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl"></div>
+            
+            <div class="max-w-2xl mx-auto space-y-4 relative z-10">
+                <div class="w-16 h-16 bg-gradient-to-tr from-violet-600 to-amber-500 rounded-2xl mx-auto flex items-center justify-center text-slate-950 font-heading text-3xl font-extrabold shadow-lg">
+                    <i class="fa-solid fa-graduation-cap"></i>
+                </div>
+                <h2 class="font-heading text-3xl font-extrabold text-white">ELEMENTS OF DESIGN MASTERY</h2>
+                <p class="text-slate-300 text-sm">
+                    You have explored all 7 core elements of visual design! Review your quiz score below or export your completed visual infographic reference sheet.
+                </p>
+
+                <!-- Dynamic Results Display -->
+                <div class="p-6 bg-slate-900/90 rounded-2xl border border-violet-800/50 flex flex-col items-center justify-center gap-2">
+                    <div class="text-4xl font-extrabold text-amber-400 font-heading">
+                        <span id="final-score-val">0</span> / 14
+                    </div>
+                    <p class="text-xs text-slate-400" id="final-badge-msg">Complete the check-for-understanding questions above to test your mastery!</p>
+                </div>
+
+                <div class="flex flex-wrap items-center justify-center gap-4 pt-2">
+                    <button onclick="window.print()" class="px-6 py-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-sm flex items-center gap-2 shadow-lg shadow-amber-500/20 transition">
+                        <i class="fa-solid fa-file-pdf"></i> Save / Export Infographic (PDF)
+                    </button>
+                    <button onclick="resetAllQuizzes()" class="px-6 py-3 rounded-xl bg-violet-900/50 hover:bg-violet-800 text-white font-semibold text-sm border border-violet-700/50 transition">
+                        <i class="fa-solid fa-rotate"></i> Reset Quizzes
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-violet-900/40 py-8 px-4 text-center text-xs text-slate-400 no-print">
+        <div class="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="w-6 h-6 rounded-lg bg-amber-500 flex items-center justify-center text-slate-950 font-bold text-xs">EoD</span>
+                <span class="font-heading font-bold text-slate-200">The Design Lab • Interactive Curriculum</span>
+            </div>
+            <p>Designed with Electric Violet & Warm Amber Complementary Scheme</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
+    <script>
+        // State tracking for score
+        const quizAnswers = {};
+        const totalQuestions = 14;
+
+        function checkAnswer(qId, selectedOption, correctOption) {
+            const feedbackBox = document.getElementById(`${qId}-feedback`);
+            const parentBox = document.getElementById(`${qId}-box`);
+            const buttons = parentBox.querySelectorAll('.q-btn');
+
+            buttons.forEach(btn => btn.classList.remove('ring-2', 'ring-amber-400', 'bg-violet-900/60'));
+
+            if (selectedOption === correctOption) {
+                quizAnswers[qId] = true;
+                feedbackBox.className = "text-xs p-2.5 rounded-lg bg-emerald-950/80 border border-emerald-500/40 text-emerald-300 font-medium block flex items-center gap-2";
+                feedbackBox.innerHTML = '<i class="fa-solid fa-circle-check text-emerald-400"></i> Correct! Excellent visual understanding.';
+            } else {
+                quizAnswers[qId] = false;
+                feedbackBox.className = "text-xs p-2.5 rounded-lg bg-rose-950/80 border border-rose-500/40 text-rose-300 font-medium block flex items-center gap-2";
+                feedbackBox.innerHTML = '<i class="fa-solid fa-circle-xmark text-rose-400"></i> Incorrect. Review the concept above and try again!';
+            }
+
+            updateScoreDisplay();
+        }
+
+        function updateScoreDisplay() {
+            const correctCount = Object.values(quizAnswers).filter(Boolean).length;
+            document.getElementById('overall-score').innerText = correctCount;
+            document.getElementById('final-score-val').innerText = correctCount;
+
+            const badgeMsg = document.getElementById('final-badge-msg');
+            if (correctCount === 14) {
+                badgeMsg.innerText = "🏆 Master Designer Level Unlocked! Perfect score!";
+                badgeMsg.className = "text-xs text-amber-400 font-bold";
+            } else if (correctCount >= 10) {
+                badgeMsg.innerText = "🌟 Great job! You have a solid grasp of design elements.";
+                badgeMsg.className = "text-xs text-violet-300 font-bold";
+            } else {
+                badgeMsg.innerText = "Keep practicing! Review the interactive modules above.";
+                badgeMsg.className = "text-xs text-slate-400";
+            }
+        }
+
+        function resetAllQuizzes() {
+            for (let i = 1; i <= 14; i++) {
+                delete quizAnswers[`q${i}`];
+                const fb = document.getElementById(`q${i}-feedback`);
+                if (fb) fb.className = "hidden text-xs p-2.5 rounded-lg";
+            }
+            updateScoreDisplay();
+        }
+
+        // ==========================================
+        // CANVAS 1: LINE DYNAMICS SIMULATOR
+        // ==========================================
+        let lineMode = 'harmonic';
+        const lineCanvas = document.getElementById('lineCanvas');
+        const lineCtx = lineCanvas.getContext('2d');
+
+        function resizeLineCanvas() {
+            if (!lineCanvas) return;
+            lineCanvas.width = lineCanvas.parentElement.clientWidth;
+            lineCanvas.height = lineCanvas.parentElement.clientHeight;
+            drawLines();
+        }
+
+        function setLineMode(mode) {
+            lineMode = mode;
+            document.getElementById('line-style-label').innerText = 
+                mode === 'harmonic' ? 'Curved Harmonic' : mode === 'zigzag' ? 'Diagonal Tension' : 'Cross-Contour Weight';
+            drawLines();
+        }
+
+        function drawLines() {
+            if (!lineCtx) return;
+            const w = lineCanvas.width;
+            const h = lineCanvas.height;
+            lineCtx.clearRect(0, 0, w, h);
+
+            lineCtx.lineWidth = 3;
+            if (lineMode === 'harmonic') {
+                for (let i = 0; i < 5; i++) {
+                    lineCtx.beginPath();
+                    lineCtx.strokeStyle = i % 2 === 0 ? '#F59E0B' : '#7C3AED';
+                    lineCtx.lineWidth = 2 + i;
+                    lineCtx.moveTo(20, h / 2 + (i * 15) - 30);
+                    lineCtx.bezierCurveTo(w * 0.3, 20 + (i * 10), w * 0.7, h - 20 - (i * 10), w - 20, h / 2 + (i * 15) - 30);
+                    lineCtx.stroke();
+                }
+            } else if (lineMode === 'zigzag') {
+                lineCtx.strokeStyle = '#FBBF24';
+                lineCtx.lineWidth = 4;
+                lineCtx.beginPath();
+                let steps = 10;
+                let stepW = (w - 40) / steps;
+                for (let i = 0; i <= steps; i++) {
+                    let x = 20 + i * stepW;
+                    let y = (i % 2 === 0) ? 30 : h - 30;
+                    if (i === 0) lineCtx.moveTo(x, y);
+                    else lineCtx.lineTo(x, y);
+                }
+                lineCtx.stroke();
+            } else if (lineMode === 'contour') {
+                for (let i = 0; i < 8; i++) {
+                    lineCtx.beginPath();
+                    lineCtx.strokeStyle = '#A855F7';
+                    lineCtx.lineWidth = 1 + i * 1.2;
+                    let radius = 20 + i * 10;
+                    lineCtx.arc(w / 2, h / 2, radius, 0, Math.PI * 2);
+                    lineCtx.stroke();
+                }
+            }
+        }
+
+        // ==========================================
+        // CANVAS 2: SHAPE CLASSIFICATION STUDIO
+        // ==========================================
+        function renderShapeType(type) {
+            const svg = document.getElementById('shapeSvg');
+            const label = document.getElementById('shape-type-display');
+            if (!svg) return;
+
+            if (type === 'geometric') {
+                label.innerText = 'Geometric Shapes';
+                svg.innerHTML = `
+                    <rect x="30" y="40" width="80" height="80" fill="#7C3AED" rx="8" />
+                    <circle cx="200" cy="80" r="45" fill="#F59E0B" />
+                    <polygon points="320,130 360,40 280,40" fill="#A855F7" />
+                `;
+            } else if (type === 'organic') {
+                label.innerText = 'Organic (Freeform)';
+                svg.innerHTML = `
+                    <path d="M40 80 Q 70 10, 110 50 T 160 110 T 60 140 Z" fill="#FBBF24" />
+                    <path d="M220 50 Q 280 20, 310 70 T 260 130 T 190 90 Z" fill="#6D28D9" />
+                `;
+            } else if (type === 'abstract') {
+                label.innerText = 'Abstract Hybrid';
+                svg.innerHTML = `
+                    <rect x="50" y="50" width="100" height="70" fill="#4C1D95" rx="20" />
+                    <circle cx="120" cy="85" r="30" fill="#F59E0B" opacity="0.8" />
+                    <polygon points="250,40 330,80 270,140 210,100" fill="#7C3AED" />
+                `;
+            }
+        }
+
+        // ==========================================
+        // CANVAS 3: 3D FORM LIGHT SOURCE SIMULATOR
+        // ==========================================
+        const formCanvas = document.getElementById('formCanvas');
+        const formCtx = formCanvas.getContext('2d');
+        let lightAngle = 45;
+
+        function resizeFormCanvas() {
+            if (!formCanvas) return;
+            formCanvas.width = formCanvas.parentElement.clientWidth;
+            formCanvas.height = formCanvas.parentElement.clientHeight;
+            drawSphereForm();
+        }
+
+        function drawSphereForm() {
+            if (!formCtx) return;
+            const w = formCanvas.width;
+            const h = formCanvas.height;
+            formCtx.clearRect(0, 0, w, h);
+
+            const cx = w / 2;
+            const cy = h / 2 - 10;
+            const r = 55;
+
+            // Calculate light position on circle
+            const rad = (lightAngle * Math.PI) / 180;
+            const lx = cx + Math.cos(rad) * r * 0.6;
+            const ly = cy - Math.sin(rad) * r * 0.6;
+
+            // Cast shadow on floor
+            formCtx.save();
+            formCtx.beginPath();
+            const shadowX = cx - Math.cos(rad) * 40;
+            const shadowY = cy + r - 5;
+            formCtx.ellipse(shadowX, shadowY, r * 1.1, 15, 0, 0, Math.PI * 2);
+            formCtx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+            formCtx.fill();
+            formCtx.restore();
+
+            // Sphere gradient
+            const grad = formCtx.createRadialGradient(lx, ly, 5, cx, cy, r);
+            grad.addColorStop(0, '#FBBF24'); // Highlight
+            grad.addColorStop(0.4, '#7C3AED'); // Midtone Violet
+            grad.addColorStop(0.85, '#2E1065'); // Core Shadow
+            grad.addColorStop(1, '#0F0E17');
+
+            formCtx.beginPath();
+            formCtx.arc(cx, cy, r, 0, Math.PI * 2);
+            formCtx.fillStyle = grad;
+            formCtx.fill();
+        }
+
+        document.getElementById('lightSlider')?.addEventListener('input', (e) => {
+            lightAngle = parseInt(e.target.value);
+            document.getElementById('angle-readout').innerText = `${lightAngle}°`;
+            document.getElementById('light-angle-val').innerText = `Light Angle: ${lightAngle}°`;
+            drawSphereForm();
+        });
+
+        // ==========================================
+        // CANVAS 4: COLOR HARMONY WHEEL
+        // ==========================================
+        const colorCanvas = document.getElementById('colorWheelCanvas');
+        const colorCtx = colorCanvas ? colorCanvas.getContext('2d') : null;
+
+        function drawColorWheel() {
+            if (!colorCtx) return;
+            colorCanvas.width = 160;
+            colorCanvas.height = 160;
+            const cx = 80, cy = 80, r = 70;
+
+            for (let i = 0; i < 360; i++) {
+                const rad = (i * Math.PI) / 180;
+                colorCtx.beginPath();
+                colorCtx.moveTo(cx, cy);
+                colorCtx.arc(cx, cy, r, rad, rad + (Math.PI / 180) * 2);
+                colorCtx.closePath();
+                colorCtx.fillStyle = `hsl(${i}, 85%, 55%)`;
+                colorCtx.fill();
+            }
+            // Inner cutout circle
+            colorCtx.beginPath();
+            colorCtx.arc(cx, cy, 35, 0, Math.PI * 2);
+            colorCtx.fillStyle = '#0F0E17';
+            colorCtx.fill();
+        }
+
+        function setColorHarmony(type) {
+            const swatches = document.getElementById('paletteSwatches');
+            const modeTitle = document.getElementById('harmony-mode-title');
+            if (!swatches) return;
+
+            if (type === 'complementary') {
+                modeTitle.innerText = 'Complementary Pair';
+                swatches.innerHTML = `
+                    <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-lg bg-violet-700 inline-block border border-white"></span> <span class="text-xs text-white">Electric Violet (#7C3AED)</span></div>
+                    <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-lg bg-amber-500 inline-block border border-white"></span> <span class="text-xs text-white">Warm Amber (#F59E0B)</span></div>
+                `;
+            } else if (type === 'analogous') {
+                modeTitle.innerText = 'Analogous Scheme';
+                swatches.innerHTML = `
+                    <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-lg bg-purple-900 inline-block"></span> <span class="text-xs text-white">Deep Purple</span></div>
+                    <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-lg bg-violet-600 inline-block"></span> <span class="text-xs text-white">Violet</span></div>
+                    <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-lg bg-fuchsia-500 inline-block"></span> <span class="text-xs text-white">Magenta</span></div>
+                `;
+            } else if (type === 'triadic') {
+                modeTitle.innerText = 'Triadic Harmony';
+                swatches.innerHTML = `
+                    <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-lg bg-violet-600 inline-block"></span> <span class="text-xs text-white">Violet</span></div>
+                    <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-lg bg-emerald-500 inline-block"></span> <span class="text-xs text-white">Emerald</span></div>
+                    <div class="flex items-center gap-2"><span class="w-6 h-6 rounded-lg bg-amber-500 inline-block"></span> <span class="text-xs text-white">Amber</span></div>
+                `;
+            }
+        }
+
+        // ==========================================
+        // CANVAS 5: 9-STEP VALUE SCALE
+        // ==========================================
+        function initValueScale() {
+            const container = document.getElementById('valueScaleBar');
+            if (!container) return;
+            container.innerHTML = '';
+
+            const tones = [
+                { bg: '#FFFFFF', text: '#000000', label: '1 (White)' },
+                { bg: '#E2E8F0', text: '#000000', label: '2' },
+                { bg: '#CBD5E1', text: '#000000', label: '3' },
+                { bg: '#94A3B8', text: '#000000', label: '4' },
+                { bg: '#64748B', text: '#FFFFFF', label: '5 (Mid)' },
+                { bg: '#475569', text: '#FFFFFF', label: '6' },
+                { bg: '#334155', text: '#FFFFFF', label: '7' },
+                { bg: '#1E293B', text: '#F59E0B', label: '8' },
+                { bg: '#0F172A', text: '#F59E0B', label: '9 (Black)' }
+            ];
+
+            tones.forEach((tone, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'w-full h-full flex items-center justify-center font-bold text-xs transition hover:opacity-90';
+                btn.style.backgroundColor = tone.bg;
+                btn.style.color = tone.text;
+                btn.innerText = idx + 1;
+                btn.onclick = () => {
+                    const preview = document.getElementById('valuePreviewBox');
+                    preview.style.backgroundColor = tone.bg;
+                    preview.style.color = tone.text;
+                    preview.innerText = `Step ${idx + 1} (${tone.label}) - Contrast Preview`;
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        // ==========================================
+        // CANVAS 6: TEXTURE GENERATOR
+        // ==========================================
+        const textureCanvas = document.getElementById('textureCanvas');
+        const textureCtx = textureCanvas ? textureCanvas.getContext('2d') : null;
+        let currentTexture = 'halftone';
+
+        function resizeTextureCanvas() {
+            if (!textureCanvas) return;
+            textureCanvas.width = textureCanvas.parentElement.clientWidth;
+            textureCanvas.height = textureCanvas.parentElement.clientHeight;
+            drawTexture();
+        }
+
+        function setTextureMode(mode) {
+            currentTexture = mode;
+            document.getElementById('texture-mode-label').innerText = 
+                mode === 'halftone' ? 'Halftone Dot Grid' : mode === 'grain' ? 'Film Noise Grain' : 'Digital Grid';
+            drawTexture();
+        }
+
+        function drawTexture() {
+            if (!textureCtx) return;
+            const w = textureCanvas.width;
+            const h = textureCanvas.height;
+            textureCtx.clearRect(0, 0, w, h);
+
+            textureCtx.fillStyle = '#1A1825';
+            textureCtx.fillRect(0, 0, w, h);
+
+            if (currentTexture === 'halftone') {
+                textureCtx.fillStyle = '#F59E0B';
+                for (let x = 15; x < w; x += 20) {
+                    for (let y = 15; y < h; y += 20) {
+                        const dist = Math.hypot(x - w / 2, y - h / 2);
+                        const r = Math.max(1, 7 - dist * 0.03);
+                        textureCtx.beginPath();
+                        textureCtx.arc(x, y, r, 0, Math.PI * 2);
+                        textureCtx.fill();
+                    }
+                }
+            } else if (currentTexture === 'grain') {
+                for (let i = 0; i < 3000; i++) {
+                    const x = Math.random() * w;
+                    const y = Math.random() * h;
+                    const alpha = Math.random() * 0.4;
+                    textureCtx.fillStyle = i % 2 === 0 ? `rgba(245, 158, 11, ${alpha})` : `rgba(124, 58, 237, ${alpha})`;
+                    textureCtx.fillRect(x, y, 2, 2);
+                }
+            } else if (currentTexture === 'grid') {
+                textureCtx.strokeStyle = 'rgba(124, 58, 237, 0.4)';
+                textureCtx.lineWidth = 1;
+                for (let x = 0; x < w; x += 20) {
+                    textureCtx.beginPath();
+                    textureCtx.moveTo(x, 0);
+                    textureCtx.lineTo(x, h);
+                    textureCtx.stroke();
+                }
+                for (let y = 0; y < h; y += 20) {
+                    textureCtx.beginPath();
+                    textureCtx.moveTo(0, y);
+                    textureCtx.lineTo(w, y);
+                    textureCtx.stroke();
+                }
+            }
+        }
+
+        // ==========================================
+        // CANVAS 7: SPACE & PERSPECTIVE SIMULATOR
+        // ==========================================
+        const spaceCanvas = document.getElementById('spaceCanvas');
+        const spaceCtx = spaceCanvas ? spaceCanvas.getContext('2d') : null;
+        let spaceMode = 'rubin';
+
+        function resizeSpaceCanvas() {
+            if (!spaceCanvas) return;
+            spaceCanvas.width = spaceCanvas.parentElement.clientWidth;
+            spaceCanvas.height = spaceCanvas.parentElement.clientHeight;
+            drawSpace();
+        }
+
+        function setSpaceMode(mode) {
+            spaceMode = mode;
+            document.getElementById('space-mode-title').innerText = 
+                mode === 'rubin' ? "Rubin's Vase (Positive/Negative)" : '1-Point Perspective Depth';
+            drawSpace();
+        }
+
+        function drawSpace() {
+            if (!spaceCtx) return;
+            const w = spaceCanvas.width;
+            const h = spaceCanvas.height;
+            spaceCtx.clearRect(0, 0, w, h);
+
+            if (spaceMode === 'rubin') {
+                // Background (Negative Space)
+                spaceCtx.fillStyle = '#7C3AED';
+                spaceCtx.fillRect(0, 0, w, h);
+
+                // Vase Silhouette (Positive Space)
+                spaceCtx.fillStyle = '#F59E0B';
+                spaceCtx.beginPath();
+                const cx = w / 2;
+                spaceCtx.moveTo(cx - 50, 20);
+                spaceCtx.bezierCurveTo(cx - 20, 50, cx - 70, 100, cx - 30, h - 20);
+                spaceCtx.lineTo(cx + 30, h - 20);
+                spaceCtx.bezierCurveTo(cx + 70, 100, cx + 20, 50, cx + 50, 20);
+                spaceCtx.closePath();
+                spaceCtx.fill();
+            } else if (spaceMode === 'perspective') {
+                const vpX = w / 2;
+                const vpY = h / 2 - 10;
+
+                spaceCtx.fillStyle = '#0F0E17';
+                spaceCtx.fillRect(0, 0, w, h);
+
+                // Perspective lines to vanishing point
+                spaceCtx.strokeStyle = '#7C3AED';
+                spaceCtx.lineWidth = 1.5;
+                const corners = [[0, 0], [w, 0], [0, h], [w, h]];
+                corners.forEach(c => {
+                    spaceCtx.beginPath();
+                    spaceCtx.moveTo(vpX, vpY);
+                    spaceCtx.lineTo(c[0], c[1]);
+                    spaceCtx.stroke();
+                });
+
+                // Scaling shapes along depth
+                for (let i = 5; i >= 1; i--) {
+                    const scale = i / 5;
+                    const sw = 80 * scale;
+                    const sh = 80 * scale;
+                    const sx = vpX - sw / 2 + (5 - i) * 20;
+                    const sy = vpY - sh / 2 + (5 - i) * 10;
+
+                    spaceCtx.fillStyle = i % 2 === 0 ? '#F59E0B' : '#4C1D95';
+                    spaceCtx.fillRect(sx, sy, sw, sh);
+                    spaceCtx.strokeStyle = '#FFFFFF';
+                    spaceCtx.strokeRect(sx, sy, sw, sh);
+                }
+            }
+        }
+
+        // Initialize all canvases on window load
+        window.onload = function() {
+            resizeLineCanvas();
+            renderShapeType('geometric');
+            resizeFormCanvas();
+            drawColorWheel();
+            setColorHarmony('complementary');
+            initValueScale();
+            resizeTextureCanvas();
+            resizeSpaceCanvas();
+        };
+
+        window.onresize = function() {
+            resizeLineCanvas();
+            resizeFormCanvas();
+            resizeTextureCanvas();
+            resizeSpaceCanvas();
+        };
+    </script>
+</body>
+</html>
