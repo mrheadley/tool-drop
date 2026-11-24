@@ -1,0 +1,1994 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CAPE Digital Media Unit 2 — Interactive Revision Hub</title>
+  <style>
+    :root {
+      --bg-page: #FAF9F6;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F2EFE9;
+      --bg-accent-soft: #E8F1F5;
+      --text-main: #1F2421;
+      --text-muted: #525B56;
+      --primary: #1B5E7A;
+      --primary-hover: #14475D;
+      --success: #236B43;
+      --success-bg: #E7F4ED;
+      --warning: #8A5300;
+      --warning-bg: #FFF5E4;
+      --error: #9B2C2C;
+      --error-bg: #FDECEC;
+      --border: #DCD7CD;
+      --radius: 12px;
+      --font-sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      --base-size: 17px;
+      --line-height: 1.65;
+      --letter-spacing: 0.01em;
+      --word-spacing: 0.04em;
+    }
+
+    body.reading-support {
+      --base-size: 19.5px;
+      --line-height: 1.9;
+      --letter-spacing: 0.045em;
+      --word-spacing: 0.14em;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: var(--base-size);
+      line-height: var(--line-height);
+      letter-spacing: var(--letter-spacing);
+      word-spacing: var(--word-spacing);
+      transition: font-size 0.2s ease, line-height 0.2s ease, letter-spacing 0.2s ease;
+    }
+
+    header {
+      background-color: var(--bg-card);
+      border-bottom: 2px solid var(--border);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 980px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .brand-sub {
+      font-size: 0.85em;
+      color: var(--text-muted);
+      margin: 0.15rem 0 0 0;
+    }
+
+    .header-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 0.92em;
+      letter-spacing: inherit;
+      word-spacing: inherit;
+      cursor: pointer;
+      border-radius: 8px;
+      padding: 0.6rem 1.05rem;
+      font-weight: 600;
+      border: 2px solid transparent;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: #E6E1D8;
+    }
+
+    .btn-toggle[aria-pressed="true"] {
+      background-color: var(--bg-accent-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-danger-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: var(--border);
+      font-size: 0.85em;
+      padding: 0.5rem 0.8rem;
+    }
+
+    .btn-danger-ghost:hover {
+      color: var(--error);
+      border-color: var(--error);
+    }
+
+    main {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 4rem 1.25rem;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-banner {
+      background-color: var(--bg-accent-soft);
+      border-color: #BDD5E0;
+    }
+
+    .hero-banner h1 {
+      margin-top: 0;
+      font-size: 1.45em;
+      color: var(--primary);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.8em;
+      font-weight: 600;
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .pill-badge {
+      background-color: var(--success-bg);
+      color: var(--success);
+      border-color: #A7D7BC;
+    }
+
+    .pill-retry {
+      background-color: var(--warning-bg);
+      color: var(--warning);
+      border-color: #E7C389;
+    }
+
+    .mission-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.25rem;
+      margin-top: 1.25rem;
+    }
+
+    .mission-card {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      margin-bottom: 0;
+    }
+
+    .mission-card h2 {
+      font-size: 1.15em;
+      margin: 0.4rem 0 0.5rem 0;
+    }
+
+    .mission-meta {
+      font-size: 0.85em;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background-color: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 0.6rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .progress-fill.mastered {
+      background-color: var(--success);
+    }
+
+    /* Question Workspace */
+    .workspace-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .tag-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .scenario-box {
+      background-color: var(--bg-subtle);
+      border-left: 5px solid var(--primary);
+      padding: 1rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.2rem;
+    }
+
+    .question-prompt {
+      font-weight: 700;
+      font-size: 1.08em;
+      margin-bottom: 1rem;
+    }
+
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option-btn {
+      text-align: left;
+      background-color: var(--bg-card);
+      border: 2px solid var(--border);
+      color: var(--text-main);
+      padding: 0.9rem 1.1rem;
+      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background-color: var(--bg-accent-soft);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background-color: var(--bg-accent-soft);
+    }
+
+    .option-btn.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .option-btn.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .option-letter {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 1.5rem;
+    }
+
+    /* Tables (Matching & Spot-the-Error Audit) */
+    .audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .audit-table th,
+    .audit-table td {
+      border: 2px solid var(--border);
+      padding: 0.8rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .audit-table th {
+      background-color: var(--bg-subtle);
+      font-weight: 700;
+    }
+
+    select.table-select {
+      width: 100%;
+      padding: 0.55rem;
+      font-family: inherit;
+      font-size: 0.95em;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      background-color: var(--bg-card);
+      color: var(--text-main);
+    }
+
+    select.table-select.row-correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    select.table-select.row-incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    /* Synthesis / Short Answer Scaffolding */
+    .hint-box {
+      background-color: var(--warning-bg);
+      border: 2px solid #E7C389;
+      border-radius: 8px;
+      padding: 0.95rem 1.1rem;
+      margin: 0.85rem 0;
+    }
+
+    textarea.synthesis-input {
+      width: 100%;
+      min-height: 135px;
+      padding: 0.9rem;
+      font-family: inherit;
+      font-size: 1em;
+      line-height: inherit;
+      letter-spacing: inherit;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      margin-top: 0.5rem;
+    }
+
+    textarea.synthesis-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .rubric-checklist {
+      background-color: var(--bg-subtle);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    .rubric-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin: 0.65rem 0;
+      cursor: pointer;
+    }
+
+    .rubric-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 0.2rem;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .model-answer-box {
+      background-color: var(--success-bg);
+      border: 2px solid #A7D7BC;
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      margin-top: 1rem;
+    }
+
+    .feedback-panel {
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-top: 1.2rem;
+      border: 2px solid transparent;
+    }
+
+    .feedback-panel.pass {
+      background-color: var(--success-bg);
+      border-color: #A7D7BC;
+    }
+
+    .feedback-panel.fail {
+      background-color: var(--error-bg);
+      border-color: #E5A9A9;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      align-items: center;
+    }
+
+    /* Diagnostic Summary */
+    .diagnostic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .diag-card {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem;
+      background-color: var(--bg-card);
+    }
+
+    .diag-card h3 {
+      margin-top: 0;
+      font-size: 1.05em;
+      color: var(--primary);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 1.1rem;
+      }
+      .audit-table th, .audit-table td {
+        padding: 0.55rem;
+        font-size: 0.92em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <p class="brand-title">CAPE Digital Media Unit 2 — Revision Hub</p>
+      <p class="brand-sub">Design Foundations, Pre-Production &amp; Web Planning (No Timers · Mastery Mode)</p>
+    </div>
+    <div class="header-controls">
+      <button id="readingToggleBtn" class="btn-secondary btn-toggle" aria-pressed="false" title="Increase font size, line spacing, and letter spacing">
+        Aa Reading Support: Off
+      </button>
+      <button id="homeNavBtn" class="btn-secondary">Mission Map</button>
+      <button id="summaryNavBtn" class="btn-primary">Exam-Ready Summary</button>
+    </div>
+  </div>
+</header>
+
+<main id="appRoot"></main>
+
+<script>
+/**
+ * CURRICULUM DATA MODEL
+ * Strictly aligned to CAPE Digital Media Unit 2 Syllabus Map, Lesson Map, & Paper 02 Mark Scheme.
+ * Uses fresh, age-appropriate scenarios (Inter-House Sports Day Hub, Coastal Eco-Clean-Up Portal,
+ * Youth Arts & Music Showcase, Community Book Swap App) so the actual exam scenario is never spoiled.
+ */
+
+const MISSIONS = [
+  {
+    id: "m1",
+    unitCode: "Module 1 · M1.1 & M1.4",
+    title: "Mission 1: Audience, Pre-Production & File Formats",
+    lessonTopics: "Problem Definition (What/Who/Why/Constraints), Personas, Pre-Production Stages & Web Formats",
+    description: "Master audience-driven design placement, pre-production sequencing, and selecting JPEG, PNG, GIF, MP4, MP3, or PDF for mobile users.",
+    badgeName: "Pre-Production & Formats Architect",
+    questions: [
+      {
+        id: "m1_q1",
+        type: "mcq",
+        srCode: "M1.1(a)",
+        lessonTopic: "Problem Definition & Target Audience (What/Who/Why/Constraints)",
+        cognitiveLevel: "Application",
+        scenario: "You are planning the 'Inter-House Sports Day Hub' website. Students will check race times on their phones between heats on the field, while parents check parking and gate times from home.",
+        prompt: "Which design decision directly responds to the student target audience and states a concrete location on your site?",
+        options: [
+          "Use bright school colours across the whole site because they look energetic.",
+          "Place a live 'Next 3 Races & Track Lane' strip at the very top of the Home page so students on phones see their race immediately without scrolling.",
+          "Include a 500-word history of the school sports trophy on the Home page.",
+          "Put all event schedules inside a large desktop spreadsheet on the About page."
+        ],
+        correctIndex: 1,
+        explanation: "Full marks in M1.1(a) require ONE specific decision tied to a stated audience/purpose AND a concrete location on your site. Putting the next races at the top of the Home page directly solves the mobile student's constraint (checking quickly between heats).",
+        studyTip: "Always pair a concrete page location (e.g., 'top strip of the Home page') with a specific user need ('As a student between heats, I want...')."
+      },
+      {
+        id: "m1_q2",
+        type: "mcq",
+        srCode: "M1.4(b)",
+        lessonTopic: "Selecting & Justifying Appropriate Web Formats",
+        cognitiveLevel: "Application",
+        scenario: "Your 'Coastal Eco-Clean-Up Portal' has a photo gallery of 18 beach clean-up photos. Most volunteers will open the page on mobile data while walking to the beach.",
+        prompt: "Which image format and justification is strongest for both the platform and target audience?",
+        options: [
+          "PDF — because volunteers can print every photo at high resolution.",
+          "PNG — because lossless compression keeps every grain of sand sharp regardless of slow mobile loading.",
+          "JPEG — because lossy compression keeps file sizes small so all 18 photos load fast on mobile data, while image quality remains clear on phone screens.",
+          "GIF — because it supports multi-page documents."
+        ],
+        correctIndex: 2,
+        explanation: "JPEG uses lossy compression to create small files suited to mobile bandwidth/data constraints, while keeping visual quality sharp enough for phone screens.",
+        studyTip: "When justifying a format (M1.4b), always cover 4 points: (1) format name, (2) platform reason, (3) audience reason, and (4) technical consequence (file size, transparency, or compatibility)."
+      },
+      {
+        id: "m1_q3",
+        type: "matching",
+        srCode: "M1.4(b)",
+        lessonTopic: "Distinguishing Between Digital Media Formats",
+        cognitiveLevel: "Knowledge",
+        scenario: "You are preparing four assets for the 'Youth Arts & Music Showcase' website.",
+        prompt: "Match each website asset to the most appropriate file format from the syllabus list.",
+        choices: ["PNG", "PDF", "MP3", "MP4"],
+        rows: [
+          {
+            label: "1. Festival crest logo placed over a coloured navigation header (needs transparent background)",
+            answer: "PNG"
+          },
+          {
+            label: "2. Printable 2-page parental consent & stage pass form that must keep exact layout on any device",
+            answer: "PDF"
+          },
+          {
+            label: "3. A 45-second backstage rehearsal video clip embedded on the showcase page",
+            answer: "MP4"
+          },
+          {
+            label: "4. A 2-minute spoken-word poetry audio recording with no visuals",
+            answer: "MP3"
+          }
+        ],
+        explanation: "PNG supports transparency so logos sit cleanly over coloured headers without a white box; PDF preserves fixed layout for downloadable forms; MP4 delivers compressed web video; MP3 delivers lightweight audio-only files.",
+        studyTip: "Review the six core syllabus formats (JPEG, PNG, GIF, MP4, MP3, PDF) and match each to its primary web strength (compression, transparency, animation, video, audio, or fixed document layout)."
+      },
+      {
+        id: "m1_q4",
+        type: "audit",
+        srCode: "M1.1(c) & M1.1(d)",
+        lessonTopic: "Pre-Production Stages & Sequencing Before Wireframing",
+        cognitiveLevel: "Understanding",
+        scenario: "A student team plans a 'Community Book Swap' website. Look at their pre-production log below and diagnose whether each entry is a valid pre-production stage before wireframing or a workflow error.",
+        prompt: "Classify each team action in the pre-production audit table.",
+        choices: [
+          "Valid Stage — Must come before wireframes",
+          "Error — Tool/visual styling, not a pre-production stage",
+          "Error — Skips audience/content planning too early"
+        ],
+        rows: [
+          {
+            label: "Action A: Writing a persona ('As a parent looking for Grade 7 textbooks, I want...') and defining site constraints before sketching screens.",
+            answer: "Valid Stage — Must come before wireframes"
+          },
+          {
+            label: "Action B: Jumping straight into drawing final pixel-art icons and picking hex colour palettes before deciding what pages exist.",
+            answer: "Error — Skips audience/content planning too early"
+          },
+          {
+            label: "Action C: Creating a concept map and validating content branches with two classmates before drawing wireframes.",
+            answer: "Valid Stage — Must come before wireframes"
+          },
+          {
+            label: "Action D: Listing 'Make the website look cool and modern' as a pre-production stage.",
+            answer: "Error — Tool/visual styling, not a pre-production stage"
+          }
+        ],
+        explanation: "Genuine pre-production stages include problem/audience definition, persona framing, brainstorming, concept mapping, work plans/timelines, and prototyping/idea validation. Visual decoration is not a pre-production stage.",
+        studyTip: "In Q2(b), explain why a stage must happen BEFORE wireframing (e.g., without knowing the target user's top need, you cannot decide which content blocks go on the wireframe)."
+      },
+      {
+        id: "m1_q5",
+        type: "synthesis",
+        srCode: "M1.1(a)",
+        lessonTopic: "Audience-Driven Design Decisions (Try → Hint → Model Check)",
+        cognitiveLevel: "Application",
+        scenario: "Your school is launching a 'Career & Tech Expo' website. Grade 9 students will use it on their phones during lunch to find which room each guest speaker is in.",
+        prompt: "Describe ONE design decision you made in response to this target audience or purpose, and state clearly WHERE on the site it appears. (2 marks)",
+        hint: "Sentence starter: 'I placed [specific feature] at [exact location on the site] because Grade 9 students using phones at lunch need to [specific goal] without [constraint].'",
+        rubric: [
+          "Named ONE specific design decision (not just a colour or decoration).",
+          "Linked the decision clearly to the Grade 9 student audience or purpose.",
+          "Stated an exact location on the site (e.g., top of Home page, sticky header, Programme tab)."
+        ],
+        modelAnswer: "I placed a searchable 'Speaker Room Finder' bar at the very top of the Home page. Grade 9 students checking the site on phones during a short lunch break need to locate a speaker's room in seconds without scrolling through long speaker biographies."
+      },
+      {
+        id: "m1_q6",
+        type: "synthesis",
+        srCode: "M1.4(b)",
+        lessonTopic: "Platform & Audience Format Justification (Try → Hint → Model Check)",
+        cognitiveLevel: "Application",
+        scenario: "On your 'Career & Tech Expo' website, you need to display the official Expo Crest logo on a dark navy header bar.",
+        prompt: "State ONE appropriate file format for this logo and justify your choice for both the platform and the target audience. (4 marks)",
+        hint: "Sentence starter: 'I would save the Expo Crest as a [FORMAT]. For the web platform, this supports [technical feature like transparency]. For students on mobile phones, this ensures [file size / clarity consequence].'",
+        rubric: [
+          "Named a suitable web image format (e.g., PNG).",
+          "Gave a platform reason (e.g., supports alpha transparency on a coloured web header).",
+          "Gave an audience reason (e.g., mobile visitors see a crisp crest without a distracting white box).",
+          "Stated a concrete technical consequence (e.g., clean edges at small screen sizes without heavy file bloat)."
+        ],
+        modelAnswer: "I would export the Expo Crest as a PNG. On a web platform with a dark navy header, PNG supports background transparency so the logo blends cleanly without an unsightly white box around it. For students viewing on mobile phones over school Wi-Fi, a properly sized PNG keeps edges sharp and readable while remaining small enough to load instantly."
+      }
+    ],
+    retryQuestions: [
+      {
+        id: "m1_r1",
+        type: "mcq",
+        srCode: "M1.1(a)",
+        lessonTopic: "Problem Definition & Target Audience",
+        cognitiveLevel: "Application",
+        scenario: "You are designing a 'School Drama Festival' website for grandparents who will buy tickets from home on tablets.",
+        prompt: "Which response would earn full marks (2/2) for describing a design decision and its location?",
+        options: [
+          "I used royal purple across the site because drama is theatrical.",
+          "I placed a large 'Buy Tickets & Seat Map' button in the centre of the Home page hero section so older visitors on tablets can find booking immediately without hunting through menus.",
+          "I added lots of animations to every page.",
+          "I put the ticket link somewhere on the website."
+        ],
+        correctIndex: 1,
+        explanation: "It specifies the exact feature ('Buy Tickets & Seat Map' button), its exact location (centre of the Home page hero), and why it serves the target audience (older visitors on tablets).",
+        studyTip: "Always verify two parts in Q1(a): WHAT + WHY for the user, and WHERE on the site."
+      },
+      {
+        id: "m1_r2",
+        type: "mcq",
+        srCode: "M1.4(b)",
+        lessonTopic: "Selecting & Justifying Appropriate Web Formats",
+        cognitiveLevel: "Understanding",
+        scenario: "A student chooses DOCX format for the 'Festival Schedule' download link on a mobile website.",
+        prompt: "Why would this choice lose marks under M1.4(b)?",
+        options: [
+          "DOCX is an editable word-processing document format rather than a universal published web format like PDF, so phone browsers may fail to render its layout properly.",
+          "DOCX files cannot hold text.",
+          "DOCX is only used for audio recordings.",
+          "DOCX files always have transparent backgrounds."
+        ],
+        correctIndex: 0,
+        explanation: "Document-authoring formats like DOCX or archive formats like ZIP are unsuited for published web delivery; PDF ensures cross-platform compatibility and fixed layout on phones.",
+        studyTip: "Stick to published web/media formats (JPEG, PNG, GIF, MP4, MP3, PDF) and never recommend authoring files (DOCX, PSD) for end users."
+      }
+    ]
+  },
+  {
+    id: "m2",
+    unitCode: "Module 1 · M1.2",
+    title: "Mission 2: Visual & Interactive Design Principles",
+    lessonTopics: "Visual Elements vs. Principles, Composition, & Interactive Principles (Consistency, Perceivability, Learnability, Predictability, Feedback)",
+    description: "Separate design elements from true principles, diagnose interactive UX flaws, and explain site-specific design impacts.",
+    badgeName: "Visual & UX Principles Specialist",
+    questions: [
+      {
+        id: "m2_q1",
+        type: "matching",
+        srCode: "M1.2(a) & M1.2(f)",
+        lessonTopic: "Distinguishing Visual Elements from Visual & Interactive Principles",
+        cognitiveLevel: "Knowledge",
+        scenario: "In Paper 02 Q1(b)(i), listing 'colour' or 'font' as a design principle scores 0 because those are raw elements, not principles.",
+        prompt: "Classify each term below as a Visual Design Principle, an Interactive Design Principle (M1.2f), or a Visual Element (scores 0 if listed as a principle).",
+        choices: [
+          "Visual Design Principle",
+          "Interactive Design Principle (M1.2f)",
+          "Visual Element (Not a Principle)"
+        ],
+        rows: [
+          {
+            label: "1. Contrast (dark text against a pale background)",
+            answer: "Visual Design Principle"
+          },
+          {
+            label: "2. Colour (e.g., navy blue or bright orange)",
+            answer: "Visual Element (Not a Principle)"
+          },
+          {
+            label: "3. Feedback (visible confirmation message after tapping 'Save Event')",
+            answer: "Interactive Design Principle (M1.2f)"
+          },
+          {
+            label: "4. Predictability (navigation links stay in the exact same header spot on every page)",
+            answer: "Interactive Design Principle (M1.2f)"
+          }
+        ],
+        explanation: "Contrast, balance, alignment, proximity, repetition, and visual hierarchy/focal point are visual principles. Consistency, perceivability, learnability, predictability, and feedback are interactive principles. Colour, line, shape, and font are elements.",
+        studyTip: "Memorize at least three safe principles: Contrast, Consistency (visual & interactive), and Feedback."
+      },
+      {
+        id: "m2_q2",
+        type: "mcq",
+        srCode: "M1.2(f)",
+        lessonTopic: "Principles of Interactive Design",
+        cognitiveLevel: "Application",
+        scenario: "On the 'Youth Coding Hackathon' mobile site, students tap 'Register Team', nothing visibly changes for 3 seconds, so students tap three more times and accidentally create duplicate entries.",
+        prompt: "Which interactive design principle is missing, and how should it be fixed?",
+        options: [
+          "Rule of Thirds — move the button to the bottom-left corner.",
+          "Feedback — immediately disable the button and display a 'Team Registered ✓' confirmation state so users know their tap worked.",
+          "Proximity — place the logo closer to the footer.",
+          "Saturation — make the background brighter."
+        ],
+        correctIndex: 1,
+        explanation: "Feedback informs the user immediately that the system received their action, preventing confusion and duplicate submissions.",
+        studyTip: "Link interactive principles directly to user behaviour: Feedback stops double-taps; Consistency/Predictability stop users from hunting for menus."
+      },
+      {
+        id: "m2_q3",
+        type: "audit",
+        srCode: "M1.2(c)–(f)",
+        lessonTopic: "Composition, Visual Hierarchy & Interactive Design Audit",
+        cognitiveLevel: "Understanding",
+        scenario: "Review four design choices proposed for a mobile 'School Garden Open Day' site and diagnose which principle each choice violates.",
+        prompt: "Match each design flaw to the principle it violates.",
+        choices: [
+          "Contrast & Perceivability",
+          "Proximity & Alignment",
+          "Consistency & Predictability",
+          "Focal Point / Visual Hierarchy"
+        ],
+        rows: [
+          {
+            label: "Flaw 1: Light yellow button text placed over a bright sunlit garden photo, making the button unreadable outdoors.",
+            answer: "Contrast & Perceivability"
+          },
+          {
+            label: "Flaw 2: The 'Home' link is in the top-left on Page 1, inside a footer menu on Page 2, and hidden in a sidebar on Page 3.",
+            answer: "Consistency & Predictability"
+          },
+          {
+            label: "Flaw 3: Workshop times, speaker names, and room numbers are scattered with random gaps so visitors cannot tell which time belongs to which workshop.",
+            answer: "Proximity & Alignment"
+          },
+          {
+            label: "Flaw 4: Every heading, paragraph, and button on the page is the exact same font size and weight, so nothing guides the eye first.",
+            answer: "Focal Point / Visual Hierarchy"
+          }
+        ],
+        explanation: "Contrast ensures legibility; Consistency/Predictability keep controls in expected spots; Proximity groups related items; Visual Hierarchy/Focal Point directs attention to the most important action first.",
+        studyTip: "Remember: in Q1(b)(ii), general textbook definitions ('Contrast makes things stand out') earn 0 marks—you must explain the impact on YOUR named site."
+      },
+      {
+        id: "m2_q4",
+        type: "mcq",
+        srCode: "M1.2(e)",
+        lessonTopic: "White/Negative Space & Proximity on Mobile Screens",
+        cognitiveLevel: "Understanding",
+        scenario: "A student packs 12 clickable session links tightly together with zero padding on a phone screen.",
+        prompt: "How does increasing white (negative) space and proximity improve usability on this specific mobile site?",
+        options: [
+          "It increases the file size of the HTML document.",
+          "Grouping each session's title with its start time (proximity) while separating rows with generous white space prevents accidental thumb-taps on the wrong link.",
+          "It forces users to zoom in horizontally on desktop monitors.",
+          "It replaces the need for navigation menus."
+        ],
+        correctIndex: 1,
+        explanation: "Proximity shows which details belong to the same session, while white/negative space creates clear tap targets so mobile users don't hit the wrong link.",
+        studyTip: "Connect layout choices to physical user actions (e.g., 'thumb-tapping on a phone screen without hitting adjacent links')."
+      },
+      {
+        id: "m2_q5",
+        type: "synthesis",
+        srCode: "M1.2",
+        lessonTopic: "Posited-Product Principle Impact (Try → Hint → Model Check)",
+        cognitiveLevel: "Application",
+        scenario: "Imagine you are building the 'Community Chess Tournament' mobile site for players checking round pairings in a noisy school hall.",
+        prompt: "Name TWO design principles (visual or interactive) and explain the concrete impact of EACH on your Chess Tournament site. (4 marks)",
+        hint: "Sentence starter: '1. Contrast: On my Chess Tournament site, [specific element] uses [high contrast] so players in a [context] can [concrete result]. 2. Consistency: Every round page keeps [navigation/button] in the same place so...'",
+        rubric: [
+          "Named two valid principles (not raw elements like 'colour' or 'font').",
+          "Explained a concrete design consequence on the Chess Tournament site for Principle 1 (not a generic textbook definition).",
+          "Explained a concrete design consequence on the Chess Tournament site for Principle 2."
+        ],
+        modelAnswer: "1. Contrast: The 'Find My Board' button uses dark navy text on a bright cream background so players glancing at their phones in a bright school hall can spot the main action immediately without squinting.
+2. Consistency: The round-selector tabs (Round 1, Round 2, Round 3) stay in the exact same top position with identical labels on every page, so players who use the site for just one afternoon do not have to re-learn how to switch rounds."
+      }
+    ],
+    retryQuestions: [
+      {
+        id: "m2_r1",
+        type: "mcq",
+        srCode: "M1.2",
+        lessonTopic: "Principles vs. Elements",
+        cognitiveLevel: "Knowledge",
+        scenario: "A student writes: 'Three design principles guiding my site are: 1. Balance, 2. Typography, 3. Bright Colours.'",
+        prompt: "How many marks out of 3 would this earn on Paper 02 Q1(b)(i)?",
+        options: [
+          "3 marks — all three are design principles.",
+          "1 mark — only Balance is a principle; Typography and Colours are visual elements.",
+          "2 marks — Balance and Typography are principles.",
+          "0 marks — none are valid."
+        ],
+        correctIndex: 1,
+        explanation: "Only Balance is a design principle. Typography (text/font) and Colour are elements of visual design and score 0 when asked for principles.",
+        studyTip: "Stick strictly to principles: Balance, Contrast, Alignment, Repetition/Consistency, Proximity, Focal Point/Visual Hierarchy, Perceivability, Learnability, Predictability, Feedback."
+      },
+      {
+        id: "m2_r2",
+        type: "mcq",
+        srCode: "M1.2",
+        lessonTopic: "Site-Specific Impact vs. Generic Definition",
+        cognitiveLevel: "Understanding",
+        scenario: "A student writes: 'Contrast is when light and dark colours are placed together to make elements stand out.'",
+        prompt: "Why does this earn 0 marks in Q1(b)(ii) ('Explain the impact of EACH principle on your named site')?",
+        options: [
+          "Because the definition of contrast is factually wrong.",
+          "Because it gives a generic textbook definition with zero link to how contrast helps visitors on the student's specific site.",
+          "Because contrast only applies to printed posters.",
+          "Because students must write HTML code in Q1(b)(ii)."
+        ],
+        correctIndex: 1,
+        explanation: "Q1(b)(ii) tests posited-product impact: you must show the concrete consequence for your site's users (e.g., separating a call-to-action button from a hero banner on a phone screen).",
+        studyTip: "Always include the words 'On my site...' or name the specific page component and user action."
+      }
+    ]
+  },
+  {
+    id: "m3",
+    unitCode: "Module 2 · M2.3(a)",
+    title: "Mission 3: Concept Mapping & Content Decisions",
+    lessonTopics: "Concept Map Structure (Central Node, Decision Branches, Specific Subnodes) & Pre-Production Links",
+    description: "Turn vague topic labels into high-scoring content decisions and specific subnodes before wireframing.",
+    badgeName: "Concept Map Strategist",
+    questions: [
+      {
+        id: "m3_q1",
+        type: "audit",
+        srCode: "M2.3(a)",
+        lessonTopic: "Concept Map Branches: Decisions vs. Bare Topic Labels",
+        cognitiveLevel: "Understanding",
+        scenario: "In Paper 02 Q2(a), each of the 4 concept map branches earns 1 mark ONLY if it states a concrete decision (what content, how much, when, or how). A bare topic label scores 0.",
+        prompt: "Evaluate each proposed concept map branch for a 'School Robotics Open House' website.",
+        choices: [
+          "Earns 1 Mark — States a specific content/design decision",
+          "Scores 0 Marks — Bare topic label (too vague)"
+        ],
+        rows: [
+          {
+            label: "Branch A: 'Robotics Demos'",
+            answer: "Scores 0 Marks — Bare topic label (too vague)"
+          },
+          {
+            label: "Branch B: 'Live Demos — one dedicated page per robot category (Junior & Senior)'",
+            answer: "Earns 1 Mark — States a specific content/design decision"
+          },
+          {
+            label: "Branch C: 'Schedule — two 90-minute tournament blocks across Saturday morning'",
+            answer: "Earns 1 Mark — States a specific content/design decision"
+          },
+          {
+            label: "Branch D: 'Contact Us'",
+            answer: "Scores 0 Marks — Bare topic label (too vague)"
+          }
+        ],
+        explanation: "'Robotics Demos' and 'Contact Us' are bare labels (0 marks). Saying HOW content is structured, divided, or timed turns a label into a scorable decision.",
+        studyTip: "Use an em-dash ('—') after every branch title to force yourself to write a decision (how many, how often, or how it is organized)."
+      },
+      {
+        id: "m3_q2",
+        type: "audit",
+        srCode: "M2.3(a)",
+        lessonTopic: "Concept Map Subnodes: Specific Details vs. Generic Filler",
+        cognitiveLevel: "Understanding",
+        scenario: "Each subnode under a branch earns 1 mark when it gives a specific detail (time, quantity, format/method, audience, or access decision). Generic subnodes score 0.",
+        prompt: "Audit each subnode below to see if it earns its subnode mark.",
+        choices: [
+          "Earns 1 Mark — Specific time, quantity, method, or access detail",
+          "Scores 0 Marks — Generic filler"
+        ],
+        rows: [
+          {
+            label: "Subnode 1 (under News Blog): 'Make the posts interesting and put them online'",
+            answer: "Scores 0 Marks — Generic filler"
+          },
+          {
+            label: "Subnode 2 (under News Blog): 'Each weekly post has 1 compressed JPEG photo and a 120-word team update'",
+            answer: "Earns 1 Mark — Specific time, quantity, method, or access detail"
+          },
+          {
+            label: "Subnode 3 (under Plan Your Visit): 'Bus route numbers plus a low-data text-only timetable for mobile visitors'",
+            answer: "Earns 1 Mark — Specific time, quantity, method, or access detail"
+          },
+          {
+            label: "Subnode 4 (under Gallery): 'Good pictures of the event'",
+            answer: "Scores 0 Marks — Generic filler"
+          }
+        ],
+        explanation: "Subnodes 2 and 3 specify exact quantities (1 photo, 120 words), formats (JPEG, low-data text), and user access needs. Subnodes 1 and 4 are generic wishes that earn 0.",
+        studyTip: "Check every subnode for at least one concrete number, format, or user access feature."
+      },
+      {
+        id: "m3_q3",
+        type: "mcq",
+        srCode: "M1.1(c) & M2.3(a)",
+        lessonTopic: "Connecting Pre-Production Stages to Concept Map Outputs",
+        cognitiveLevel: "Application",
+        scenario: "You have completed your concept map for the 'School Robotics Open House' website with 4 branches: Live Demos, Schedule, Team Blog, and Getting Here.",
+        prompt: "Which justification best explains why 'Problem & Target Audience Definition' had to happen BEFORE creating this concept map and moving to wireframes?",
+        options: [
+          "Because CSS background colours cannot be chosen without a concept map.",
+          "Until we established that visiting parents check the site on phones to plan travel and watch specific matches, we could not decide that 'Getting Here' and 'Schedule' needed their own top-level branches instead of burying them in technical rulebooks.",
+          "Because wireframes require finished high-resolution photographs first.",
+          "Because a concept map is only used after the website is coded and launched."
+        ],
+        correctIndex: 1,
+        explanation: "Strong Q2(b) answers explicitly reference the student's own concept map branches and explain what would go wrong in wireframing if that pre-production stage were skipped.",
+        studyTip: "In Q2(b), name two stages (e.g., Audience Definition + Concept Mapping) and directly reference your own map's branches."
+      },
+      {
+        id: "m3_q4",
+        type: "synthesis",
+        srCode: "M2.3(a)",
+        lessonTopic: "Building a Complete 8-Mark Concept Map Structure (Try → Hint → Model Check)",
+        cognitiveLevel: "Application",
+        scenario: "Plan a concept map for a 'Caribbean Youth Book & Zine Fair' website (hosted site + update blog for students and local readers on phones).",
+        prompt: "Write out your concept map structure showing: (1) Central Node, (2) FOUR decision branches, and (3) ONE specific subnode under each branch. (8 marks)",
+        hint: "Format template:
+Centre: [Site Name]
+Branch 1: [Section — decision on scope/frequency] -> Subnode: [Specific quantity, time, or access detail]
+(Repeat for Branches 2, 3, and 4)",
+        rubric: [
+          "Included a clear Central Node naming the website.",
+          "Wrote 4 branches that state DECISIONS (what/how much/when/how), not bare 1-word topic labels.",
+          "Wrote 4 subnodes that each give a concrete detail (quantity, timing, format, or mobile/access feature)."
+        ],
+        modelAnswer: "Centre: Caribbean Youth Book & Zine Fair 2027 Website
+• Branch 1 (Decision): Author Booths — organized into 3 genre zones (Fiction, Comics, Poetry) → Subnode: Each booth card shows author name, table number, and 1 JPEG cover preview.
+• Branch 2 (Decision): Stage Readings — 6 timed 20-minute slots across one Saturday → Subnode: Each slot displays start time, reader name, and an 'Add Reminder' link.
+• Branch 3 (Decision): Fair Countdown Blog — 2 short posts per week for 4 weeks → Subnode: Each post contains one 100-word author spotlight and 1 compressed photo.
+• Branch 4 (Decision): Plan Your Visit — venue directions and free-entry info on one page → Subnode: Includes local maxi/bus stop map plus a low-data text schedule."
+      }
+    ],
+    retryQuestions: [
+      {
+        id: "m3_r1",
+        type: "mcq",
+        srCode: "M2.3(a)",
+        lessonTopic: "Concept Map Scoring Rules",
+        cognitiveLevel: "Knowledge",
+        scenario: "A student draws a neat concept map with 6 branches, all labelled with single words ('Home', 'About', 'Events', 'Blog', 'Photos', 'Contact') and generic subnodes ('nice layout', 'good info').",
+        prompt: "What score will this concept map receive on the 8-mark ladder?",
+        options: [
+          "8/8 — because it has 6 branches instead of 4.",
+          "6/8 — 1 mark per branch.",
+          "0/8 — extra branches earn no credit, bare topic labels score 0, and generic subnodes score 0.",
+          "4/8 — half marks for neatness."
+        ],
+        correctIndex: 2,
+        explanation: "Marking is finish-blind and caps at 4 branches + 4 subnodes. Bare topic labels and generic subnodes score 0 regardless of how many extra branches are drawn.",
+        studyTip: "Focus on specificity over quantity: 4 sharp decision branches + 4 specific subnodes = full 8 marks."
+      },
+      {
+        id: "m3_r2",
+        type: "mcq",
+        srCode: "M1.1(c) & M2.3(a)",
+        lessonTopic: "Pre-Production Stages Before Wireframing",
+        cognitiveLevel: "Understanding",
+        scenario: "You are answering Q2(b): 'State TWO stages of pre-production work that had to be completed before your decisions could be turned into wireframes, and justify why each must come first.'",
+        prompt: "Which pair of stages is valid under the syllabus?",
+        options: [
+          "1. Defining target audience & purpose; 2. Concept mapping content branches.",
+          "1. Exporting final MP4 videos; 2. Writing CSS hover animations.",
+          "1. Buying a domain name; 2. Printing posters.",
+          "1. Picking hex codes; 2. Choosing a font family."
+        ],
+        correctIndex: 0,
+        explanation: "Problem/audience definition, personas, brainstorming, timelines/work plans, concept mapping, and prototyping/validation are valid pre-production stages before wireframing.",
+        studyTip: "Always explain what goes wrong with the wireframe if the stage is skipped (e.g., screens have to be redrawn when missing content is discovered)."
+      }
+    ]
+  },
+  {
+    id: "m4",
+    unitCode: "Module 2 · M2.6",
+    title: "Mission 4: Website Layout, Wireframes & Implementation",
+    lessonTopics: "Page Design Characteristics (M2.6c), Low-Fidelity Wireframes (M2.6b), & Structural Implementation (M2.6a)",
+    description: "Specify syllabus layout characteristics, build complete one-screen wireframe specs, and explain structural HTML/page implementation.",
+    badgeName: "Web Planning & Wireframe Architect",
+    questions: [
+      {
+        id: "m4_q1",
+        type: "matching",
+        srCode: "M2.6(c)",
+        lessonTopic: "Website Design & Layout Characteristics",
+        cognitiveLevel: "Knowledge",
+        scenario: "Syllabus objective M2.6(c) lists specific characteristics of page design and layout (contrast, layout, text, links, graphics, user interface design, responsiveness, accessibility, usability, user experience).",
+        prompt: "Match each real website behaviour to the exact M2.6(c) layout characteristic it demonstrates.",
+        choices: [
+          "Responsiveness",
+          "Accessibility",
+          "Usability",
+          "Links & Navigation"
+        ],
+        rows: [
+          {
+            label: "1. A three-column desktop schedule automatically stacks into a single thumb-scrollable column on a 375px phone screen.",
+            answer: "Responsiveness"
+          },
+          {
+            label: "2. Every event photograph includes descriptive alt text and keyboard focus outlines are clearly visible.",
+            answer: "Accessibility"
+          },
+          {
+            label: "3. A first-time visitor finds the venue address and session start time in under 10 seconds without confusion.",
+            answer: "Usability"
+          },
+          {
+            label: "4. A persistent 'Back to Home' anchor and clear section jump tabs let users move between pages effortlessly.",
+            answer: "Links & Navigation"
+          }
+        ],
+        explanation: "Responsiveness adapts layout across screen widths; Accessibility ensures visitors with disabilities or keyboard-only navigation can use the page; Usability measures ease and speed of completing tasks.",
+        studyTip: "Memorize at least four M2.6(c) terms verbatim: Responsiveness, Accessibility, Usability, Contrast, Layout, User Interface Design."
+      },
+      {
+        id: "m4_q2",
+        type: "audit",
+        srCode: "M2.6(b)",
+        lessonTopic: "Wireframe Scope Audit: Structural Decisions vs. Visual Styling",
+        cognitiveLevel: "Understanding",
+        scenario: "A wireframe shows content placement, navigation structure, hierarchy, and functional areas—NOT colour palettes, decorative fonts, or final photos.",
+        prompt: "Audit each annotation on a student's one-screen mobile wireframe for a 'School Talent Show' Programme page.",
+        choices: [
+          "Valid Wireframe Element (Content feature, layout decision, or navigation)",
+          "Out of Scope for Wireframe (Visual styling / decoration)"
+        ],
+        rows: [
+          {
+            label: "Annotation 1: 'Single-column vertical stack with Morning / Evening session tabs pinned at the top'",
+            answer: "Valid Wireframe Element (Content feature, layout decision, or navigation)"
+          },
+          {
+            label: "Annotation 2: 'Use gradient #FF5733 to #C70039 with cursive gold lettering on the title'",
+            answer: "Out of Scope for Wireframe (Visual styling / decoration)"
+          },
+          {
+            label: "Annotation 3: 'Persistent Back to Home link in the top header bar'",
+            answer: "Valid Wireframe Element (Content feature, layout decision, or navigation)"
+          },
+          {
+            label: "Annotation 4: 'Repeated primary Vote Now CTA button placed above the first act and at the foot of the list'",
+            answer: "Valid Wireframe Element (Content feature, layout decision, or navigation)"
+          }
+        ],
+        explanation: "Annotations 1, 3, and 4 specify structure, navigation, and content placement. Annotation 2 describes colours and decorative fonts, which belong in a visual mock-up rather than a wireframe.",
+        studyTip: "To score 7/7 on Q3(b), make sure your wireframe explicitly labels: 3 content features, 2 layout decisions, 1 navigation element, and 1 appropriateness reason covering BOTH platform and audience."
+      },
+      {
+        id: "m4_q3",
+        type: "mcq",
+        srCode: "M2.6(b) & M2.6(a)",
+        lessonTopic: "Implementing a Feature Shown in Your Wireframe",
+        cognitiveLevel: "Application",
+        scenario: "Your wireframe shows 'Pinned Morning / Afternoon session tabs' at the top of the mobile schedule page.",
+        prompt: "Which explanation would earn full marks for explaining how this wireframe feature is implemented (M2.6a)?",
+        options: [
+          "I would make the tabs look nice using a cool app.",
+          "I would implement the tabs as a horizontal list of hyperlinked buttons with a bold active-state border and background colour difference on the selected tab, plus a visible focus outline, so students glancing at a phone in bright sunlight can immediately tell which session panel is active.",
+          "I would put all Morning and Afternoon events in one giant unformatted paragraph.",
+          "I would hide the Afternoon tab until 12:00 PM."
+        ],
+        correctIndex: 1,
+        explanation: "Full implementation marks require: (1) a feature visible in your own wireframe, (2) a named structural technique (list, hyperlinks, active-state styling/background contrast), (3) concrete site detail, and (4) a platform/audience consequence.",
+        studyTip: "You do not need to name commercial software in Q3(c)—plain structural descriptions (HTML lists, hyperlinking, active-state markers, embedded media containers) earn full credit."
+      },
+      {
+        id: "m4_q4",
+        type: "synthesis",
+        srCode: "M2.6(b) & M2.6(c)",
+        lessonTopic: "One-Screen Wireframe Specification (Try → Hint → Model Check)",
+        cognitiveLevel: "Application",
+        scenario: "Using a concept map for a 'School Eco-Fair' site, specify the wireframe for the most important mobile page: 'Workshops & Talks'.",
+        prompt: "Write a complete wireframe specification listing: (a) 3 content features, (b) 2 layout decisions, (c) 1 navigation element, and (d) 1 reason the layout suits BOTH the platform and target audience. (7 marks)",
+        hint: "Use clear labels:
+• Feature 1, Feature 2, Feature 3:
+• Layout Decision 1, Layout Decision 2:
+• Navigation Element:
+• Appropriateness (Platform + Audience):",
+        rubric: [
+          "Listed 3 actual content features or functional areas (not colours/decorations).",
+          "Stated 2 distinct placement/structure layout decisions (e.g., single column, pinned tabs).",
+          "Identified 1 clear navigation element (e.g., persistent Back to Home link).",
+          "Explained appropriateness linking to BOTH the platform (mobile phone screen) AND the target audience (students/visitors)."
+        ],
+        modelAnswer: "Wireframe — 'Workshops & Talks' Page (Mobile Width):
+• Feature 1: Session filter tabs pinned at the top ('Morning' / 'Afternoon').
+• Feature 2: Stacked workshop cards showing start time, workshop title, and room number.
+• Feature 3: 'Save Seat' action button on each workshop card.
+• Layout Decision 1: Single-column vertical stack so the entire schedule reads in one thumb-scroll without horizontal panning.
+• Layout Decision 2: Primary 'Save Seat' action sits inside each card right below the room number, with a 'Jump to Top' control at the bottom of the list.
+• Navigation Element: Persistent 'Back to Home' link in the top header bar.
+• Appropriateness: The single-column layout and pinned tabs fit narrow phone screens without sideways scrolling (platform), allowing students rushing between classes to switch sessions and book a seat with one thumb (audience)."
+      }
+    ],
+    retryQuestions: [
+      {
+        id: "m4_r1",
+        type: "mcq",
+        srCode: "M2.6(c)",
+        lessonTopic: "Platform & Audience Appropriateness",
+        cognitiveLevel: "Understanding",
+        scenario: "In Q3(b), a student writes for the appropriateness mark: 'This layout is good for mobile devices.'",
+        prompt: "Why does this earn 0 marks for the appropriateness criterion?",
+        options: [
+          "Because mobile devices cannot display websites.",
+          "Because the mark scheme requires linking the layout to BOTH the platform AND the specific target audience with site-specific detail.",
+          "Because students must write about desktop computers only.",
+          "Because wireframes do not have layouts."
+        ],
+        correctIndex: 1,
+        explanation: "'Good for mobile' names only the platform and lacks audience context. Always explain how the layout serves both the device constraint and the user's real-world task.",
+        studyTip: "Use the formula: '[Layout choice] fits [phone screen constraint] (platform) so [user group] can [specific task] (audience).'"
+      },
+      {
+        id: "m4_r2",
+        type: "mcq",
+        srCode: "M2.6(b) & M2.6(a)",
+        lessonTopic: "Wireframe-to-Implementation Dependency",
+        cognitiveLevel: "Application",
+        scenario: "In Q3(c), a student explains how to implement an interactive map—even though no interactive map appeared anywhere in their Q3(b) wireframe.",
+        prompt: "What happens under the Paper 02 mark scheme?",
+        options: [
+          "They get bonus marks for creativity.",
+          "They lose the implementation marks because Q3(c) must implement a feature actually visible in their own Q3(b) wireframe.",
+          "Their entire Q3(b) wireframe is marked zero.",
+          "Nothing happens; Q3(c) is independent of Q3(b)."
+        ],
+        correctIndex: 1,
+        explanation: "Q3(c) has a strict dependency on Q3(b): you must name three features visible in your wireframe and implement one of those exact features.",
+        studyTip: "Double-check that the feature you explain in Q3(c) is explicitly drawn and labelled in your Q3(b) wireframe."
+      }
+    ]
+  }
+];
+
+/**
+ * APPLICATION STATE & LOCALSTORAGE PERSISTENCE
+ */
+const STORAGE_KEY = "cape_dm_u2_revision_hub_v1";
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {
+    console.warn("Could not read localStorage", e);
+  }
+  return {
+    readingSupport: false,
+    missions: {}, // { [missionId]: { completed: bool, scorePct: number, mastered: bool, retryUnlocked: bool, retryCompleted: bool } }
+    attempts: {}  // { [questionId]: { firstCorrect: bool, latestCorrect: bool, srCode, lessonTopic, cognitiveLevel, missionId, promptSummary } }
+  };
+}
+
+let appState = loadState();
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+  } catch (e) {
+    console.warn("Could not save localStorage", e);
+  }
+}
+
+// Runtime view state
+let currentView = {
+  screen: "home", // "home" | "mission" | "summary" | "weakest"
+  missionId: null,
+  mode: "main", // "main" | "retry" | "weakest"
+  qIndex: 0,
+  questionPool: [],
+  sessionAnswers: {}, // { [qId]: { isCorrect, userChoice, userText, hintShown, selfChecked } }
+  selectedOption: null,
+  tableSelections: {}
+};
+
+// Apply reading support preference on boot
+function applyReadingSupportUI() {
+  const btn = document.getElementById("readingToggleBtn");
+  if (appState.readingSupport) {
+    document.body.classList.add("reading-support");
+    btn.setAttribute("aria-pressed", "true");
+    btn.textContent = "Aa Reading Support: On";
+  } else {
+    document.body.classList.remove("reading-support");
+    btn.setAttribute("aria-pressed", "false");
+    btn.textContent = "Aa Reading Support: Off";
+  }
+}
+
+document.getElementById("readingToggleBtn").addEventListener("click", () => {
+  appState.readingSupport = !appState.readingSupport;
+  saveState();
+  applyReadingSupportUI();
+});
+
+document.getElementById("homeNavBtn").addEventListener("click", () => {
+  currentView.screen = "home";
+  render();
+});
+
+document.getElementById("summaryNavBtn").addEventListener("click", () => {
+  currentView.screen = "summary";
+  render();
+});
+
+/**
+ * HELPER FUNCTIONS
+ */
+function getMissionProgress(missionId) {
+  return appState.missions[missionId] || {
+    completed: false,
+    scorePct: 0,
+    mastered: false,
+    retryUnlocked: false,
+    retryCompleted: false
+  };
+}
+
+function recordAttempt(q, missionId, isCorrect) {
+  const existing = appState.attempts[q.id];
+  appState.attempts[q.id] = {
+    firstCorrect: existing ? existing.firstCorrect : isCorrect,
+    latestCorrect: isCorrect,
+    srCode: q.srCode,
+    lessonTopic: q.lessonTopic,
+    cognitiveLevel: q.cognitiveLevel,
+    missionId: missionId,
+    studyTip: q.studyTip || "Review the scheme-of-work criteria and practice tying every answer to your named site."
+  };
+  saveState();
+}
+
+function startMission(missionId, mode = "main") {
+  const mission = MISSIONS.find(m => m.id === missionId);
+  if (!mission) return;
+
+  const pool = mode === "retry" ? mission.retryQuestions : mission.questions;
+  currentView = {
+    screen: "mission",
+    missionId: mission.id,
+    mode: mode,
+    qIndex: 0,
+    questionPool: pool,
+    sessionAnswers: {},
+    selectedOption: null,
+    tableSelections: {}
+  };
+  render();
+}
+
+function startWeakestPractice() {
+  // Gather all questions missed on first attempt (or latest attempt)
+  const missedIds = Object.keys(appState.attempts).filter(
+    qId => !appState.attempts[qId].firstCorrect || !appState.attempts[qId].latestCorrect
+  );
+
+  const allQuestions = [];
+  MISSIONS.forEach(m => {
+    m.questions.forEach(q => allQuestions.push({ ...q, _missionId: m.id }));
+    m.retryQuestions.forEach(q => allQuestions.push({ ...q, _missionId: m.id }));
+  });
+
+  const pool = allQuestions.filter(q => missedIds.includes(q.id));
+  if (pool.length === 0) {
+    alert("You have no missed questions to practice right now! Try any mission to test yourself.");
+    return;
+  }
+
+  currentView = {
+    screen: "mission",
+    missionId: "weakest_drill",
+    mode: "weakest",
+    qIndex: 0,
+    questionPool: pool,
+    sessionAnswers: {},
+    selectedOption: null,
+    tableSelections: {}
+  };
+  render();
+}
+
+function resetAllProgress() {
+  if (confirm("Reset all mission scores, badges, and diagnostic history? (Your Reading Support setting will be kept.)")) {
+    const keepReading = appState.readingSupport;
+    appState = {
+      readingSupport: keepReading,
+      missions: {},
+      attempts: {}
+    };
+    saveState();
+    currentView.screen = "home";
+    render();
+  }
+}
+
+/**
+ * RENDERERS
+ */
+function render() {
+  const root = document.getElementById("appRoot");
+  if (currentView.screen === "home") {
+    root.innerHTML = renderHome();
+    attachHomeEvents();
+  } else if (currentView.screen === "mission") {
+    root.innerHTML = renderMissionWorkspace();
+    attachMissionEvents();
+  } else if (currentView.screen === "summary") {
+    root.innerHTML = renderSummary();
+    attachSummaryEvents();
+  }
+}
+
+function renderHome() {
+  const masteredCount = MISSIONS.filter(m => getMissionProgress(m.id).mastered).length;
+  const attemptedTotal = Object.keys(appState.attempts).length;
+
+  const missionCardsHtml = MISSIONS.map(m => {
+    const prog = getMissionProgress(m.id);
+    let statusBadge = `<span class="pill">Not Started</span>`;
+    if (prog.mastered) {
+      statusBadge = `<span class="pill pill-badge">★ Mastered (${prog.scorePct}%) · ${m.badgeName}</span>`;
+    } else if (prog.retryUnlocked) {
+      statusBadge = `<span class="pill pill-retry">Score: ${prog.scorePct}% · Confidence Retry Ready</span>`;
+    } else if (prog.completed) {
+      statusBadge = `<span class="pill">Completed (${prog.scorePct}%)</span>`;
+    }
+
+    const retryBtnHtml = prog.retryUnlocked && !prog.mastered
+      ? `<button class="btn-primary start-retry-btn" data-id="${m.id}">Launch 2-Question Confidence Retry</button>`
+      : "";
+
+    return `
+      <article class="card mission-card">
+        <div>
+          <div class="pill-row">
+            <span class="pill">${m.unitCode}</span>
+            ${statusBadge}
+          </div>
+          <h2>${m.title}</h2>
+          <p class="mission-meta"><strong>Scheme of Work:</strong> ${m.lessonTopics}</p>
+          <p>${m.description}</p>
+        </div>
+        <div>
+          <div class="progress-track" aria-label="Mission mastery progress">
+            <div class="progress-fill ${prog.mastered ? 'mastered' : ''}" style="width: ${prog.mastered ? 100 : prog.scorePct}%"></div>
+          </div>
+          <div class="action-row">
+            <button class="${prog.retryUnlocked && !prog.mastered ? 'btn-secondary' : 'btn-primary'} start-mission-btn" data-id="${m.id}">
+              ${prog.completed ? "Practice Mission Again" : "Start Mission"}
+            </button>
+            ${retryBtnHtml}
+          </div>
+        </div>
+      </article>
+    `;
+  }).join("");
+
+  return `
+    <section class="card hero-banner">
+      <h1>Welcome to Your CAPE Digital Media Unit 2 Revision Hub</h1>
+      <p>
+        Build exam confidence through four bite-sized mastery missions aligned with your syllabus and Paper 02 mark scheme.
+        There are <strong>no countdown timers</strong>—take your time, use hints when needed, and aim for <strong>80% mastery</strong> in each unit.
+      </p>
+      <div class="pill-row">
+        <span class="pill pill-badge">Mastery Badges Earned: ${masteredCount} / ${MISSIONS.length}</span>
+        <span class="pill">Questions Attempted: ${attemptedTotal}</span>
+        <span class="pill">Target Mastery: 80%+ per Mission</span>
+      </div>
+    </section>
+
+    <section class="mission-grid">
+      ${missionCardsHtml}
+    </section>
+
+    <div class="action-row" style="justify-content: space-between; margin-top: 2rem;">
+      <button id="viewSummaryBottomBtn" class="btn-primary">View Personalized Exam-Ready Summary →</button>
+      <button id="resetProgressBtn" class="btn-danger-ghost">Reset Saved Progress</button>
+    </div>
+  `;
+}
+
+function attachHomeEvents() {
+  document.querySelectorAll(".start-mission-btn").forEach(btn => {
+    btn.addEventListener("click", () => startMission(btn.dataset.id, "main"));
+  });
+  document.querySelectorAll(".start-retry-btn").forEach(btn => {
+    btn.addEventListener("click", () => startMission(btn.dataset.id, "retry"));
+  });
+  const sumBtn = document.getElementById("viewSummaryBottomBtn");
+  if (sumBtn) sumBtn.addEventListener("click", () => {
+    currentView.screen = "summary";
+    render();
+  });
+  const resetBtn = document.getElementById("resetProgressBtn");
+  if (resetBtn) resetBtn.addEventListener("click", resetAllProgress);
+}
+
+function renderMissionWorkspace() {
+  const pool = currentView.questionPool;
+  const total = pool.length;
+  const idx = currentView.qIndex;
+
+  // Check if finished pool
+  if (idx >= total) {
+    return renderMissionComplete();
+  }
+
+  const q = pool[idx];
+  const missionObj = MISSIONS.find(m => m.id === (q._missionId || currentView.missionId));
+  const missionTitle = currentView.mode === "weakest"
+    ? "Targeted Practice: Weakest Scheme-of-Work Areas"
+    : currentView.mode === "retry"
+      ? `${missionObj.title} — Confidence Retry`
+      : missionObj.title;
+
+  const savedAns = currentView.sessionAnswers[q.id];
+  const pct = Math.round(((idx) / total) * 100);
+
+  let interactionHtml = "";
+
+  if (q.type === "mcq") {
+    const letters = ["A", "B", "C", "D"];
+    const optsHtml = q.options.map((opt, i) => {
+      let cls = "option-btn";
+      if (savedAns) {
+        if (i === q.correctIndex) cls += " correct";
+        else if (i === savedAns.userChoice && !savedAns.isCorrect) cls += " incorrect";
+      } else if (currentView.selectedOption === i) {
+        cls += " selected";
+      }
+      return `
+        <button class="${cls}" data-opt="${i}" ${savedAns ? "disabled" : ""}>
+          <span class="option-letter">${letters[i]}.</span>
+          <span>${opt}</span>
+        </button>
+      `;
+    }).join("");
+
+    interactionHtml = `
+      <div class="option-list">${optsHtml}</div>
+      ${!savedAns ? `
+        <div class="action-row">
+          <button id="submitMcqBtn" class="btn-primary">Check Answer</button>
+        </div>
+      ` : ""}
+    `;
+  } else if (q.type === "matching" || q.type === "audit") {
+    const rowsHtml = q.rows.map((row, rIdx) => {
+      const currentVal = savedAns
+        ? savedAns.userChoice[rIdx]
+        : (currentView.tableSelections[rIdx] || "");
+      let selectCls = "table-select";
+      if (savedAns) {
+        selectCls += (currentVal === row.answer) ? " row-correct" : " row-incorrect";
+      }
+
+      const optionsMarkup = [
+        `<option value="">-- Select classification --</option>`,
+        ...q.choices.map(c => `<option value="${c}" ${currentVal === c ? "selected" : ""}>${c}</option>`)
+      ].join("");
+
+      return `
+        <tr>
+          <td>
+            <strong>${row.label}</strong>
+            ${savedAns && currentVal !== row.answer ? `<div style="color: var(--success); font-size: 0.9em; margin-top: 0.35rem;">✓ Correct match: <strong>${row.answer}</strong></div>` : ""}
+          </td>
+          <td style="min-width: 230px;">
+            <select class="${selectCls}" data-row="${rIdx}" ${savedAns ? "disabled" : ""}>
+              ${optionsMarkup}
+            </select>
+          </td>
+        </tr>
+      `;
+    }).join("");
+
+    interactionHtml = `
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th>Item / Scenario Evidence</th>
+            <th>Your Classification</th>
+          </tr>
+        </thead>
+        <tbody>${rowsHtml}</tbody>
+      </table>
+      ${!savedAns ? `
+        <div class="action-row">
+          <button id="submitTableBtn" class="btn-primary">Check Table Classifications</button>
+        </div>
+      ` : ""}
+    `;
+  } else if (q.type === "synthesis") {
+    const draftState = currentView.sessionAnswers[q.id + "_draft"] || { text: "", hintOpen: false, modelOpen: false };
+    const rubricHtml = q.rubric.map((item, rIdx) => `
+      <label class="rubric-item">
+        <input type="checkbox" class="rubric-cb" data-ridx="${rIdx}" ${savedAns ? "disabled checked" : ""} />
+        <span>${item}</span>
+      </label>
+    `).join("");
+
+    interactionHtml = `
+      <div class="action-row" style="margin-top: 0;">
+        <button id="toggleHintBtn" class="btn-secondary" type="button">
+          ${draftState.hintOpen ? "Hide Sentence-Starter Hint" : "Need a Hint? Show Sentence Starter"}
+        </button>
+      </div>
+      ${draftState.hintOpen ? `<div class="hint-box"><strong>Scaffolded Sentence Starter:</strong><br/>${q.hint.replace(/
+/g, "<br/>")}</div>` : ""}
+
+      <label for="synthesisTextarea" style="display:block; margin-top: 0.9rem; font-weight: 600;">
+        Step 1 — Try writing your response below:
+      </label>
+      <textarea id="synthesisTextarea" class="synthesis-input" placeholder="Draft your response here before comparing with the mark-scheme model..." ${savedAns ? "disabled" : ""}>${savedAns ? savedAns.userText : draftState.text}</textarea>
+
+      ${!savedAns && !draftState.modelOpen ? `
+        <div class="action-row">
+          <button id="revealModelBtn" class="btn-primary">Compare with Model Answer &amp; Mark-Scheme Rubric</button>
+        </div>
+      ` : ""}
+
+      ${(draftState.modelOpen || savedAns) ? `
+        <div class="model-answer-box">
+          <strong>Mark-Scheme Model Response:</strong>
+          <p style="margin-bottom: 0; white-space: pre-line;">${q.modelAnswer}</p>
+        </div>
+        <div class="rubric-checklist">
+          <strong>Step 2 — Self-Check Rubric (Tick each criterion your response clearly met):</strong>
+          ${rubricHtml}
+          ${!savedAns ? `
+            <div class="action-row">
+              <button id="confirmSelfCheckBtn" class="btn-primary">Confirm Self-Check &amp; Record Result</button>
+            </div>
+          ` : ""}
+        </div>
+      ` : ""}
+    `;
+  }
+
+  let feedbackHtml = "";
+  if (savedAns) {
+    feedbackHtml = `
+      <div class="feedback-panel ${savedAns.isCorrect ? "pass" : "fail"}">
+        <strong>${savedAns.isCorrect ? "Great work! Concept nailed." : "Good try — let's review the mark-scheme rule:"}</strong>
+        <p style="margin: 0.45rem 0 0 0;">${q.explanation || "Compare your self-checked criteria against the model response above to lock in full marks."}</p>
+      </div>
+      <div class="action-row">
+        <button id="nextQuestionBtn" class="btn-primary">
+          ${idx + 1 < total ? "Next Question →" : "Finish & See Mission Score →"}
+        </button>
+      </div>
+    `;
+  }
+
+  return `
+    <div class="card">
+      <div class="workspace-header">
+        <div>
+          <strong>${missionTitle}</strong>
+          <div style="font-size: 0.88em; color: var(--text-muted);">Question ${idx + 1} of ${total}</div>
+        </div>
+        <button id="exitMissionBtn" class="btn-secondary">← Back to Mission Map</button>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" style="width: ${pct}%"></div>
+      </div>
+
+      <div class="tag-strip">
+        <span class="pill">Syllabus: ${q.srCode}</span>
+        <span class="pill">Topic: ${q.lessonTopic}</span>
+        <span class="pill">Cognitive Skill: ${q.cognitiveLevel}</span>
+      </div>
+
+      <div class="scenario-box">
+        <strong>Scenario:</strong> ${q.scenario}
+      </div>
+
+      <div class="question-prompt">${q.prompt}</div>
+
+      ${interactionHtml}
+      ${feedbackHtml}
+    </div>
+  `;
+}
+
+function attachMissionEvents() {
+  const exitBtn = document.getElementById("exitMissionBtn");
+  if (exitBtn) exitBtn.addEventListener("click", () => {
+    currentView.screen = "home";
+    render();
+  });
+
+  const pool = currentView.questionPool;
+  const q = pool[currentView.qIndex];
+  if (!q) {
+    // Mission complete screen buttons
+    const retryBtn = document.getElementById("launchRetryNowBtn");
+    if (retryBtn) retryBtn.addEventListener("click", () => startMission(currentView.missionId, "retry"));
+    const mapBtn = document.getElementById("returnMapBtn");
+    if (mapBtn) mapBtn.addEventListener("click", () => {
+      currentView.screen = "home";
+      render();
+    });
+    const sumBtn = document.getElementById("goSummaryBtn");
+    if (sumBtn) sumBtn.addEventListener("click", () => {
+      currentView.screen = "summary";
+      render();
+    });
+    return;
+  }
+
+  const missionIdForRecord = q._missionId || currentView.missionId;
+
+  // MCQ interactions
+  if (q.type === "mcq") {
+    document.querySelectorAll(".option-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        currentView.selectedOption = parseInt(btn.dataset.opt, 10);
+        render();
+      });
+    });
+
+    const submitMcq = document.getElementById("submitMcqBtn");
+    if (submitMcq) {
+      submitMcq.addEventListener("click", () => {
+        if (currentView.selectedOption === null) {
+          alert("Please select an answer option first.");
+          return;
+        }
+        const isCorrect = currentView.selectedOption === q.correctIndex;
+        currentView.sessionAnswers[q.id] = {
+          isCorrect,
+          userChoice: currentView.selectedOption
+        };
+        recordAttempt(q, missionIdForRecord, isCorrect);
+        render();
+      });
+    }
+  }
+
+  // Table interactions
+  if (q.type === "matching" || q.type === "audit") {
+    document.querySelectorAll(".table-select").forEach(sel => {
+      sel.addEventListener("change", () => {
+        currentView.tableSelections[sel.dataset.row] = sel.value;
+      });
+    });
+
+    const submitTable = document.getElementById("submitTableBtn");
+    if (submitTable) {
+      submitTable.addEventListener("click", () => {
+        const chosen = {};
+        let allFilled = true;
+        let correctRows = 0;
+
+        q.rows.forEach((r, idx) => {
+          const val = currentView.tableSelections[idx] || "";
+          if (!val) allFilled = false;
+          chosen[idx] = val;
+          if (val === r.answer) correctRows++;
+        });
+
+        if (!allFilled) {
+          alert("Please select a classification for every row in the table before checking.");
+          return;
+        }
+
+        const isCorrect = correctRows === q.rows.length;
+        currentView.sessionAnswers[q.id] = {
+          isCorrect,
+          userChoice: chosen
+        };
+        recordAttempt(q, missionIdForRecord, isCorrect);
+        render();
+      });
+    }
+  }
+
+  // Synthesis interactions
+  if (q.type === "synthesis") {
+    const draftKey = q.id + "_draft";
+    if (!currentView.sessionAnswers[draftKey]) {
+      currentView.sessionAnswers[draftKey] = { text: "", hintOpen: false, modelOpen: false };
+    }
+    const draft = currentView.sessionAnswers[draftKey];
+
+    const ta = document.getElementById("synthesisTextarea");
+    if (ta) {
+      ta.addEventListener("input", () => {
+        draft.text = ta.value;
+      });
+    }
+
+    const hintBtn = document.getElementById("toggleHintBtn");
+    if (hintBtn) {
+      hintBtn.addEventListener("click", () => {
+        draft.hintOpen = !draft.hintOpen;
+        render();
+      });
+    }
+
+    const revealBtn = document.getElementById("revealModelBtn");
+    if (revealBtn) {
+      revealBtn.addEventListener("click", () => {
+        if (!draft.text || draft.text.trim().length < 15) {
+          alert("Try drafting your response in the text box first (at least a full sentence) before revealing the model answer.");
+          return;
+        }
+        draft.modelOpen = true;
+        render();
+      });
+    }
+
+    const confirmSelfBtn = document.getElementById("confirmSelfCheckBtn");
+    if (confirmSelfBtn) {
+      confirmSelfBtn.addEventListener("click", () => {
+        const checkboxes = document.querySelectorAll(".rubric-cb");
+        let checkedCount = 0;
+        checkboxes.forEach(cb => {
+          if (cb.checked) checkedCount++;
+        });
+        // Require all rubric points met to count as mastered on synthesis
+        const isCorrect = checkedCount === q.rubric.length;
+        currentView.sessionAnswers[q.id] = {
+          isCorrect,
+          userText: draft.text
+        };
+        recordAttempt(q, missionIdForRecord, isCorrect);
+        render();
+      });
+    }
+  }
+
+  const nextBtn = document.getElementById("nextQuestionBtn");
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      currentView.qIndex++;
+      currentView.selectedOption = null;
+      currentView.tableSelections = {};
+      render();
+    });
+  }
+}
+
+function renderMissionComplete() {
+  const pool = currentView.questionPool;
+  let correctCount = 0;
+  pool.forEach(q => {
+    if (currentView.sessionAnswers[q.id] && currentView.sessionAnswers[q.id].isCorrect) {
+      correctCount++;
+    }
+  });
+  const scorePct = Math.round((correctCount / pool.length) * 100);
+
+  if (currentView.mode === "weakest") {
+    return `
+      <div class="card">
+        <h2>Targeted Weakest-Area Drill Complete!</h2>
+        <p>You scored <strong>${correctCount} out of ${pool.length} (${scorePct}%)</strong> on your targeted review items.</p>
+        <div class="action-row">
+          <button id="goSummaryBtn" class="btn-primary">View Updated Exam-Ready Summary</button>
+          <button id="returnMapBtn" class="btn-secondary">Return to Mission Map</button>
+        </div>
+      </div>
+    `;
+  }
+
+  const mission = MISSIONS.find(m => m.id === currentView.missionId);
+  const prevProg = getMissionProgress(mission.id);
+
+  if (currentView.mode === "main") {
+    const passed = scorePct >= 80;
+    appState.missions[mission.id] = {
+      completed: true,
+      scorePct: Math.max(prevProg.scorePct, scorePct),
+      mastered: prevProg.mastered || passed,
+      retryUnlocked: !passed && !prevProg.mastered,
+      retryCompleted: prevProg.retryCompleted
+    };
+    saveState();
+
+    if (passed) {
+      return `
+        <div class="card" style="border-color: var(--success);">
+          <span class="pill pill-badge">★ Mastery Badge Unlocked: ${mission.badgeName}</span>
+          <h2>Mission Mastered! (${scorePct}%)</h2>
+          <p>You answered <strong>${correctCount} of ${pool.length}</strong> questions accurately, clearing the 80% mastery threshold for <strong>${mission.unitCode}</strong>.</p>
+          <div class="action-row">
+            <button id="returnMapBtn" class="btn-primary">Continue to Next Mission</button>
+            <button id="goSummaryBtn" class="btn-secondary">Check Exam-Ready Summary</button>
+          </div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="card" style="border-color: #E7C389;">
+          <span class="pill pill-retry">Score: ${scorePct}% · 80% Needed for Mastery Badge</span>
+          <h2>Confidence Retry Unlocked!</h2>
+          <p>
+            You got <strong>${correctCount} of ${pool.length}</strong> right on this run. Before awarding your
+            <strong>${mission.badgeName}</strong> badge, complete a quick <strong>2-question Confidence Retry</strong> targeting the key concepts from this unit.
+          </p>
+          <div class="action-row">
+            <button id="launchRetryNowBtn" class="btn-primary">Start 2-Question Confidence Retry →</button>
+            <button id="returnMapBtn" class="btn-secondary">Back to Mission Map</button>
+          </div>
+        </div>
+      `;
+    }
+  } else {
+    // Retry mode completed
+    const retryPassed = scorePct >= 50;
+    appState.missions[mission.id] = {
+      ...prevProg,
+      mastered: retryPassed ? true : prevProg.mastered,
+      retryCompleted: true
+    };
+    saveState();
+
+    return `
+      <div class="card" style="border-color: ${retryPassed ? "var(--success)" : "#E7C389"};">
+        <span class="pill ${retryPassed ? "pill-badge" : "pill-retry"}">
+          ${retryPassed ? "★ Mastery Badge Awarded: " + mission.badgeName : "Keep Practicing"}
+        </span>
+        <h2>Confidence Retry Score: ${scorePct}% (${correctCount} / ${pool.length})</h2>
+        <p>
+          ${retryPassed
+            ? "Awesome persistence! You strengthened your weak spots and earned the unit Mastery Badge."
+            : "Review the explanations in your Exam-Ready Summary, then give the mission or retry another calm pass whenever you're ready."}
+        </p>
+        <div class="action-row">
+          <button id="returnMapBtn" class="btn-primary">Back to Mission Map</button>
+          <button id="goSummaryBtn" class="btn-secondary">View Exam-Ready Summary</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function renderSummary() {
+  const attemptsList = Object.values(appState.attempts);
+  const masteredCount = MISSIONS.filter(m => getMissionProgress(m.id).mastered).length;
+
+  // Group first-attempt misses by Cognitive Skill Level
+  const missedFirst = attemptsList.filter(a => !a.firstCorrect);
+
+  const byCognitive = {
+    Knowledge: missedFirst.filter(a => a.cognitiveLevel === "Knowledge"),
+    Understanding: missedFirst.filter(a => a.cognitiveLevel === "Understanding"),
+    Application: missedFirst.filter(a => a.cognitiveLevel === "Application")
+  };
+
+  function renderCategoryItems(items, emptyMsg) {
+    if (items.length === 0) {
+      return `<p style="color: var(--success); margin-bottom: 0;">✓ No first-attempt gaps recorded in this skill area yet!</p>`;
+    }
+    // Deduplicate by lessonTopic + srCode
+    const seen = new Set();
+    const unique = [];
+    items.forEach(item => {
+      const key = item.srCode + "::" + item.lessonTopic;
+      if (!seen.has(key)) {
+        seen.add(key);
+        unique.push(item);
+      }
+    });
+
+    return `<ul style="padding-left: 1.2rem; margin-bottom: 0;">
+      ${unique.map(u => `
+        <li style="margin-bottom: 0.65rem;">
+          <strong>[${u.srCode}] ${u.lessonTopic}</strong><br/>
+          <span style="font-size: 0.92em; color: var(--text-muted);">Study Tip: ${u.studyTip}</span>
+        </li>
+      `).join("")}
+    </ul>`;
+  }
+
+  return `
+    <section class="card hero-banner">
+      <h1>Exam-Ready Summary &amp; Personalized Study Focus Plan</h1>
+      <p>
+        This diagnostic analyzes your performance across all CAPE Digital Media Unit 2 missions—including items missed on your first attempt—organized by Scheme-of-Work topic and Cognitive Skill Level.
+      </p>
+      <div class="pill-row">
+        <span class="pill pill-badge">Badges Earned: ${masteredCount} / ${MISSIONS.length}</span>
+        <span class="pill">Total Questions Tracked: ${attemptsList.length}</span>
+        <span class="pill pill-retry">First-Attempt Areas to Strengthen: ${missedFirst.length}</span>
+      </div>
+      ${missedFirst.length > 0 ? `
+        <div class="action-row">
+          <button id="practiceWeakestBtn" class="btn-primary">Practice Weakest Area (${missedFirst.length} Item${missedFirst.length > 1 ? "s" : ""}) →</button>
+        </div>
+      ` : ""}
+    </section>
+
+    <section class="diagnostic-grid">
+      <div class="diag-card">
+        <h3>1. Knowledge to Review</h3>
+        <p style="font-size: 0.9em; color: var(--text-muted);">Definitions, syllabus terminology, web formats, and layout characteristics to revisit:</p>
+        ${renderCategoryItems(byCognitive.Knowledge)}
+      </div>
+
+      <div class="diag-card">
+        <h3>2. Understanding to Strengthen</h3>
+        <p style="font-size: 0.9em; color: var(--text-muted);">How and why pre-production stages, concept map rules, and layout models work:</p>
+        ${renderCategoryItems(byCognitive.Understanding)}
+      </div>
+
+      <div class="diag-card">
+        <h3>3. Application to Practice</h3>
+        <p style="font-size: 0.9em; color: var(--text-muted);">Diagnosing scenarios, justifying platform/audience choices, and writing mark-scheme synthesis answers:</p>
+        ${renderCategoryItems(byCognitive.Application)}
+      </div>
+    </section>
+
+    <div class="action-row">
+      <button id="backHomeFromSummaryBtn" class="btn-secondary">← Return to Mission Map</button>
+    </div>
+  `;
+}
+
+function attachSummaryEvents() {
+  const weakBtn = document.getElementById("practiceWeakestBtn");
+  if (weakBtn) weakBtn.addEventListener("click", startWeakestPractice);
+
+  const backBtn = document.getElementById("backHomeFromSummaryBtn");
+  if (backBtn) backBtn.addEventListener("click", () => {
+    currentView.screen = "home";
+    render();
+  });
+}
+
+// Initial boot
+applyReadingSupportUI();
+render();
+</script>
+</body>
+</html>
