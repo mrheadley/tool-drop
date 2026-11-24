@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form 2 IT — Mastery Revision Hub (Units 1–5)</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Calm, dyslexia-friendly base typography & warm cream palette */
+    :root {
+      --bg-cream: #FAF9F6;
+      --card-surface: #FFFFFF;
+      --text-slate: #1E293B;
+      --text-muted: #475569;
+      --teal-primary: #0F766E;
+      --teal-soft: #F0FDFA;
+      --teal-border: #99F6E4;
+      --amber-accent: #D97706;
+      --amber-soft: #FFFBEB;
+      --emerald-success: #15803D;
+      --emerald-soft: #F0FDF4;
+      --rose-retry: #BE123C;
+      --rose-soft: #FFF1F2;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-slate);
+      font-family: Verdana, 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      letter-spacing: 0.015em;
+      transition: font-size 0.2s ease, line-height 0.2s ease;
+    }
+
+    /* Reading Support / Larger Text Accessibility Toggle */
+    body.reading-support {
+      font-size: 1.125rem;
+      line-height: 1.85;
+      letter-spacing: 0.03em;
+      word-spacing: 0.08em;
+    }
+
+    .card-haven {
+      background-color: var(--card-surface);
+      border: 2px solid #E2E8F0;
+      border-radius: 1rem;
+      box-shadow: 0 4px 14px rgba(30, 41, 59, 0.04);
+    }
+
+    .option-btn {
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--teal-primary);
+      background-color: var(--teal-soft);
+    }
+
+    .option-selected {
+      border-color: var(--teal-primary) !important;
+      background-color: var(--teal-soft) !important;
+      box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2);
+    }
+
+    .option-correct {
+      border-color: var(--emerald-success) !important;
+      background-color: var(--emerald-soft) !important;
+      color: #14532D !important;
+    }
+
+    .option-wrong {
+      border-color: var(--rose-retry) !important;
+      background-color: var(--rose-soft) !important;
+      color: #881337 !important;
+    }
+
+    select.calm-select {
+      background-color: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-radius: 0.65rem;
+      padding: 0.55rem 0.75rem;
+      color: var(--text-slate);
+      font-family: inherit;
+      width: 100%;
+    }
+
+    select.calm-select:focus {
+      outline: none;
+      border-color: var(--teal-primary);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Sticky Header -->
+  <header class="bg-white border-b-2 border-slate-200 sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-3 h-3 rounded-full bg-teal-700"></span>
+          <span class="text-xs font-bold uppercase tracking-wider text-teal-800">Form 2 Information Technology</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold text-slate-900">Digital Citizenship Mastery Hub</h1>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="readingToggleBtn" type="button" onclick="toggleReadingSupport()"
+          class="px-3.5 py-2 rounded-xl border-2 border-teal-700 text-teal-800 font-semibold text-sm hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-600">
+          Aa Reading Support: Off
+        </button>
+        <button type="button" onclick="confirmResetModal()"
+          class="px-3 py-2 rounded-xl border-2 border-slate-300 text-slate-600 text-sm hover:bg-slate-100 focus:outline-none">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Mastery Progress Bar & Unit Pills -->
+    <div class="bg-slate-50 border-t border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-3">
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-600 mb-2">
+          <span>Exam Readiness Progress (Units 1–5)</span>
+          <span id="masteryCountText">0 of 5 Units Mastered</span>
+        </div>
+        <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden mb-3">
+          <div id="masteryProgressBar" class="bg-teal-700 h-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <!-- Clickable Unit Mission Pills -->
+        <nav id="unitNavPills" class="grid grid-cols-2 sm:grid-cols-5 gap-2" aria-label="Unit Missions">
+          <!-- Populated dynamically -->
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6 sm:py-8">
+    <!-- Calm Encouragement Banner -->
+    <div class="mb-6 p-4 rounded-2xl bg-teal-50/80 border-2 border-teal-200 flex items-start gap-3">
+      <div class="text-teal-800 mt-0.5 shrink-0" aria-hidden="true">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="text-sm text-slate-800">
+        <strong>No timers. No pressure.</strong> Take one unit at a time. Score <strong>80% or higher</strong> on a mission to earn its Mastery Badge—or use the quick 2-question Confidence Retry to level up any tricky spots.
+      </div>
+    </div>
+
+    <!-- Dynamic Mission Container -->
+    <div id="missionContainer" class="animate-fade"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 bg-white py-4 mt-10">
+    <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-500">
+      Aligned with Form 2 Digital Citizenship &amp; Digital Media (Units 1–5) • Mistakes are just helpful feedback.
+    </div>
+  </footer>
+
+  <!-- Custom Reset Confirmation Modal (No alert/confirm used) -->
+  <div id="resetModal" class="hidden fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border-2 border-slate-200 max-w-md w-full p-6 shadow-xl">
+      <h2 class="text-lg font-bold text-slate-900 mb-2">Reset Practice Progress?</h2>
+      <p class="text-sm text-slate-600 mb-5">This will clear your earned Mastery Badges and let you practice all five units fresh from the beginning.</p>
+      <div class="flex justify-end gap-3">
+        <button type="button" onclick="closeResetModal()" class="px-4 py-2.5 rounded-xl border-2 border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50">
+          Keep My Progress
+        </button>
+        <button type="button" onclick="executeReset()" class="px-4 py-2.5 rounded-xl bg-rose-700 text-white font-semibold text-sm hover:bg-rose-800">
+          Yes, Start Fresh
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       CURRICULUM & MASTERY DATA (UNITS 1–5 — 100% ORIGINAL PRACTICE SCENARIOS)
+       ========================================================================= */
+    const UNITS = [
+      {
+        id: 1,
+        shortTitle: "Unit 1",
+        title: "Foundations of Digital Citizenship",
+        examLink: "Matches Exam Section A (A1–A5) & Section D1–D2",
+        summary: "Digital rights & responsibilities, Rings of Responsibility, three tech-user styles, and balanced use.",
+        steps: [
+          {
+            type: "mcq",
+            stepTitle: "Step 1: Core Concepts Check",
+            instruction: "Choose the best answer for each question, then click Check Step 1.",
+            questions: [
+              {
+                id: "u1_q1",
+                prompt: "Which statement best defines a digital citizen?",
+                options: [
+                  "A. Someone who memorises a list of strict rules just to stay out of trouble.",
+                  "B. Someone who uses technology safely, responsibly, and respectfully to learn, create, and participate.",
+                  "C. Someone who avoids using social media and messaging apps altogether.",
+                  "D. Someone who knows how to build websites and repair computers."
+                ],
+                correctIndex: 1,
+                explanation: "Digital citizenship is about empowered, positive participation—using your powers safely, responsibly, and respectfully to learn, create, and participate."
+              },
+              {
+                id: "u1_q2",
+                prompt: "Every digital right pairs with a responsibility. Which pairing is correct?",
+                options: [
+                  "A. Right to privacy → Respect other people's privacy and ask before posting about them.",
+                  "B. Right to expression → Post insults online because freedom of speech has zero limits.",
+                  "C. Right to access → Share your private login password so friends can use your account.",
+                  "D. Right to security → Turn off privacy settings so everyone can see your location."
+                ],
+                correctIndex: 0,
+                explanation: "Rights and responsibilities are two sides of the same coin: your right to privacy pairs with respecting the privacy of others."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            stepTitle: "Step 2: Tech User Styles & Rings of Responsibility",
+            instruction: "Match each student profile to their tech-user style, and identify the Ring of Responsibility affected in the scenario.",
+            items: [
+              {
+                id: "u1_c1",
+                label: "1. Aria only turns on her tablet to check school homework and prefers painting or reading paper books in her free time.",
+                choices: ["Avoider", "Minimalist", "Enthusiastic participant"],
+                correct: "Minimalist",
+                explanation: "Aria accepts tech as part of life and uses it purposefully when needed, preferring offline options when practical."
+              },
+              {
+                id: "u1_c2",
+                label: "2. Mateo is always first to try new creative apps, chats with friends online daily, and watches coding tutorials for fun.",
+                choices: ["Avoider", "Minimalist", "Enthusiastic participant"],
+                correct: "Enthusiastic participant",
+                explanation: "Mateo actively embraces technology across learning, communication, and hobbies."
+              },
+              {
+                id: "u1_c3",
+                label: "3. Kofi has a basic phone for emergencies only, has zero social media accounts, and steers clear of screens whenever possible.",
+                choices: ["Avoider", "Minimalist", "Enthusiastic participant"],
+                correct: "Avoider",
+                explanation: "Kofi chooses to steer clear of technology as much as possible—which is a completely valid engagement style."
+              },
+              {
+                id: "u1_c4",
+                label: "4. Ring Check: A student reshares a mean rumour in a class chat, hurting a classmate's reputation among friends and teachers at school. Which Ring of Responsibility is this?",
+                choices: ["Self ring", "Community ring", "World ring"],
+                correct: "Community ring",
+                explanation: "The Community ring covers the people you know—classmates, friends, family, and your school community."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            stepTitle: "Step 3: Exam-Style Short Explanation (Try → Hint → Self-Check)",
+            prompt: "In 1–2 sentences, explain why 'media balance' means intentional use rather than avoiding all screens.",
+            hint: "Sentence starter: \"Media balance is not about avoiding screens completely; instead, it means giving attention to both...\"",
+            checklist: [
+              "I explained that balance gives appropriate attention to BOTH online and offline life.",
+              "I mentioned choosing how/when to use tech on purpose (intentionality) rather than just counting hours or avoiding everything."
+            ],
+            modelAnswer: "Media balance means giving appropriate attention to both your online and offline life, rather than avoiding screens altogether. What you do and how intentionally you use technology matters far more than banning screens completely."
+          }
+        ],
+        retry: [
+          {
+            id: "u1_r1",
+            prompt: "True or False: 'Enthusiastic participants' are automatically the best kind of digital citizens, while 'Avoiders' are behind the times.",
+            options: [
+              "A. True — heavy tech use is always better.",
+              "B. False — there is no 'best' user style; the real goal is intentional, balanced use that fits you."
+            ],
+            correctIndex: 1,
+            explanation: "There is no single 'best' group. Both light and heavy users can be thoughtful, balanced digital citizens."
+          },
+          {
+            id: "u1_r2",
+            prompt: "When your own online post later damages your own reputation with a sports club or school, which Ring of Responsibility does that affect?",
+            options: [
+              "A. The Self ring",
+              "B. The World ring",
+              "C. The Passive ring"
+            ],
+            correctIndex: 0,
+            explanation: "Consequences to your own wellbeing, reputation, and future sit in the middle ring: the Self ring."
+          }
+        ]
+      },
+      {
+        id: 2,
+        shortTitle: "Unit 2",
+        title: "Digital Footprint & Identity",
+        examLink: "Matches Exam Section A (A6–A10) & Section D3",
+        summary: "Active vs. passive footprints, permanent/searchable/passable traits, invisible audience, and healthy curation.",
+        steps: [
+          {
+            type: "classifier",
+            stepTitle: "Step 1: Active vs. Passive Footprint Sort",
+            instruction: "Decide whether each digital trace is an Active Footprint (shared deliberately) or a Passive Footprint (collected automatically in the background).",
+            items: [
+              {
+                id: "u2_c1",
+                label: "1. Uploading a photo of your science fair project to the school blog.",
+                choices: ["Active footprint", "Passive footprint"],
+                correct: "Active footprint",
+                explanation: "You deliberately chose to upload and share this photo."
+              },
+              {
+                id: "u2_c2",
+                label: "2. A free puzzle game automatically logging your phone model and location while you play.",
+                choices: ["Active footprint", "Passive footprint"],
+                correct: "Passive footprint",
+                explanation: "This data is collected automatically in the background without you posting anything."
+              },
+              {
+                id: "u2_c3",
+                label: "3. Posting a supportive comment under a classmate's music video.",
+                choices: ["Active footprint", "Passive footprint"],
+                correct: "Active footprint",
+                explanation: "Typing and posting a comment is a deliberate action."
+              },
+              {
+                id: "u2_c4",
+                label: "4. Websites quietly recording which pages you clicked and how long you stayed.",
+                choices: ["Active footprint", "Passive footprint"],
+                correct: "Passive footprint",
+                explanation: "Browsing logs and tracking data happen behind the scenes as passive traces."
+              }
+            ]
+          },
+          {
+            type: "mcq",
+            stepTitle: "Step 2: Footprint Powers & Personas",
+            instruction: "Apply what you know about footprint properties and online personas.",
+            questions: [
+              {
+                id: "u2_q1",
+                prompt: "Elena posts an angry comment during a bad day, then deletes it three minutes later. Why does 'delete' NOT equal 'undo'?",
+                options: [
+                  "A. Because digital footprints are permanent and passable—someone may have screenshotted or forwarded it before deletion.",
+                  "B. Because apps notify your parents every time you press delete.",
+                  "C. Because deleted comments stay pinned at the top of your profile for a week."
+                ],
+                correctIndex: 0,
+                explanation: "Once shared, content is passable and permanent: screenshots and copies survive even after the original post is deleted."
+              },
+              {
+                id: "u2_q2",
+                prompt: "What is the main purpose of a 'finsta' (secondary private account) when used responsibly?",
+                options: [
+                  "A. To impersonate a classmate and spread rumours anonymously.",
+                  "B. To share more casual, everyday moments with a smaller, trusted group of friends.",
+                  "C. To trick advertisers into giving you free products."
+                ],
+                correctIndex: 1,
+                explanation: "A finsta is a private secondary account used to share more relaxed, everyday posts with a small, trusted circle."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            stepTitle: "Step 3: Curation vs. Distortion Check",
+            prompt: "Scenario: Jordan's public profile only shows heavily filtered luxury photos and trophies, making classmates feel their normal lives are boring. Is this healthy curation or distortion? Write ONE question from the 'truthfulness test' Jordan could ask before posting.",
+            hint: "Sentence starter: \"This has become distortion because... One truthfulness-test question Jordan could ask is: 'Is this version of me...?'\"",
+            checklist: [
+              "I identified this as an unhealthy distortion / highlight-reel comparison trap.",
+              "I wrote a clear truthfulness-test question (e.g., 'Is this version of me really me, or am I pretending just to chase likes?')."
+            ],
+            modelAnswer: "This is an unhealthy distortion (a highlights reel that fuels unfair comparison). Jordan could ask: 'Is this version of me really me, or am I pretending to be someone else just to get more likes?'"
+          }
+        ],
+        retry: [
+          {
+            id: "u2_r1",
+            prompt: "What does 'invisible audience' mean when you post online?",
+            options: [
+              "A. People you didn't expect—such as future schools, coaches, or friends of friends—who may see your post now or later.",
+              "B. Bots that automatically like every photo posted at night."
+            ],
+            correctIndex: 0,
+            explanation: "Because posts are searchable and passable, an invisible audience beyond your immediate friends can end up viewing them."
+          },
+          {
+            id: "u2_r2",
+            prompt: "Which of these builds a POSITIVE digital footprint?",
+            options: [
+              "A. Your name appearing on a community clean-up volunteer page or school sports results.",
+              "B. Having zero internet presence of any kind."
+            ],
+            correctIndex: 0,
+            explanation: "Positive footprints—like achievements, hobbies, and kind contributions—help others form a strong first impression of you."
+          }
+        ]
+      },
+      {
+        id: 3,
+        shortTitle: "Unit 3",
+        title: "Media Balance & Digital Well-being",
+        examLink: "Matches Exam Section A (A11–A15), Section C2 & Section E2",
+        summary: "Attention economy tricks, thinking traps & reframing, and the Values Compass + Habit Swap.",
+        steps: [
+          {
+            type: "classifier",
+            stepTitle: "Step 1: Attention Economy Spotter",
+            instruction: "Match each everyday phone experience to the attention-economy concept behind it.",
+            items: [
+              {
+                id: "u3_c1",
+                label: "1. Pulling down on a feed to refresh—sometimes seeing a great new message, sometimes seeing nothing.",
+                choices: ["Variable rewards", "Removed stopping cues", "Intentional use"],
+                correct: "Variable rewards",
+                explanation: "Unpredictable rewards trigger dopamine in anticipation, working just like a mini slot machine."
+              },
+              {
+                id: "u3_c2",
+                label: "2. Short videos automatically playing one after another with no bottom to the page.",
+                choices: ["Variable rewards", "Removed stopping cues", "Intentional use"],
+                correct: "Removed stopping cues",
+                explanation: "Autoplay and infinite scroll remove natural stopping points so you keep watching without deciding."
+              },
+              {
+                id: "u3_c3",
+                label: "3. Unlocking your phone to check the exact time of tomorrow's bus, then putting it away.",
+                choices: ["Variable rewards", "Removed stopping cues", "Intentional use"],
+                correct: "Intentional use",
+                explanation: "You opened the device with a clear purpose and closed it when finished."
+              }
+            ]
+          },
+          {
+            type: "mcq",
+            stepTitle: "Step 2: Thinking Traps & Calm Reframing (Exam Section C2 Style)",
+            instruction: "Spot the thinking trap and choose the most accurate, evidence-based reframe.",
+            questions: [
+              {
+                id: "u3_q1",
+                prompt: "Situation A: Sam texts a friend about weekend plans and gets a one-word reply: 'k'. Sam immediately thinks, 'She is mad at me and hates talking to me.' Which thinking trap is this?",
+                options: [
+                  "A. Mind-reading (assuming you know what someone feels without evidence)",
+                  "B. Catastrophizing (turning a small mistake into a life disaster)",
+                  "C. Healthy reframing"
+                ],
+                correctIndex: 0,
+                explanation: "Text has no tone of voice. Guessing someone's mood from 'k' without checking facts is mind-reading."
+              },
+              {
+                id: "u3_q2",
+                prompt: "Situation B: Talia scores 78% on a practice quiz after usually getting 90%, and thinks, 'I'm a total failure at IT.' Which reframe best follows the 4-step CBT evidence check?",
+                options: [
+                  "A. '78% is a solid score on a tough topic—I can review the two questions I missed and improve next time.'",
+                  "B. 'Everything is awesome and grades never matter at all!'",
+                  "C. 'Everyone else probably cheated anyway.'"
+                ],
+                correctIndex: 0,
+                explanation: "Reframing is not fake positivity—it is finding a calmer, accurate thought that matches the real evidence."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            stepTitle: "Step 3: Values Compass & Habit Swap Builder (Exam Section E2 Style)",
+            instruction: "Help Zoe align her evening habits with her values of 'family connection' and 'good sleep'. Choose the best completion for each part of her plan.",
+            items: [
+              {
+                id: "u3_c4",
+                label: "1. Spot the Habit Loop: Every evening at 9:30 p.m. in bed (Cue), Zoe scrolls short videos until midnight (Routine), which undercuts her value of...",
+                choices: ["good sleep and morning energy", "buying new apps", "collecting more notifications"],
+                correct: "good sleep and morning energy",
+                explanation: "Late-night scrolling steals sleep, clashing directly with her value of being rested."
+              },
+              {
+                id: "u3_c5",
+                label: "2. Choose an Intentional Habit Swap: Keeping the same 9:30 p.m. bedtime cue, what is the strongest Habit Swap?",
+                choices: [
+                  "Charge her phone outside her bedroom at 9:30 p.m. and read a book for 15 minutes.",
+                  "Try harder to use willpower while keeping the phone under her pillow.",
+                  "Turn on extra notifications so she doesn't miss anything overnight."
+                ],
+                correct: "Charge her phone outside her bedroom at 9:30 p.m. and read a book for 15 minutes.",
+                explanation: "Changing the environment and routine while keeping the bedtime cue beats relying on willpower alone."
+              },
+              {
+                id: "u3_c6",
+                label: "3. Add a Stopping Cue: Which app setting change restores a natural stopping point for Zoe?",
+                choices: [
+                  "Turn off autoplay and set a daily screen-time reminder.",
+                  "Enable infinite scroll on all apps.",
+                  "Follow 50 new accounts."
+                ],
+                correct: "Turn off autoplay and set a daily screen-time reminder.",
+                explanation: "Disabling autoplay forces a conscious choice before the next video starts."
+              }
+            ]
+          }
+        ],
+        retry: [
+          {
+            id: "u3_r1",
+            prompt: "Which thinking trap uses extreme words like 'always', 'never', 'everyone', or 'nobody' (e.g., 'One bad match means I'm a total loser')?",
+            options: [
+              "A. All-or-nothing thinking",
+              "B. Mind-reading",
+              "C. Lateral reading"
+            ],
+            correctIndex: 0,
+            explanation: "All-or-nothing thinking divides the world into two extreme boxes—perfect or complete failure."
+          },
+          {
+            id: "u3_r2",
+            prompt: "Why does changing your environment (like leaving your phone in another room during homework) work better than willpower?",
+            options: [
+              "A. Because habits run on autopilot triggered by cues; removing the cue breaks the automatic loop.",
+              "B. Because phones lose battery faster when they are near textbooks."
+            ],
+            correctIndex: 0,
+            explanation: "Removing the visual cue stops the automatic 'cue → routine → reward' loop before it starts."
+          }
+        ]
+      },
+      {
+        id: 4,
+        shortTitle: "Unit 4",
+        title: "Relationships, Communication & Cyberbullying",
+        examLink: "Matches Exam Section A (A16–A20), Section C2 & Section E1",
+        summary: "Three-Legged Stool, harassment vocabulary, Witness Roles, STAND, Don't Feed the Troll, and netiquette.",
+        steps: [
+          {
+            type: "mcq",
+            stepTitle: "Step 1: Three-Legged Stool & Harassment Vocabulary",
+            instruction: "Test your precision with Unit 4 definitions and distinctions.",
+            questions: [
+              {
+                id: "u4_q1",
+                prompt: "Two classmates disagree about a football match in a group chat, exchange one sharp comment each, and apologise the next morning. Why is this a CONFLICT rather than cyberbullying?",
+                options: [
+                  "A. It happened between equals, was not repeated over time, and lacked a power imbalance.",
+                  "B. Because sports arguments are never hurtful.",
+                  "C. Because it happened in a group chat instead of by email."
+                ],
+                correctIndex: 0,
+                explanation: "Cyberbullying requires all three legs of the stool: intentional harm, repetition, and a power imbalance."
+              },
+              {
+                id: "u4_q2",
+                prompt: "In a class forum, someone posts 'History is stupid and nobody here has a brain' just to get classmates angry and derail the thread. Which term best describes baiting a conversation like this?",
+                options: [
+                  "A. Trolling",
+                  "B. Healthy curation",
+                  "C. Lateral reading"
+                ],
+                correctIndex: 0,
+                explanation: "Trolling is deliberately posting provocative bait to stir up arguments and get an emotional reaction."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            stepTitle: "Step 2: Role Detective Table (Exam Section E1b Style)",
+            instruction: "Read this mini-scenario and classify each witness's role:\nScenario: An older student posts a cruel meme mocking a new Form 2 student, Caleb. Four students see it happen:",
+            items: [
+              {
+                id: "u4_c1",
+                label: "1. Tyrese replies with '😂😂 facts!' and tags three more friends to look.",
+                choices: ["Reinforcer", "Passive Bystander", "Upstander", "Ally"],
+                correct: "Reinforcer",
+                explanation: "Tyrese cheers on and amplifies the attack, giving the bully an audience."
+              },
+              {
+                id: "u4_c2",
+                label: "2. Hannah sees the post, feels bad for Caleb, and scrolls past thinking 'Someone else will handle it.'",
+                choices: ["Reinforcer", "Passive Bystander", "Upstander", "Ally"],
+                correct: "Passive Bystander",
+                explanation: "Hannah watches and does nothing (demonstrating the Bystander Effect), where silence can feel like approval."
+              },
+              {
+                id: "u4_c3",
+                label: "3. Malik takes a screenshot of the meme and uses the app's report button to alert moderators.",
+                choices: ["Reinforcer", "Passive Bystander", "Upstander", "Ally"],
+                correct: "Upstander",
+                explanation: "Malik takes direct, safe action to stop the harm using platform reporting tools."
+              },
+              {
+                id: "u4_c4",
+                label: "4. Sofia sends Caleb a private DM: 'Hey, that meme is totally unfair. Are you doing okay?'",
+                choices: ["Reinforcer", "Passive Bystander", "Upstander", "Ally"],
+                correct: "Ally",
+                explanation: "Sofia offers quiet, direct support to the target so Caleb knows he is not alone."
+              }
+            ]
+          },
+          {
+            type: "mcq",
+            stepTitle: "Step 3: STAND & Netiquette Decision Check (Exam Section E1c Style)",
+            instruction: "Choose the safest, most effective response in each situation.",
+            questions: [
+              {
+                id: "u4_q3",
+                prompt: "Caleb shows you screenshots of repeated threats he is receiving and begs, 'Please don't tell a teacher or my parents.' Using STAND, what should you do?",
+                options: [
+                  "A. Respect his safety over secrecy—reassure him it's not his fault and go WITH him to tell a trusted adult.",
+                  "B. Keep the secret completely and insult the bully back from Caleb's account.",
+                  "C. Post the screenshots publicly so everyone argues in the comments."
+                ],
+                correctIndex: 0,
+                explanation: "In STAND, keeping a friend safe matters more than keeping a secret. Going WITH them to a trusted adult supports them without breaking trust alone."
+              },
+              {
+                id: "u4_q4",
+                prompt: "Why is sending 'yo miss send the notes rn thx' with no subject line an example of poor netiquette?",
+                options: [
+                  "A. It treats a formal room (emailing a teacher) like a casual text chat with a friend ('wrong room').",
+                  "B. Because teachers are not allowed to read emails sent after school."
+                ],
+                correctIndex: 0,
+                explanation: "Netiquette means reading the room—formal emails to teachers need a clear subject line, polite greeting, and full sentences."
+              }
+            ]
+          }
+        ],
+        retry: [
+          {
+            id: "u4_r1",
+            prompt: "What is 'online disinhibition'?",
+            options: [
+              "A. When not seeing someone's face, tone, or body language lowers social brakes and makes people say harsher things online.",
+              "B. When a website blocks you from posting too many emojis."
+            ],
+            correctIndex: 0,
+            explanation: "Without face-to-face feedback, people often type things they would never say out loud in person."
+          },
+          {
+            id: "u4_r2",
+            prompt: "According to 'Don't Feed the Troll', what is the best way to handle someone baiting you into an angry argument?",
+            options: [
+              "A. Refuse to argue back—save evidence, block, and report.",
+              "B. Write a long paragraph proving why they are wrong."
+            ],
+            correctIndex: 0,
+            explanation: "A troll's reward is your emotional reaction. Refusing to engage starves them of the reaction they want."
+          }
+        ]
+      },
+      {
+        id: 5,
+        shortTitle: "Unit 5",
+        title: "Privacy, Security & Big Data",
+        examLink: "Matches Exam Section A (A21–A25), Section C1 & Section D4",
+        summary: "Phishing & scams, WHO/WHAT/WHY check, cookies & data brokers, and Consent & Empathy Check.",
+        steps: [
+          {
+            type: "classifier",
+            stepTitle: "Step 1: Inbox Audit — Bait or Real? (Exam Section C1 Style)",
+            instruction: "Examine each message carefully using the WHO / WHAT / WHY detective check and decide if it is BAIT or REAL.",
+            items: [
+              {
+                id: "u5_c1",
+                label: "1. From: promo@fortnite-free-vbucks-win.net — 'HURRY! First 10 students to click and enter their password win 10,000 V-Bucks!'",
+                choices: ["BAIT (Scam / Phishing)", "REAL (Safe Message)"],
+                correct: "BAIT (Scam / Phishing)",
+                explanation: "Red flags: lookalike domain, too-good-to-be-true prize, urgent rush, and asking for your password."
+              },
+              {
+                id: "u5_c2",
+                label: "2. From: coach.davis@school.edu.tt (official school address) — 'Reminder: Track practice moves to 3:30 p.m. tomorrow. No reply needed.'",
+                choices: ["BAIT (Scam / Phishing)", "REAL (Safe Message)"],
+                correct: "REAL (Safe Message)",
+                explanation: "Safe evidence: genuine official school domain, calm tone, and asks for no links, codes, or personal info."
+              },
+              {
+                id: "u5_c3",
+                label: "3. From: alert@snapchat-security-team.org — 'Your account will close tonight! Reply with the 6-digit code sent to your phone. Tell no one.'",
+                choices: ["BAIT (Scam / Phishing)", "REAL (Safe Message)"],
+                correct: "BAIT (Scam / Phishing)",
+                explanation: "Red flags: fake domain, panic/scare tactic, demanding a 6-digit verification code, and demanding secrecy."
+              }
+            ]
+          },
+          {
+            type: "mcq",
+            stepTitle: "Step 2: Data Literacy, Cookies & Targeted Ads",
+            instruction: "Check your understanding of how data moves behind the curtain.",
+            questions: [
+              {
+                id: "u5_q1",
+                prompt: "What is the difference between a useful cookie and a tracking cookie?",
+                options: [
+                  "A. A useful cookie remembers your login or cart on one site; a tracking cookie follows you across many sites to build an ad profile.",
+                  "B. A useful cookie is a virus, while a tracking cookie protects your password."
+                ],
+                correctIndex: 0,
+                explanation: "Useful cookies act like a helpful name tag on one site; tracking cookies act like a private investigator following you across websites."
+              },
+              {
+                id: "u5_q2",
+                prompt: "After searching for 'basketball shoes' once, you start seeing shoe ads everywhere. What is the real mechanism behind this?",
+                options: [
+                  "A. Behavioral tracking from your searches, clicks, and data profile fed into an automated ad auction.",
+                  "B. Your phone microphone is secretly recording every conversation in your house."
+                ],
+                correctIndex: 0,
+                explanation: "There is no solid evidence of apps using microphones for ads—behavioral tracking (searches, clicks, cookies) already builds an accurate profile."
+              }
+            ]
+          },
+          {
+            type: "mcq",
+            stepTitle: "Step 3: Consent & Empathy Check (Exam Section D4 Style)",
+            instruction: "Apply Unit 5's rules for respecting others' privacy.",
+            questions: [
+              {
+                id: "u5_q3",
+                prompt: "You take a funny photo of your friend mid-sneeze. Your friend says, 'Please don't post that.' Why is posting it to your 'Private' story and tagging them STILL wrong?",
+                options: [
+                  "A. Consent requires respecting their 'no', tagging exposes them to wider connections, and private settings cannot stop screenshots.",
+                  "B. Because private stories delete themselves after 10 seconds."
+                ],
+                correctIndex: 0,
+                explanation: "Real consent is freely given and respects a 'no'. Private settings shrink the initial audience but never stop screenshots or forwards."
+              },
+              {
+                id: "u5_q4",
+                prompt: "Which question is part of the 5-second Empathy Check before sharing anything involving another person?",
+                options: [
+                  "A. 'Swap places: How would I feel if this photo were about me, and how could it affect them later?'",
+                  "B. 'How many likes will this get in the first five minutes?'"
+                ],
+                correctIndex: 0,
+                explanation: "Swapping places and considering how a post could affect someone now or in the future protects their dignity and footprint."
+              }
+            ]
+          }
+        ],
+        retry: [
+          {
+            id: "u5_r1",
+            prompt: "What are the three detective questions in the 'Three-Question Check' for suspicious messages?",
+            options: [
+              "A. WHO is really sending this? / WHAT do they want me to do? / WHY are they asking?",
+              "B. WHEN was it sent? / WHERE do they live? / HOW many followers do they have?"
+            ],
+            correctIndex: 0,
+            explanation: "Asking WHO, WHAT, and WHY helps you pause and spot manipulation before clicking."
+          },
+          {
+            id: "u5_r2",
+            prompt: "If a friend accidentally clicks a phishing link and enters their password, what should they do FIRST?",
+            options: [
+              "A. Tell a trusted adult right away, change their password on the official site, and keep screenshots—remembering it is never their fault.",
+              "B. Hide it and hope the scammer forgets about the account."
+            ],
+            correctIndex: 0,
+            explanation: "Scammers are professionals at manipulation. Telling a trusted adult quickly lets you change passwords and secure the account fast."
+          }
+        ]
+      }
+    ];
+
+    /* =========================================================================
+       STATE MANAGEMENT (LOCALSTORAGE PERSISTENCE)
+       ========================================================================= */
+    const STORAGE_KEY = "f2_digcit_mastery_v1";
+
+    let state = {
+      activeUnitId: 1,
+      readingSupport: false,
+      showSummary: false,
+      units: {
+        1: { step1Done: false, step2Done: false, step3Done: false, score: 0, total: 6, mastered: false, inRetry: false, retryPassed: false },
+        2: { step1Done: false, step2Done: false, step3Done: false, score: 0, total: 6, mastered: false, inRetry: false, retryPassed: false },
+        3: { step1Done: false, step2Done: false, step3Done: false, score: 0, total: 8, mastered: false, inRetry: false, retryPassed: false },
+        4: { step1Done: false, step2Done: false, step3Done: false, score: 0, total: 8, mastered: false, inRetry: false, retryPassed: false },
+        5: { step1Done: false, step2Done: false, step3Done: false, score: 0, total: 7, mastered: false, inRetry: false, retryPassed: false }
+      },
+      // Temporary selections per session
+      answers: {},
+      stepFeedback: {}
+    };
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.units) {
+            state.units = { ...state.units, ...parsed.units };
+            state.activeUnitId = parsed.activeUnitId || 1;
+            state.readingSupport = !!parsed.readingSupport;
+          }
+        }
+      } catch (e) {
+        // Fallback safely if storage is restricted
+      }
+      applyReadingSupportClass();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          activeUnitId: state.activeUnitId,
+          readingSupport: state.readingSupport,
+          units: state.units
+        }));
+      } catch (e) {
+        // Ignore storage errors in sandboxed iframes
+      }
+    }
+
+    /* =========================================================================
+       ACCESSIBILITY & MODAL CONTROLS
+       ========================================================================= */
+    function toggleReadingSupport() {
+      state.readingSupport = !state.readingSupport;
+      applyReadingSupportClass();
+      saveState();
+    }
+
+    function applyReadingSupportClass() {
+      const btn = document.getElementById("readingToggleBtn");
+      if (state.readingSupport) {
+        document.body.classList.add("reading-support");
+        btn.textContent = "Aa Reading Support: On";
+        btn.classList.add("bg-teal-700", "text-white");
+        btn.classList.remove("text-teal-800");
+      } else {
+        document.body.classList.remove("reading-support");
+        btn.textContent = "Aa Reading Support: Off";
+        btn.classList.remove("bg-teal-700", "text-white");
+        btn.classList.add("text-teal-800");
+      }
+    }
+
+    function confirmResetModal() {
+      document.getElementById("resetModal").classList.remove("hidden");
+    }
+
+    function closeResetModal() {
+      document.getElementById("resetModal").classList.add("hidden");
+    }
+
+    function executeReset() {
+      localStorage.removeItem(STORAGE_KEY);
+      state.answers = {};
+      state.stepFeedback = {};
+      state.showSummary = false;
+      state.activeUnitId = 1;
+      for (let i = 1; i <= 5; i++) {
+        const defaultTotals = { 1: 6, 2: 6, 3: 8, 4: 8, 5: 7 };
+        state.units[i] = {
+          step1Done: false,
+          step2Done: false,
+          step3Done: false,
+          score: 0,
+          total: defaultTotals[i],
+          mastered: false,
+          inRetry: false,
+          retryPassed: false
+        };
+      }
+      closeResetModal();
+      renderAll();
+    }
+
+    /* =========================================================================
+       NAVIGATION & PROGRESS HEADER RENDERING
+       ========================================================================= */
+    function selectUnit(unitId) {
+      state.activeUnitId = unitId;
+      state.showSummary = false;
+      saveState();
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openExamReadySummary() {
+      state.showSummary = true;
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function renderHeaderProgress() {
+      const masteredCount = Object.values(state.units).filter(u => u.mastered).length;
+      document.getElementById("masteryCountText").textContent = `${masteredCount} of 5 Units Mastered`;
+      document.getElementById("masteryProgressBar").style.width = `${(masteredCount / 5) * 100}%`;
+
+      const nav = document.getElementById("unitNavPills");
+      nav.innerHTML = UNITS.map(unit => {
+        const uState = state.units[unit.id];
+        const isActive = !state.showSummary && state.activeUnitId === unit.id;
+
+        let badgeLabel = "Start";
+        let badgeStyle = "bg-slate-200 text-slate-700";
+        if (uState.mastered) {
+          badgeLabel = "Mastered ★";
+          badgeStyle = "bg-emerald-700 text-white";
+        } else if (uState.step1Done || uState.step2Done || uState.step3Done) {
+          badgeLabel = "In Progress";
+          badgeStyle = "bg-amber-600 text-white";
+        }
+
+        const activeRing = isActive
+          ? "border-teal-700 bg-teal-50 ring-2 ring-teal-600/30"
+          : "border-slate-300 bg-white hover:border-teal-600";
+
+        return `
+          <button type="button" onclick="selectUnit(${unit.id})"
+            class="p-2.5 rounded-xl border-2 text-left transition flex flex-col justify-between ${activeRing}">
+            <div class="flex items-center justify-between gap-1 mb-1">
+              <span class="font-bold text-xs text-slate-900">${unit.shortTitle}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badgeStyle}">${badgeLabel}</span>
+            </div>
+            <span class="text-xs text-slate-600 line-clamp-1">${unit.title}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    /* =========================================================================
+       INTERACTION HANDLERS (MCQs, CLASSIFIERS, SCAFFOLDED SELF-CHECK, RETRY)
+       ========================================================================= */
+    function selectMcqOption(qId, optIndex) {
+      state.answers[qId] = optIndex;
+      renderMission();
+    }
+
+    function selectClassifierChoice(itemId, value) {
+      state.answers[itemId] = value;
+    }
+
+    function toggleHint(hintId) {
+      const el = document.getElementById(hintId);
+      if (el) el.classList.toggle("hidden");
+    }
+
+    function checkStep(unitId, stepIndex) {
+      const unit = UNITS.find(u => u.id === unitId);
+      const step = unit.steps[stepIndex];
+      const feedbackKey = `u${unitId}_s${stepIndex}`;
+
+      if (step.type === "mcq") {
+        // Ensure all questions answered
+        const unanswered = step.questions.some(q => state.answers[q.id] === undefined);
+        if (unanswered) {
+          state.stepFeedback[feedbackKey] = {
+            incomplete: true,
+            message: "Pick an answer for every question in this step first, then click Check!"
+          };
+          renderMission();
+          return;
+        }
+        let correctCount = 0;
+        step.questions.forEach(q => {
+          if (state.answers[q.id] === q.correctIndex) correctCount++;
+        });
+        state.stepFeedback[feedbackKey] = {
+          checked: true,
+          correctCount,
+          totalCount: step.questions.length
+        };
+      } else if (step.type === "classifier") {
+        const unanswered = step.items.some(item => !state.answers[item.id]);
+        if (unanswered) {
+          state.stepFeedback[feedbackKey] = {
+            incomplete: true,
+            message: "Choose an option from every dropdown menu first, then click Check!"
+          };
+          renderMission();
+          return;
+        }
+        let correctCount = 0;
+        step.items.forEach(item => {
+          if (state.answers[item.id] === item.correct) correctCount++;
+        });
+        state.stepFeedback[feedbackKey] = {
+          checked: true,
+          correctCount,
+          totalCount: step.items.length
+        };
+      } else if (step.type === "scaffolded") {
+        const textVal = (document.getElementById(`scaffold_text_${unitId}`)?.value || "").trim();
+        state.answers[`u${unitId}_text`] = textVal;
+        if (textVal.length < 12) {
+          state.stepFeedback[feedbackKey] = {
+            incomplete: true,
+            message: "Write a short 1–2 sentence answer in the box first (use the Hint button if you'd like a starter!)."
+          };
+          renderMission();
+          return;
+        }
+        state.stepFeedback[feedbackKey] = {
+          checked: true,
+          revealedModel: true
+        };
+      }
+
+      recalculateUnitMastery(unitId);
+      renderAll();
+    }
+
+    function confirmScaffoldSelfCheck(unitId, earnedPoints) {
+      state.answers[`u${unitId}_selfScore`] = earnedPoints;
+      recalculateUnitMastery(unitId);
+      renderAll();
+    }
+
+    function recalculateUnitMastery(unitId) {
+      const unit = UNITS.find(u => u.id === unitId);
+      const uState = state.units[unitId];
+      let earned = 0;
+      let total = 0;
+
+      unit.steps.forEach((step, idx) => {
+        const fb = state.stepFeedback[`u${unitId}_s${idx}`];
+        if (step.type === "mcq") {
+          total += step.questions.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          if (fb && fb.checked) uState[`step${idx + 1}Done`] = true;
+        } else if (step.type === "classifier") {
+          total += step.items.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          if (fb && fb.checked) uState[`step${idx + 1}Done`] = true;
+        } else if (step.type === "scaffolded") {
+          total += 2; // 2-point self-check rubric
+          const selfPts = state.answers[`u${unitId}_selfScore`];
+          if (selfPts !== undefined) {
+            earned += selfPts;
+            uState[`step${idx + 1}Done`] = true;
+          }
+        }
+      });
+
+      uState.score = earned;
+      uState.total = total;
+
+      const allStepsDone = uState.step1Done && uState.step2Done && uState.step3Done;
+      const pct = total > 0 ? (earned / total) * 100 : 0;
+
+      if (allStepsDone && pct >= 80) {
+        uState.mastered = true;
+        uState.inRetry = false;
+      } else if (allStepsDone && pct < 80 && !uState.retryPassed) {
+        uState.inRetry = true;
+      }
+      saveState();
+    }
+
+    function checkConfidenceRetry(unitId) {
+      const unit = UNITS.find(u => u.id === unitId);
+      const retryFbKey = `u${unitId}_retry`;
+      const unanswered = unit.retry.some(q => state.answers[q.id] === undefined);
+
+      if (unanswered) {
+        state.stepFeedback[retryFbKey] = {
+          incomplete: true,
+          message: "Answer both Confidence Retry questions first!"
+        };
+        renderMission();
+        return;
+      }
+
+      let correct = 0;
+      unit.retry.forEach(q => {
+        if (state.answers[q.id] === q.correctIndex) correct++;
+      });
+
+      state.stepFeedback[retryFbKey] = {
+        checked: true,
+        correctCount: correct,
+        totalCount: unit.retry.length
+      };
+
+      if (correct === unit.retry.length) {
+        state.units[unitId].mastered = true;
+        state.units[unitId].retryPassed = true;
+        state.units[unitId].inRetry = false;
+        saveState();
+      }
+      renderAll();
+    }
+
+    /* =========================================================================
+       RENDERING MISSION STEPS & EXAM-READY SUMMARY
+       ========================================================================= */
+    function renderMission() {
+      const container = document.getElementById("missionContainer");
+
+      if (state.showSummary) {
+        renderExamSummary(container);
+        return;
+      }
+
+      const unit = UNITS.find(u => u.id === state.activeUnitId);
+      const uState = state.units[unit.id];
+      const allDone = uState.step1Done && uState.step2Done && uState.step3Done;
+      const pct = uState.total > 0 ? Math.round((uState.score / uState.total) * 100) : 0;
+
+      let stepsHtml = unit.steps.map((step, sIdx) => {
+        const fbKey = `u${unit.id}_s${sIdx}`;
+        const fb = state.stepFeedback[fbKey];
+
+        // Render MCQ Step
+        if (step.type === "mcq") {
+          const qBlocks = step.questions.map((q, qIdx) => {
+            const chosen = state.answers[q.id];
+            const isChecked = fb && fb.checked;
+
+            const optsHtml = q.options.map((opt, oIdx) => {
+              let btnClass = "border-slate-300 bg-white text-slate-800";
+              if (isChecked) {
+                if (oIdx === q.correctIndex) btnClass = "option-correct font-semibold";
+                else if (chosen === oIdx && oIdx !== q.correctIndex) btnClass = "option-wrong";
+                else btnClass = "border-slate-200 bg-slate-50 text-slate-500";
+              } else if (chosen === oIdx) {
+                btnClass = "option-selected font-semibold";
+              }
+
+              return `
+                <button type="button" ${isChecked ? "disabled" : ""}
+                  onclick="selectMcqOption('${q.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm sm:text-base ${btnClass}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            const expHtml = isChecked ? `
+              <div class="mt-3 p-3.5 rounded-xl text-sm ${chosen === q.correctIndex ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${chosen === q.correctIndex ? 'Spot on!' : "Almost there — let's check the clue:"}</strong> ${q.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="mb-6 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-3">${qIdx + 1}. ${q.prompt}</p>
+                <div class="space-y-2.5">${optsHtml}</div>
+                ${expHtml}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${step.stepTitle}</h3>
+                ${fb && fb.checked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-5">${step.instruction}</p>
+              ${qBlocks}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!(fb && fb.checked) ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkStep(${unit.id}, ${sIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check ${step.stepTitle.split(":")[0]}
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        // Render Classifier Step
+        if (step.type === "classifier") {
+          const isChecked = fb && fb.checked;
+          const rowsHtml = step.items.map(item => {
+            const currentVal = state.answers[item.id] || "";
+            const isRight = currentVal === item.correct;
+
+            const optionsMarkup = [
+              `<option value="">-- Choose best match --</option>`,
+              ...item.choices.map(c => `<option value="${c}" ${currentVal === c ? "selected" : ""}>${c}</option>`)
+            ].join("");
+
+            const itemFeedback = isChecked ? `
+              <div class="mt-2.5 p-3 rounded-xl text-sm ${isRight ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${isRight ? '✓ Correct:' : `✓ Best match is "${item.correct}":`}</strong> ${item.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-3 last:mb-0">
+                <p class="text-sm sm:text-base font-medium text-slate-900 mb-2.5">${item.label}</p>
+                <select ${isChecked ? "disabled" : ""}
+                  onchange="selectClassifierChoice('${item.id}', this.value)"
+                  class="calm-select text-sm sm:text-base">
+                  ${optionsMarkup}
+                </select>
+                ${itemFeedback}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${step.stepTitle}</h3>
+                ${isChecked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-4 whitespace-pre-line">${step.instruction}</p>
+              ${rowsHtml}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!isChecked ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkStep(${unit.id}, ${sIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check ${step.stepTitle.split(":")[0]}
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        // Render Scaffolded Short-Answer Step (Try -> Hint -> Self-Check)
+        if (step.type === "scaffolded") {
+          const savedText = state.answers[`u${unit.id}_text`] || "";
+          const isRevealed = fb && fb.revealedModel;
+          const selfScore = state.answers[`u${unit.id}_selfScore`];
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${step.stepTitle}</h3>
+                <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900">2 Marks • Self-Check</span>
+              </div>
+              <p class="text-sm sm:text-base font-medium text-slate-900 mb-3">${step.prompt}</p>
+
+              <div class="mb-3">
+                <button type="button" onclick="toggleHint('hint_u${unit.id}')"
+                  class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100">
+                  💡 Need a Sentence Starter? (Show/Hide Hint)
+                </button>
+                <div id="hint_u${unit.id}" class="hidden mt-2 p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-sm text-slate-800">
+                  ${step.hint}
+                </div>
+              </div>
+
+              <textarea id="scaffold_text_${unit.id}" rows="3" ${isRevealed ? "readonly" : ""}
+                placeholder="Write your 1–2 sentence answer here..."
+                class="w-full p-3.5 rounded-xl border-2 border-slate-300 text-slate-900 text-sm sm:text-base focus:outline-none focus:border-teal-700">${savedText}</textarea>
+
+              ${fb && fb.incomplete ? `<p class="mt-3 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+
+              ${!isRevealed ? `
+                <div class="mt-4">
+                  <button type="button" onclick="checkStep(${unit.id}, ${sIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Compare with Model Answer
+                  </button>
+                </div>
+              ` : `
+                <div class="mt-4 p-4 rounded-xl bg-teal-50 border-2 border-teal-200 animate-fade">
+                  <p class="text-xs font-bold uppercase tracking-wider text-teal-800 mb-1">Teacher Model Answer (2 Marks)</p>
+                  <p class="text-sm text-slate-900 mb-3">${step.modelAnswer}</p>
+                  <p class="text-xs font-bold text-slate-700 mb-1.5">Check your own answer honestly against these 2 points:</p>
+                  <ul class="list-disc pl-5 text-sm text-slate-800 space-y-1 mb-4">
+                    ${step.checklist.map(c => `<li>${c}</li>`).join("")}
+                  </ul>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-bold text-slate-700 mr-1">How did you do?</span>
+                    <button type="button" onclick="confirmScaffoldSelfCheck(${unit.id}, 2)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 2 ? 'bg-emerald-700 text-white border-emerald-700' : 'bg-white text-emerald-800 border-emerald-600 hover:bg-emerald-50'}">
+                      ★ Got Both Points (2/2)
+                    </button>
+                    <button type="button" onclick="confirmScaffoldSelfCheck(${unit.id}, 1)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 1 ? 'bg-amber-600 text-white border-amber-600' : 'bg-white text-amber-800 border-amber-500 hover:bg-amber-50'}">
+                      Got 1 Point (1/2)
+                    </button>
+                  </div>
+                </div>
+              `}
+            </section>
+          `;
+        }
+        return "";
+      }).join("");
+
+      // Mastery Result & Confidence Retry Card (appears once all 3 steps are done)
+      let masteryFooterHtml = "";
+      if (allDone) {
+        if (uState.mastered) {
+          const nextUnit = UNITS.find(u => u.id === unit.id + 1);
+          const allFiveMastered = Object.values(state.units).every(u => u.mastered);
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-emerald-50 border-2 border-emerald-500 animate-fade mb-6">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span class="inline-block px-3 py-1 rounded-full bg-emerald-700 text-white text-xs font-bold mb-2">
+                    ★ ${unit.shortTitle} Mastery Badge Earned!
+                  </span>
+                  <h3 class="text-xl font-bold text-emerald-950">Great work on ${unit.title}!</h3>
+                  <p class="text-sm text-emerald-900 mt-1">
+                    You demonstrated strong mastery (${uState.retryPassed ? 'completed via Confidence Retry' : `${pct}% on mission check`}). You're ready for these questions on the exam!
+                  </p>
+                </div>
+                <div>
+                  ${allFiveMastered ? `
+                    <button type="button" onclick="openExamReadySummary()"
+                      class="px-5 py-3 rounded-xl bg-emerald-700 text-white font-bold text-sm hover:bg-emerald-800 shadow">
+                      View Exam-Ready Summary →
+                    </button>
+                  ` : nextUnit ? `
+                    <button type="button" onclick="selectUnit(${nextUnit.id})"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      Continue to ${nextUnit.shortTitle} →
+                    </button>
+                  ` : `
+                    <button type="button" onclick="openExamReadySummary()"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      Check Overall Progress →
+                    </button>
+                  `}
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          // Confidence Retry Loop (< 80%)
+          const retryFb = state.stepFeedback[`u${unit.id}_retry`];
+          const retryQuestionsHtml = unit.retry.map((rq, rIdx) => {
+            const rChosen = state.answers[rq.id];
+            const rChecked = retryFb && retryFb.checked;
+
+            const rOpts = rq.options.map((opt, oIdx) => {
+              let cls = "border-slate-300 bg-white text-slate-800";
+              if (rChecked) {
+                if (oIdx === rq.correctIndex) cls = "option-correct font-semibold";
+                else if (rChosen === oIdx) cls = "option-wrong";
+              } else if (rChosen === oIdx) {
+                cls = "option-selected font-semibold";
+              }
+              return `
+                <button type="button" ${rChecked && rChosen === rq.correctIndex ? "disabled" : ""}
+                  onclick="selectMcqOption('${rq.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm ${cls}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            return `
+              <div class="mb-5 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-2.5">${rIdx + 1}. ${rq.prompt}</p>
+                <div class="space-y-2">${rOpts}</div>
+                ${rChecked ? `
+                  <p class="mt-2 text-xs sm:text-sm p-3 rounded-xl ${rChosen === rq.correctIndex ? 'bg-emerald-50 text-emerald-950 border border-emerald-300' : 'bg-rose-50 text-rose-950 border border-rose-300'}">
+                    ${rq.explanation}
+                  </p>
+                ` : ""}
+              </div>
+            `;
+          }).join("");
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-amber-50 border-2 border-amber-400 animate-fade mb-6">
+              <span class="inline-block px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-bold mb-2">
+                Confidence Retry • Almost at 80% (${pct}%)
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 mb-1">Let's lock in those tricky ideas!</h3>
+              <p class="text-sm text-slate-700 mb-5">
+                You're super close! Answer these 2 quick booster questions to earn your <strong>${unit.shortTitle} Mastery Badge</strong>.
+              </p>
+              ${retryQuestionsHtml}
+              ${retryFb && retryFb.incomplete ? `<p class="mt-3 text-sm font-semibold text-rose-800">${retryFb.message}</p>` : ""}
+              <div class="mt-5">
+                <button type="button" onclick="checkConfidenceRetry(${unit.id})"
+                  class="px-5 py-3 rounded-xl bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 shadow-sm">
+                  Submit Confidence Retry
+                </button>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      container.innerHTML = `
+        <div class="mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-800">${unit.shortTitle} Mission • ${unit.examLink}</span>
+            ${uState.mastered ? `<span class="text-xs font-bold text-emerald-700">★ Mastered</span>` : ""}
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">${unit.title}</h2>
+          <p class="text-sm text-slate-600 mt-1">${unit.summary}</p>
+        </div>
+
+        ${stepsHtml}
+        ${masteryFooterHtml}
+      `;
+    }
+
+    function renderExamSummary(container) {
+      const masteredCount = Object.values(state.units).filter(u => u.mastered).length;
+      const unitRows = UNITS.map(u => {
+        const st = state.units[u.id];
+        return `
+          <div class="p-4 rounded-xl border-2 ${st.mastered ? 'border-emerald-300 bg-emerald-50/60' : 'border-slate-200 bg-white'} flex items-center justify-between gap-3">
+            <div>
+              <p class="font-bold text-slate-900 text-sm sm:text-base">${u.shortTitle}: ${u.title}</p>
+              <p class="text-xs text-slate-600">${u.examLink}</p>
+            </div>
+            <div class="shrink-0">
+              ${st.mastered
+                ? `<span class="px-3 py-1.5 rounded-full bg-emerald-700 text-white text-xs font-bold">Mastered ★</span>`
+                : `<button type="button" onclick="selectUnit(${u.id})" class="px-3 py-1.5 rounded-xl bg-teal-700 text-white text-xs font-bold hover:bg-teal-800">Practice Unit</button>`
+              }
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      container.innerHTML = `
+        <div class="card-haven p-6 sm:p-8 text-center mb-6">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 text-2xl font-bold mb-4">
+            ★
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+            ${masteredCount === 5 ? "You're Exam-Ready Across All 5 Units!" : `You've Mastered ${masteredCount} of 5 Units!`}
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto mb-6">
+            You've practiced every question style on the 100-mark exam—from Multiple Choice and Inbox Audits to Thinking Traps, Role Detective tables, and Case Studies.
+          </p>
+
+          <div class="text-left space-y-3 mb-6">
+            ${unitRows}
+          </div>
+
+          <div class="p-4 rounded-xl bg-teal-50 border border-teal-200 text-left text-sm text-slate-800 mb-6">
+            <strong>3 Quick Exam-Day Reminders:</strong>
+            <ul class="list-disc pl-5 mt-1.5 space-y-1">
+              <li><strong>Read the brackets [3]:</strong> The number of marks tells you how many points or sentences to write.</li>
+              <li><strong>Name the model:</strong> Use exact class terms (<em>Three-Legged Stool, STAND, Rings of Responsibility, WHO/WHAT/WHY</em>).</li>
+              <li><strong>Take a calm breath:</strong> You already know these frameworks—apply them step by step to the story!</li>
+            </ul>
+          </div>
+
+          <button type="button" onclick="selectUnit(1)"
+            class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800">
+            Review Unit Missions Again
+          </button>
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      renderHeaderProgress();
+      renderMission();
+    }
+
+    // Initialize on load
+    window.addEventListener("DOMContentLoaded", () => {
+      loadState();
+      renderAll();
+    });
+  </script>
+</body>
+</html>

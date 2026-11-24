@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cyber Safety & Digital Citizenship Deck (Lessons 1 & 2)</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+  
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Plus Jakarta Sans', 'sans-serif'],
+            heading: ['Outfit', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              50: '#f0f5ff',
+              100: '#e0ebff',
+              500: '#3b82f6',
+              600: '#2563eb',
+              700: '#1d4ed8',
+              900: '#1e3a8a',
+            },
+            lesson1: {
+              light: '#fef2f2',
+              accent: '#ef4444',
+              border: '#fca5a5',
+              dark: '#991b1b'
+            },
+            lesson2: {
+              light: '#f0fdf4',
+              accent: '#22c55e',
+              border: '#86efac',
+              dark: '#166534'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    .heading-font {
+      font-family: 'Outfit', sans-serif;
+    }
+    .slide-card {
+      aspect-ratio: 16 / 9;
+      max-height: calc(100vh - 135px);
+      width: 100%;
+    }
+    @media (max-height: 720px), (max-aspect-ratio: 16/9) {
+      .slide-card {
+        aspect-ratio: auto;
+        min-height: 0;
+        max-height: calc(100vh - 120px);
+      }
+    }
+    /* Custom scrollbar for speaker notes and slide content */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #1e293b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #475569;
+      border-radius: 3px;
+    }
+    @media print {
+      body { background: white; color: black; }
+      .no-print { display: none !important; }
+      .slide-card { page-break-after: always; height: 100vh; aspect-ratio: auto; }
+      .speaker-notes { display: block !important; page-break-before: always; color: black; }
+    }
+  </style>
+</head>
+<body class="h-screen flex flex-col justify-between overflow-hidden select-none">
+
+  <!-- TOP BAR / HEADER CONTROL -->
+  <header class="no-print bg-slate-900 border-b border-slate-800 px-6 py-3 flex items-center justify-between z-10">
+    <div class="flex items-center gap-3">
+      <div class="bg-blue-600 text-white p-2 rounded-lg font-bold text-sm flex items-center justify-center w-9 h-9">
+        <i class="fa-solid fa-shield-halved"></i>
+      </div>
+      <div>
+        <h1 class="text-sm font-bold text-slate-100 heading-font">Cyber Safety & Digital Citizenship</h1>
+        <p class="text-xs text-slate-400">Form 2 (Ages 12–14) • Lessons 1 & 2</p>
+      </div>
+    </div>
+
+    <!-- Section Badge -->
+    <div id="sectionBadge" class="px-3 py-1 rounded-full text-xs font-semibold tracking-wide uppercase transition-colors duration-300">
+      Section Loading...
+    </div>
+
+    <!-- Actions & Controls -->
+    <div class="flex items-center gap-3">
+      <button onclick="toggleGridModal()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-md text-xs font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-border-all"></i> Slides Overview
+      </button>
+      <button onclick="toggleSpeakerNotes()" id="notesToggleBtn" class="px-3 py-1.5 bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/30 rounded-md text-xs font-medium transition flex items-center gap-2">
+        <i class="fa-solid fa-clipboard-user"></i> Speaker Notes <span class="bg-indigo-900 text-indigo-200 text-[10px] px-1.5 py-0.5 rounded">N</span>
+      </button>
+      <button onclick="toggleFullscreen()" class="p-2 text-slate-400 hover:text-white transition">
+        <i class="fa-solid fa-expand text-sm"></i>
+      </button>
+    </div>
+  </header>
+
+  <!-- MAIN PRESENTATION AREA -->
+  <main class="flex-1 flex items-center justify-center p-2 sm:p-4 relative overflow-hidden">
+    <div class="w-full max-w-6xl mx-auto flex flex-col items-center justify-center h-full">
+      
+      <!-- THE SLIDE CANVAS (16:9 Widescreen Adaptive) -->
+      <div id="slideCanvas" class="slide-card w-full bg-slate-900 border border-slate-800 rounded-2xl shadow-2xl p-4 sm:p-6 md:p-8 flex flex-col justify-between relative overflow-hidden transition-all duration-300">
+        
+        <!-- Slide Header Info -->
+        <div class="flex items-center justify-between mb-2 z-10 shrink-0">
+          <span id="slideLessonTag" class="text-xs sm:text-sm font-extrabold uppercase tracking-widest px-2.5 py-1 rounded-md">
+            Lesson Tag
+          </span>
+          <span id="slideCounterText" class="text-xs sm:text-sm font-bold text-slate-400 tracking-wider">
+            Slide 1 of 14
+          </span>
+        </div>
+
+        <!-- Dynamic Slide Content Body -->
+        <div id="slideContent" class="flex-1 flex flex-col justify-center z-10 overflow-y-auto my-auto pr-1">
+          <!-- Content injected dynamically by JS -->
+        </div>
+
+        <!-- Slide Footer Bar -->
+        <div class="pt-2 border-t border-slate-800/80 flex items-center justify-between text-xs sm:text-sm text-slate-400 z-10 mt-auto shrink-0">
+          <div class="flex items-center gap-2">
+            <i class="fa-solid fa-graduation-cap text-slate-300"></i>
+            <span class="font-semibold">Digital Citizenship Series</span>
+          </div>
+          <div id="slideFooterPrompt" class="italic text-slate-400 font-medium hidden sm:block">
+            Use Left/Right arrows or spacebar to navigate
+          </div>
+        </div>
+
+        <!-- Decorative Background Glow -->
+        <div id="glowBg" class="absolute -bottom-20 -right-20 w-80 h-80 rounded-full blur-3xl opacity-20 pointer-events-none transition-colors duration-500"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- BOTTOM SPEAKER NOTES PANEL (Collapsible) -->
+  <div id="speakerNotesPanel" class="no-print bg-slate-900 border-t border-indigo-500/30 text-slate-200 transition-all duration-300 max-h-0 overflow-hidden">
+    <div class="max-w-6xl mx-auto p-4 sm:p-6 overflow-y-auto max-h-56">
+      <div class="flex items-center justify-between mb-2">
+        <div class="flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-wider">
+          <i class="fa-solid fa-chalkboard-user"></i> Teacher Speaker Notes & Facilitator Guide
+        </div>
+        <span class="text-[11px] text-slate-500">Press 'N' to open/close</span>
+      </div>
+      <div id="speakerNotesContent" class="text-xs sm:text-sm leading-relaxed text-slate-300 space-y-2">
+        <!-- Notes injected dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- NAVIGATION FOOTER CONTROLS -->
+  <footer class="no-print bg-slate-900 border-t border-slate-800 px-6 py-3 flex items-center justify-between z-10">
+    <button onclick="prevSlide()" id="prevBtn" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 disabled:opacity-30 disabled:hover:bg-slate-800 text-slate-200 rounded-lg text-xs font-semibold transition flex items-center gap-2">
+      <i class="fa-solid fa-arrow-left"></i> Previous
+    </button>
+
+    <!-- Slide Progress Dots/Bar -->
+    <div class="flex items-center gap-1.5" id="progressDots">
+      <!-- Dots generated dynamically -->
+    </div>
+
+    <button onclick="nextSlide()" id="nextBtn" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 disabled:opacity-30 disabled:hover:bg-blue-600 text-white rounded-lg text-xs font-semibold transition flex items-center gap-2">
+      Next <i class="fa-solid fa-arrow-right"></i>
+    </button>
+  </footer>
+
+  <!-- GRID OVERLAY MODAL -->
+  <div id="gridModal" class="no-print fixed inset-0 bg-slate-950/90 backdrop-blur-md z-50 hidden flex-col p-6 sm:p-10 overflow-y-auto">
+    <div class="max-w-6xl mx-auto w-full flex-1 flex flex-col">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h2 class="text-xl font-bold text-white heading-font">Presentation Slide Overview</h2>
+          <p class="text-xs text-slate-400">Click any slide to jump directly to it</p>
+        </div>
+        <button onclick="toggleGridModal()" class="p-2 text-slate-400 hover:text-white text-lg">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <div id="gridContainer" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <!-- Grid thumbnails generated dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // SLIDE DATA DATABASE
+    const slideData = [
+      // -------------------------------------------------------------
+      // SECTION 1: LESSON 1 - RECOGNIZING HARMFUL ONLINE BEHAVIOR
+      // -------------------------------------------------------------
+      {
+        id: 1,
+        lesson: "Lesson 1",
+        sectionTitle: "Section 1: Recognizing Harmful Online Behavior",
+        badgeColor: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
+        glowColor: "bg-rose-600",
+        title: "Powering Up Your Digital Community",
+        subtitle: "Recognizing Harmful Behavior & Building Upstander Culture",
+        type: "title",
+        bullets: [
+          "<strong>Welcome Digital Citizens:</strong> Tech gives us power to connect, create, and play.",
+          "<strong>The Online Crowd:</strong> How small comments can ripple across chats and platforms.",
+          "<strong>Lesson Goal:</strong> Learn to recognize harmful behaviors and master safe upstander actions.",
+          "<strong>Our Mission:</strong> Build an online space where everyone feels respected and supported."
+        ],
+        icon: "fa-shield-cat",
+        interactive: null,
+        speakerNotes: `
+          <strong>Objectives:</strong> Introduce the topic of digital safety without fear tactics; establish an empowering classroom norm.<br>
+          <strong>Talking Points:</strong> Welcome class! Today we are looking at our online worlds—group chats, game lobbies, and social feeds. Online spaces are real communities. Just like in a classroom or sports team, what we say and do matters.<br>
+          <strong>Discussion Prompt:</strong> Ask students: "When you join a new game or group chat, what makes it feel fun and safe to be in?"<br>
+          <strong>Transition:</strong> Let me show you the different roles people play when drama happens online.
+        `
+      },
+      {
+        id: 2,
+        lesson: "Lesson 1",
+        sectionTitle: "Section 1: Recognizing Harmful Online Behavior",
+        badgeColor: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
+        glowColor: "bg-rose-600",
+        title: "The Online Crowd: Who Are You in the Chat?",
+        subtitle: "Understanding the roles people play online (Source 09)",
+        type: "concept",
+        bullets: [
+          "<strong>Bystander:</strong> Anyone who sees online drama or mean posts (even just scrolling past).",
+          "<strong>Passive Bystander:</strong> Sees the harm but stays silent. <em>Silence often looks like approval to the bully.</em>",
+          "<strong>Reinforcer:</strong> Likes, shares, or laughs at mean content—adding fuel to the fire.",
+          "<strong>Upstander & Ally:</strong> Takes safe action to support the target or tell a trusted adult."
+        ],
+        icon: "fa-users-viewfinder",
+        interactive: {
+          type: "callout",
+          title: "Research Insight",
+          text: "75% of teens witness online cyberbullying, but only 25% step in. Silence is rarely neutrality—it makes the target feel alone."
+        },
+        speakerNotes: `
+          <strong>Key Concept:</strong> The spectrum of bystander roles from passive observers to active upstanders.<br>
+          <strong>Talking Points:</strong> Think of a group chat where someone gets picked on. Most people don't mean to be mean, but they just watch. Researchers call this the 'Passive Bystander'. When you scroll past without doing anything, the bully thinks you agree, and the target feels totally isolated.<br>
+          <strong>Discussion Questions:</strong> "Why do people stay silent?" (Fear of being targeted, assuming someone else will help).<br>
+          <strong>Transition:</strong> Next, let's define exactly what turns online drama into cyberbullying.
+        `
+      },
+      {
+        id: 3,
+        lesson: "Lesson 1",
+        sectionTitle: "Section 1: Recognizing Harmful Online Behavior",
+        badgeColor: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
+        glowColor: "bg-rose-600",
+        title: "Defining Cyberbullying: The Three-Legged Stool",
+        subtitle: "How to tell the difference between conflict and cyberbullying (Source 08)",
+        type: "cards",
+        cards: [
+          { title: "1. Intentional Harm", text: "Done on purpose to hurt or embarrass, not an honest mistake.", icon: "fa-bullseye", color: "border-rose-500/40 bg-rose-950/20" },
+          { title: "2. Repetition", text: "Happens repeatedly OR multiplies as posts are shared & screenshotted.", icon: "fa-rotate-right", color: "border-amber-500/40 bg-amber-950/20" },
+          { title: "3. Power Imbalance", text: "Uses status, group size, or anonymity to control the target.", icon: "fa-scale-unbalanced", color: "border-blue-500/40 bg-blue-950/20" }
+        ],
+        bullets: [
+          "<strong>Conflict vs. Cyberbullying:</strong> Conflict is a disagreement between equals. Cyberbullying is targeted harm using power."
+        ],
+        speakerNotes: `
+          <strong>Key Concept:</strong> The 3 essential legs of cyberbullying.<br>
+          <strong>Talking Points:</strong> Cyberbullying isn't just a single argument. It has three specific legs: Intentional harm, Repetition, and a Power Imbalance. If all three are present, it's cyberbullying.<br>
+          <strong>Crucial Nuance:</strong> Online, a single post can 'repeat' because hundreds of people can view, share, or screenshot it. That multiplies the harm instantly.<br>
+          <strong>Transition:</strong> Let's look at the specific vocabulary used for harmful online comments.
+        `
+      },
+      {
+        id: 4,
+        lesson: "Lesson 1",
+        sectionTitle: "Section 1: Recognizing Harmful Online Behavior",
+        badgeColor: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
+        glowColor: "bg-rose-600",
+        title: "Harassment Vocab: Trolling, Flaming & Pile-Ons",
+        subtitle: "Naming online behaviors so you can outsmart them (Source 10)",
+        type: "grid_definitions",
+        definitions: [
+          { term: "Trolling", def: "Deliberately posting inflammatory comments to provoke emotional arguments. <em>Goal: Reaction.</em>", badge: "Targets Debate" },
+          { term: "Flaming", def: "Sending hostile, aggressive, or insulting messages directly at a person. <em>Goal: Wound the human.</em>", badge: "Targets Person" },
+          { term: "Pile-On", def: "When a large crowd ganging up to attack one person simultaneously in comments or chats.", badge: "Group Attack" },
+          { term: "Harassment", def: "Repeated, unwanted abusive conduct directed at someone. Always report this.", badge: "Red Flag" }
+        ],
+        bullets: [],
+        speakerNotes: `
+          <strong>Key Vocabulary:</strong> Trolling vs. Flaming vs. Pile-ons.<br>
+          <strong>Talking Points:</strong> Naming a behavior gives you power over it! Trolls want to derail conversations for attention. Flaming is personal and hostile. A pile-on is when the crowd joins in. <br>
+          <strong>Mnemonic Phrase:</strong> "Trolling targets the topic; Flaming targets the person."<br>
+          <strong>Transition:</strong> Why do people type things online they would never say in person?
+        `
+      },
+      {
+        id: 5,
+        lesson: "Lesson 1",
+        sectionTitle: "Section 1: Recognizing Harmful Online Behavior",
+        badgeColor: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
+        glowColor: "bg-rose-600",
+        title: "Why Online Drama Spirals Fast",
+        subtitle: "Understanding Online Disinhibition & Missing Cues",
+        type: "concept",
+        bullets: [
+          "<strong>No Facial Expressions or Tone:</strong> Text strips away body language, leading to huge misunderstandings.",
+          "<strong>The Anonymity Shield:</strong> People feel hidden behind screens and lose their normal filters.",
+          "<strong>The 'Just a Joke' Trap:</strong> Cruelty often hides behind <em>'I was just kidding, you're overreacting!'</em>",
+          "<strong>Inescapable Reach:</strong> Unlike schoolyard drama, cyberbullying follows you home on your phone."
+        ],
+        icon: "fa-masks-theater",
+        interactive: {
+          type: "callout",
+          title: "The Troll's Favorite Defense",
+          text: "When someone says 'Can't you take a joke?', they are downplaying harm to avoid accountability. Real humor doesn't hurt people."
+        },
+        speakerNotes: `
+          <strong>Psychological Concept:</strong> Online Disinhibition Effect.<br>
+          <strong>Talking Points:</strong> In person, if you say something mean, you immediately see your friend's face drop. That visual feedback stops us. Online, there is no face! So people say harsher things. Also, notice how people hide behind 'It was just a joke!' to make the victim feel silly.<br>
+          <strong>Discussion Prompt:</strong> "Have you ever sent a text meant as a joke that someone misread as angry?"<br>
+          <strong>Transition:</strong> Let's test your ability to spot these behaviors in real scenarios!
+        `
+      },
+      {
+        id: 6,
+        lesson: "Lesson 1",
+        sectionTitle: "Section 1: Recognizing Harmful Online Behavior",
+        badgeColor: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
+        glowColor: "bg-rose-600",
+        title: "Interactive Check: Spot the Online Behavior",
+        subtitle: "Click an option below to test your recognition skills!",
+        type: "interactive_quiz",
+        scenarios: [
+          {
+            q: "Scenario A: A player misses a shot in a match. A teammate types: 'Wow, are you actually brain-dead?'",
+            options: [
+              { text: "Trolling", correct: false, feedback: "Incorrect. Trolling baits debates." },
+              { text: "Flaming", correct: true, feedback: "Correct! This is a hostile, insulting personal attack." },
+              { text: "Friendly Teasing", correct: false, feedback: "Incorrect. Insults land harshly in text." }
+            ]
+          },
+          {
+            q: "Scenario B: Someone comments under a class project post: 'This topic is stupid, Earth is flat anyway.'",
+            options: [
+              { text: "Trolling", correct: true, feedback: "Correct! The comment is bait designed solely to spark emotional arguments." },
+              { text: "Flaming", correct: false, feedback: "Incorrect. Flaming targets a specific person directly." },
+              { text: "Cyberbullying", correct: false, feedback: "Not yet—it's single baiting unless repeated." }
+            ]
+          }
+        ],
+        speakerNotes: `
+          <strong>Activity Instructions:</strong> Read each scenario aloud. Have students hold up 1, 2, or 3 fingers to vote before clicking the answer.<br>
+          <strong>Key Takeaway:</strong> Emphasize how quickly we can identify behaviors once we know the vocabulary.<br>
+          <strong>Transition:</strong> Now that we can recognize harmful behavior, let's wrap up Lesson 1 with a quick check on bystander choices.
+        `
+      },
+      {
+        id: 7,
+        lesson: "Lesson 1",
+        sectionTitle: "Section 1: Recognizing Harmful Online Behavior",
+        badgeColor: "bg-rose-500/20 text-rose-300 border border-rose-500/30",
+        glowColor: "bg-rose-600",
+        title: "Lesson 1 Review: The Power of Choice",
+        subtitle: "Key takeaways before moving to action skills",
+        type: "concept",
+        bullets: [
+          "<strong>Silence Signals Approval:</strong> Doing nothing gives bullies a free pass and makes targets feel alone.",
+          "<strong>Harm is Real:</strong> Online words have real-world impacts on mental health and friendships.",
+          "<strong>Don't Feed the Fire:</strong> Liking, sharing, or arguing back gives bullies exactly what they want.",
+          "<strong>You Have Agency:</strong> Recognizing harmful behavior is step 1. Next up: Actionable moves!"
+        ],
+        icon: "fa-compass",
+        interactive: {
+          type: "poll",
+          question: "Quick Check: What is the single most important rule when dealing with a troll?",
+          answer: "DO NOT FEED THE TROLL! (Step away, screenshot, report, block)."
+        },
+        speakerNotes: `
+          <strong>Lesson 1 Synthesis:</strong> Summarize the core message of Lesson 1.<br>
+          <strong>Talking Points:</strong> You now have eyes to see online drama for what it really is. Remember: Silence is a choice, and feeding the troll gives them power.<br>
+          <strong>Transition:</strong> In Lesson 2, we are going to build your Upstander Toolkit and practice Digital Etiquette!
+        `
+      },
+
+      // -------------------------------------------------------------
+      // SECTION 2: LESSON 2 - ACTIONABLE SKILLS & DIGITAL ETIQUETTE
+      // -------------------------------------------------------------
+      {
+        id: 8,
+        lesson: "Lesson 2",
+        sectionTitle: "Section 2: Actionable Skills & Digital Etiquette",
+        badgeColor: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
+        glowColor: "bg-emerald-600",
+        title: "From Watching to Acting: Your Upstander Toolkit",
+        subtitle: "Lesson 2: Taking safe, effective action online",
+        type: "title",
+        bullets: [
+          "<strong>Upstanders, Not Superheroes:</strong> You don't need a cape—just smart, safe choices.",
+          "<strong>Low-Risk Interventions:</strong> Powerful moves you can make without getting into a fight.",
+          "<strong>Digital Etiquette (Netiquette):</strong> Reading the room and avoiding text traps.",
+          "<strong>Building Positive Culture:</strong> Shaping online spaces you actually enjoy being in."
+        ],
+        icon: "fa-wand-magic-sparkles",
+        interactive: null,
+        speakerNotes: `
+          <strong>Lesson 2 Introduction:</strong> Shift tone to empowering, actionable skill-building.<br>
+          <strong>Talking Points:</strong> Welcome to Lesson 2! Now that we know how to spot cyberbullying and harassment, what do we actually DO? Being an upstander does NOT mean getting into big public fights or risking your own safety.<br>
+          <strong>Transition:</strong> Let's look at the STAND framework for upstander actions.
+        `
+      },
+      {
+        id: 9,
+        lesson: "Lesson 2",
+        sectionTitle: "Section 2: Actionable Skills & Digital Etiquette",
+        badgeColor: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
+        glowColor: "bg-emerald-600",
+        title: "The S.T.A.N.D. Framework",
+        subtitle: "Five safe moves for every comfort level (Source 09)",
+        type: "stand_grid",
+        stand: [
+          { letter: "S", title: "Speak Up", desc: "Say 'That's not cool' or change the topic safely.", color: "text-blue-400 bg-blue-950/40 border-blue-500/30" },
+          { letter: "T", title: "Tell an Adult", desc: "Inform a teacher, parent, counselor, or coach.", color: "text-emerald-400 bg-emerald-950/40 border-emerald-500/30" },
+          { letter: "A", title: "Alert Platform", desc: "Report the post/comment privately & block.", color: "text-amber-400 bg-amber-950/40 border-amber-500/30" },
+          { letter: "N", title: "Never Retaliate", desc: "Don't fight back—it feeds the cycle.", color: "text-rose-400 bg-rose-950/40 border-rose-500/30" },
+          { letter: "D", title: "Defend Target", desc: "Send a private DM: 'Hey, are you okay?'", color: "text-purple-400 bg-purple-950/40 border-purple-500/30" }
+        ],
+        bullets: [],
+        speakerNotes: `
+          <strong>Core Framework:</strong> S.T.A.N.D. Model.<br>
+          <strong>Talking Points:</strong> Notice what is NOT on this list: arguing loudly or getting into fights! 'D' (Defend/Support) is often the quietest and most powerful move. Sending a private message like 'Hey, that wasn't cool, you okay?' takes zero public risk and means everything to the target.<br>
+          <strong>Discussion Prompt:</strong> "Which letter in STAND feels easiest for you to do in a game or group chat?"<br>
+          <strong>Transition:</strong> Let's see how upstander moves work in real-world scenarios.
+        `
+      },
+      {
+        id: 10,
+        lesson: "Lesson 2",
+        sectionTitle: "Section 2: Actionable Skills & Digital Etiquette",
+        badgeColor: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
+        glowColor: "bg-emerald-600",
+        title: "Upstander Moves in Real Life",
+        subtitle: "Applying low-risk interventions in daily situations",
+        type: "concept",
+        bullets: [
+          "<strong>Scenario A (Group Chat Roast):</strong> Don't react or laugh. DM the classmate: <em>'Hey, that was out of line. I've got your back.'</em>",
+          "<strong>Scenario B (Embarrassing Photo Shared):</strong> Report the photo quietly to the app, and post something kind about the person.",
+          "<strong>Scenario C (Game Lobby Abuse):</strong> Use in-game mute/report buttons. Say: <em>'Let me handle the game, let's just play.'</em>",
+          "<strong>Golden Secret Rule:</strong> <em>Keeping someone safe matters more than keeping a secret.</em> Always tell an adult if safety is at risk."
+        ],
+        icon: "fa-hand-holding-heart",
+        interactive: {
+          type: "callout",
+          title: "Low-Risk vs. High-Risk Moves",
+          text: "Private support (DMs) and reporting carry ZERO social risk. You can be an upstander without ever making yourself a target."
+        },
+        speakerNotes: `
+          <strong>Practical Application:</strong> Real-world scenario walkthroughs.<br>
+          <strong>Talking Points:</strong> Look at Scenario A. You don't have to yell at the bully in front of 20 people in the group chat. A simple private DM changes the target's entire day.<br>
+          <strong>Safety Rule:</strong> If a friend shows you scary messages and asks you 'not to tell anyone', remember: keeping them safe is more important than keeping a secret.<br>
+          <strong>Transition:</strong> Now let's explore Netiquette—how we prevent drama before it starts.
+        `
+      },
+      {
+        id: 11,
+        lesson: "Lesson 2",
+        sectionTitle: "Section 2: Actionable Skills & Digital Etiquette",
+        badgeColor: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
+        glowColor: "bg-emerald-600",
+        title: "Digital Etiquette: Reading the Room",
+        subtitle: "Matching your communication style to the online space (Source 11)",
+        type: "cards",
+        cards: [
+          { title: "Friend Group Chat", text: "Informal, casual, short messages, emojis allowed ('lol k').", icon: "fa-comments", color: "border-emerald-500/40 bg-emerald-950/20" },
+          { title: "Emailing a Teacher", text: "Formal greeting, subject line, full sentences, polite sign-off.", icon: "fa-envelope-open-text", color: "border-blue-500/40 bg-blue-950/20" },
+          { title: "Class Project Chat", text: "Collaborative, stays on topic, uses 'I' statements, clarifies doubts.", icon: "fa-list-check", color: "border-purple-500/40 bg-purple-950/20" }
+        ],
+        bullets: [
+          "<strong>The Analogy:</strong> Wearing football boots to a wedding! Right gear, wrong room. Context decides the rules."
+        ],
+        speakerNotes: `
+          <strong>Key Concept:</strong> Digital Etiquette & Context Switching.<br>
+          <strong>Talking Points:</strong> Think about wearing football boots to a wedding. Is there anything wrong with football boots? No! But they are wrong for that room. Sending 'k' to a friend is fine. Sending 'k' to a teacher who gave you feedback looks rude. Same words, different room!<br>
+          <strong>Transition:</strong> Let's look at why text messages get misread so easily.
+        `
+      },
+      {
+        id: 12,
+        lesson: "Lesson 2",
+        sectionTitle: "Section 2: Actionable Skills & Digital Etiquette",
+        badgeColor: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
+        glowColor: "bg-emerald-600",
+        title: "The Text Trap & Lowering the Heat",
+        subtitle: "How to avoid accidental drama and de-escalate tension",
+        type: "concept",
+        bullets: [
+          "<strong>ALL CAPS = SHOUTING:</strong> Typing in all caps is widely read as shouting or anger.",
+          "<strong>Sarcasm Fails Online:</strong> Without voice tone, jokes often sound like insults.",
+          "<strong>The Cafeteria Test:</strong> <em>'Would I stand up and say this aloud in the cafeteria?'</em> If not, don't post it.",
+          "<strong>De-escalating:</strong> Lower the heat! Say: <em>'I don't think text is working, let's talk in person tomorrow.'</em>"
+        ],
+        icon: "fa-temperature-arrow-down",
+        interactive: {
+          type: "callout",
+          title: "De-escalating is NOT Giving In",
+          text: "Stepping away from a heated chat or setting a boundary isn't losing—it's preventing a fire."
+        },
+        speakerNotes: `
+          <strong>Key Skills:</strong> Tone awareness and de-escalation.<br>
+          <strong>Talking Points:</strong> Text has no tone of voice. When someone reads your text, if they are in a bad mood, they will read it in an angry voice! Avoid ALL CAPS unless you mean to yell. If a chat is getting heated, the smartest move is to pause and say 'Let's talk later.'<br>
+          <strong>Transition:</strong> Let's practice rewriting bad messages into great netiquette!
+        `
+      },
+      {
+        id: 13,
+        lesson: "Lesson 2",
+        sectionTitle: "Section 2: Actionable Skills & Digital Etiquette",
+        badgeColor: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
+        glowColor: "bg-emerald-600",
+        title: "Practice Lab: Netiquette Rewrite!",
+        subtitle: "Can you fix these risky messages? Click to reveal better versions!",
+        type: "rewrite_lab",
+        rewrites: [
+          {
+            original: "WHY HAVENT U GRADED MY ASSIGNMENT YET???",
+            tag: "Rude / Shouting to Teacher",
+            fixed: "Hello Mr. Davis, I was just checking to see when assignment grades might be posted. Thank you!",
+            explanation: "Added polite greeting, removed ALL CAPS shouting, used full sentences."
+          },
+          {
+            original: "You completely ruined our project, you're useless.",
+            tag: "Hostile Attack in Project Chat",
+            fixed: "Hey, can we double-check who is completing section 2? I want to make sure our project stays on track.",
+            explanation: "Shifted from personal attack to task focus using 'I' statements."
+          }
+        ],
+        speakerNotes: `
+          <strong>Interactive Activity:</strong> Netiquette Rewrite.<br>
+          <strong>Instructions:</strong> Show the original message first. Ask students: "What's wrong with this?" Then click the card to reveal the respectful, effective rewrite.<br>
+          <strong>Key Takeaway:</strong> You can get what you want faster by being respectful and clear.<br>
+          <strong>Transition:</strong> Time to wrap up our deck with your Digital Citizen Pledge!
+        `
+      },
+      {
+        id: 14,
+        lesson: "Lesson 2",
+        sectionTitle: "Section 2: Actionable Skills & Digital Etiquette",
+        badgeColor: "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30",
+        glowColor: "bg-emerald-600",
+        title: "Your Digital Citizen Pledge",
+        subtitle: "Empowering yourself to shape a great digital world",
+        type: "pledge",
+        bullets: [
+          "<strong>Be Smart:</strong> Recognize trolling, flaming, and cyberbullying early.",
+          "<strong>Be Kind:</strong> Refuse to feed trolls, join pile-ons, or share mean content.",
+          "<strong>Be Brave:</strong> Use S.T.A.N.D. to support targets and report harm safely.",
+          "<strong>Be Respectful:</strong> Read the room and communicate with netiquette.",
+          "<strong>Remember:</strong> <em>One supportive person makes all the difference online. You can be that person!</em>"
+        ],
+        icon: "fa-award",
+        interactive: null,
+        speakerNotes: `
+          <strong>Conclusion & Call to Action:</strong> Empower students as active digital citizens.<br>
+          <strong>Talking Points:</strong> You now have the full toolkit! You know how to spot bad behavior, you have the vocabulary, you know S.T.A.N.D., and you know how to read the room.<br>
+          <strong>Final Reflection Question:</strong> "What is ONE small action you will commit to doing this week to keep your chats positive?"<br>
+          <strong>End of Presentation.</strong>
+        `
+      }
+    ];
+
+    // STATE VARIABLES
+    let currentSlideIndex = 0;
+    let speakerNotesVisible = false;
+
+    // INITIALIZATION
+    window.addEventListener('DOMContentLoaded', () => {
+      renderSlide(currentSlideIndex);
+      buildProgressDots();
+      buildGridOverview();
+
+      // Keyboard navigation
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight' || e.key === ' ') {
+          nextSlide();
+        } else if (e.key === 'ArrowLeft') {
+          prevSlide();
+        } else if (e.key === 'n' || e.key === 'N') {
+          toggleSpeakerNotes();
+        } else if (e.key === 'Escape') {
+          closeGridModal();
+        }
+      });
+    });
+
+    // RENDER SLIDE FUNCTION
+    function renderSlide(index) {
+      const data = slideData[index];
+      
+      // Update Headers & Tags
+      document.getElementById('slideCounterText').innerText = `Slide ${index + 1} of ${slideData.length}`;
+      document.getElementById('slideLessonTag').innerText = data.lesson;
+      document.getElementById('slideLessonTag').className = `text-xs sm:text-sm font-extrabold uppercase tracking-widest px-3 py-1 rounded-md ${data.badgeColor}`;
+      
+      const secBadge = document.getElementById('sectionBadge');
+      secBadge.innerText = data.lesson === 'Lesson 1' ? 'Lesson 1: Recognizing Harm' : 'Lesson 2: Actionable Skills';
+      secBadge.className = data.lesson === 'Lesson 1' 
+        ? 'px-3 py-1 rounded-full text-xs sm:text-sm font-bold tracking-wide uppercase bg-rose-950/60 text-rose-300 border border-rose-500/30' 
+        : 'px-3 py-1 rounded-full text-xs sm:text-sm font-bold tracking-wide uppercase bg-emerald-950/60 text-emerald-300 border border-emerald-500/30';
+
+      document.getElementById('glowBg').className = `absolute -bottom-20 -right-20 w-80 h-80 rounded-full blur-3xl opacity-20 pointer-events-none transition-colors duration-500 ${data.glowColor}`;
+
+      // Render Body Content based on slide type
+      const container = document.getElementById('slideContent');
+      container.innerHTML = '';
+
+      if (data.type === 'title') {
+        container.innerHTML = `
+          <div class="text-center max-w-4xl mx-auto py-1 sm:py-2">
+            <div class="inline-flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-2xl bg-slate-800 text-blue-400 text-2xl sm:text-3xl mb-2 sm:mb-3 border border-slate-700 shadow-inner">
+              <i class="fa-solid ${data.icon}"></i>
+            </div>
+            <h1 class="text-2xl sm:text-4xl lg:text-5xl font-extrabold text-white mb-2 heading-font tracking-tight">${data.title}</h1>
+            <p class="text-base sm:text-xl text-blue-300 font-semibold mb-3 sm:mb-5">${data.subtitle}</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 sm:gap-3 text-left max-w-3xl mx-auto">
+              ${data.bullets.map(b => `
+                <div class="bg-slate-800/60 border border-slate-700/60 p-2.5 sm:p-3.5 rounded-xl text-sm sm:text-base lg:text-lg text-slate-100 flex items-start gap-2.5">
+                  <i class="fa-solid fa-circle-check text-blue-400 mt-1 shrink-0 text-base sm:text-lg"></i>
+                  <div class="leading-snug">${b}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (data.type === 'concept') {
+        container.innerHTML = `
+          <div class="grid grid-cols-1 md:grid-cols-12 gap-4 lg:gap-6 items-center">
+            <div class="md:col-span-7 space-y-2.5 sm:space-y-3">
+              <div>
+                <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white heading-font">${data.title}</h2>
+                <p class="text-xs sm:text-base text-slate-300 mt-0.5 font-medium">${data.subtitle}</p>
+              </div>
+              <ul class="space-y-2 sm:space-y-2.5 text-xs sm:text-base lg:text-lg text-slate-100">
+                ${data.bullets.map(b => `
+                  <li class="flex items-start gap-2.5 bg-slate-800/50 p-2.5 sm:p-3 rounded-xl border border-slate-700/80">
+                    <i class="fa-solid fa-caret-right text-blue-400 mt-0.5 shrink-0 text-base"></i>
+                    <div class="leading-snug sm:leading-relaxed">${b}</div>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+            <div class="md:col-span-5 flex flex-col justify-center">
+              ${data.interactive ? `
+                <div class="bg-slate-800/90 border border-slate-700 p-3.5 sm:p-5 rounded-2xl shadow-xl relative overflow-hidden">
+                  <div class="text-xs sm:text-sm font-extrabold uppercase tracking-wider text-amber-400 mb-1.5 flex items-center gap-2">
+                    <i class="fa-solid fa-lightbulb text-base"></i> ${data.interactive.title}
+                  </div>
+                  <p class="text-xs sm:text-base text-slate-100 leading-relaxed italic">
+                    "${data.interactive.text}"
+                  </p>
+                </div>
+              ` : `
+                <div class="bg-slate-800/40 border border-slate-800 p-6 rounded-2xl text-center hidden md:block">
+                  <i class="fa-solid ${data.icon} text-5xl text-slate-500 mb-3"></i>
+                  <p class="text-xs sm:text-sm font-medium text-slate-300">Digital Citizenship Core Concept</p>
+                </div>
+              `}
+            </div>
+          </div>
+        `;
+      } else if (data.type === 'cards') {
+        container.innerHTML = `
+          <div class="space-y-3 sm:space-y-4">
+            <div>
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white heading-font">${data.title}</h2>
+              <p class="text-xs sm:text-base text-slate-300 mt-0.5 font-medium">${data.subtitle}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+              ${data.cards.map(c => `
+                <div class="border ${c.color} p-3.5 sm:p-4 rounded-xl flex flex-col justify-between">
+                  <div>
+                    <div class="w-10 h-10 rounded-xl bg-slate-800/90 flex items-center justify-center text-slate-100 mb-2 text-lg">
+                      <i class="fa-solid ${c.icon}"></i>
+                    </div>
+                    <h3 class="font-extrabold text-base sm:text-lg text-white mb-1.5">${c.title}</h3>
+                    <p class="text-xs sm:text-sm lg:text-base text-slate-200 leading-snug">${c.text}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+            ${data.bullets.length > 0 ? `
+              <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700 text-xs sm:text-sm lg:text-base text-slate-100 flex items-center gap-2.5">
+                <i class="fa-solid fa-circle-info text-blue-400 shrink-0 text-lg"></i>
+                <div class="leading-snug">${data.bullets[0]}</div>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      } else if (data.type === 'grid_definitions') {
+        container.innerHTML = `
+          <div class="space-y-3 sm:space-y-4">
+            <div>
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white heading-font">${data.title}</h2>
+              <p class="text-xs sm:text-base text-slate-300 mt-0.5 font-medium">${data.subtitle}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              ${data.definitions.map(d => `
+                <div class="bg-slate-800/60 border border-slate-700/80 p-3.5 sm:p-4 rounded-xl flex flex-col justify-between">
+                  <div>
+                    <div class="flex items-center justify-between mb-1.5">
+                      <h3 class="font-extrabold text-base sm:text-lg text-white">${d.term}</h3>
+                      <span class="text-[10px] sm:text-xs uppercase font-bold px-2 py-0.5 rounded bg-slate-700 text-blue-300">${d.badge}</span>
+                    </div>
+                    <p class="text-xs sm:text-sm lg:text-base text-slate-200 leading-snug">${d.def}</p>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (data.type === 'stand_grid') {
+        container.innerHTML = `
+          <div class="space-y-3 sm:space-y-4">
+            <div>
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white heading-font">${data.title}</h2>
+              <p class="text-xs sm:text-base text-slate-300 mt-0.5 font-medium">${data.subtitle}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-2.5">
+              ${data.stand.map(s => `
+                <div class="border ${s.color} p-3 rounded-xl flex flex-col items-center text-center">
+                  <div class="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center font-black text-xl mb-1.5 ${s.color.split(' ')[0]}">
+                    ${s.letter}
+                  </div>
+                  <h3 class="font-extrabold text-sm sm:text-base text-white mb-1">${s.title}</h3>
+                  <p class="text-xs sm:text-xs lg:text-sm text-slate-200 leading-tight">${s.desc}</p>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (data.type === 'interactive_quiz') {
+        container.innerHTML = `
+          <div class="space-y-3">
+            <div>
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white heading-font">${data.title}</h2>
+              <p class="text-xs sm:text-base text-slate-300 mt-0.5 font-medium">${data.subtitle}</p>
+            </div>
+            <div class="space-y-3">
+              ${data.scenarios.map((sc, scIdx) => `
+                <div class="bg-slate-800/60 border border-slate-700 p-3 sm:p-4 rounded-xl">
+                  <p class="text-xs sm:text-base lg:text-lg font-semibold text-slate-100 mb-2.5">${sc.q}</p>
+                  <div class="flex flex-wrap gap-2">
+                    ${sc.options.map((opt, optIdx) => `
+                      <button onclick="checkQuiz(${scIdx}, ${optIdx}, ${opt.correct}, '${opt.feedback.replace(/'/g, "\\'")}')" 
+                              id="quiz-btn-${scIdx}-${optIdx}"
+                              class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-slate-100 text-xs sm:text-sm lg:text-base rounded-lg font-semibold transition">
+                        ${opt.text}
+                      </button>
+                    `).join('')}
+                  </div>
+                  <div id="quiz-feedback-${scIdx}" class="mt-2 text-xs sm:text-sm lg:text-base hidden font-medium"></div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (data.type === 'rewrite_lab') {
+        container.innerHTML = `
+          <div class="space-y-3">
+            <div>
+              <h2 class="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-white heading-font">${data.title}</h2>
+              <p class="text-xs sm:text-base text-slate-300 mt-0.5 font-medium">${data.subtitle}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              ${data.rewrites.map((r, rIdx) => `
+                <div class="bg-slate-800/60 border border-slate-700 p-3.5 sm:p-4 rounded-xl flex flex-col justify-between">
+                  <div>
+                    <span class="text-[10px] sm:text-xs font-extrabold uppercase tracking-wider text-rose-400 bg-rose-950/60 border border-rose-800 px-2 py-0.5 rounded">${r.tag}</span>
+                    <div class="mt-2 bg-slate-900 p-2.5 rounded-lg border border-slate-800 text-xs sm:text-sm lg:text-base text-rose-300 font-mono mb-3">
+                      "${r.original}"
+                    </div>
+                  </div>
+                  <div>
+                    <div id="rewrite-fix-${rIdx}" class="hidden bg-emerald-950/40 border border-emerald-500/30 p-2.5 rounded-lg text-xs sm:text-sm text-emerald-200 mb-2.5">
+                      <strong class="text-emerald-400 text-xs sm:text-base">Better Netiquette:</strong> "${r.fixed}"
+                      <p class="text-[11px] sm:text-xs text-slate-300 mt-1 italic">${r.explanation}</p>
+                    </div>
+                    <button onclick="toggleRewrite(${rIdx})" class="w-full py-2 bg-indigo-600 hover:bg-indigo-500 text-white rounded-lg text-xs sm:text-sm font-bold transition">
+                      Toggle Better Version
+                    </button>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      } else if (data.type === 'pledge') {
+        container.innerHTML = `
+          <div class="text-center max-w-4xl mx-auto space-y-3 sm:space-y-4">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-2xl">
+              <i class="fa-solid ${data.icon}"></i>
+            </div>
+            <h2 class="text-2xl sm:text-4xl font-extrabold text-white heading-font">${data.title}</h2>
+            <div class="bg-slate-800/80 border border-slate-700 p-4 sm:p-5 rounded-2xl text-left space-y-2.5 text-xs sm:text-base lg:text-lg text-slate-100">
+              ${data.bullets.map(b => `
+                <div class="flex items-start gap-2.5">
+                  <i class="fa-solid fa-star text-amber-400 mt-1 shrink-0 text-sm sm:text-base"></i>
+                  <div class="leading-relaxed">${b}</div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+        `;
+      }
+
+      // Render Speaker Notes
+      document.getElementById('speakerNotesContent').innerHTML = data.speakerNotes;
+
+      // Update Navigation Buttons & Progress Dots
+      document.getElementById('prevBtn').disabled = index === 0;
+      document.getElementById('nextBtn').disabled = index === slideData.length - 1;
+      updateProgressDots(index);
+    }
+
+    // INTERACTIVE QUIZ CHECKER
+    function checkQuiz(scIdx, optIdx, isCorrect, feedback) {
+      const feedbackEl = document.getElementById(`quiz-feedback-${scIdx}`);
+      feedbackEl.classList.remove('hidden', 'text-emerald-400', 'text-rose-400');
+      if (isCorrect) {
+        feedbackEl.classList.add('text-emerald-400');
+        feedbackEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${feedback}`;
+      } else {
+        feedbackEl.classList.add('text-rose-400');
+        feedbackEl.innerHTML = `<i class="fa-solid fa-circle-xmark"></i> ${feedback}`;
+      }
+    }
+
+    // REWRITE LAB TOGGLE
+    function toggleRewrite(rIdx) {
+      const fixEl = document.getElementById(`rewrite-fix-${rIdx}`);
+      fixEl.classList.toggle('hidden');
+    }
+
+    // PROGRESS DOTS
+    function buildProgressDots() {
+      const container = document.getElementById('progressDots');
+      container.innerHTML = '';
+      slideData.forEach((s, idx) => {
+        const dot = document.createElement('button');
+        dot.className = `w-2.5 h-2.5 rounded-full transition-all duration-300 ${idx === currentSlideIndex ? 'bg-blue-500 w-6' : 'bg-slate-700 hover:bg-slate-500'}`;
+        dot.onclick = () => goToSlide(idx);
+        container.appendChild(dot);
+      });
+    }
+
+    function updateProgressDots(activeIndex) {
+      const dots = document.getElementById('progressDots').children;
+      for (let i = 0; i < dots.length; i++) {
+        dots[i].className = `h-2 rounded-full transition-all duration-300 ${i === activeIndex ? 'bg-blue-500 w-6' : 'bg-slate-700 hover:bg-slate-500 w-2'}`;
+      }
+    }
+
+    // GRID OVERVIEW MODAL
+    function buildGridOverview() {
+      const container = document.getElementById('gridContainer');
+      container.innerHTML = '';
+      slideData.forEach((s, idx) => {
+        const card = document.createElement('div');
+        card.className = `bg-slate-900 border border-slate-800 hover:border-blue-500 p-3 rounded-xl cursor-pointer transition flex flex-col justify-between group`;
+        card.onclick = () => {
+          goToSlide(idx);
+          closeGridModal();
+        };
+        card.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between text-[10px] font-bold text-slate-500 mb-1">
+              <span>SLIDE ${s.id}</span>
+              <span class="${s.lesson === 'Lesson 1' ? 'text-rose-400' : 'text-emerald-400'}">${s.lesson}</span>
+            </div>
+            <h4 class="text-xs font-bold text-slate-200 group-hover:text-blue-400 transition line-clamp-2">${s.title}</h4>
+          </div>
+          <p class="text-[10px] text-slate-500 mt-2 truncate">${s.subtitle}</p>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function toggleGridModal() {
+      const modal = document.getElementById('gridModal');
+      modal.classList.toggle('hidden');
+      modal.classList.toggle('flex');
+    }
+
+    function closeGridModal() {
+      const modal = document.getElementById('gridModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    // SLIDE NAVIGATION CONTROLS
+    function nextSlide() {
+      if (currentSlideIndex < slideData.length - 1) {
+        currentSlideIndex++;
+        renderSlide(currentSlideIndex);
+      }
+    }
+
+    function prevSlide() {
+      if (currentSlideIndex > 0) {
+        currentSlideIndex--;
+        renderSlide(currentSlideIndex);
+      }
+    }
+
+    function goToSlide(index) {
+      currentSlideIndex = index;
+      renderSlide(currentSlideIndex);
+    }
+
+    // TOGGLE SPEAKER NOTES PANEL
+    function toggleSpeakerNotes() {
+      const panel = document.getElementById('speakerNotesPanel');
+      speakerNotesVisible = !speakerNotesVisible;
+      if (speakerNotesVisible) {
+        panel.style.maxHeight = '240px';
+      } else {
+        panel.style.maxHeight = '0px';
+      }
+    }
+
+    // FULLSCREEN TOGGLE
+    function toggleFullscreen() {
+      if (!document.fullscreenElement) {
+        document.documentElement.requestFullscreen().catch(err => console.log(err));
+      } else {
+        if (document.exitFullscreen) {
+          document.exitFullscreen();
+        }
+      }
+    }
+  </script>
+</body>
+</html>
