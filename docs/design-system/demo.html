@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ember and Tide — Design System Demo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;600;700&family=Newsreader:ital,wght@0,400;0,500;1,400&family=Sora:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+
+/* ==========================================================================
+   TOKENS — copied from tokens.css so this page is fully self-contained.
+   ========================================================================== */
+:root {
+  /* Core lead colours (source) */
+  --amber-glow: #ff9900;
+  --dodger-blue: #0099ff;
+  --alabaster-grey: #e0e0e0;
+  --stormy-teal: #156064;
+  --ink-black: #0d1b2a;
+
+  /* Tide blue family (derived) */
+  --tide-primary: #255b7e;
+  --tide-bright: var(--dodger-blue);
+  --tide-cta: #0a72b8;
+
+  /* Secondary accents (derived gold + coral) */
+  --secondary-teal: var(--stormy-teal);
+  --secondary-gold: #f2b90d;
+  --secondary-coral: #f0644c;
+
+  /* Subject-tinted dark backgrounds */
+  --tide-dark: var(--ink-black);
+  --ember-dark: #241a0f;
+
+  /* Neutral scale */
+  --neutral-0: #ffffff;
+  --neutral-50: #f5f7fa;
+  --neutral-100: #e9edf2;
+  --neutral-200: #dae0e7;
+  --neutral-300: #bdc7d1;
+  --neutral-400: #98a5b3;
+  --neutral-500: #6c7f93;
+  --neutral-600: #4e6074;
+  --neutral-700: #364759;
+  --neutral-800: #1e2d3e;
+  --neutral-900: #122130;
+
+  /* Semantic roles */
+  --surface-light: var(--alabaster-grey);
+  --surface-light-alt: var(--neutral-50);
+  --surface-dark-tide: var(--tide-dark);
+  --surface-dark-ember: var(--ember-dark);
+  --text-primary: var(--ink-black);
+  --text-secondary: var(--neutral-600);
+  --text-on-dark: var(--neutral-50);
+  --text-inverse: var(--neutral-0);
+
+  --tide-accent: var(--dodger-blue);
+  --tide-accent-quiet: var(--tide-primary);
+  --tide-cta-bg: var(--tide-cta);
+  --tide-cta-bg-hover: var(--tide-primary);
+  --tide-border: var(--tide-primary);
+
+  --ember-accent: var(--amber-glow);
+  --ember-cta-bg: var(--amber-glow);
+  --ember-cta-bg-hover: #cc7a00;
+  --ember-border: var(--amber-glow);
+  --ember-cross-accent: var(--dodger-blue);
+
+  --chart-series-1: var(--secondary-teal);
+  --chart-series-2: var(--secondary-gold);
+  --chart-series-3: var(--secondary-coral);
+  --chart-series-4: var(--dodger-blue);
+  --chart-series-5: var(--amber-glow);
+
+  --illustration-ink: var(--ink-black);
+  --border-subtle: var(--neutral-200);
+  --border-default: var(--neutral-300);
+
+  /* Typography */
+  --font-body: "Work Sans", system-ui, sans-serif;
+  --font-display-tide: "Newsreader", Georgia, serif;
+  --font-display-ember: "Sora", system-ui, sans-serif;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-h3: 1.5rem;
+  --fs-h2: 2rem;
+  --fs-h1: 2.75rem;
+  --fs-display: 3.25rem;
+  --lh-body-sans: 1.55;
+  --lh-body-serif: 1.7;
+  --lh-heading: 1.15;
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* Spacing */
+  --space-1: 0.25rem; --space-2: 0.5rem; --space-3: 0.75rem;
+  --space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem;
+  --space-12: 3rem; --space-16: 4rem; --space-24: 6rem;
+
+  /* Shape */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1.25rem;
+  --radius-full: 999px;
+
+  /* Elevation */
+  --shadow-sm: 0 1px 2px rgba(13, 27, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(13, 27, 42, 0.10);
+  --shadow-lg: 0 12px 32px rgba(13, 27, 42, 0.14);
+}
+
+/* ==========================================================================
+   PAGE SCAFFOLDING
+   ========================================================================== */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--neutral-0);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  line-height: var(--lh-body-sans);
+}
+
+.wrap {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: var(--space-12) var(--space-6) var(--space-24);
+}
+
+section { margin-bottom: var(--space-24); }
+
+.eyebrow {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.02em;
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-2);
+}
+
+h2.section-title {
+  font-family: var(--font-body);
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  margin: 0 0 var(--space-1);
+}
+
+p.section-note {
+  color: var(--text-secondary);
+  max-width: 62ch;
+  margin: 0 0 var(--space-8);
+}
+
+/* ==========================================================================
+   HERO
+   ========================================================================== */
+.hero {
+  background: linear-gradient(135deg, var(--tide-dark) 0%, var(--tide-dark) 55%, var(--ember-dark) 100%);
+  border-radius: var(--radius-lg);
+  padding: var(--space-16) var(--space-8);
+  color: var(--text-on-dark);
+  margin-bottom: var(--space-16);
+}
+.hero .eyebrow { color: var(--dodger-blue); }
+.hero h1 {
+  font-family: var(--font-body);
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  margin: 0 0 var(--space-4);
+  max-width: 20ch;
+}
+.hero p {
+  max-width: 58ch;
+  color: var(--neutral-300);
+  font-size: 1.05rem;
+  margin: 0;
+}
+.hero .tag-row { margin-top: var(--space-6); display: flex; gap: var(--space-2); flex-wrap: wrap; }
+.tag {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-medium);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  border: 1px solid var(--neutral-700);
+  color: var(--neutral-200);
+}
+
+/* ==========================================================================
+   COLOUR SWATCHES
+   ========================================================================== */
+.swatch-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--space-4);
+}
+.swatch {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--border-subtle);
+}
+.swatch .chip { height: 72px; }
+.swatch .label {
+  padding: var(--space-3);
+  background: var(--neutral-0);
+}
+.swatch .name { font-weight: var(--fw-semibold); font-size: var(--fs-small); display: block; }
+.swatch .hex { color: var(--text-secondary); font-size: 0.75rem; font-family: monospace; }
+.swatch.derived .label::after {
+  content: "derived";
+  display: inline-block;
+  margin-top: var(--space-1);
+  font-size: 0.65rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.03em;
+  color: var(--neutral-500);
+}
+
+/* ==========================================================================
+   TYPOGRAPHY SPECIMEN
+   ========================================================================== */
+.type-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-8);
+}
+@media (max-width: 720px) { .type-columns { grid-template-columns: 1fr; } }
+
+.type-card {
+  background: var(--surface-light-alt);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  border-top: 4px solid transparent;
+}
+.type-card.tide { border-top-color: var(--tide-accent); }
+.type-card.ember { border-top-color: var(--ember-accent); }
+
+.type-card .identity-label {
+  font-size: var(--fs-small);
+  font-weight: var(--fw-semibold);
+  text-transform: none;
+  margin-bottom: var(--space-4);
+}
+.type-card.tide .identity-label { color: var(--tide-accent-quiet); }
+.type-card.ember .identity-label { color: var(--ember-accent); }
+
+.type-card .display-sample {
+  font-size: var(--fs-display);
+  line-height: var(--lh-heading);
+  margin: 0 0 var(--space-4);
+}
+.type-card.tide .display-sample { font-family: var(--font-display-tide); color: var(--tide-accent-quiet); font-style: italic; }
+.type-card.ember .display-sample { font-family: var(--font-display-ember); color: var(--ember-accent); }
+
+.type-card .body-sample {
+  font-family: var(--font-body);
+  font-size: var(--fs-body);
+  color: var(--text-primary);
+  line-height: var(--lh-body-sans);
+  margin: 0;
+}
+.type-card .font-name {
+  margin-top: var(--space-4);
+  font-size: 0.75rem;
+  font-family: monospace;
+  color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   BUTTONS
+   ========================================================================== */
+.btn-row { display: flex; flex-wrap: wrap; gap: var(--space-4); align-items: center; }
+.btn {
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-body);
+  padding: var(--space-3) var(--space-6);
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.btn--tide { background: var(--tide-cta-bg); color: var(--text-inverse); }
+.btn--tide:hover { background: var(--tide-cta-bg-hover); }
+.btn--ember { background: var(--ember-cta-bg); color: var(--text-inverse); }
+.btn--ember:hover { background: var(--ember-cta-bg-hover); }
+.btn--outline-tide { background: transparent; color: var(--tide-accent-quiet); border: 1.5px solid var(--tide-accent-quiet); }
+.btn--outline-ember { background: transparent; color: var(--ember-accent); border: 1.5px solid var(--ember-accent); }
+
+/* ==========================================================================
+   CARDS
+   ========================================================================== */
+.card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-6);
+}
+.card {
+  background: var(--neutral-0);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+.card--tide { border-left: 4px solid var(--tide-border); }
+.card--ember { border-left: 4px solid var(--ember-border); }
+.card h3 { margin: 0 0 var(--space-2); font-size: var(--fs-h3); }
+.card p { margin: 0; color: var(--text-secondary); font-size: var(--fs-small); }
+.card .card-kicker {
+  font-size: 0.7rem;
+  font-weight: var(--fw-semibold);
+  letter-spacing: 0.03em;
+  margin-bottom: var(--space-2);
+}
+.card--tide .card-kicker { color: var(--tide-accent-quiet); }
+.card--ember .card-kicker { color: var(--ember-accent); }
+
+/* ==========================================================================
+   DARK HEADING BANDS
+   ========================================================================== */
+.band-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-6); }
+@media (max-width: 720px) { .band-row { grid-template-columns: 1fr; } }
+.heading-band {
+  border-radius: var(--radius-lg);
+  padding: var(--space-8);
+  color: var(--text-on-dark);
+}
+.heading-band--tide { background: var(--surface-dark-tide); }
+.heading-band--ember { background: var(--surface-dark-ember); }
+.heading-band .kicker { font-size: var(--fs-small); font-weight: var(--fw-semibold); margin-bottom: var(--space-2); }
+.heading-band--tide .kicker { color: var(--dodger-blue); }
+.heading-band--ember .kicker { color: var(--amber-glow); }
+.heading-band h3 { margin: 0; font-size: var(--fs-h3); font-weight: var(--fw-bold); }
+
+/* ==========================================================================
+   DATA / CHART SERIES + TABLE
+   ========================================================================== */
+.legend-row { display: flex; gap: var(--space-6); flex-wrap: wrap; margin-bottom: var(--space-6); }
+.legend-item { display: flex; align-items: center; gap: var(--space-2); font-size: var(--fs-small); }
+.legend-dot { width: 12px; height: 12px; border-radius: var(--radius-full); display: inline-block; }
+
+table.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-family: var(--font-body);
+  box-shadow: var(--shadow-sm);
+}
+.data-table th, .data-table td {
+  text-align: left;
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-subtle);
+  font-size: var(--fs-small);
+}
+.data-table th { background: var(--neutral-100); font-weight: var(--fw-semibold); }
+.data-table tr:last-child td { border-bottom: none; }
+.score-bar-track { background: var(--neutral-100); border-radius: var(--radius-full); height: 8px; width: 100%; overflow: hidden; }
+.score-bar-fill { height: 100%; border-radius: var(--radius-full); }
+
+/* ==========================================================================
+   SHAPE + SPACING
+   ========================================================================== */
+.shape-row { display: flex; gap: var(--space-6); flex-wrap: wrap; align-items: flex-end; }
+.shape-demo { text-align: center; }
+.shape-swatch {
+  width: 88px; height: 88px;
+  background: var(--tide-primary);
+  margin-bottom: var(--space-2);
+}
+.shape-demo .shape-label { font-size: var(--fs-small); color: var(--text-secondary); font-family: monospace; }
+
+.space-row { display: flex; align-items: flex-end; gap: var(--space-4); }
+.space-demo { text-align: center; }
+.space-bar { background: var(--ember-accent); width: 24px; }
+.space-demo .space-label { margin-top: var(--space-2); font-size: 0.7rem; color: var(--text-secondary); font-family: monospace; }
+
+/* ==========================================================================
+   ILLUSTRATION LAYER
+   ========================================================================== */
+.illustration-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-6); align-items: center; }
+.illustration-tile {
+  background: var(--surface-light-alt);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  text-align: center;
+}
+.illustration-tile svg { width: 100%; height: auto; max-height: 90px; }
+.illustration-tile .caption { margin-top: var(--space-3); font-size: var(--fs-small); color: var(--text-secondary); }
+
+footer {
+  text-align: center;
+  color: var(--text-secondary);
+  font-size: var(--fs-small);
+  padding-top: var(--space-8);
+  border-top: 1px solid var(--border-subtle);
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <!-- HERO -->
+  <div class="hero">
+    <p class="eyebrow">EMBER AND TIDE · DESIGN SYSTEM DEMO</p>
+    <h1>One shared skeleton, two subject identities.</h1>
+    <p>Tide carries English B — calm, literary, sophisticated. Ember carries Information Technology and CAPE Digital Media — bold, technical, energetic. Same fonts, same spacing, same shapes underneath both.</p>
+    <div class="tag-row">
+      <span class="tag">English B</span>
+      <span class="tag">Information Technology</span>
+      <span class="tag">CAPE Digital Media</span>
+    </div>
+  </div>
+
+  <!-- COLOUR -->
+  <section>
+    <p class="eyebrow">COLOUR</p>
+    <h2 class="section-title">Lead colours &amp; token families</h2>
+    <p class="section-note">The five source tokens, plus the blue family and secondary accents derived from them. Tokens marked "derived" extend the original set.</p>
+
+    <div class="swatch-grid">
+      <div class="swatch"><div class="chip" style="background:var(--amber-glow)"></div><div class="label"><span class="name">amber-glow</span><span class="hex">#ff9900</span></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--dodger-blue)"></div><div class="label"><span class="name">dodger-blue</span><span class="hex">#0099ff</span></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--alabaster-grey)"></div><div class="label"><span class="name">alabaster-grey</span><span class="hex">#e0e0e0</span></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--stormy-teal)"></div><div class="label"><span class="name">stormy-teal</span><span class="hex">#156064</span></div></div>
+      <div class="swatch"><div class="chip" style="background:var(--ink-black)"></div><div class="label"><span class="name">ink-black</span><span class="hex">#0d1b2a</span></div></div>
+
+      <div class="swatch derived"><div class="chip" style="background:var(--tide-primary)"></div><div class="label"><span class="name">tide-primary</span><span class="hex">#255b7e</span></div></div>
+      <div class="swatch derived"><div class="chip" style="background:var(--tide-cta)"></div><div class="label"><span class="name">tide-cta</span><span class="hex">#0a72b8</span></div></div>
+      <div class="swatch derived"><div class="chip" style="background:var(--secondary-gold)"></div><div class="label"><span class="name">secondary-gold</span><span class="hex">#f2b90d</span></div></div>
+      <div class="swatch derived"><div class="chip" style="background:var(--secondary-coral)"></div><div class="label"><span class="name">secondary-coral</span><span class="hex">#f0644c</span></div></div>
+      <div class="swatch derived"><div class="chip" style="background:var(--ember-dark)"></div><div class="label"><span class="name">ember-dark</span><span class="hex">#241a0f</span></div></div>
+    </div>
+  </section>
+
+  <!-- TYPOGRAPHY -->
+  <section>
+    <p class="eyebrow">TYPOGRAPHY</p>
+    <h2 class="section-title">One shared body face, two display faces</h2>
+    <p class="section-note">Work Sans carries body copy in both identities. Each identity gets its own display face reserved for chapter openers and pull quotes only.</p>
+
+    <div class="type-columns">
+      <div class="type-card tide">
+        <p class="identity-label">TIDE — ENGLISH B</p>
+        <p class="display-sample">The orchard of stories</p>
+        <p class="body-sample">Body text stays in Work Sans across every subject — this is what keeps a Tide worksheet and an Ember worksheet feeling like siblings rather than strangers.</p>
+        <p class="font-name">display: Newsreader · body: Work Sans</p>
+      </div>
+      <div class="type-card ember">
+        <p class="identity-label">EMBER — IT &amp; DIGITAL MEDIA</p>
+        <p class="display-sample">Build. Debug. Ship.</p>
+        <p class="body-sample">Body text stays in Work Sans across every subject — this is what keeps a Tide worksheet and an Ember worksheet feeling like siblings rather than strangers.</p>
+        <p class="font-name">display: Sora · body: Work Sans</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section>
+    <p class="eyebrow">COMPONENTS</p>
+    <h2 class="section-title">Buttons</h2>
+    <p class="section-note">Rounded corners throughout, no sharp edges — each identity's CTA uses its own accent.</p>
+    <div class="btn-row">
+      <button class="btn btn--tide">Start reading</button>
+      <button class="btn btn--outline-tide">View chapter list</button>
+      <button class="btn btn--ember">Run the code</button>
+      <button class="btn btn--outline-ember">See rubric</button>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section>
+    <h2 class="section-title">Cards</h2>
+    <p class="section-note">Same card shape and spacing in both identities — only the accent border and kicker colour change.</p>
+    <div class="card-row">
+      <div class="card card--tide">
+        <p class="card-kicker">FORM 1 · ENGLISH B</p>
+        <h3>Greek Myths: Chapter 4</h3>
+        <p>Perseus and the Gorgon's Head — reading and comprehension questions.</p>
+      </div>
+      <div class="card card--ember">
+        <p class="card-kicker">FORM 1 · INFORMATION TECHNOLOGY</p>
+        <h3>Intro to Spreadsheets</h3>
+        <p>Formulas, cell references, and your first gradebook exercise.</p>
+      </div>
+      <div class="card card--ember">
+        <p class="card-kicker">FORM 6 · CAPE DIGITAL MEDIA</p>
+        <h3>Unit 2: Motion Principles</h3>
+        <p>Timing, spacing, and easing — the building blocks of believable motion.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DARK BANDS -->
+  <section>
+    <h2 class="section-title">Dark heading bands</h2>
+    <p class="section-note">Reserved for headings and emphasis moments, not full-page backgrounds. Ink-black already leans blue for Tide; Ember's dark is warmed toward amber.</p>
+    <div class="band-row">
+      <div class="heading-band heading-band--tide">
+        <p class="kicker">CHAPTER OPENER</p>
+        <h3>The Gods of Olympus</h3>
+      </div>
+      <div class="heading-band heading-band--ember">
+        <p class="kicker">MODULE OPENER</p>
+        <h3>Networking Fundamentals</h3>
+      </div>
+    </div>
+  </section>
+
+  <!-- DATA / CHARTS -->
+  <section>
+    <h2 class="section-title">Data: rubrics &amp; quiz breakdowns</h2>
+    <p class="section-note">Full saturation, not tinted pastels — the secondary accent trio (teal, gold, coral) plus both lead colours cover five distinct series.</p>
+
+    <div class="legend-row">
+      <div class="legend-item"><span class="legend-dot" style="background:var(--chart-series-1)"></span>Reading</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--chart-series-2)"></span>Comprehension</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--chart-series-3)"></span>Vocabulary</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--chart-series-4)"></span>Analysis</div>
+      <div class="legend-item"><span class="legend-dot" style="background:var(--chart-series-5)"></span>Participation</div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Student</th><th>Reading</th><th>Comprehension</th><th>Vocabulary</th><th>Overall</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>A. Ramkissoon</td>
+          <td>88%</td>
+          <td>76%</td>
+          <td>92%</td>
+          <td><div class="score-bar-track"><div class="score-bar-fill" style="width:85%; background:var(--chart-series-1)"></div></div></td>
+        </tr>
+        <tr>
+          <td>K. Alexander</td>
+          <td>71%</td>
+          <td>84%</td>
+          <td>68%</td>
+          <td><div class="score-bar-track"><div class="score-bar-fill" style="width:74%; background:var(--chart-series-2)"></div></div></td>
+        </tr>
+        <tr>
+          <td>S. Boodram</td>
+          <td>95%</td>
+          <td>90%</td>
+          <td>81%</td>
+          <td><div class="score-bar-track"><div class="score-bar-fill" style="width:89%; background:var(--chart-series-3)"></div></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- SHAPE + SPACING -->
+  <section>
+    <h2 class="section-title">Shape &amp; spacing</h2>
+    <p class="section-note">Corner radius scale and spacing scale — shared, unmodified, by both identities.</p>
+
+    <div class="shape-row">
+      <div class="shape-demo"><div class="shape-swatch" style="border-radius:var(--radius-sm)"></div><span class="shape-label">radius-sm · 8px</span></div>
+      <div class="shape-demo"><div class="shape-swatch" style="border-radius:var(--radius-md)"></div><span class="shape-label">radius-md · 12px</span></div>
+      <div class="shape-demo"><div class="shape-swatch" style="border-radius:var(--radius-lg)"></div><span class="shape-label">radius-lg · 20px</span></div>
+      <div class="shape-demo"><div class="shape-swatch" style="border-radius:var(--radius-full)"></div><span class="shape-label">radius-full</span></div>
+    </div>
+
+    <div style="height:var(--space-8)"></div>
+
+    <div class="space-row">
+      <div class="space-demo"><div class="space-bar" style="height:var(--space-2)"></div><span class="space-label">space-2</span></div>
+      <div class="space-demo"><div class="space-bar" style="height:var(--space-4)"></div><span class="space-label">space-4</span></div>
+      <div class="space-demo"><div class="space-bar" style="height:var(--space-6)"></div><span class="space-label">space-6</span></div>
+      <div class="space-demo"><div class="space-bar" style="height:var(--space-8)"></div><span class="space-label">space-8</span></div>
+      <div class="space-demo"><div class="space-bar" style="height:var(--space-12)"></div><span class="space-label">space-12</span></div>
+      <div class="space-demo"><div class="space-bar" style="height:var(--space-16)"></div><span class="space-label">space-16</span></div>
+    </div>
+  </section>
+
+  <!-- ILLUSTRATION -->
+  <section>
+    <h2 class="section-title">Illustration layer</h2>
+    <p class="section-note">Hand-drawn, monochrome line illustrations in one neutral ink colour — the signature that stays constant regardless of which lead colour is present on the page.</p>
+
+    <div class="illustration-row">
+      <div class="illustration-tile">
+        <svg viewBox="0 0 100 60" fill="none" stroke="var(--illustration-ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M20 45 C20 25, 35 15, 50 15 C65 15, 80 25, 80 45" />
+          <path d="M50 15 L50 8" />
+          <path d="M15 45 L85 45" />
+        </svg>
+        <p class="caption">Book / reading motif</p>
+      </div>
+      <div class="illustration-tile">
+        <svg viewBox="0 0 100 60" fill="none" stroke="var(--illustration-ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="20" y="15" width="60" height="35" rx="4" />
+          <path d="M35 50 L65 50" />
+          <path d="M50 50 L50 56" />
+          <path d="M30 25 L45 25 M30 32 L55 32" />
+        </svg>
+        <p class="caption">Screen / device motif</p>
+      </div>
+      <div class="illustration-tile">
+        <svg viewBox="0 0 100 60" fill="none" stroke="var(--illustration-ink)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M15 45 Q30 25, 45 40 T75 35" />
+          <circle cx="80" cy="25" r="6" />
+        </svg>
+        <p class="caption">Curiosity / wave motif</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    Ember and Tide · Design System Demo · tokens.css v1.0.0
+  </footer>
+
+</div>
+</body>
+</html>

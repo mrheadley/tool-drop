@@ -1,0 +1,2007 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Form 1 English B — Greek Myths Revision Quest</title>
+  <!-- Load Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Load Google Font: Inter -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    /* Base calm, low-glare styling */
+    :root {
+      --bg-cream: #FAF9F6;
+      --surface-white: #FFFFFF;
+      --text-ink: #1E293B;
+      --text-muted: #475569;
+      --accent-amber: #B45309;
+      --accent-sage: #15803D;
+      --border-soft: #E2E8F0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--bg-cream);
+      color: var(--text-ink);
+      line-height: 1.65;
+      transition: font-size 0.2s ease, line-height 0.2s ease, letter-spacing 0.2s ease;
+    }
+
+    /* Dyslexia-Friendly Reading Support Mode */
+    body.reading-support {
+      font-size: 1.15rem;
+      line-height: 1.95;
+      letter-spacing: 0.04em;
+      word-spacing: 0.12em;
+    }
+
+    body.reading-support p,
+    body.reading-support li,
+    body.reading-support label,
+    body.reading-support select,
+    body.reading-support input,
+    body.reading-support textarea,
+    body.reading-support button {
+      line-height: 1.9;
+      letter-spacing: 0.035em;
+    }
+
+    /* Smooth card elevation & transitions */
+    .myth-card {
+      background-color: var(--surface-white);
+      border: 1px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(30, 41, 59, 0.04);
+    }
+
+    .option-btn {
+      transition: all 0.18s ease;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      border-color: #B45309;
+      background-color: #FFFBEB;
+    }
+
+    /* Custom subtle scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #FAF9F6;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-amber-100 selection:text-amber-900">
+
+  <!-- Sticky Top Navigation & Accessibility Bar -->
+  <header class="sticky top-0 z-30 bg-[#FAF9F6]/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-3">
+      <!-- App Title & Home Button -->
+      <button onclick="app.goHome()" class="flex items-center gap-2.5 text-left group focus:outline-none">
+        <span class="w-10 h-10 rounded-xl bg-amber-700 text-white flex items-center justify-center font-bold text-lg shadow-sm group-hover:bg-amber-800 transition">
+          🏛️
+        </span>
+        <div>
+          <span class="block font-extrabold text-slate-900 text-base sm:text-lg leading-tight">Greek Myths Quest</span>
+          <span class="block text-xs text-slate-500 font-medium">Form 1 English B • Term 1 Exam Prep</span>
+        </div>
+      </button>
+
+      <!-- Controls: Reading Support Toggle & Summary Button -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <button
+          id="readingToggleBtn"
+          onclick="app.toggleReadingSupport()"
+          aria-pressed="false"
+          class="px-3 py-2 rounded-xl border border-slate-300 bg-white text-slate-700 text-xs sm:text-sm font-semibold hover:bg-slate-100 transition flex items-center gap-1.5 shadow-sm"
+          title="Increase text size and spacing for easier reading"
+        >
+          <span>Aa</span>
+          <span id="readingToggleLabel">Reading Support: Off</span>
+        </button>
+
+        <button
+          onclick="app.showSummary()"
+          class="px-3.5 py-2 rounded-xl bg-slate-800 text-white text-xs sm:text-sm font-semibold hover:bg-slate-900 transition shadow-sm flex items-center gap-1.5"
+        >
+          <span>📊</span>
+          <span>My Study Plan</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main id="appContainer" class="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 py-6 sm:py-8">
+    <!-- Dynamic views rendered here -->
+  </main>
+
+  <!-- Calm Footer -->
+  <footer class="border-t border-slate-200 bg-white/60 mt-12">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 py-5 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+      <p>NorthGate College • Form 1 English B Revision Tool • Take your time—no timers!</p>
+      <div id="resetContainer">
+        <button onclick="app.confirmReset()" class="text-slate-500 hover:text-red-700 underline font-medium">
+          Reset All Progress
+        </button>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /**
+     * FORM 1 GREEK MYTHS REVISION QUEST
+     * Strictly aligned with:
+     * - Geraldine McCaughrean's "Greek Myths"
+     * - Alice Low's "Mother Earth and Her Children"
+     * - NorthGate College Form 1 English B Term 1 Scheme of Work (Weeks 1–10)
+     * Zero spoilers from the Term 1 exam paper.
+     */
+
+    const MISSIONS = [
+      {
+        id: 'm1',
+        number: 1,
+        title: 'Origins & The First Gods',
+        subtitle: 'Weeks 1–4 • Creation Myths & Pandora’s Wooden Chest',
+        icon: '🌍',
+        badgeName: 'Keeper of Origins',
+        description: 'Review why ancient Greeks told myths, how Zeus overthrew Cronus, and what happened when Pandora opened the locked wooden chest.',
+        questions: [
+          {
+            id: 'm1_q1',
+            type: 'mcq',
+            unit: 'Unit 1: Creation Stories',
+            topic: 'Week 2: Mother Earth and Her Children',
+            skill: 'Knowledge',
+            prompt: 'In "Mother Earth and Her Children", how did Zeus finally rescue his five swallowed brothers and sisters from Cronus?',
+            options: [
+              'He defeated Cronus in a sword fight on top of Mount Olympus.',
+              'He disguised himself as a servant and mixed a poisonous potion from Rhea into Cronus’s drink.',
+              'He asked the three Cyclopes to strike Cronus with thunderbolts while he slept.',
+              'He tricked Cronus into swallowing a second stone wrapped in a blanket.'
+            ],
+            correctIndex: 1,
+            explanation: 'Spot on! Once grown up, Zeus disguised himself as a servant in Cronus’s palace and served him a poisoned drink prepared by Rhea, causing Cronus to vomit up the stone and Zeus’s five brothers and sisters.'
+          },
+          {
+            id: 'm1_q2',
+            type: 'mcq',
+            unit: 'Unit 1: Creation Stories',
+            topic: 'Week 3: In the Beginning and Pandora’s Box',
+            skill: 'Understanding',
+            prompt: 'In "In the Beginning and Pandora’s Box", why was it so important that Pandora opened the wooden chest a second time after slamming the lid shut?',
+            options: [
+              'Because the big golden key was still stuck inside the lock.',
+              'Because Hope was trapped inside, and without Hope people could not bear all the unhappiness let loose.',
+              'Because Epimetheus asked her to check if any gold was left at the bottom.',
+              'Because Zeus ordered her to let Disease and War back inside.'
+            ],
+            correctIndex: 1,
+            explanation: 'Well done! Hope fluttered out like a small white butterfly and even brought courage to Prometheus on his cliff, helping humans survive all the troubles in the world.'
+          },
+          {
+            id: 'm1_q3',
+            type: 'extract',
+            unit: 'Unit 1: Creation Stories',
+            topic: 'Week 2: Mother Earth and Her Children',
+            skill: 'Understanding',
+            passageTitle: 'From “Mother Earth and Her Children” (by Alice Low)',
+            passage: '“The Cyclopes, in turn, gave Zeus gifts to use as weapons against Cronus and the Titans. ‘To Zeus,’ said one of the Cyclopes, ‘we give our powerful weapons, the thunderbolts.’ ‘To Zeus’s brother Hades,’ said another, ‘we give this magic helmet of darkness.’ ‘And to their brother Poseidon,’ said the third, ‘we give this sharp-pronged trident.’”',
+            question: 'How did Hades and Poseidon use their special gifts from the Cyclopes to help defeat Cronus?',
+            hint: 'Start your sentence with: "Hades used his helmet of darkness to become invisible and..., while Poseidon used his trident to..."',
+            checklist: [
+              'I explained that Hades put on his helmet of darkness to turn invisible and steal Cronus’s weapons.',
+              'I explained that Poseidon struck the ground with his trident to make the earth shake and terrify Cronus.',
+              'I wrote my answer in clear, complete sentences.'
+            ],
+            modelAnswer: 'Hades put on his helmet of darkness to become invisible and sneak up behind Cronus to steal his weapons. Then Poseidon struck the ground with his trident, causing an earthquake that terrified Cronus and left him powerless.'
+          },
+          {
+            id: 'm1_q4',
+            type: 'matching',
+            unit: 'Unit 1: Creation Stories',
+            topic: 'Week 3: Major & Minor Characters',
+            skill: 'Knowledge',
+            prompt: 'Match each character from our creation myths with their correct action.',
+            pairs: [
+              { left: 'Prometheus', right: 'Stole a tiny sliver of fire from the sun’s chariot inside a stalk of grass' },
+              { left: 'Epimetheus', right: 'Gave shells, tails, and wings to animals, leaving nothing for First Man' },
+              { left: 'Atlas', right: 'Led the Titans in battle and was punished to hold up the sky forever' },
+              { left: 'Gaea (Mother Earth)', right: 'Hid baby Zeus in a cave on Crete and later advised him to free the Cyclopes' }
+            ],
+            explanation: 'Great matching! Remembering what each character did helps you tell Major and Minor characters apart on the exam.'
+          }
+        ]
+      },
+      {
+        id: 'm2',
+        number: 2,
+        title: 'Nature, Grief & The Seasons',
+        subtitle: 'Week 5 • Persephone and the Pomegranate Seeds',
+        icon: '🌱',
+        badgeName: 'Season Guardian',
+        description: 'Explore how ancient Greeks explained winter and summer through Demeter’s love for Persephone and Zeus’s six-month rule.',
+        questions: [
+          {
+            id: 'm2_q1',
+            type: 'mcq',
+            unit: 'Unit 2: Nature & Moral Myths',
+            topic: 'Week 5: Persephone and the Pomegranate Seeds',
+            skill: 'Knowledge',
+            prompt: 'Why did Pluto abduct Persephone from the woods of Sicily instead of asking Demeter for permission to marry her?',
+            options: [
+              'He wanted to steal Demeter’s harvest seeds for the Underworld.',
+              'He was lonely in his dark kingdom and knew Demeter would refuse to let her daughter leave the sunshine.',
+              'Zeus ordered him to kidnap Persephone as a punishment.',
+              'Persephone had wandered across the River Styx on her own.'
+            ],
+            correctIndex: 1,
+            explanation: 'Correct! Nobody wanted to give up the warm sunshine and flowers to live in Pluto’s dark, cold Kingdom of the Dead, so Pluto knew Demeter would say no.'
+          },
+          {
+            id: 'm2_q2',
+            type: 'matching',
+            unit: 'Unit 2: Nature & Moral Myths',
+            topic: 'Week 5: Persephone and the Pomegranate Seeds',
+            skill: 'Understanding',
+            prompt: 'Match each character in "Persephone and the Pomegranate Seeds" to the role they played in the story.',
+            pairs: [
+              { left: 'River Styx', right: 'Carried Persephone’s belt of flowers to Demeter as a clue' },
+              { left: 'Hermes', right: 'Flew to the Underworld in winged sandals to command Pluto to release Persephone' },
+              { left: 'Persephone', right: 'Ate six of the twelve pomegranate seeds because she was starving' },
+              { left: 'Zeus', right: 'Ruled that Persephone must spend six months underground and six months on earth' }
+            ],
+            explanation: 'Awesome work! Each character’s choice led directly to Zeus’s compromise.'
+          },
+          {
+            id: 'm2_q3',
+            type: 'spot_error',
+            unit: 'Unit 2: Nature & Moral Myths',
+            topic: 'Week 5: Purpose of Myths (Explaining Nature)',
+            skill: 'Application',
+            prompt: 'Spot the Mistake! Each student note below has ONE factual error based on McCaughrean’s story. Choose the correct fix for each note.',
+            rows: [
+              {
+                statement: '“Persephone ate all twelve pomegranate seeds that Pluto sprinkled into her hand.”',
+                options: [
+                  'Fix: She ate only six of the twelve pomegranate seeds before Hermes arrived.',
+                  'Fix: She refused to eat any seeds at all.'
+                ],
+                correctIndex: 0
+              },
+              {
+                statement: '“During the six months Persephone is in the Underworld, Demeter happily plants extra crops.”',
+                options: [
+                  'Fix: Demeter misses her daughter, so the trees shed their leaves and crops stop growing.',
+                  'Fix: Demeter travels down to the Underworld to live with Pluto too.'
+                ],
+                correctIndex: 0
+              },
+              {
+                statement: '“When Persephone returns in the spring, the Underworld stays bright and warm.”',
+                options: [
+                  'Fix: Up on earth, Demeter is joyful again, so flowers bloom and trees grow fruit.',
+                  'Fix: Pluto rides his black chariot up to Mount Olympus every spring.'
+                ],
+                correctIndex: 0
+              }
+            ],
+            explanation: 'Nice detective work! You spotted every detail of how the myth explains spring/summer growth and autumn/winter cold.'
+          },
+          {
+            id: 'm2_q4',
+            type: 'extract',
+            unit: 'Unit 2: Nature & Moral Myths',
+            topic: 'Week 5: Persephone and the Pomegranate Seeds',
+            skill: 'Understanding',
+            passageTitle: 'From “Persephone and the Pomegranate Seeds” (by Geraldine McCaughrean)',
+            passage: '“‘Oh, Zeus!’ she interrupted him. ‘If I don’t get my daughter back, how shall I go on decking the earth with flowers and fruit? I only do it out of joy, and without Persephone there is no joy for me! Let the earth wither and die for all I care!’ Zeus shivered at the thought. The little people on the earth would quickly stop paying tribute to the gods if their crops stopped growing and their trees died.”',
+            question: 'Why did Zeus agree to help Demeter get Persephone back after hearing her warning?',
+            hint: 'Start your sentence with: "Zeus agreed to help Demeter because he realized that if the earth withered and crops died, humans would..."',
+            checklist: [
+              'I explained that Zeus worried crops and trees would die.',
+              'I mentioned that Zeus feared people on earth would stop paying tribute to the gods.',
+              'I wrote in a complete sentence.'
+            ],
+            modelAnswer: 'Zeus agreed to help Demeter because he knew that if her grief caused the crops and trees to die, the people on earth would starve and quickly stop paying tribute to the gods.'
+          }
+        ]
+      },
+      {
+        id: 'm3',
+        number: 3,
+        title: 'Pride, Warnings & Transformations',
+        subtitle: 'Weeks 6–7 • Echo & Narcissus, Daedalus & Icarus, Arachne, King Midas',
+        icon: '🪶',
+        badgeName: 'Wisdom Seeker',
+        description: 'Check your understanding of boastfulness, greed, ignoring good advice, and how myths explain spiders, echoes, and flowers.',
+        questions: [
+          {
+            id: 'm3_q1',
+            type: 'mcq',
+            unit: 'Unit 2: Nature & Moral Myths',
+            topic: 'Week 6: Daedalus and Icarus',
+            skill: 'Knowledge',
+            prompt: 'In McCaughrean’s "Daedalus and Icarus", how did Daedalus build the wings they used to escape King Minos’s tower?',
+            options: [
+              'He carved wooden frames and covered them with bedsheets.',
+              'He collected bird feathers from his window sill, sewed them with wool from his blanket, and stuck them on with melted candle wax.',
+              'He prayed to Apollo to turn them both into seagulls.',
+              'He stole magic winged sandals from the palace treasure vault.'
+            ],
+            correctIndex: 1,
+            explanation: 'Yes! Daedalus spent a whole year collecting feathers from birds on his sill, sewing them with wool from his blanket, and attaching them with melted candle wax.'
+          },
+          {
+            id: 'm3_q2',
+            type: 'mcq',
+            unit: 'Unit 2: Nature & Moral Myths',
+            topic: 'Week 7: King Midas',
+            skill: 'Knowledge',
+            prompt: 'In "King Midas", how was Midas’s secret about his donkey’s ears revealed to everyone in the kingdom?',
+            options: [
+              'His tall hat blew off during a windy royal parade.',
+              'The queen told the palace guards while Midas was sleeping.',
+              'His barber whispered the secret into a hole by the river, and the tall reeds whispered it whenever the wind blew.',
+              'Apollo announced it loudly from Mount Olympus.'
+            ],
+            correctIndex: 2,
+            explanation: 'Spot on! The barber could not hold the secret in any longer, so he whispered it into a hole by the river—and the reeds that grew there sang it out on windy days.'
+          },
+          {
+            id: 'm3_q3',
+            type: 'spot_error',
+            unit: 'Unit 2: Nature & Moral Myths',
+            topic: 'Weeks 6–7: Comparing Moral Myths',
+            skill: 'Application',
+            prompt: 'Spot the Mistake! Fix the wrong detail in each of these four story summaries.',
+            rows: [
+              {
+                statement: '“Hera cursed Echo because Echo lied about where Zeus was hiding.”',
+                options: [
+                  'Fix: Hera cursed Echo because Echo’s constant chattering scared away the deer and she always wanted the last word.',
+                  'Fix: Hera cursed Echo because Echo stole Hera’s golden mirror.'
+                ],
+                correctIndex: 0
+              },
+              {
+                statement: '“Daedalus warned Icarus not to fly too low near the sea waves.”',
+                options: [
+                  'Fix: Daedalus warned Icarus not to fly too high or too close to the sun, or its heat would melt the wax.',
+                  'Fix: Daedalus warned Icarus not to fly faster than the seagulls.'
+                ],
+                correctIndex: 0
+              },
+              {
+                statement: '“King Midas turned his young daughter into a golden statue when she hugged him.”',
+                options: [
+                  'Fix: King Midas turned his little son into a silent golden statue when the boy hugged his knees.',
+                  'Fix: King Midas turned his barber into a golden statue.'
+                ],
+                correctIndex: 0
+              },
+              {
+                statement: '“Athene turned Arachne into a spider because Arachne’s weaving was messy and full of knots.”',
+                options: [
+                  'Fix: Arachne’s tapestry was brilliant, but Athene punished her for boasting and weaving pictures that mocked the gods.',
+                  'Fix: Arachne asked Athene to turn her into a spider so she could weave faster.'
+                ],
+                correctIndex: 0
+              }
+            ],
+            explanation: 'Brilliant! Knowing these exact details from McCaughrean’s book keeps you from falling for trick answers.'
+          },
+          {
+            id: 'm3_q4',
+            type: 'extract',
+            unit: 'Unit 2: Nature & Moral Myths',
+            topic: 'Week 7: Arachne the Spinner',
+            skill: 'Understanding',
+            passageTitle: 'From “Arachne the Spinner” (by Geraldine McCaughrean)',
+            passage: '“Alongside her sat Arachne, also weaving a picture of the gods. But it was a comical picture. It showed all the silly things the gods had ever done: dressing up, squabbling, lazing about and bragging. In fact she made them look just as foolish as ordinary folk. ... ‘Weave your tapestries for ever!’ said the goddess. ‘And however wonderful they are, people will only shudder at the sight of them and pull them to shreds.’”',
+            question: 'What natural creature does this myth explain, and what moral lesson does Arachne’s punishment teach?',
+            hint: 'Start your sentence with: "This myth explains how the first... was created, and it teaches us that..."',
+            checklist: [
+              'I stated that the myth explains the origin of the first spider and why people sweep away cobwebs.',
+              'I explained the moral lesson: do not boast or disrespect those in authority, because pride without humility leads to downfall.',
+              'I wrote in complete sentences.'
+            ],
+            modelAnswer: 'This myth explains the creation of the first spider and why people sweep away cobwebs even though they are finely woven. It teaches us that boasting and disrespecting others—even when we have great talent—will lead to our downfall.'
+          }
+        ]
+      },
+      {
+        id: 'm4',
+        number: 4,
+        title: 'Heroes, Helpers & Tough Choices',
+        subtitle: 'Weeks 8–10 • Perseus, Heracles & Theseus',
+        icon: '🛡️',
+        badgeName: 'Heroic Strategist',
+        description: 'Examine how Greek heroes succeeded with the help of others, and why character and responsibility matter just as much as strength.',
+        questions: [
+          {
+            id: 'm4_q1',
+            type: 'cloze',
+            unit: 'Unit 3: Greek Heroes',
+            topic: 'Weeks 8–10: Major & Helpful Characters',
+            skill: 'Knowledge',
+            prompt: 'Choose the right name from the dropdowns to complete this summary of our three Greek heroes.',
+            wordBank: ['Dictys', 'Pluto', 'Hydra', 'Atlas', 'Ariadne', 'King Aegeus'],
+            segments: [
+              'When baby Perseus and his mother washed ashore in a wooden chest, a kind fisherman named ',
+              ' rescued them. Later, to sneak past the Three Grey Sisters unseen, Perseus wore ',
+              '’s helmet of invisibility. In another hero’s story, Heracles defeated the fifty-headed ',
+              ' by burning its necks with a red-hot club, and later tricked the giant ',
+              ' into taking back the weight of the sky. Meanwhile, Prince Theseus escaped the dark Labyrinth only because Princess ',
+              ' gave him a ball of string, though he carelessly forgot to change his sail and caused the death of his father, ',
+              '.'
+            ],
+            answers: ['Dictys', 'Pluto', 'Hydra', 'Atlas', 'Ariadne', 'King Aegeus'],
+            explanation: 'Spot on! Every single hero needed cleverness or help from others—none of them succeeded on muscle alone.'
+          },
+          {
+            id: 'm4_q2',
+            type: 'mcq',
+            unit: 'Unit 3: Greek Heroes',
+            topic: 'Week 8: Perseus',
+            skill: 'Understanding',
+            prompt: 'At the end of "Perseus", why did Perseus refuse to rule as king of Argos after accidentally hitting his grandfather Acrisius with a discus?',
+            options: [
+              'He was afraid the people of Argos would put him back in a wooden chest.',
+              'He felt too sad about having killed his own grandfather, so he traveled with Andromeda to start a new kingdom.',
+              'King Polydectes’s army chased him away from the games.',
+              'Hermes ordered him to return to the fisherman’s shack.'
+            ],
+            correctIndex: 1,
+            explanation: 'Correct! Even though Danaë reminded him that nobody can cheat Fate, Perseus was deeply grieved by his grandfather’s death and chose to build a new kingdom elsewhere.'
+          },
+          {
+            id: 'm4_q3',
+            type: 'mcq',
+            unit: 'Unit 3: Greek Heroes',
+            topic: 'Week 9: The Twelve Labours of Heracles',
+            skill: 'Understanding',
+            prompt: 'How did Heracles clean Lord Augeas’s filthy stables in a single day without shoveling the dung by hand?',
+            options: [
+              'He ordered a thousand farmhands to scrub the valley.',
+              'He built a dam with huge boulders to divert a nearby river through the valley, washing it clean.',
+              'He asked Athena to send a giant rainstorm.',
+              'He used his lion skin to sweep the stables.'
+            ],
+            correctIndex: 1,
+            explanation: 'Yes! Moving boulders like feather pillows, Heracles diverted a river to scour the valley clean, then broke the dam so the river returned to its normal path.'
+          },
+          {
+            id: 'm4_q4',
+            type: 'extract',
+            unit: 'Unit 3: Greek Heroes',
+            topic: 'Weeks 8–10: Character & Responsibility',
+            skill: 'Application',
+            passageTitle: 'Heroic Choices Check',
+            passage: 'In McCaughrean’s "Theseus and the Minotaur", Theseus bravely volunteers to enter the Labyrinth to stop Athens from sending fourteen young people as tributes every year. However, after Ariadne saves his life with the ball of string, he abandons her on an island because of how she looks and forgets to raise the white sail for his father.',
+            question: 'Explain ONE way Theseus acted like a true hero, and ONE way he failed as a hero.',
+            hint: 'Start your sentence with: "Theseus acted like a true hero when he..., however he failed as a hero when he..."',
+            checklist: [
+              'I gave an accurate heroic action (e.g., volunteering to enter the Labyrinth and killing the Minotaur to save Athens).',
+              'I gave an accurate failure of character (e.g., ungratefully abandoning Ariadne on an island or forgetting to change the black sail, causing King Aegeus’s death).',
+              'I wrote in clear, complete sentences.'
+            ],
+            modelAnswer: 'Theseus acted like a true hero when he risked his own life by entering the Labyrinth to kill the Minotaur and save the fourteen Athenian youths. However, he failed as a hero when he ungratefully abandoned Ariadne on an island and carelessly forgot to raise the white sail, which caused his father’s death.'
+          }
+        ]
+      },
+      {
+        id: 'm5',
+        number: 5,
+        title: 'Real-World Links & Critical Thinking',
+        subtitle: 'Exam Sections 1B & 4 • Modern Lessons & Building Your Argument',
+        icon: '🧭',
+        badgeName: 'Master Myth Thinker',
+        description: 'Connect Greek myths to everyday Form 1 life and practice the 4-step Claim + Story Clues + Lesson method for Section 4.',
+        questions: [
+          {
+            id: 'm5_q1',
+            type: 'modern_scenario',
+            unit: 'Unit 4: Real-World & Critical Thinking',
+            topic: 'Week 1 & 7: Modern Connections (Moral Lessons)',
+            skill: 'Application',
+            scenario: 'Scenario 1: Marcus is chosen to judge the Form 1 talent show. Even though another student sings beautifully, Marcus awards first place to his best friend who forgot half the lyrics, just to do his friend a favour.',
+            wordBank: ['King Midas', 'Daedalus & Icarus', 'Arachne', 'Pandora’s Box', 'Narcissus'],
+            correctMyth: 'King Midas',
+            hint: 'Start your lesson sentence with: "Just like King Midas in the music contest between Pan and Apollo, this teaches us that..."',
+            checklist: [
+              'I picked King Midas.',
+              'I wrote one complete sentence explaining the lesson (judges and leaders should be fair and honest instead of playing favourites).'
+            ],
+            modelAnswer: 'Myth: King Midas. Lesson: Just like King Midas unfairly choosing his friend Pan over Apollo, this teaches us that we should judge fairly and honestly rather than playing favourites.'
+          },
+          {
+            id: 'm5_q2',
+            type: 'modern_scenario',
+            unit: 'Unit 4: Real-World & Critical Thinking',
+            topic: 'Week 1 & 6: Modern Connections (Moral Lessons)',
+            skill: 'Application',
+            scenario: 'Scenario 2: During a science experiment, the teacher tells the class, “Never heat this sealed glass tube above 50 degrees or it will crack.” Tariq wants to finish faster than everyone else, so he turns the burner all the way up—and the tube shatters.',
+            wordBank: ['King Midas', 'Daedalus & Icarus', 'Arachne', 'Pandora’s Box', 'Narcissus'],
+            correctMyth: 'Daedalus & Icarus',
+            hint: 'Start your lesson sentence with: "Just like Icarus ignoring Daedalus’s warning about the sun, this teaches us that..."',
+            checklist: [
+              'I picked Daedalus & Icarus.',
+              'I wrote one complete sentence explaining the lesson (ignoring safety warnings out of pride or impatience leads to disaster).'
+            ],
+            modelAnswer: 'Myth: Daedalus & Icarus. Lesson: Just like Icarus flying too close to the sun after being warned, this teaches us that ignoring wise warnings out of pride or impatience leads to danger.'
+          },
+          {
+            id: 'm5_q3',
+            type: 'modern_scenario',
+            unit: 'Unit 4: Real-World & Critical Thinking',
+            topic: 'Week 1 & 3: Modern Connections (Moral Lessons)',
+            skill: 'Application',
+            scenario: 'Scenario 3: Kayla’s older sister leaves her private diary on the desk with a note saying, “Please don’t read this.” Kayla peeks inside anyway, reads something hurtful, and ends up starting a huge family argument.',
+            wordBank: ['King Midas', 'Daedalus & Icarus', 'Arachne', 'Pandora’s Box', 'Narcissus'],
+            correctMyth: 'Pandora’s Box',
+            hint: 'Start your lesson sentence with: "Just like Pandora opening the locked wooden chest, this teaches us that..."',
+            checklist: [
+              'I picked Pandora’s Box.',
+              'I wrote one complete sentence explaining the lesson (giving in to curiosity and breaking a promise to leave something closed can unleash hurt and trouble).'
+            ],
+            modelAnswer: 'Myth: Pandora’s Box. Lesson: Just like Pandora opening the forbidden chest, this teaches us that giving in to curiosity and ignoring boundaries can unleash painful consequences.'
+          },
+          {
+            id: 'm5_q4',
+            type: 'critical_frame',
+            unit: 'Unit 4: Real-World & Critical Thinking',
+            topic: 'Weeks 4, 8–10: Critical Thinking (Claim + Story Clues)',
+            skill: 'Application',
+            prompt: 'Practice Section 4 Critical Thinking! Answer the big question below using the 4 clear steps so your story clues match your claim.',
+            bigQuestion: 'Big Question: Were the Greek gods fair or unfair when they punished humans and Titans? (Think about Zeus, Athene, and Apollo.)',
+            steps: [
+              {
+                label: 'Step 1 — My Claim',
+                placeholder: 'I believe the Greek gods were (fair / unfair / sometimes fair and sometimes unfair) because...',
+                hintStarter: 'I believe the Greek gods were often unfair because their punishments were much harsher than the mistake made.'
+              },
+              {
+                label: 'Step 2 — Story Clue 1',
+                placeholder: 'One example from our myths that proves my claim is when...',
+                hintStarter: 'One example from our myths is when Zeus punished all of mankind with Disease, War, and Death just because Prometheus stole fire.'
+              },
+              {
+                label: 'Step 3 — Story Clue 2',
+                placeholder: 'Another example from our myths that proves my claim is when...',
+                hintStarter: 'Another example is when Apollo gave King Midas donkey’s ears simply because Midas preferred Pan’s music.'
+              },
+              {
+                label: 'Step 4 — Final Lesson',
+                placeholder: 'Overall, these stories show that the ancient Greeks believed humans should...',
+                hintStarter: 'Overall, these stories show that the ancient Greeks believed humans had to respect the gods and avoid pride or disobedience.'
+              }
+            ],
+            checklist: [
+              'My Claim in Step 1 clearly takes a side (fair, unfair, or sometimes fair/unfair).',
+              'My Story Clue 1 in Step 2 gives a real event from our book that matches my Claim.',
+              'My Story Clue 2 in Step 3 gives a second real event from our book that matches my Claim.',
+              'My Final Lesson in Step 4 sums up what the ancient Greeks expected from humans.'
+            ],
+            modelAnswer: 'Step 1 (Claim): I believe the Greek gods were often unfair because they punished whole groups of innocent people or ruined lives over small mistakes. Step 2 (Story Clue 1): When Prometheus stole a tiny sliver of fire, Zeus sent Pandora’s chest to punish all of mankind with Disease, Old Age, and Death forever. Step 3 (Story Clue 2): When King Midas judged Pan’s music better than Apollo’s, Apollo humiliated him with donkey’s ears. Step 4 (Final Lesson): Overall, these myths show that the ancient Greeks viewed their gods as all-powerful rulers who demanded total respect and punished pride harshly.'
+          }
+        ]
+      }
+    ];
+
+    /**
+     * Pool of extra Confidence Retry questions tagged by mission & skill
+     * Used when a student scores <80% on a mission or clicks "Practice My Weakest Area"
+     */
+    const EXTRA_RETRY_QUESTIONS = [
+      {
+        id: 'retry_m1_1',
+        missionId: 'm1',
+        type: 'mcq',
+        unit: 'Unit 1: Creation Stories',
+        topic: 'Week 2: Mother Earth and Her Children',
+        skill: 'Knowledge',
+        prompt: 'After Zeus and his brothers defeated Cronus and the monster Typhon, how did Zeus, Poseidon, and Hades decide who would rule each part of the universe?',
+        options: [
+          'They fought a tournament on Mount Olympus.',
+          'They drew lots so they could settle it fairly without another argument.',
+          'Mother Earth (Gaea) ordered Zeus to take all three kingdoms.',
+          'They let the Cyclopes choose for them.'
+        ],
+        correctIndex: 1,
+        explanation: 'Spot on! Having had enough fighting, the three brothers drew lots: Hades won the underworld, Poseidon won the sea, and Zeus became lord of heaven.'
+      },
+      {
+        id: 'retry_m1_2',
+        missionId: 'm1',
+        type: 'mcq',
+        unit: 'Unit 1: Creation Stories',
+        topic: 'Week 3: In the Beginning and Pandora’s Box',
+        skill: 'Knowledge',
+        prompt: 'Why did Prometheus decide to make First Man stand upright on two legs instead of crawling on all fours like the animals?',
+        options: [
+          'So First Man could run faster than horses.',
+          'So First Man would look like the gods and look up at the stars instead of the ground.',
+          'Because Epimetheus had run out of animal paws.',
+          'So First Man could reach fruit on tall trees.'
+        ],
+        correctIndex: 1,
+        explanation: 'Yes! Prometheus shaped First Man out of mud to look like the gods so that Man would look up at the stars rather than staring at the ground.'
+      },
+      {
+        id: 'retry_m2_1',
+        missionId: 'm2',
+        type: 'mcq',
+        unit: 'Unit 2: Nature & Moral Myths',
+        topic: 'Week 5: Persephone and the Pomegranate Seeds',
+        skill: 'Knowledge',
+        prompt: 'How did Demeter finally find out what had happened to Persephone after searching the world in vain?',
+        options: [
+          'Hermes flew down from Mount Olympus to tell her.',
+          'She sat beside a river in Sicily, saw Persephone’s belt of flowers floating on the current, and heard the water whisper that Pluto had taken her.',
+          'Pluto sent a messenger to invite Demeter to the wedding.',
+          'The trees spelled out Pluto’s name with their falling leaves.'
+        ],
+        correctIndex: 1,
+        explanation: 'Correct! Persephone had thrown her belt of flowers into the River Styx, which carried it to Demeter and whispered what Pluto had done.'
+      },
+      {
+        id: 'retry_m2_2',
+        missionId: 'm2',
+        type: 'mcq',
+        unit: 'Unit 2: Nature & Moral Myths',
+        topic: 'Week 5: Persephone and the Pomegranate Seeds',
+        skill: 'Understanding',
+        prompt: 'Why couldn’t Zeus simply order Pluto to send Persephone home for the entire year?',
+        options: [
+          'Because Pluto was stronger than Zeus.',
+          'Because there was a strict rule that anyone who ate food in the Underworld had to stay there.',
+          'Because Demeter asked Zeus to let Persephone stay for six months.',
+          'Because Persephone preferred living in the dark.'
+        ],
+        correctIndex: 1,
+        explanation: 'Great recall! Because Persephone ate six pomegranate seeds, she had accepted Pluto’s hospitality, so Zeus made a fair compromise of six months underground and six months on earth.'
+      },
+      {
+        id: 'retry_m3_1',
+        missionId: 'm3',
+        type: 'mcq',
+        unit: 'Unit 2: Nature & Moral Myths',
+        topic: 'Week 6: Echo and Narcissus',
+        skill: 'Understanding',
+        prompt: 'In "Echo and Narcissus", why did Narcissus eventually fade away beside the forest pond?',
+        options: [
+          'He drank poisoned water from the pond.',
+          'He fell hopelessly in love with his own reflection in the water and could not tear himself away.',
+          'Hera turned him into a flower as punishment for ignoring Echo.',
+          'He got lost in the forest while searching for his sheep.'
+        ],
+        correctIndex: 1,
+        explanation: 'Yes! Echo wished that Narcissus would suffer from unreturned love just as she had—and he fell in love with his own reflection until he took root as the yellow-and-white narcissus flower.'
+      },
+      {
+        id: 'retry_m3_2',
+        missionId: 'm3',
+        type: 'mcq',
+        unit: 'Unit 2: Nature & Moral Myths',
+        topic: 'Week 7: King Midas',
+        skill: 'Knowledge',
+        prompt: 'How did King Midas finally get rid of the golden touch curse?',
+        options: [
+          'He gave all his golden furniture to the centaur.',
+          'He followed the centaur’s advice and washed in the river, then poured river water over his little son.',
+          'He apologized to Apollo and judged a second music contest.',
+          'He threw his tall hat into the river.'
+        ],
+        correctIndex: 1,
+        explanation: 'Spot on! The centaur told Midas to wash in the river, which washed away the curse and allowed him to pour buckets of water over his son to bring him back to life.'
+      },
+      {
+        id: 'retry_m4_1',
+        missionId: 'm4',
+        type: 'mcq',
+        unit: 'Unit 3: Greek Heroes',
+        topic: 'Week 8: Perseus',
+        skill: 'Application',
+        prompt: 'How did Perseus defeat King Polydectes and his five hundred soldiers when he returned home with Medusa’s head?',
+        options: [
+          'He fought all five hundred soldiers single-handedly with Hermes’s sword.',
+          'He warned Andromeda to cover her eyes, turned his own head aside, and pulled Medusa’s head from the sack to turn Polydectes and his soldiers to stone.',
+          'He used Pluto’s helmet of invisibility to sneak his mother out of the palace.',
+          'He challenged Polydectes to a discus-throwing contest.'
+        ],
+        correctIndex: 1,
+        explanation: 'Awesome! Perseus used cleverness and careful timing—protecting Andromeda and himself from looking while turning his enemies to stone.'
+      },
+      {
+        id: 'retry_m4_2',
+        missionId: 'm4',
+        type: 'mcq',
+        unit: 'Unit 3: Greek Heroes',
+        topic: 'Week 9: The Twelve Labours of Heracles',
+        skill: 'Application',
+        prompt: 'When Atlas returned with the golden apples of the Hesperides and tried to leave Heracles holding up the sky forever, how did Heracles outsmart the giant?',
+        options: [
+          'He threatened to strike Atlas with his wooden club.',
+          'He politely asked Atlas to hold the sky for just a moment while he adjusted a pad across his shoulders, then ran off with the apples.',
+          'He threw the sky onto two mountain peaks.',
+          'He called Zeus to chain Atlas back down.'
+        ],
+        correctIndex: 1,
+        explanation: 'Correct! Heracles proved that clever thinking can beat even the biggest giant in the world.'
+      },
+      {
+        id: 'retry_m5_1',
+        missionId: 'm5',
+        type: 'mcq',
+        unit: 'Unit 4: Real-World & Critical Thinking',
+        topic: 'Weeks 4, 8–10: Critical Thinking (Claim + Story Clues)',
+        skill: 'Application',
+        prompt: 'Suppose your Claim in Section 4 is: “Perseus is a better role model than Theseus because he stayed loyal to his family.” Which Story Clue best matches this Claim?',
+        options: [
+          'Perseus wore winged sandals that let him fly over the treetops.',
+          'Perseus risked his life to fetch Medusa’s head to protect his mother Danaë from being forced to marry King Polydectes.',
+          'Perseus entered the discus-throwing contest at the wedding games.',
+          'Perseus found the Three Grey Sisters on a rocky clifftop.'
+        ],
+        correctIndex: 1,
+        explanation: 'Spot on! For a strong Section 4 answer, your Story Clue must directly prove the exact reason you gave in your Claim.'
+      }
+    ];
+
+    /**
+     * Application State & LocalStorage Manager
+     */
+    const STORAGE_KEY = 'ngc_form1_greek_myths_v1';
+
+    const defaultState = {
+      readingSupport: false,
+      missionProgress: {}, // { m1: { bestScore: 85, mastered: true, firstAttemptResults: { qId: true/false } } }
+      activeView: 'home', // 'home' | 'mission' | 'retry' | 'summary'
+      currentMissionId: null,
+      currentQuestionIndex: 0,
+      sessionQuestions: [],
+      sessionResults: [], // [{ questionId, topic, skill, isCorrect, isFirstAttempt }]
+      isRetryMode: false,
+      retryTitle: ''
+    };
+
+    const app = {
+      state: JSON.parse(JSON.stringify(defaultState)),
+
+      init() {
+        try {
+          const saved = localStorage.getItem(STORAGE_KEY);
+          if (saved) {
+            const parsed = JSON.parse(saved);
+            this.state.readingSupport = !!parsed.readingSupport;
+            this.state.missionProgress = parsed.missionProgress || {};
+          }
+        } catch (e) {
+          console.warn('Could not read localStorage:', e);
+        }
+        this.applyReadingSupport();
+        this.render();
+      },
+
+      saveState() {
+        try {
+          localStorage.setItem(
+            STORAGE_KEY,
+            JSON.stringify({
+              readingSupport: this.state.readingSupport,
+              missionProgress: this.state.missionProgress
+            })
+          );
+        } catch (e) {
+          console.warn('Could not save to localStorage:', e);
+        }
+      },
+
+      toggleReadingSupport() {
+        this.state.readingSupport = !this.state.readingSupport;
+        this.applyReadingSupport();
+        this.saveState();
+      },
+
+      applyReadingSupport() {
+        const btn = document.getElementById('readingToggleBtn');
+        const label = document.getElementById('readingToggleLabel');
+        if (this.state.readingSupport) {
+          document.body.classList.add('reading-support');
+          btn.setAttribute('aria-pressed', 'true');
+          btn.classList.add('bg-amber-100', 'border-amber-600', 'text-amber-900');
+          btn.classList.remove('bg-white', 'text-slate-700');
+          label.textContent = 'Reading Support: On';
+        } else {
+          document.body.classList.remove('reading-support');
+          btn.setAttribute('aria-pressed', 'false');
+          btn.classList.remove('bg-amber-100', 'border-amber-600', 'text-amber-900');
+          btn.classList.add('bg-white', 'text-slate-700');
+          label.textContent = 'Reading Support: Off';
+        }
+      },
+
+      goHome() {
+        this.state.activeView = 'home';
+        this.state.currentMissionId = null;
+        this.state.isRetryMode = false;
+        this.render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+
+      startMission(missionId) {
+        const mission = MISSIONS.find((m) => m.id === missionId);
+        if (!mission) return;
+        this.state.activeView = 'mission';
+        this.state.currentMissionId = missionId;
+        this.state.currentQuestionIndex = 0;
+        this.state.sessionQuestions = mission.questions;
+        this.state.sessionResults = [];
+        this.state.isRetryMode = false;
+        this.render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+
+      startConfidenceRetry(missionId) {
+        const mission = MISSIONS.find((m) => m.id === missionId);
+        if (!mission) return;
+        // Pick 2 targeted retry questions for this mission
+        const missionExtras = EXTRA_RETRY_QUESTIONS.filter((q) => q.missionId === missionId);
+        // Also pull up to 1 missed objective question from the mission if needed
+        const prev = this.state.missionProgress[missionId] || {};
+        const missedFromMission = mission.questions.filter(
+          (q) => prev.firstAttemptResults && prev.firstAttemptResults[q.id] === false
+        );
+        const pool = [...missionExtras, ...missedFromMission];
+        const retrySet = pool.slice(0, 2);
+
+        this.state.activeView = 'mission';
+        this.state.currentMissionId = missionId;
+        this.state.currentQuestionIndex = 0;
+        this.state.sessionQuestions = retrySet.length > 0 ? retrySet : mission.questions.slice(0, 2);
+        this.state.sessionResults = [];
+        this.state.isRetryMode = true;
+        this.state.retryTitle = `Confidence Boost: ${mission.title}`;
+        this.render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+
+      startWeakestPractice(weakSkill) {
+        // Gather questions matching the student's weakest skill across all missions & retry pool
+        const allQuestions = [
+          ...MISSIONS.flatMap((m) => m.questions),
+          ...EXTRA_RETRY_QUESTIONS
+        ];
+        let targeted = allQuestions.filter((q) => q.skill === weakSkill);
+        // Prioritize objective/interactive ones plus 1 written one so it's snappy
+        targeted = targeted.slice(0, 4);
+
+        this.state.activeView = 'mission';
+        this.state.currentMissionId = 'weakest_practice';
+        this.state.currentQuestionIndex = 0;
+        this.state.sessionQuestions = targeted;
+        this.state.sessionResults = [];
+        this.state.isRetryMode = true;
+        this.state.retryTitle = `Targeted Practice: ${this.getFriendlySkillName(weakSkill)}`;
+        this.render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+
+      showSummary() {
+        this.state.activeView = 'summary';
+        this.render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+
+      confirmReset() {
+        const container = document.getElementById('resetContainer');
+        container.innerHTML = `
+          <span class="text-slate-700 font-medium mr-2">Clear all badges & scores?</span>
+          <button onclick="app.executeReset()" class="px-2.5 py-1 bg-red-600 text-white rounded-lg font-semibold hover:bg-red-700 mr-1">Yes, Reset</button>
+          <button onclick="app.cancelReset()" class="px-2.5 py-1 bg-slate-200 text-slate-700 rounded-lg font-semibold hover:bg-slate-300">Cancel</button>
+        `;
+      },
+
+      cancelReset() {
+        const container = document.getElementById('resetContainer');
+        container.innerHTML = `
+          <button onclick="app.confirmReset()" class="text-slate-500 hover:text-red-700 underline font-medium">
+            Reset All Progress
+          </button>
+        `;
+      },
+
+      executeReset() {
+        this.state.missionProgress = {};
+        this.saveState();
+        this.cancelReset();
+        this.goHome();
+      },
+
+      getFriendlySkillName(skill) {
+        if (skill === 'Knowledge') return 'Facts & Characters (Knowledge)';
+        if (skill === 'Understanding') return 'Story Meanings & Reasons (Understanding)';
+        return 'Real-World Links & Critical Thinking (Application)';
+      },
+
+      /**
+       * Main Router
+       */
+      render() {
+        const container = document.getElementById('appContainer');
+        if (this.state.activeView === 'home') {
+          container.innerHTML = this.renderHome();
+        } else if (this.state.activeView === 'mission') {
+          container.innerHTML = this.renderQuestionView();
+        } else if (this.state.activeView === 'mission_complete') {
+          container.innerHTML = this.renderMissionComplete();
+        } else if (this.state.activeView === 'summary') {
+          container.innerHTML = this.renderSummaryView();
+        }
+      },
+
+      /**
+       * HOME DASHBOARD VIEW
+       */
+      renderHome() {
+        const totalMissions = MISSIONS.length;
+        const masteredCount = MISSIONS.filter(
+          (m) => this.state.missionProgress[m.id] && this.state.missionProgress[m.id].mastered
+        ).length;
+        const progressPercent = Math.round((masteredCount / totalMissions) * 100);
+
+        const missionCardsHtml = MISSIONS.map((m) => {
+          const prog = this.state.missionProgress[m.id];
+          const isMastered = prog && prog.mastered;
+          const bestScore = prog ? prog.bestScore : null;
+          const needsBoost = prog && !prog.mastered && bestScore !== null;
+
+          let statusBadge = `<span class="px-3 py-1 rounded-full text-xs font-semibold bg-slate-100 text-slate-600">Not Started</span>`;
+          if (isMastered) {
+            statusBadge = `<span class="px-3 py-1 rounded-full text-xs font-bold bg-green-100 text-green-800 border border-green-300">🏅 ${m.badgeName} (${bestScore}%)</span>`;
+          } else if (needsBoost) {
+            statusBadge = `<span class="px-3 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800 border border-amber-300">Best: ${bestScore}% • Retry Ready</span>`;
+          }
+
+          return `
+            <div class="myth-card p-5 sm:p-6 flex flex-col justify-between gap-4 hover:border-amber-400 transition">
+              <div>
+                <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+                  <span class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-1 rounded-lg border border-amber-200">
+                    <span>${m.icon}</span> Mission ${m.number}
+                  </span>
+                  ${statusBadge}
+                </div>
+                <h3 class="text-lg sm:text-xl font-bold text-slate-900 mb-1">${m.title}</h3>
+                <p class="text-xs font-semibold text-slate-500 mb-2.5">${m.subtitle}</p>
+                <p class="text-sm text-slate-600">${m.description}</p>
+              </div>
+
+              <div class="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-2">
+                <span class="text-xs text-slate-500 font-medium">${m.questions.length} Practice Challenges</span>
+                <div class="flex items-center gap-2">
+                  ${
+                    needsBoost
+                      ? `<button onclick="app.startConfidenceRetry('${m.id}')" class="px-3.5 py-2 rounded-xl bg-amber-100 text-amber-900 text-xs sm:text-sm font-bold hover:bg-amber-200 transition">
+                          ⚡ 2-Question Boost
+                        </button>`
+                      : ''
+                  }
+                  <button onclick="app.startMission('${m.id}')" class="px-4 py-2 rounded-xl ${
+            isMastered
+              ? 'bg-slate-100 text-slate-800 hover:bg-slate-200'
+              : 'bg-amber-700 text-white hover:bg-amber-800 shadow-sm'
+          } text-xs sm:text-sm font-bold transition">
+                    ${isMastered ? 'Practice Again' : 'Start Mission →'}
+                  </button>
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="space-y-6">
+            <!-- Hero Welcome Banner -->
+            <section class="myth-card p-6 sm:p-8 bg-gradient-to-br from-white via-amber-50/40 to-orange-50/40">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
+                <div class="space-y-2 max-w-xl">
+                  <span class="inline-block px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">
+                    Term 1 English B Exam Practice
+                  </span>
+                  <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+                    Welcome to Your Greek Myths Revision Quest!
+                  </h1>
+                  <p class="text-sm sm:text-base text-slate-600">
+                    Practice each mission at your own pace—there are <strong>no countdown timers</strong>. Score <strong>80% or higher</strong> on a mission to unlock its Mastery Badge, and check <strong>My Study Plan</strong> anytime to see what to review next.
+                  </p>
+                </div>
+
+                <!-- Overall Progress Pill -->
+                <div class="bg-white border border-slate-200 rounded-2xl p-4 sm:p-5 min-w-[210px] shadow-sm">
+                  <div class="flex items-center justify-between mb-1.5">
+                    <span class="text-xs font-bold uppercase tracking-wider text-slate-500">Badges Earned</span>
+                    <span class="text-sm font-extrabold text-green-700">${masteredCount} / ${totalMissions}</span>
+                  </div>
+                  <div class="w-full h-3 bg-slate-100 rounded-full overflow-hidden mb-2">
+                    <div class="h-full bg-green-600 rounded-full transition-all duration-500" style="width: ${progressPercent}%"></div>
+                  </div>
+                  <p class="text-xs text-slate-500">
+                    ${
+                      masteredCount === totalMissions
+                        ? '🎉 Amazing! You earned every badge!'
+                        : 'Reach 80% in each mission to earn all 5 badges.'
+                    }
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            <!-- Mission Grid -->
+            <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
+              ${missionCardsHtml}
+            </section>
+          </div>
+        `;
+      },
+
+      /**
+       * QUESTION VIEW (Supports MCQ, Matching, Spot-the-Mistake, Cloze, Extract, Modern Scenario, Critical Frame)
+       */
+      renderQuestionView() {
+        const qIndex = this.state.currentQuestionIndex;
+        const totalQ = this.state.sessionQuestions.length;
+        const q = this.state.sessionQuestions[qIndex];
+        const mission = MISSIONS.find((m) => m.id === this.state.currentMissionId);
+        const headerTitle = this.state.isRetryMode
+          ? this.state.retryTitle
+          : `Mission ${mission.number}: ${mission.title}`;
+
+        const progressPct = Math.round(((qIndex + 1) / totalQ) * 100);
+
+        let bodyHtml = '';
+        if (q.type === 'mcq') {
+          bodyHtml = this.renderMcqBody(q);
+        } else if (q.type === 'matching') {
+          bodyHtml = this.renderMatchingBody(q);
+        } else if (q.type === 'spot_error') {
+          bodyHtml = this.renderSpotErrorBody(q);
+        } else if (q.type === 'cloze') {
+          bodyHtml = this.renderClozeBody(q);
+        } else if (q.type === 'extract') {
+          bodyHtml = this.renderExtractBody(q);
+        } else if (q.type === 'modern_scenario') {
+          bodyHtml = this.renderModernScenarioBody(q);
+        } else if (q.type === 'critical_frame') {
+          bodyHtml = this.renderCriticalFrameBody(q);
+        }
+
+        return `
+          <div class="space-y-5">
+            <!-- Top Mission Progress Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-3">
+              <button onclick="app.goHome()" class="text-sm font-semibold text-slate-600 hover:text-slate-900 flex items-center gap-1">
+                <span>← Back to Missions</span>
+              </button>
+              <span class="text-xs font-bold text-slate-500 bg-white px-3 py-1.5 rounded-full border border-slate-200">
+                ${q.topic} • ${this.getFriendlySkillName(q.skill).split(' ')[0]}
+              </span>
+            </div>
+
+            <div class="myth-card p-5 sm:p-8">
+              <!-- Mission Title & Step Indicator -->
+              <div class="mb-6">
+                <div class="flex items-center justify-between text-xs font-bold text-amber-800 uppercase tracking-wider mb-2">
+                  <span>${headerTitle}</span>
+                  <span>Question ${qIndex + 1} of ${totalQ}</span>
+                </div>
+                <div class="w-full h-2.5 bg-slate-100 rounded-full overflow-hidden">
+                  <div class="h-full bg-amber-600 rounded-full transition-all duration-300" style="width: ${progressPct}%"></div>
+                </div>
+              </div>
+
+              <!-- Question Content -->
+              <div id="questionWorkspace">
+                ${bodyHtml}
+              </div>
+
+              <!-- Feedback & Next Step Area (Hidden until submitted) -->
+              <div id="feedbackArea" class="hidden mt-6 pt-6 border-t border-slate-200"></div>
+            </div>
+          </div>
+        `;
+      },
+
+      /**
+       * 1. Multiple Choice Renderer & Checker
+       */
+      renderMcqBody(q) {
+        const letters = ['A', 'B', 'C', 'D'];
+        return `
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-5">${q.prompt}</h2>
+          <div class="space-y-3" id="mcqOptions">
+            ${q.options
+              .map(
+                (opt, idx) => `
+              <button
+                onclick="app.checkMcq(${idx})"
+                data-idx="${idx}"
+                class="option-btn w-full text-left p-4 rounded-xl border-2 border-slate-200 bg-white flex items-start gap-3.5 focus:outline-none focus:ring-2 focus:ring-amber-500"
+              >
+                <span class="w-8 h-8 rounded-lg bg-slate-100 text-slate-700 font-bold text-sm flex items-center justify-center shrink-0 mt-0.5">
+                  ${letters[idx]}
+                </span>
+                <span class="text-slate-800 font-medium">${opt}</span>
+              </button>
+            `
+              )
+              .join('')}
+          </div>
+        `;
+      },
+
+      checkMcq(selectedIndex) {
+        const q = this.state.sessionQuestions[this.state.currentQuestionIndex];
+        const isCorrect = selectedIndex === q.correctIndex;
+        const buttons = document.querySelectorAll('#mcqOptions button');
+
+        buttons.forEach((btn, idx) => {
+          btn.disabled = true;
+          btn.classList.remove('option-btn');
+          if (idx === q.correctIndex) {
+            btn.classList.remove('border-slate-200', 'bg-white');
+            btn.classList.add('border-green-600', 'bg-green-50');
+            btn.querySelector('span:first-child').classList.add('bg-green-600', 'text-white');
+          } else if (idx === selectedIndex && !isCorrect) {
+            btn.classList.remove('border-slate-200', 'bg-white');
+            btn.classList.add('border-red-500', 'bg-red-50');
+            btn.querySelector('span:first-child').classList.add('bg-red-600', 'text-white');
+          } else {
+            btn.classList.add('opacity-60');
+          }
+        });
+
+        this.recordAndShowFeedback(isCorrect, q.explanation);
+      },
+
+      /**
+       * 2. Matching Table Renderer & Checker
+       */
+      renderMatchingBody(q) {
+        // Shuffle right-hand options deterministically for display
+        const shuffledRights = [...q.pairs]
+          .map((p, i) => ({ text: p.right, origIdx: i }))
+          .sort((a, b) => a.text.localeCompare(b.text));
+
+        return `
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">${q.prompt}</h2>
+          <p class="text-sm text-slate-600 mb-5">Select the matching action or description from each dropdown menu.</p>
+          <div class="space-y-3.5" id="matchingRows">
+            ${q.pairs
+              .map(
+                (pair, rowIdx) => `
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <span class="font-bold text-slate-900 sm:w-1/3">${pair.left}</span>
+                <select
+                  id="matchSelect_${rowIdx}"
+                  class="sm:w-2/3 p-3 rounded-xl border border-slate-300 bg-white text-slate-800 text-sm font-medium focus:outline-none focus:border-amber-600"
+                >
+                  <option value="">-- Choose the best match --</option>
+                  ${shuffledRights
+                    .map(
+                      (r) => `<option value="${r.origIdx}">${r.text}</option>`
+                    )
+                    .join('')}
+                </select>
+              </div>
+            `
+              )
+              .join('')}
+          </div>
+          <div class="mt-6">
+            <button id="submitMatchBtn" onclick="app.checkMatching()" class="px-6 py-3 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm">
+              Check My Matches
+            </button>
+          </div>
+        `;
+      },
+
+      checkMatching() {
+        const q = this.state.sessionQuestions[this.state.currentQuestionIndex];
+        let allSelected = true;
+        let correctCount = 0;
+
+        q.pairs.forEach((_, idx) => {
+          const sel = document.getElementById(`matchSelect_${idx}`);
+          if (sel.value === '') allSelected = false;
+        });
+
+        if (!allSelected) {
+          this.showInlineAlert('Please choose a match for every character before checking your answer!');
+          return;
+        }
+
+        q.pairs.forEach((pair, idx) => {
+          const sel = document.getElementById(`matchSelect_${idx}`);
+          sel.disabled = true;
+          const rowDiv = sel.parentElement;
+          if (parseInt(sel.value, 10) === idx) {
+            correctCount++;
+            rowDiv.classList.remove('bg-slate-50', 'border-slate-200');
+            rowDiv.classList.add('bg-green-50', 'border-green-500');
+          } else {
+            rowDiv.classList.remove('bg-slate-50', 'border-slate-200');
+            rowDiv.classList.add('bg-red-50', 'border-red-400');
+            const fixNote = document.createElement('p');
+            fixNote.className = 'text-xs font-semibold text-green-800 mt-1 sm:col-span-2';
+            fixNote.textContent = `✓ Correct match: ${pair.right}`;
+            rowDiv.appendChild(fixNote);
+          }
+        });
+
+        document.getElementById('submitMatchBtn').classList.add('hidden');
+        const isCorrect = correctCount === q.pairs.length;
+        const summaryMsg = isCorrect
+          ? q.explanation
+          : `You matched ${correctCount} out of ${q.pairs.length} correctly. Check the green notes above to review the ones you missed!`;
+        this.recordAndShowFeedback(isCorrect, summaryMsg);
+      },
+
+      /**
+       * 3. Spot-the-Mistake Table Renderer & Checker
+       */
+      renderSpotErrorBody(q) {
+        return `
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-2">${q.prompt}</h2>
+          <p class="text-sm text-slate-600 mb-5">Read each student note carefully and pick the fix that matches our class book.</p>
+          <div class="space-y-4">
+            ${q.rows
+              .map(
+                (row, rIdx) => `
+              <div id="spotRow_${rIdx}" class="p-4 rounded-xl bg-amber-50/50 border border-amber-200/80 space-y-3">
+                <p class="text-sm font-semibold text-slate-800">
+                  <span class="inline-block px-2 py-0.5 rounded bg-red-100 text-red-800 text-xs font-bold mr-1.5">Mistake ${rIdx + 1}</span>
+                  ${row.statement}
+                </p>
+                <div class="grid grid-cols-1 gap-2">
+                  ${row.options
+                    .map(
+                      (opt, oIdx) => `
+                    <label class="flex items-start gap-2.5 p-3 rounded-lg bg-white border border-slate-200 cursor-pointer hover:border-amber-500 text-sm">
+                      <input type="radio" name="spot_${rIdx}" value="${oIdx}" class="mt-1 accent-amber-700" />
+                      <span class="text-slate-800">${opt}</span>
+                    </label>
+                  `
+                    )
+                    .join('')}
+                </div>
+              </div>
+            `
+              )
+              .join('')}
+          </div>
+          <div class="mt-6">
+            <button id="submitSpotBtn" onclick="app.checkSpotError()" class="px-6 py-3 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm">
+              Check My Fixes
+            </button>
+          </div>
+        `;
+      },
+
+      checkSpotError() {
+        const q = this.state.sessionQuestions[this.state.currentQuestionIndex];
+        let allAnswered = true;
+        let correctCount = 0;
+
+        q.rows.forEach((_, rIdx) => {
+          const checked = document.querySelector(`input[name="spot_${rIdx}"]:checked`);
+          if (!checked) allAnswered = false;
+        });
+
+        if (!allAnswered) {
+          this.showInlineAlert('Please pick a fix for every statement before checking!');
+          return;
+        }
+
+        q.rows.forEach((row, rIdx) => {
+          const checked = document.querySelector(`input[name="spot_${rIdx}"]:checked`);
+          const val = parseInt(checked.value, 10);
+          const rowBox = document.getElementById(`spotRow_${rIdx}`);
+          document.querySelectorAll(`input[name="spot_${rIdx}"]`).forEach((inp) => (inp.disabled = true));
+
+          if (val === row.correctIndex) {
+            correctCount++;
+            rowBox.classList.remove('bg-amber-50/50', 'border-amber-200/80');
+            rowBox.classList.add('bg-green-50', 'border-green-500');
+          } else {
+            rowBox.classList.remove('bg-amber-50/50', 'border-amber-200/80');
+            rowBox.classList.add('bg-red-50', 'border-red-400');
+          }
+        });
+
+        document.getElementById('submitSpotBtn').classList.add('hidden');
+        const isCorrect = correctCount === q.rows.length;
+        const msg = isCorrect
+          ? q.explanation
+          : `You spotted ${correctCount} out of ${q.rows.length} fixes! Review the highlighted boxes above to lock in the right details.`;
+        this.recordAndShowFeedback(isCorrect, msg);
+      },
+
+      /**
+       * 4. Word Bank Fill-In (Cloze) Renderer & Checker
+       */
+      renderClozeBody(q) {
+        const sortedBank = [...q.wordBank].sort();
+        let paragraphHtml = '';
+        q.segments.forEach((seg, idx) => {
+          paragraphHtml += `<span>${seg}</span>`;
+          if (idx < q.answers.length) {
+            paragraphHtml += `
+              <select id="cloze_${idx}" class="mx-1 my-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-amber-50/60 font-bold text-slate-900 text-sm focus:outline-none focus:border-amber-700">
+                <option value="">[ Choose ]</option>
+                ${sortedBank.map((w) => `<option value="${w}">${w}</option>`).join('')}
+              </select>
+            `;
+          }
+        });
+
+        return `
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">${q.prompt}</h2>
+          <div class="p-3.5 rounded-xl bg-slate-100 border border-slate-200 mb-5 text-xs sm:text-sm">
+            <span class="font-bold text-slate-700 mr-2">Word Bank:</span>
+            <span class="text-slate-700 font-medium">${sortedBank.join(' • ')}</span>
+          </div>
+          <div class="p-5 rounded-xl bg-white border border-slate-200 text-slate-800 leading-loose text-base">
+            ${paragraphHtml}
+          </div>
+          <div class="mt-6">
+            <button id="submitClozeBtn" onclick="app.checkCloze()" class="px-6 py-3 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm">
+              Check Word Bank Fill-In
+            </button>
+          </div>
+        `;
+      },
+
+      checkCloze() {
+        const q = this.state.sessionQuestions[this.state.currentQuestionIndex];
+        let allFilled = true;
+        let correctCount = 0;
+
+        q.answers.forEach((_, idx) => {
+          const sel = document.getElementById(`cloze_${idx}`);
+          if (!sel.value) allFilled = false;
+        });
+
+        if (!allFilled) {
+          this.showInlineAlert('Please fill in all 6 blanks from the Word Bank first!');
+          return;
+        }
+
+        q.answers.forEach((ans, idx) => {
+          const sel = document.getElementById(`cloze_${idx}`);
+          sel.disabled = true;
+          if (sel.value === ans) {
+            correctCount++;
+            sel.classList.remove('border-amber-300', 'bg-amber-50/60');
+            sel.classList.add('border-green-600', 'bg-green-100', 'text-green-900');
+          } else {
+            sel.classList.remove('border-amber-300', 'bg-amber-50/60');
+            sel.classList.add('border-red-500', 'bg-red-100', 'text-red-900');
+            const hintSpan = document.createElement('span');
+            hintSpan.className = 'text-xs font-bold text-green-800 bg-green-100 px-2 py-0.5 rounded ml-1';
+            hintSpan.textContent = `✓ ${ans}`;
+            sel.insertAdjacentElement('afterend', hintSpan);
+          }
+        });
+
+        document.getElementById('submitClozeBtn').classList.add('hidden');
+        const isCorrect = correctCount >= q.answers.length - 1; // 5/6 or 6/6 counts as mastery on cloze
+        const msg =
+          correctCount === q.answers.length
+            ? q.explanation
+            : `You got ${correctCount} out of ${q.answers.length} right! Check the green tags next to any missed blanks.`;
+        this.recordAndShowFeedback(isCorrect, msg);
+      },
+
+      /**
+       * 5. Reading Extract (Short Answer + Hint + Self-Check Rubric)
+       */
+      renderExtractBody(q) {
+        return `
+          <div class="mb-5 p-4 sm:p-5 rounded-xl bg-amber-50/70 border-l-4 border-amber-700">
+            <p class="text-xs font-bold uppercase tracking-wider text-amber-900 mb-1.5">${q.passageTitle}</p>
+            <blockquote class="italic text-slate-800 text-sm sm:text-base">${q.passage}</blockquote>
+          </div>
+
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900 mb-3">${q.question}</h2>
+
+          <!-- Progressive Hint Button -->
+          <div class="mb-3">
+            <button type="button" onclick="app.toggleHint('hintBox')" class="text-xs sm:text-sm font-semibold text-amber-800 hover:text-amber-950 underline flex items-center gap-1.5">
+              <span>💡 Need a Hint? Show Sentence Starter</span>
+            </button>
+            <div id="hintBox" class="hidden mt-2 p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs sm:text-sm text-blue-900">
+              <strong>Sentence Starter:</strong> ${q.hint}
+            </div>
+          </div>
+
+          <textarea
+            id="writtenInput"
+            rows="3"
+            placeholder="Write your answer in complete sentences here..."
+            class="w-full p-3.5 rounded-xl border-2 border-slate-200 bg-white text-slate-800 text-sm sm:text-base focus:outline-none focus:border-amber-600"
+          ></textarea>
+
+          <div class="mt-4" id="writtenActionArea">
+            <button onclick="app.revealSelfCheck()" class="px-6 py-3 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm">
+              Compare with Model Answer →
+            </button>
+          </div>
+
+          <div id="selfCheckArea" class="hidden mt-6 space-y-4"></div>
+        `;
+      },
+
+      /**
+       * 6. Modern Real-World Scenario (Myth Match + 1-Sentence Lesson + Self-Check)
+       */
+      renderModernScenarioBody(q) {
+        return `
+          <div class="p-4 sm:p-5 rounded-xl bg-slate-100 border border-slate-200 mb-5">
+            <span class="inline-block px-2.5 py-0.5 rounded bg-slate-800 text-white text-xs font-bold mb-2">Real-World Connection</span>
+            <p class="text-slate-900 font-medium text-sm sm:text-base">${q.scenario}</p>
+          </div>
+
+          <div class="space-y-4">
+            <div>
+              <label class="block text-sm font-bold text-slate-800 mb-1.5">1. Which Greek myth or character connects best to this situation?</label>
+              <select id="modernMythSelect" class="w-full sm:w-2/3 p-3 rounded-xl border-2 border-slate-200 bg-white text-slate-800 font-semibold text-sm focus:outline-none focus:border-amber-600">
+                <option value="">-- Choose a myth/character --</option>
+                ${q.wordBank.map((m) => `<option value="${m}">${m}</option>`).join('')}
+              </select>
+            </div>
+
+            <div>
+              <label class="block text-sm font-bold text-slate-800 mb-1.5">2. Explain the lesson in ONE complete sentence:</label>
+              <button type="button" onclick="app.toggleHint('hintBox')" class="text-xs font-semibold text-amber-800 underline mb-2 block">
+                💡 Need a Hint? Show Sentence Starter
+              </button>
+              <div id="hintBox" class="hidden mb-2 p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs sm:text-sm text-blue-900">
+                <strong>Sentence Starter:</strong> ${q.hint}
+              </div>
+              <textarea
+                id="writtenInput"
+                rows="2"
+                placeholder="Write your 1-sentence lesson here..."
+                class="w-full p-3.5 rounded-xl border-2 border-slate-200 bg-white text-slate-800 text-sm sm:text-base focus:outline-none focus:border-amber-600"
+              ></textarea>
+            </div>
+          </div>
+
+          <div class="mt-4" id="writtenActionArea">
+            <button onclick="app.checkModernScenario()" class="px-6 py-3 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm">
+              Check My Match & Compare Lesson →
+            </button>
+          </div>
+
+          <div id="selfCheckArea" class="hidden mt-6 space-y-4"></div>
+        `;
+      },
+
+      checkModernScenario() {
+        const q = this.state.sessionQuestions[this.state.currentQuestionIndex];
+        const sel = document.getElementById('modernMythSelect');
+        const txt = document.getElementById('writtenInput').value.trim();
+
+        if (!sel.value || txt.length < 5) {
+          this.showInlineAlert('Please choose a matching myth AND write your 1-sentence lesson before checking!');
+          return;
+        }
+
+        sel.disabled = true;
+        const mythMatched = sel.value === q.correctMyth;
+        if (mythMatched) {
+          sel.classList.add('border-green-600', 'bg-green-50');
+        } else {
+          sel.classList.add('border-red-500', 'bg-red-50');
+        }
+
+        this.revealSelfCheck(
+          mythMatched
+            ? `✅ Great match! You correctly connected this scenario to <strong>${q.correctMyth}</strong>.`
+            : `❌ Not quite—the best match is <strong>${q.correctMyth}</strong>. Compare your lesson sentence below!`
+        );
+      },
+
+      /**
+       * 7. Critical Thinking 4-Step Frame (Claim + Story Clue 1 + Story Clue 2 + Final Lesson)
+       */
+      renderCriticalFrameBody(q) {
+        return `
+          <div class="p-4 sm:p-5 rounded-xl bg-amber-50 border border-amber-200 mb-5">
+            <span class="inline-block px-2.5 py-0.5 rounded bg-amber-800 text-white text-xs font-bold mb-2">Section 4 Practice • Critical Thinking</span>
+            <h2 class="text-base sm:text-lg font-bold text-slate-900">${q.bigQuestion}</h2>
+            <p class="text-xs sm:text-sm text-slate-600 mt-1">${q.prompt}</p>
+          </div>
+
+          <div class="mb-4">
+            <button type="button" onclick="app.toggleHint('hintBox')" class="text-xs sm:text-sm font-semibold text-amber-800 underline flex items-center gap-1.5">
+              <span>💡 Need a Hint? Show Example Starters for All 4 Steps</span>
+            </button>
+            <div id="hintBox" class="hidden mt-2 p-3.5 rounded-xl bg-blue-50 border border-blue-200 text-xs sm:text-sm text-blue-950 space-y-1.5">
+              ${q.steps.map((s) => `<p><strong>${s.label}:</strong> ${s.hintStarter}</p>`).join('')}
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            ${q.steps
+              .map(
+                (step, idx) => `
+              <div>
+                <label class="block text-sm font-bold text-slate-800 mb-1">${step.label}</label>
+                <textarea
+                  id="critStep_${idx}"
+                  rows="2"
+                  placeholder="${step.placeholder}"
+                  class="w-full p-3 rounded-xl border-2 border-slate-200 bg-white text-slate-800 text-sm focus:outline-none focus:border-amber-600"
+                ></textarea>
+              </div>
+            `
+              )
+              .join('')}
+          </div>
+
+          <div class="mt-5" id="writtenActionArea">
+            <button onclick="app.checkCriticalFrame()" class="px-6 py-3 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm">
+              Compare with Model Answer →
+            </button>
+          </div>
+
+          <div id="selfCheckArea" class="hidden mt-6 space-y-4"></div>
+        `;
+      },
+
+      checkCriticalFrame() {
+        const q = this.state.sessionQuestions[this.state.currentQuestionIndex];
+        let allFilled = true;
+        q.steps.forEach((_, idx) => {
+          const val = document.getElementById(`critStep_${idx}`).value.trim();
+          if (val.length < 4) allFilled = false;
+        });
+
+        if (!allFilled) {
+          this.showInlineAlert('Please fill in all 4 steps (Claim, Story Clue 1, Story Clue 2, and Final Lesson) before checking!');
+          return;
+        }
+
+        q.steps.forEach((_, idx) => {
+          document.getElementById(`critStep_${idx}`).disabled = true;
+        });
+
+        this.revealSelfCheck();
+      },
+
+      /**
+       * Shared Self-Check Rubric & Model Answer Handler for Written Responses
+       */
+      revealSelfCheck(extraBannerHtml = '') {
+        const q = this.state.sessionQuestions[this.state.currentQuestionIndex];
+        const writtenInput = document.getElementById('writtenInput');
+        if (writtenInput) {
+          if (writtenInput.value.trim().length < 5) {
+            this.showInlineAlert('Please type your answer first before comparing with the model answer!');
+            return;
+          }
+          writtenInput.disabled = true;
+        }
+
+        document.getElementById('writtenActionArea').classList.add('hidden');
+        const selfCheckDiv = document.getElementById('selfCheckArea');
+        selfCheckDiv.classList.remove('hidden');
+
+        selfCheckDiv.innerHTML = `
+          ${
+            extraBannerHtml
+              ? `<div class="p-3.5 rounded-xl bg-slate-100 border border-slate-300 text-sm text-slate-900">${extraBannerHtml}</div>`
+              : ''
+          }
+          <div class="p-4 sm:p-5 rounded-xl bg-green-50 border border-green-300">
+            <p class="text-xs font-bold uppercase tracking-wider text-green-800 mb-1">Model Answer</p>
+            <p class="text-sm sm:text-base text-slate-900">${q.modelAnswer}</p>
+          </div>
+
+          <div class="p-4 sm:p-5 rounded-xl bg-white border-2 border-amber-300 space-y-3">
+            <p class="text-sm font-bold text-slate-900">Self-Check Checklist: Tick what you included in your answer:</p>
+            <div class="space-y-2">
+              ${q.checklist
+                .map(
+                  (item, idx) => `
+                <label class="flex items-start gap-2.5 text-sm text-slate-800 cursor-pointer">
+                  <input type="checkbox" class="self-check-box mt-1 accent-green-700 w-4 h-4" value="${idx}" />
+                  <span>${item}</span>
+                </label>
+              `
+                )
+                .join('')}
+            </div>
+            <div class="pt-2">
+              <button onclick="app.finalizeSelfCheck()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold hover:bg-slate-800 transition">
+                Save Self-Check & Continue →
+              </button>
+            </div>
+          </div>
+        `;
+      },
+
+      finalizeSelfCheck() {
+        const q = this.state.sessionQuestions[this.state.currentQuestionIndex];
+        const boxes = document.querySelectorAll('.self-check-box');
+        let checkedCount = 0;
+        boxes.forEach((b) => {
+          b.disabled = true;
+          if (b.checked) checkedCount++;
+        });
+
+        // If student ticked all or all-minus-1 checklist items, count as mastered
+        const isCorrect = checkedCount >= Math.max(1, boxes.length - 1);
+        document.getElementById('selfCheckArea').classList.add('opacity-85');
+        const msg = isCorrect
+          ? 'Great self-check! Checking your own work against key story clues is the best way to prepare for Sections 3 and 4 of the exam.'
+          : 'Thanks for honest self-checking! We added this topic to your Study Focus Plan so you can practice it again.';
+        this.recordAndShowFeedback(isCorrect, msg);
+      },
+
+      toggleHint(id) {
+        const el = document.getElementById(id);
+        if (el) el.classList.toggle('hidden');
+      },
+
+      showInlineAlert(message) {
+        let alertBox = document.getElementById('inlineAlertBox');
+        if (!alertBox) {
+          alertBox = document.createElement('div');
+          alertBox.id = 'inlineAlertBox';
+          alertBox.className = 'mt-4 p-3 rounded-xl bg-amber-100 border border-amber-400 text-amber-950 text-xs sm:text-sm font-semibold';
+          document.getElementById('questionWorkspace').appendChild(alertBox);
+        }
+        alertBox.textContent = `⚠️ ${message}`;
+      },
+
+      /**
+       * Record Result & Show Encouraging Feedback Banner
+       */
+      recordAndShowFeedback(isCorrect, explanationText) {
+        const inlineAlert = document.getElementById('inlineAlertBox');
+        if (inlineAlert) inlineAlert.remove();
+
+        const q = this.state.sessionQuestions[this.state.currentQuestionIndex];
+        this.state.sessionResults.push({
+          questionId: q.id,
+          topic: q.topic,
+          skill: q.skill,
+          isCorrect
+        });
+
+        const isLast = this.state.currentQuestionIndex === this.state.sessionQuestions.length - 1;
+        const feedbackArea = document.getElementById('feedbackArea');
+        feedbackArea.classList.remove('hidden');
+
+        feedbackArea.innerHTML = `
+          <div class="p-4 sm:p-5 rounded-xl ${
+            isCorrect ? 'bg-green-50 border border-green-300' : 'bg-amber-50 border border-amber-300'
+          } flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div class="space-y-1">
+              <p class="font-extrabold text-sm sm:text-base ${
+                isCorrect ? 'text-green-800' : 'text-amber-900'
+              }">
+                ${isCorrect ? '🎉 Spot on!' : '💡 Good try! Here is what to remember:'}
+              </p>
+              <p class="text-sm text-slate-800">${explanationText}</p>
+            </div>
+            <button
+              onclick="app.nextQuestion()"
+              class="px-5 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition shrink-0 shadow-sm"
+            >
+              ${isLast ? 'Finish & See Score →' : 'Next Question →'}
+            </button>
+          </div>
+        `;
+      },
+
+      nextQuestion() {
+        if (this.state.currentQuestionIndex < this.state.sessionQuestions.length - 1) {
+          this.state.currentQuestionIndex++;
+          this.render();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          this.completeMission();
+        }
+      },
+
+      /**
+       * Save Mission Progress & Evaluate 80% Mastery Loop
+       */
+      completeMission() {
+        const total = this.state.sessionResults.length;
+        const correct = this.state.sessionResults.filter((r) => r.isCorrect).length;
+        const scorePct = Math.round((correct / total) * 100);
+        const passed = scorePct >= 80;
+
+        const mId = this.state.currentMissionId;
+        if (mId && mId !== 'weakest_practice') {
+          const existing = this.state.missionProgress[mId] || {
+            bestScore: 0,
+            mastered: false,
+            firstAttemptResults: {}
+          };
+
+          // Save first-attempt results if not already recorded for those question IDs
+          this.state.sessionResults.forEach((res) => {
+            if (existing.firstAttemptResults[res.questionId] === undefined) {
+              existing.firstAttemptResults[res.questionId] = res.isCorrect;
+            }
+          });
+
+          if (!this.state.isRetryMode) {
+            existing.bestScore = Math.max(existing.bestScore, scorePct);
+            if (passed) existing.mastered = true;
+          } else {
+            // In 2-question Confidence Retry, passing (2/2 = 100%) unlocks the mission badge!
+            if (passed) {
+              existing.mastered = true;
+              existing.bestScore = Math.max(existing.bestScore, 80);
+            }
+          }
+
+          this.state.missionProgress[mId] = existing;
+          this.saveState();
+        }
+
+        this.state.lastScorePct = scorePct;
+        this.state.lastPassed = passed;
+        this.state.activeView = 'mission_complete';
+        this.render();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      },
+
+      /**
+       * MISSION COMPLETE SCREEN (80% Mastery Badge OR Confidence Retry Unlock)
+       */
+      renderMissionComplete() {
+        const mId = this.state.currentMissionId;
+        const mission = MISSIONS.find((m) => m.id === mId);
+        const score = this.state.lastScorePct;
+        const passed = this.state.lastPassed;
+
+        const missedTopics = [
+          ...new Set(this.state.sessionResults.filter((r) => !r.isCorrect).map((r) => r.topic))
+        ];
+
+        if (mId === 'weakest_practice') {
+          return `
+            <div class="myth-card p-6 sm:p-10 text-center space-y-5 max-w-2xl mx-auto">
+              <div class="text-5xl">🌟</div>
+              <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Targeted Practice Complete!</h1>
+              <p class="text-lg font-bold text-amber-800">You scored ${score}% on your focus area.</p>
+              <p class="text-sm sm:text-base text-slate-600">
+                Every practice round strengthens your memory before the Term 1 English B exam.
+              </p>
+              <div class="pt-4 flex flex-wrap justify-center gap-3">
+                <button onclick="app.showSummary()" class="px-5 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800">
+                  Back to My Study Plan
+                </button>
+                <button onclick="app.goHome()" class="px-5 py-3 rounded-xl bg-slate-100 text-slate-800 font-bold text-sm hover:bg-slate-200">
+                  All Missions
+                </button>
+              </div>
+            </div>
+          `;
+        }
+
+        return `
+          <div class="myth-card p-6 sm:p-10 text-center space-y-5 max-w-2xl mx-auto">
+            <div class="text-5xl">${passed ? '🏅' : '🧭'}</div>
+            <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">
+              ${
+                passed
+                  ? `Badge Unlocked: ${mission.badgeName}!`
+                  : `Almost There! You Scored ${score}%`
+              }
+            </h1>
+            <p class="text-base sm:text-lg font-semibold ${passed ? 'text-green-700' : 'text-amber-800'}">
+              ${
+                passed
+                  ? `Awesome job! You scored ${score}% (80%+ needed) on ${mission.title}.`
+                  : `You need 80% to earn the ${mission.badgeName} badge. Take a quick 2-question Confidence Boost on the parts you missed!`
+              }
+            </p>
+
+            ${
+              missedTopics.length > 0
+                ? `<div class="p-4 rounded-xl bg-amber-50 border border-amber-200 text-left text-sm">
+                    <p class="font-bold text-amber-950 mb-1">Topics to double-check:</p>
+                    <ul class="list-disc list-inside text-slate-700 space-y-1">
+                      ${missedTopics.map((t) => `<li>${t}</li>`).join('')}
+                    </ul>
+                  </div>`
+                : ''
+            }
+
+            <div class="pt-4 flex flex-wrap justify-center gap-3">
+              ${
+                !passed
+                  ? `<button onclick="app.startConfidenceRetry('${mission.id}')" class="px-6 py-3 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 shadow-sm">
+                      ⚡ Start 2-Question Confidence Boost
+                    </button>`
+                  : ''
+              }
+              <button onclick="app.goHome()" class="px-5 py-3 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800">
+                Back to Mission Map
+              </button>
+              <button onclick="app.showSummary()" class="px-5 py-3 rounded-xl bg-slate-100 text-slate-800 font-bold text-sm hover:bg-slate-200">
+                📊 View My Study Plan
+              </button>
+            </div>
+          </div>
+        `;
+      },
+
+      /**
+       * PERSONALIZED STUDY FOCUS PLAN ("Exam-Ready Summary" Screen)
+       */
+      renderSummaryView() {
+        // Aggregate all first-attempt results across all missions
+        const allQuestionsMap = {};
+        MISSIONS.forEach((m) => m.questions.forEach((q) => (allQuestionsMap[q.id] = q)));
+        EXTRA_RETRY_QUESTIONS.forEach((q) => (allQuestionsMap[q.id] = q));
+
+        const skillStats = {
+          Knowledge: { total: 0, correct: 0, missedTopics: new Set() },
+          Understanding: { total: 0, correct: 0, missedTopics: new Set() },
+          Application: { total: 0, correct: 0, missedTopics: new Set() }
+        };
+
+        let totalAttempted = 0;
+
+        Object.values(this.state.missionProgress).forEach((prog) => {
+          if (!prog.firstAttemptResults) return;
+          Object.entries(prog.firstAttemptResults).forEach(([qId, wasCorrect]) => {
+            const q = allQuestionsMap[qId];
+            if (!q) return;
+            totalAttempted++;
+            skillStats[q.skill].total++;
+            if (wasCorrect) {
+              skillStats[q.skill].correct++;
+            } else {
+              skillStats[q.skill].missedTopics.add(q.topic);
+            }
+          });
+        });
+
+        // Determine weakest skill area
+        let weakestSkill = 'Knowledge';
+        let lowestPct = 101;
+        Object.entries(skillStats).forEach(([skill, st]) => {
+          const pct = st.total > 0 ? Math.round((st.correct / st.total) * 100) : 0;
+          if (pct < lowestPct) {
+            lowestPct = pct;
+            weakestSkill = skill;
+          }
+        });
+
+        const renderSkillCard = (skillKey, friendlyTitle, tipText) => {
+          const st = skillStats[skillKey];
+          const pct = st.total > 0 ? Math.round((st.correct / st.total) * 100) : null;
+          const missedList = Array.from(st.missedTopics);
+
+          return `
+            <div class="myth-card p-5 space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <h3 class="font-bold text-base sm:text-lg text-slate-900">${friendlyTitle}</h3>
+                <span class="px-3 py-1 rounded-full text-xs font-extrabold ${
+                  pct === null
+                    ? 'bg-slate-100 text-slate-600'
+                    : pct >= 80
+                    ? 'bg-green-100 text-green-800'
+                    : 'bg-amber-100 text-amber-900'
+                }">
+                  ${pct === null ? 'Not practiced yet' : `${pct}% (${st.correct}/${st.total} first try)`}
+                </span>
+              </div>
+
+              ${
+                missedList.length > 0
+                  ? `<div class="text-sm text-slate-700">
+                      <p class="font-semibold text-amber-900 mb-1">Topics to review from your Scheme of Work:</p>
+                      <ul class="list-disc list-inside space-y-0.5 text-slate-700">
+                        ${missedList.map((t) => `<li>${t}</li>`).join('')}
+                      </ul>
+                    </div>`
+                  : `<p class="text-sm text-slate-600">
+                      ${
+                        pct === null
+                          ? 'Complete missions on the home screen to see your personalized feedback here.'
+                          : '✅ Looking strong! Keep reviewing your class notes so these details stay fresh.'
+                      }
+                    </p>`
+              }
+
+              <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs sm:text-sm text-slate-700">
+                <strong>Study Tip:</strong> ${tipText}
+              </div>
+            </div>
+          `;
+        };
+
+        return `
+          <div class="space-y-6">
+            <div class="flex items-center justify-between">
+              <button onclick="app.goHome()" class="text-sm font-semibold text-slate-600 hover:text-slate-900">
+                ← Back to Missions
+              </button>
+            </div>
+
+            <div class="myth-card p-6 sm:p-8 bg-gradient-to-br from-white to-amber-50/50">
+              <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                  <span class="inline-block px-3 py-1 rounded-full bg-slate-800 text-white text-xs font-bold mb-2">
+                    Exam-Ready Checkup
+                  </span>
+                  <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900">My Personalized Study Plan</h1>
+                  <p class="text-sm sm:text-base text-slate-600 mt-1">
+                    Based on your first tries across all missions (${totalAttempted} questions tracked), here is where to focus before your Form 1 English B exam.
+                  </p>
+                </div>
+
+                <button
+                  onclick="app.startWeakestPractice('${weakestSkill}')"
+                  class="px-5 py-3.5 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm shrink-0"
+                >
+                  🎯 Practice My Weakest Area
+                </button>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              ${renderSkillCard(
+                'Knowledge',
+                '1. Facts & Characters to Review (Knowledge)',
+                'Quiz yourself on who gave each magical gift (Hermes’s shoes, Athene’s mirrored shield, Pluto’s helmet) and exact story details from McCaughrean’s book (like the wooden chest, six pomegranate seeds, and sun warning).'
+              )}
+
+              ${renderSkillCard(
+                'Understanding',
+                '2. Story Meanings to Strengthen (Understanding)',
+                'For Section 3 extracts, always ask two questions: (1) What in nature does this myth explain (seasons, spiders, echoes, flowers)? and (2) What mistake or feeling caused the character’s problem?'
+              )}
+
+              ${renderSkillCard(
+                'Application',
+                '3. Real-World Links & Critical Thinking to Practice (Application)',
+                'For Section 4, state your Claim clearly in Step 1, then make sure Step 2 and Step 3 give real events from our stories that directly prove that exact Claim!'
+              )}
+            </div>
+          </div>
+        `;
+      }
+    };
+
+    // Start app cleanly on load
+    window.addEventListener('DOMContentLoaded', () => {
+      app.init();
+    });
+  </script>
+</body>
+</html>

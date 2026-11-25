@@ -1,0 +1,64 @@
+{
+  "name": "ember-and-tide",
+  "displayName": "Ember and Tide",
+  "version": "1.0.0",
+  "description": "Personal design system for teaching materials across English B (Tide), Information Technology, and CAPE Digital Media (Ember). One shared structural framework, two subject identities.",
+  "format": "opendesign-design-system",
+  "author": "Mark",
+  "identities": [
+    {
+      "id": "tide",
+      "label": "Tide",
+      "subjects": ["English B"],
+      "leadColorToken": "--dodger-blue",
+      "displayFontToken": "--font-display-tide",
+      "darkBackgroundToken": "--tide-dark",
+      "mood": ["calm", "literary", "sophisticated"]
+    },
+    {
+      "id": "ember",
+      "label": "Ember",
+      "subjects": ["Information Technology", "CAPE Digital Media"],
+      "leadColorToken": "--amber-glow",
+      "displayFontToken": "--font-display-ember",
+      "darkBackgroundToken": "--ember-dark",
+      "mood": ["bold", "technical", "energetic"],
+      "notes": "Deliberately allows --dodger-blue as a crossover accent (see --ember-cross-accent in tokens.css)."
+    }
+  ],
+  "tokenSources": {
+    "provided": [
+      "--amber-glow",
+      "--dodger-blue",
+      "--alabaster-grey",
+      "--stormy-teal",
+      "--ink-black"
+    ],
+    "derived": [
+      "--tide-primary",
+      "--tide-cta",
+      "--secondary-gold",
+      "--secondary-coral",
+      "--ember-dark",
+      "--neutral-50 .. --neutral-950"
+    ],
+    "derivationNotes": "Derived tokens extend the five provided values to complete the system described in DESIGN.md (the expanded blue family, the gold/coral secondary accents, and a practical neutral + dark-background scale). See DESIGN.md for the reasoning behind each and swap freely if brand-specific values already exist."
+  },
+  "files": [
+    {
+      "path": "DESIGN.md",
+      "type": "narrative",
+      "purpose": "Philosophy document explaining the look, feel, and reasoning behind the system, for communicating intent to a human reader."
+    },
+    {
+      "path": "tokens.css",
+      "type": "tokens",
+      "purpose": "Developer-facing CSS custom properties: colour, typography, spacing, radius, elevation, and example component-level mappings."
+    },
+    {
+      "path": "manifest.json",
+      "type": "manifest",
+      "purpose": "Package metadata and file index (this file)."
+    }
+  ]
+}

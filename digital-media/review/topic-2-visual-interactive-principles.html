@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 2 Micro-Hub: Visual &amp; Interactive Design Principles (M1.2)</title>
+  <style>
+    :root {
+      --bg-page: #FAF9F6;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F2EFE9;
+      --bg-accent-soft: #EBF2EE;
+      --text-main: #1E2420;
+      --text-muted: #505B54;
+      --primary: #245B43;
+      --primary-hover: #1A4331;
+      --secondary-accent: #2B5B78;
+      --success: #1F6E43;
+      --success-bg: #E6F4EC;
+      --warning: #8A5300;
+      --warning-bg: #FFF5E4;
+      --error: #9B2C2C;
+      --error-bg: #FDECEC;
+      --border: #D9D5CC;
+      --radius: 12px;
+      --font-sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      --base-size: 17px;
+      --line-height: 1.65;
+      --letter-spacing: 0.01em;
+      --word-spacing: 0.04em;
+    }
+
+    body.reading-support {
+      --base-size: 19.5px;
+      --line-height: 1.9;
+      --letter-spacing: 0.045em;
+      --word-spacing: 0.14em;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: var(--base-size);
+      line-height: var(--line-height);
+      letter-spacing: var(--letter-spacing);
+      word-spacing: var(--word-spacing);
+      transition: font-size 0.2s ease, line-height 0.2s ease, letter-spacing 0.2s ease;
+    }
+
+    header {
+      background-color: var(--bg-card);
+      border-bottom: 2px solid var(--border);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .brand-sub {
+      font-size: 0.85em;
+      color: var(--text-muted);
+      margin: 0.15rem 0 0 0;
+    }
+
+    .header-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 0.92em;
+      letter-spacing: inherit;
+      word-spacing: inherit;
+      cursor: pointer;
+      border-radius: 8px;
+      padding: 0.6rem 1.05rem;
+      font-weight: 600;
+      border: 2px solid transparent;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: #E5E0D7;
+    }
+
+    .btn-toggle[aria-pressed="true"] {
+      background-color: var(--bg-accent-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-danger-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: var(--border);
+      font-size: 0.85em;
+      padding: 0.5rem 0.8rem;
+    }
+
+    .btn-danger-ghost:hover {
+      color: var(--error);
+      border-color: var(--error);
+    }
+
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 4rem 1.25rem;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-banner {
+      background-color: var(--bg-accent-soft);
+      border-color: #B8D4C5;
+    }
+
+    .hero-banner h1 {
+      margin-top: 0;
+      font-size: 1.4em;
+      color: var(--primary);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.8em;
+      font-weight: 600;
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .pill-badge {
+      background-color: var(--success-bg);
+      color: var(--success);
+      border-color: #A7D7BC;
+    }
+
+    .pill-retry {
+      background-color: var(--warning-bg);
+      color: var(--warning);
+      border-color: #E7C389;
+    }
+
+    .framework-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.9rem;
+      margin: 1rem 0 0 0;
+    }
+
+    .framework-item {
+      background-color: var(--bg-card);
+      border: 1.5px solid #B8D4C5;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+
+    .framework-item strong {
+      color: var(--primary);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background-color: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 0.75rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .progress-fill.mastered {
+      background-color: var(--success);
+    }
+
+    /* Question Workspace */
+    .workspace-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .tag-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .scenario-box {
+      background-color: var(--bg-subtle);
+      border-left: 5px solid var(--primary);
+      padding: 1rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.2rem;
+    }
+
+    .question-prompt {
+      font-weight: 700;
+      font-size: 1.08em;
+      margin-bottom: 1rem;
+    }
+
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option-btn {
+      text-align: left;
+      background-color: var(--bg-card);
+      border: 2px solid var(--border);
+      color: var(--text-main);
+      padding: 0.9rem 1.1rem;
+      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background-color: var(--bg-accent-soft);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background-color: var(--bg-accent-soft);
+    }
+
+    .option-btn.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .option-btn.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .option-letter {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 1.5rem;
+    }
+
+    /* Tables & Classification */
+    .audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .audit-table th,
+    .audit-table td {
+      border: 2px solid var(--border);
+      padding: 0.8rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .audit-table th {
+      background-color: var(--bg-subtle);
+      font-weight: 700;
+    }
+
+    select.table-select {
+      width: 100%;
+      padding: 0.55rem;
+      font-family: inherit;
+      font-size: 0.95em;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      background-color: var(--bg-card);
+      color: var(--text-main);
+    }
+
+    select.table-select.row-correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    select.table-select.row-incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    /* Multi-select toggle chips for Trap Filter */
+    .chip-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+
+    .chip-btn {
+      text-align: left;
+      background-color: var(--bg-card);
+      border: 2px solid var(--border);
+      color: var(--text-main);
+      padding: 0.8rem 1rem;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      font-weight: 600;
+    }
+
+    .chip-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background-color: var(--bg-accent-soft);
+    }
+
+    .chip-btn.selected {
+      border-color: var(--primary);
+      background-color: var(--bg-accent-soft);
+      color: var(--primary);
+    }
+
+    .chip-btn.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+      color: var(--success);
+    }
+
+    .chip-btn.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+      color: var(--error);
+    }
+
+    /* Synthesis / Short Answer Scaffolding */
+    .hint-box {
+      background-color: var(--warning-bg);
+      border: 2px solid #E7C389;
+      border-radius: 8px;
+      padding: 0.95rem 1.1rem;
+      margin: 0.85rem 0;
+    }
+
+    textarea.synthesis-input {
+      width: 100%;
+      min-height: 135px;
+      padding: 0.9rem;
+      font-family: inherit;
+      font-size: 1em;
+      line-height: inherit;
+      letter-spacing: inherit;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      margin-top: 0.5rem;
+    }
+
+    textarea.synthesis-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .rubric-checklist {
+      background-color: var(--bg-subtle);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    .rubric-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin: 0.65rem 0;
+      cursor: pointer;
+    }
+
+    .rubric-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 0.2rem;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .model-answer-box {
+      background-color: var(--success-bg);
+      border: 2px solid #A7D7BC;
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      margin-top: 1rem;
+    }
+
+    .feedback-panel {
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-top: 1.2rem;
+      border: 2px solid transparent;
+    }
+
+    .feedback-panel.pass {
+      background-color: var(--success-bg);
+      border-color: #A7D7BC;
+    }
+
+    .feedback-panel.fail {
+      background-color: var(--error-bg);
+      border-color: #E5A9A9;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      align-items: center;
+    }
+
+    /* Diagnostic Summary */
+    .diagnostic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .diag-card {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem;
+      background-color: var(--bg-card);
+    }
+
+    .diag-card h3 {
+      margin-top: 0;
+      font-size: 1.05em;
+      color: var(--primary);
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 1.1rem;
+      }
+      .audit-table th, .audit-table td {
+        padding: 0.55rem;
+        font-size: 0.92em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <p class="brand-title">Topic 2 Micro-Hub: Visual &amp; Interactive Design Principles (M1.2)</p>
+      <p class="brand-sub">CAPE Digital Media Unit 2 · Short Burst Practice (5–7 Mins · No Timers)</p>
+    </div>
+    <div class="header-controls">
+      <button id="readingToggleBtn" class="btn-secondary btn-toggle" aria-pressed="false" title="Increase font size, line spacing, and letter spacing">
+        Aa Reading Support: Off
+      </button>
+      <button id="homeNavBtn" class="btn-secondary">Topic Overview</button>
+      <button id="summaryNavBtn" class="btn-primary">Topic Diagnostic</button>
+    </div>
+  </div>
+</header>
+
+<main id="appRoot"></main>
+
+<script>
+/**
+ * TOPIC 2 MICRO-HUB DATA MODEL (M1.2)
+ * Strictly aligned to CAPE Digital Media Unit 2 Syllabus Map, Lesson Map, & Mark Scheme.
+ * Scenarios: Caribbean Youth Film & Animation Festival App; School Cafeteria Pre-Order Web App.
+ */
+
+const TOPIC_META = {
+  id: "topic_2_m1_2",
+  code: "Module 1 · M1.2(a)–(f)",
+  title: "Visual & Interactive Design Principles",
+  badgeName: "Visual & UX Principles Specialist",
+  estimatedTime: "5–7 minutes",
+  mainQuestions: [
+    {
+      id: "t2_q1",
+      type: "multichip",
+      srCode: "M1.2(a)–(e)",
+      lessonTopic: "Zero-Mark Trap Filter: Separating Design Principles from Design Elements",
+      cognitiveLevel: "Knowledge",
+      scenario: "In Paper 02 Q1(b) (4 marks), you must identify and explain TWO design principles used in your posited product. Naming raw design elements ('colour', 'font', 'image', 'line') instead of principles scores 0 marks.",
+      prompt: "Select ALL FOUR valid Design Principles below (leave the raw Design Elements unselected).",
+      items: [
+        { label: "Contrast", isPrinciple: true },
+        { label: "Colour", isPrinciple: false },
+        { label: "Proximity", isPrinciple: true },
+        { label: "Typography / Font", isPrinciple: false },
+        { label: "Visual Hierarchy / Focal Point", isPrinciple: true },
+        { label: "Images / Graphics", isPrinciple: false },
+        { label: "Repetition / Consistency", isPrinciple: true },
+        { label: "Line / Shape", isPrinciple: false }
+      ],
+      explanation: "Contrast, Proximity, Visual Hierarchy (Focal Point), and Repetition/Consistency (plus Balance, Alignment, and White/Negative Space) are valid Visual Design Principles. Colour, typography/text, line, shape, and images are raw Design Elements—naming them as principles earns 0 marks.",
+      studyTip: "Elements are the ingredients (colour, text, line, shape, image); Principles are how you arrange them (balance, contrast, alignment, repetition, proximity, focal point/hierarchy, negative space)."
+    },
+    {
+      id: "t2_q2",
+      type: "matching",
+      srCode: "M1.2(f)",
+      lessonTopic: "UX Bug Triage: Interactive Design Principles in Action",
+      cognitiveLevel: "Application",
+      scenario: "During user testing of the 'School Cafeteria Pre-Order Web App', students reported four usability bugs. Each bug violates a specific Interactive Design Principle from M1.2(f).",
+      prompt: "Match each real mobile interface failure to the exact M1.2(f) interactive principle that fixes it.",
+      choices: [
+        "Feedback — Visible confirmation after a user action",
+        "Consistency — Same navigation placement and button labels across every screen",
+        "Perceivability — Clear visual cues showing what is clickable or interactive",
+        "Predictability & Learnability — Familiar icons and expected outcomes before tapping"
+      ],
+      rows: [
+        {
+          label: "Bug 1: Students tap 'Place Lunch Order', nothing changes on screen for 3 seconds, so they tap twice and accidentally buy two lunches.",
+          answer: "Feedback — Visible confirmation after a user action"
+        },
+        {
+          label: "Bug 2: On the Breakfast screen, the 'Cart' button is top-right; on the Drinks screen, it moves to the bottom-left and is renamed 'Tray'.",
+          answer: "Consistency — Same navigation placement and button labels across every screen"
+        },
+        {
+          label: "Bug 3: Daily combo items look like plain grey paragraph text with no border, shadow, or arrow, so students don't realize they can tap them to customize sides.",
+          answer: "Perceivability — Clear visual cues showing what is clickable or interactive"
+        },
+        {
+          label: "Bug 4: Tapping the trash-can icon next to a juice item submits the entire order instead of removing the drink.",
+          answer: "Predictability & Learnability — Familiar icons and expected outcomes before tapping"
+        }
+      ],
+      explanation: "M1.2(f) covers Consistency, Perceivability, Learnability, Predictability, and Feedback. Every interactive UI failure maps directly to one of these principles.",
+      studyTip: "You can also use M1.2(f) interactive principles (Consistency, Feedback, Perceivability, Predictability, Learnability) in Paper 02 Q1(b) alongside visual principles!"
+    },
+    {
+      id: "t2_q3",
+      type: "audit",
+      srCode: "M1.2(a)–(f)",
+      lessonTopic: "Mark-Scheme Ladder: Textbook Definitions (1 Mark) vs. Site-Specific Impact (2 Marks)",
+      cognitiveLevel: "Understanding",
+      scenario: "In Paper 02 Q1(b) (4 marks = 2 × 2 marks), naming a principle + giving a generic textbook definition earns ONLY 1 mark per principle. To earn 2/2 marks, you must explain how it is applied in YOUR posited product and its impact on the user.",
+      prompt: "Grade each student explanation for the 'Caribbean Youth Film & Animation Festival App'.",
+      choices: [
+        "2 Marks — Names valid principle + explains concrete application & user impact on the app",
+        "1 Mark — Names valid principle, but gives only a textbook definition or generic claim",
+        "0 Marks — Names a raw design element ('colour' / 'font') instead of a principle"
+      ],
+      rows: [
+        {
+          label: "Statement A: 'Contrast: Contrast is the difference between light and dark colours so elements stand out on a page.'",
+          answer: "1 Mark — Names valid principle, but gives only a textbook definition or generic claim"
+        },
+        {
+          label: "Statement B: 'Proximity: On the Festival Schedule screen, each short film's title, screening room, and start time are grouped tightly inside one card with wide spacing between cards so attendees never misread which room belongs to which film.'",
+          answer: "2 Marks — Names valid principle + explains concrete application & user impact on the app"
+        },
+        {
+          label: "Statement C: 'Bright Orange Colour: I used bright orange across the screening cards so the festival looks energetic.'",
+          answer: "0 Marks — Names a raw design element ('colour' / 'font') instead of a principle"
+        },
+        {
+          label: "Statement D: 'Visual Hierarchy: The main Gala Screening banner is sized at 28px at the top of the Home screen while secondary workshop links sit below in 16px text, guiding first-time visitors straight to ticket reservations.'",
+          answer: "2 Marks — Names valid principle + explains concrete application & user impact on the app"
+        }
+      ],
+      explanation: "Statement A recites a textbook definition without mentioning the Festival App (1 mark). Statement C names a raw element ('Bright Orange Colour' = 0 marks). Statements B and D name valid principles and show exact placement + user benefit on the named app (2 marks each).",
+      studyTip: "Never write a dictionary definition in Q1(b). Always include: Principle Name + Specific Element on Your Site + How It Helps Your User."
+    },
+    {
+      id: "t2_q4",
+      type: "mcq",
+      srCode: "M1.2(c) & M1.2(e)",
+      lessonTopic: "Applying Negative Space & Alignment on Mobile Interfaces",
+      cognitiveLevel: "Application",
+      scenario: "Students using the 'School Cafeteria Pre-Order Web App' between classes complain that the menu screen feels cramped and they frequently tap the wrong '+ Add' button on their phones.",
+      prompt: "Which combination of visual principles directly solves accidental mobile taps and visual crowding?",
+      options: [
+        "Adding animated GIF borders and cursive typography",
+        "Increasing white/negative space (padding) around each meal row and using strict left-to-right alignment between meal names and their '+ Add' buttons",
+        "Using five different neon background colours for every food item",
+        "Shrinking all text to 10px so the entire menu fits without scrolling"
+      ],
+      correctIndex: 1,
+      explanation: "Generous white/negative space creates breathing room and prevents accidental finger taps on touchscreens, while clean alignment visually links each meal label to its matching action button.",
+      studyTip: "White/negative space is an active design principle—not 'empty wasted area'. It reduces cognitive load and prevents mis-taps on mobile screens."
+    },
+    {
+      id: "t2_q5",
+      type: "synthesis",
+      srCode: "M1.2(a)–(f)",
+      lessonTopic: "Micro-Synthesis: Upgrading a 1-Mark Definition into a 2-Mark Product Impact",
+      cognitiveLevel: "Application",
+      scenario: "Posited Product: 'Caribbean Youth Film & Animation Festival App' (used by students and parents checking screening times and reserving seats on mobile phones). A weak draft reads: 'Consistency: Everything on the app looks the same so it is easy to use.' (1/2 marks).",
+      prompt: "Rewrite this explanation so it earns the full 2/2 marks for ONE named principle applied to the Festival App.",
+      hint: "Sentence starter: 'Principle: Consistency (Visual & Interactive). Application & Impact: On the Caribbean Youth Film & Animation Festival App, the bottom navigation bar (Schedule, Trailers, My Passes) and primary \"Reserve Seat\" buttons stay in the exact same position and style on every screen, so attendees...'",
+      rubric: [
+        "Named a valid visual or interactive design principle (not a raw element).",
+        "Described a concrete UI component or screen in the Festival App.",
+        "Explained the direct usability benefit for festival attendees."
+      ],
+      modelAnswer: "Principle: Consistency (Visual & Interactive).\nApplication & Impact: Across every screen of the Caribbean Youth Film & Animation Festival App, the primary navigation tabs (Schedule, Trailers, My Passes) remain pinned at the bottom in the same order and every 'Reserve Seat' button uses the same pill shape and position. Because controls never shift unexpectedly, attendees can book seats quickly between screenings without re-learning each page."
+    },
+    {
+      id: "t2_q6",
+      type: "synthesis",
+      srCode: "M1.2(a)–(f)",
+      lessonTopic: "Micro-Synthesis: Second Principle with Concrete Site Impact (2 Marks)",
+      cognitiveLevel: "Application",
+      scenario: "Continuing with the 'School Cafeteria Pre-Order Web App', students have only 10 minutes at morning break to pick a meal, check allergen icons, and submit their order before the 10:15 AM cutoff.",
+      prompt: "Identify ONE other design principle (visual or interactive) you would apply to this app, and explain its specific impact on student users. (2 marks)",
+      hint: "Sentence starter: 'Principle: [e.g., Contrast / Visual Hierarchy / Feedback / Proximity]. Application & Impact: On the School Cafeteria Pre-Order Web App, I applied this by [specific screen placement/behaviour], which enables students during their 10-minute break to [concrete user outcome]...'",
+      rubric: [
+        "Named a valid principle distinct from your previous answer (e.g., Contrast, Hierarchy, Proximity, Feedback).",
+        "Anchored the explanation in a specific screen/feature of the Cafeteria Pre-Order App.",
+        "Stated how it improves speed, accuracy, or clarity for students on break."
+      ],
+      modelAnswer: "Principle: Feedback (Interactive Principle).\nApplication & Impact: On the School Cafeteria Pre-Order Web App, tapping '+ Add' on a lunch item immediately turns the button green with a checkmark, updates the sticky bottom 'View Tray (1 Item)' counter, and displays a confirmation banner with a pickup number upon checkout. This instant feedback reassures hurried students during their 10-minute break that their order succeeded so they do not submit duplicate orders."
+    }
+  ],
+  retryQuestions: [
+    {
+      id: "t2_r1",
+      type: "mcq",
+      srCode: "M1.2(a)",
+      lessonTopic: "Eliminating the Raw Design Element Trap",
+      cognitiveLevel: "Knowledge",
+      scenario: "You are answering Paper 02 Q1(b), which asks for TWO design principles used in your posited product.",
+      prompt: "Which pair of answers will BOTH be accepted as valid design principles?",
+      options: [
+        "Colour and Typography",
+        "Proximity and Feedback",
+        "Images and Shapes",
+        "Background Colour and Font Size"
+      ],
+      correctIndex: 1,
+      explanation: "Proximity (visual design principle) and Feedback (interactive design principle) are both syllabus design principles. Colour, typography/font size, images, and shapes are raw design elements and score 0 as principles.",
+      studyTip: "Check your Q1(b) headings before writing: if your heading is 'Colour', 'Font', or 'Images', change it immediately to 'Contrast', 'Visual Hierarchy', 'Proximity', 'Alignment', 'Consistency', or 'Feedback'."
+    },
+    {
+      id: "t2_r2",
+      type: "mcq",
+      srCode: "M1.2(f)",
+      lessonTopic: "Matching Interactive Principles to User Experience",
+      cognitiveLevel: "Understanding",
+      scenario: "On a mobile event app, disabled/sold-out screening buttons are faded out with a 'Sold Out' label, while available seats have a raised button border and 'Select Seat' label.",
+      prompt: "Which interactive principle from M1.2(f) is primarily demonstrated by clearly signalling which elements can be interacted with?",
+      options: [
+        "Perceivability",
+        "Animation frame rate",
+        "Lossless compression",
+        "File archiving"
+      ],
+      correctIndex: 0,
+      explanation: "Perceivability means users can immediately perceive which screen elements are interactive controls versus static or disabled states.",
+      studyTip: "Remember the 5 interactive principles in M1.2(f): Consistency, Perceivability, Learnability, Predictability, and Feedback."
+    }
+  ]
+};
+
+/**
+ * STATE & LOCALSTORAGE (Isolated Key for Topic 2)
+ */
+const STORAGE_KEY = "cape_dm_u2_topic2_m1_2_v1";
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {
+    console.warn("Storage unavailable", e);
+  }
+  return {
+    readingSupport: false,
+    completed: false,
+    bestScorePct: 0,
+    mastered: false,
+    retryUnlocked: false,
+    attempts: {}
+  };
+}
+
+let appState = loadState();
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+  } catch (e) {
+    console.warn("Could not save state", e);
+  }
+}
+
+let view = {
+  screen: "intro", // "intro" | "practice" | "summary"
+  mode: "main",    // "main" | "retry" | "weakest"
+  qIndex: 0,
+  pool: [],
+  answers: {},
+  selectedOpt: null,
+  tableSel: {},
+  selectedChips: {}
+};
+
+function applyReadingSupport() {
+  const btn = document.getElementById("readingToggleBtn");
+  if (appState.readingSupport) {
+    document.body.classList.add("reading-support");
+    btn.setAttribute("aria-pressed", "true");
+    btn.textContent = "Aa Reading Support: On";
+  } else {
+    document.body.classList.remove("reading-support");
+    btn.setAttribute("aria-pressed", "false");
+    btn.textContent = "Aa Reading Support: Off";
+  }
+}
+
+document.getElementById("readingToggleBtn").addEventListener("click", () => {
+  appState.readingSupport = !appState.readingSupport;
+  saveState();
+  applyReadingSupport();
+});
+
+document.getElementById("homeNavBtn").addEventListener("click", () => {
+  view.screen = "intro";
+  render();
+});
+
+document.getElementById("summaryNavBtn").addEventListener("click", () => {
+  view.screen = "summary";
+  render();
+});
+
+function startBurst(mode = "main") {
+  let pool = [];
+  if (mode === "main") {
+    pool = TOPIC_META.mainQuestions;
+  } else if (mode === "retry") {
+    pool = TOPIC_META.retryQuestions;
+  } else if (mode === "weakest") {
+    const allQ = [...TOPIC_META.mainQuestions, ...TOPIC_META.retryQuestions];
+    pool = allQ.filter(q => appState.attempts[q.id] && (!appState.attempts[q.id].firstCorrect || !appState.attempts[q.id].latestCorrect));
+    if (pool.length === 0) {
+      alert("No missed questions recorded yet! Start the Topic 2 burst to test your skills.");
+      return;
+    }
+  }
+
+  view = {
+    screen: "practice",
+    mode,
+    qIndex: 0,
+    pool,
+    answers: {},
+    selectedOpt: null,
+    tableSel: {},
+    selectedChips: {}
+  };
+  render();
+}
+
+function recordAttempt(q, isCorrect) {
+  const prev = appState.attempts[q.id];
+  appState.attempts[q.id] = {
+    firstCorrect: prev ? prev.firstCorrect : isCorrect,
+    latestCorrect: isCorrect,
+    srCode: q.srCode,
+    lessonTopic: q.lessonTopic,
+    cognitiveLevel: q.cognitiveLevel,
+    studyTip: q.studyTip
+  };
+  saveState();
+}
+
+function resetTopicProgress() {
+  if (confirm("Reset your Topic 2 progress, badge, and diagnostic history?")) {
+    const keepRead = appState.readingSupport;
+    appState = {
+      readingSupport: keepRead,
+      completed: false,
+      bestScorePct: 0,
+      mastered: false,
+      retryUnlocked: false,
+      attempts: {}
+    };
+    saveState();
+    view.screen = "intro";
+    render();
+  }
+}
+
+function render() {
+  const root = document.getElementById("appRoot");
+  if (view.screen === "intro") {
+    root.innerHTML = renderIntro();
+    attachIntroEvents();
+  } else if (view.screen === "practice") {
+    root.innerHTML = renderPractice();
+    attachPracticeEvents();
+  } else if (view.screen === "summary") {
+    root.innerHTML = renderSummary();
+    attachSummaryEvents();
+  }
+}
+
+function renderIntro() {
+  const statusPill = appState.mastered
+    ? `<span class="pill pill-badge">★ Topic Mastered (${appState.bestScorePct}%) · ${TOPIC_META.badgeName}</span>`
+    : appState.retryUnlocked
+      ? `<span class="pill pill-retry">Best Score: ${appState.bestScorePct}% · Confidence Retry Unlocked</span>`
+      : `<span class="pill">Short Burst: ${TOPIC_META.estimatedTime} · ${TOPIC_META.mainQuestions.length} Items</span>`;
+
+  return `
+    <section class="card hero-banner">
+      <div class="pill-row" style="margin-top: 0; margin-bottom: 0.6rem;">
+        <span class="pill">${TOPIC_META.code}</span>
+        ${statusPill}
+      </div>
+      <h1>${TOPIC_META.title}</h1>
+      <p>
+        Master the exact distinction between raw design elements (0 marks in Q1b) and visual/interactive design principles (up to 4 marks). In this short burst, you will filter out zero-mark traps, triage mobile UX bugs, grade sample answers, and write concrete site-impact justifications.
+      </p>
+
+      <div class="framework-box">
+        <div class="framework-item">
+          <strong>1. Visual Principles (M1.2a–e)</strong>
+          Balance, Contrast, Alignment, Repetition/Consistency, Proximity, Visual Hierarchy/Focal Point, White/Negative Space.
+        </div>
+        <div class="framework-item">
+          <strong>2. Interactive Principles (M1.2f)</strong>
+          Consistency, Perceivability, Learnability, Predictability, and Feedback (all valid in Q1b!).
+        </div>
+        <div class="framework-item">
+          <strong>3. Zero-Mark Trap Warning</strong>
+          Never name <em>colour, font, line, shape,</em> or <em>images</em> as principles—and always explain concrete impact on YOUR named product.
+        </div>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill ${appState.mastered ? 'mastered' : ''}" style="width: ${appState.mastered ? 100 : appState.bestScorePct}%"></div>
+      </div>
+
+      <div class="action-row">
+        <button id="startMainBtn" class="btn-primary">
+          ${appState.completed ? "Practice Topic 2 Burst Again" : "Start Topic 2 Micro-Burst →"}
+        </button>
+        ${appState.retryUnlocked && !appState.mastered ? `
+          <button id="startRetryBtn" class="btn-secondary">Launch 2-Question Confidence Retry</button>
+        ` : ""}
+        <button id="openDiagBtn" class="btn-secondary">View Topic Diagnostic</button>
+      </div>
+    </section>
+
+    <div style="text-align: right;">
+      <button id="resetBtn" class="btn-danger-ghost">Reset Topic 2 Progress</button>
+    </div>
+  `;
+}
+
+function attachIntroEvents() {
+  document.getElementById("startMainBtn").addEventListener("click", () => startBurst("main"));
+  const retryBtn = document.getElementById("startRetryBtn");
+  if (retryBtn) retryBtn.addEventListener("click", () => startBurst("retry"));
+  document.getElementById("openDiagBtn").addEventListener("click", () => {
+    view.screen = "summary";
+    render();
+  });
+  document.getElementById("resetBtn").addEventListener("click", resetTopicProgress);
+}
+
+function renderPractice() {
+  const total = view.pool.length;
+  const idx = view.qIndex;
+
+  if (idx >= total) {
+    return renderBurstComplete();
+  }
+
+  const q = view.pool[idx];
+  const saved = view.answers[q.id];
+  const pct = Math.round((idx / total) * 100);
+  const modeLabel = view.mode === "retry"
+    ? "Confidence Retry (2 Targeted Items)"
+    : view.mode === "weakest"
+      ? "Weakest Area Practice"
+      : "Topic 2 Micro-Burst";
+
+  let bodyHtml = "";
+
+  if (q.type === "multichip") {
+    bodyHtml = `
+      <div class="chip-grid">
+        ${q.items.map((item, i) => {
+          const isSel = saved ? saved.choice[i] : !!view.selectedChips[i];
+          let cls = "chip-btn";
+          let badge = isSel ? "✓ Selected" : "Tap to select";
+          if (saved) {
+            if (item.isPrinciple && isSel) {
+              cls += " correct";
+              badge = "✓ Valid Principle";
+            } else if (!item.isPrinciple && isSel) {
+              cls += " incorrect";
+              badge = "✗ Element (0 marks)";
+            } else if (item.isPrinciple && !isSel) {
+              cls += " incorrect";
+              badge = "Missed Principle";
+            } else {
+              badge = "Element (Ignored)";
+            }
+          } else if (isSel) {
+            cls += " selected";
+          }
+          return `
+            <button type="button" class="${cls}" data-chip="${i}" ${saved ? "disabled" : ""}>
+              <span>${item.label}</span>
+              <span style="font-size: 0.8em; opacity: 0.9;">${badge}</span>
+            </button>
+          `;
+        }).join("")}
+      </div>
+      ${!saved ? `<div class="action-row"><button id="checkChipsBtn" class="btn-primary">Check Selected Principles</button></div>` : ""}
+    `;
+  } else if (q.type === "mcq") {
+    const letters = ["A", "B", "C", "D"];
+    bodyHtml = `
+      <div class="option-list">
+        ${q.options.map((opt, i) => {
+          let cls = "option-btn";
+          if (saved) {
+            if (i === q.correctIndex) cls += " correct";
+            else if (i === saved.choice && !saved.isCorrect) cls += " incorrect";
+          } else if (view.selectedOpt === i) {
+            cls += " selected";
+          }
+          return `
+            <button class="${cls}" data-opt="${i}" ${saved ? "disabled" : ""}>
+              <span class="option-letter">${letters[i]}.</span>
+              <span>${opt}</span>
+            </button>
+          `;
+        }).join("")}
+      </div>
+      ${!saved ? `<div class="action-row"><button id="checkMcqBtn" class="btn-primary">Check Answer</button></div>` : ""}
+    `;
+  } else if (q.type === "matching" || q.type === "audit") {
+    bodyHtml = `
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th>UI Scenario / Candidate Statement</th>
+            <th>Your Classification</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${q.rows.map((r, rIdx) => {
+            const val = saved ? saved.choice[rIdx] : (view.tableSel[rIdx] || "");
+            let sCls = "table-select";
+            if (saved) sCls += (val === r.answer) ? " row-correct" : " row-incorrect";
+            return `
+              <tr>
+                <td>
+                  <strong>${r.label}</strong>
+                  ${saved && val !== r.answer ? `<div style="color: var(--success); font-size: 0.9em; margin-top: 0.35rem;">✓ Correct: <strong>${r.answer}</strong></div>` : ""}
+                </td>
+                <td style="min-width: 240px;">
+                  <select class="${sCls}" data-row="${rIdx}" ${saved ? "disabled" : ""}>
+                    <option value="">-- Choose match --</option>
+                    ${q.choices.map(c => `<option value="${c}" ${val === c ? "selected" : ""}>${c}</option>`).join("")}
+                  </select>
+                </td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
+      ${!saved ? `<div class="action-row"><button id="checkTableBtn" class="btn-primary">Check Classifications</button></div>` : ""}
+    `;
+  } else if (q.type === "synthesis") {
+    const draftKey = q.id + "_draft";
+    if (!view.answers[draftKey]) {
+      view.answers[draftKey] = { text: "", hintOpen: false, modelOpen: false };
+    }
+    const draft = view.answers[draftKey];
+
+    bodyHtml = `
+      <div class="action-row" style="margin-top: 0;">
+        <button id="toggleHintBtn" class="btn-secondary" type="button">
+          ${draft.hintOpen ? "Hide Sentence-Starter Hint" : "Need a Hint? Show Sentence Starter"}
+        </button>
+      </div>
+      ${draft.hintOpen ? `<div class="hint-box"><strong>Scaffolded Starter:</strong><br/>${q.hint.replace(/\n/g, "<br/>")}</div>` : ""}
+
+      <label for="synBox" style="display:block; margin-top: 0.9rem; font-weight: 600;">
+        Step 1 — Draft your response below:
+      </label>
+      <textarea id="synBox" class="synthesis-input" placeholder="Write your answer here first, then compare with the mark-scheme model..." ${saved ? "disabled" : ""}>${saved ? saved.userText : draft.text}</textarea>
+
+      ${!saved && !draft.modelOpen ? `
+        <div class="action-row">
+          <button id="showModelBtn" class="btn-primary">Compare with Model Answer &amp; Rubric</button>
+        </div>
+      ` : ""}
+
+      ${(draft.modelOpen || saved) ? `
+        <div class="model-answer-box">
+          <strong>Mark-Scheme Model Response (2/2 Marks):</strong>
+          <p style="margin-bottom: 0; white-space: pre-line;">${q.modelAnswer}</p>
+        </div>
+        <div class="rubric-checklist">
+          <strong>Step 2 — Self-Check Rubric (Tick each requirement your answer met):</strong>
+          ${q.rubric.map((item, rIdx) => `
+            <label class="rubric-item">
+              <input type="checkbox" class="rubric-cb" data-ridx="${rIdx}" ${saved ? "disabled checked" : ""} />
+              <span>${item}</span>
+            </label>
+          `).join("")}
+          ${!saved ? `
+            <div class="action-row">
+              <button id="confirmRubricBtn" class="btn-primary">Confirm Self-Check &amp; Record Result</button>
+            </div>
+          ` : ""}
+        </div>
+      ` : ""}
+    `;
+  }
+
+  const feedbackHtml = saved ? `
+    <div class="feedback-panel ${saved.isCorrect ? "pass" : "fail"}">
+      <strong>${saved.isCorrect ? "Spot on!" : "Review the mark-scheme takeaway:"}</strong>
+      <p style="margin: 0.4rem 0 0 0;">${q.explanation || "Compare your self-checked points against the model response above."}</p>
+    </div>
+    <div class="action-row">
+      <button id="nextQBtn" class="btn-primary">
+        ${idx + 1 < total ? "Next Question →" : "Finish Burst & See Score →"}
+      </button>
+    </div>
+  ` : "";
+
+  return `
+    <div class="card">
+      <div class="workspace-header">
+        <div>
+          <strong>${modeLabel}</strong>
+          <div style="font-size: 0.88em; color: var(--text-muted);">Item ${idx + 1} of ${total}</div>
+        </div>
+        <button id="exitPracticeBtn" class="btn-secondary">← Back to Overview</button>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" style="width: ${pct}%"></div>
+      </div>
+
+      <div class="tag-strip">
+        <span class="pill">Syllabus: ${q.srCode}</span>
+        <span class="pill">Topic: ${q.lessonTopic}</span>
+        <span class="pill">Skill: ${q.cognitiveLevel}</span>
+      </div>
+
+      <div class="scenario-box">
+        <strong>Scenario:</strong> ${q.scenario}
+      </div>
+
+      <div class="question-prompt">${q.prompt}</div>
+
+      ${bodyHtml}
+      ${feedbackHtml}
+    </div>
+  `;
+}
+
+function attachPracticeEvents() {
+  const exitBtn = document.getElementById("exitPracticeBtn");
+  if (exitBtn) exitBtn.addEventListener("click", () => {
+    view.screen = "intro";
+    render();
+  });
+
+  const q = view.pool[view.qIndex];
+  if (!q) {
+    const retryNow = document.getElementById("retryNowBtn");
+    if (retryNow) retryNow.addEventListener("click", () => startBurst("retry"));
+    const backOver = document.getElementById("backOverviewBtn");
+    if (backOver) backOver.addEventListener("click", () => {
+      view.screen = "intro";
+      render();
+    });
+    const toDiag = document.getElementById("toDiagBtn");
+    if (toDiag) toDiag.addEventListener("click", () => {
+      view.screen = "summary";
+      render();
+    });
+    return;
+  }
+
+  if (q.type === "multichip") {
+    document.querySelectorAll(".chip-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const idx = parseInt(btn.dataset.chip, 10);
+        view.selectedChips[idx] = !view.selectedChips[idx];
+        render();
+      });
+    });
+    const checkChips = document.getElementById("checkChipsBtn");
+    if (checkChips) checkChips.addEventListener("click", () => {
+      const anySelected = Object.values(view.selectedChips).some(Boolean);
+      if (!anySelected) {
+        alert("Tap the design principles you want to select first.");
+        return;
+      }
+      const chosen = {};
+      let allMatch = true;
+      q.items.forEach((item, i) => {
+        const picked = !!view.selectedChips[i];
+        chosen[i] = picked;
+        if (picked !== item.isPrinciple) allMatch = false;
+      });
+      view.answers[q.id] = { isCorrect: allMatch, choice: chosen };
+      recordAttempt(q, allMatch);
+      render();
+    });
+  }
+
+  if (q.type === "mcq") {
+    document.querySelectorAll(".option-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        view.selectedOpt = parseInt(btn.dataset.opt, 10);
+        render();
+      });
+    });
+    const checkBtn = document.getElementById("checkMcqBtn");
+    if (checkBtn) checkBtn.addEventListener("click", () => {
+      if (view.selectedOpt === null) {
+        alert("Select an option first.");
+        return;
+      }
+      const isCorrect = view.selectedOpt === q.correctIndex;
+      view.answers[q.id] = { isCorrect, choice: view.selectedOpt };
+      recordAttempt(q, isCorrect);
+      render();
+    });
+  }
+
+  if (q.type === "matching" || q.type === "audit") {
+    document.querySelectorAll(".table-select").forEach(sel => {
+      sel.addEventListener("change", () => {
+        view.tableSel[sel.dataset.row] = sel.value;
+      });
+    });
+    const checkTable = document.getElementById("checkTableBtn");
+    if (checkTable) checkTable.addEventListener("click", () => {
+      const chosen = {};
+      let allSet = true;
+      let right = 0;
+      q.rows.forEach((r, i) => {
+        const val = view.tableSel[i] || "";
+        if (!val) allSet = false;
+        chosen[i] = val;
+        if (val === r.answer) right++;
+      });
+      if (!allSet) {
+        alert("Please classify all rows before checking.");
+        return;
+      }
+      const isCorrect = right === q.rows.length;
+      view.answers[q.id] = { isCorrect, choice: chosen };
+      recordAttempt(q, isCorrect);
+      render();
+    });
+  }
+
+  if (q.type === "synthesis") {
+    const draftKey = q.id + "_draft";
+    const draft = view.answers[draftKey];
+    const ta = document.getElementById("synBox");
+    if (ta) ta.addEventListener("input", () => { draft.text = ta.value; });
+
+    const hintBtn = document.getElementById("toggleHintBtn");
+    if (hintBtn) hintBtn.addEventListener("click", () => {
+      draft.hintOpen = !draft.hintOpen;
+      render();
+    });
+
+    const modelBtn = document.getElementById("showModelBtn");
+    if (modelBtn) modelBtn.addEventListener("click", () => {
+      if (!draft.text || draft.text.trim().length < 15) {
+        alert("Draft at least one full sentence in the response box before opening the model answer.");
+        return;
+      }
+      draft.modelOpen = true;
+      render();
+    });
+
+    const confirmBtn = document.getElementById("confirmRubricBtn");
+    if (confirmBtn) confirmBtn.addEventListener("click", () => {
+      const cbs = document.querySelectorAll(".rubric-cb");
+      let ticked = 0;
+      cbs.forEach(cb => { if (cb.checked) ticked++; });
+      const isCorrect = ticked === q.rubric.length;
+      view.answers[q.id] = { isCorrect, userText: draft.text };
+      recordAttempt(q, isCorrect);
+      render();
+    });
+  }
+
+  const nextBtn = document.getElementById("nextQBtn");
+  if (nextBtn) nextBtn.addEventListener("click", () => {
+    view.qIndex++;
+    view.selectedOpt = null;
+    view.tableSel = {};
+    view.selectedChips = {};
+    render();
+  });
+}
+
+function renderBurstComplete() {
+  let right = 0;
+  view.pool.forEach(q => {
+    if (view.answers[q.id] && view.answers[q.id].isCorrect) right++;
+  });
+  const pct = Math.round((right / view.pool.length) * 100);
+
+  if (view.mode === "weakest") {
+    return `
+      <div class="card">
+        <h2>Missed-Item Practice Complete!</h2>
+        <p>You scored <strong>${right} out of ${view.pool.length} (${pct}%)</strong> on your targeted review items.</p>
+        <div class="action-row">
+          <button id="toDiagBtn" class="btn-primary">View Updated Diagnostic</button>
+          <button id="backOverviewBtn" class="btn-secondary">Back to Overview</button>
+        </div>
+      </div>
+    `;
+  }
+
+  if (view.mode === "main") {
+    const passed = pct >= 80;
+    appState.completed = true;
+    appState.bestScorePct = Math.max(appState.bestScorePct, pct);
+    if (passed) {
+      appState.mastered = true;
+      appState.retryUnlocked = false;
+    } else if (!appState.mastered) {
+      appState.retryUnlocked = true;
+    }
+    saveState();
+
+    if (passed) {
+      return `
+        <div class="card" style="border-color: var(--success);">
+          <span class="pill pill-badge">★ Badge Unlocked: ${TOPIC_META.badgeName}</span>
+          <h2>Topic 2 Mastered! (${pct}%)</h2>
+          <p>You scored <strong>${right} / ${view.pool.length}</strong>, clearing the 80% mastery target for <strong>${TOPIC_META.code}</strong>.</p>
+          <div class="action-row">
+            <button id="toDiagBtn" class="btn-primary">View Topic Diagnostic</button>
+            <button id="backOverviewBtn" class="btn-secondary">Back to Topic Overview</button>
+          </div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="card" style="border-color: #E7C389;">
+          <span class="pill pill-retry">Score: ${pct}% · 80% Needed for Mastery Badge</span>
+          <h2>Confidence Retry Unlocked!</h2>
+          <p>
+            You got <strong>${right} / ${view.pool.length}</strong> right. Take a quick <strong>2-question Confidence Retry</strong> focused on separating elements from principles and M1.2(f) interactive design to earn your <strong>${TOPIC_META.badgeName}</strong> badge.
+          </p>
+          <div class="action-row">
+            <button id="retryNowBtn" class="btn-primary">Start 2-Question Confidence Retry →</button>
+            <button id="backOverviewBtn" class="btn-secondary">Back to Topic Overview</button>
+          </div>
+        </div>
+      `;
+    }
+  } else {
+    const retryPassed = pct >= 50;
+    if (retryPassed) {
+      appState.mastered = true;
+      saveState();
+    }
+    return `
+      <div class="card" style="border-color: ${retryPassed ? "var(--success)" : "#E7C389"};">
+        <span class="pill ${retryPassed ? "pill-badge" : "pill-retry"}">
+          ${retryPassed ? "★ Badge Earned: " + TOPIC_META.badgeName : "Keep Practicing"}
+        </span>
+        <h2>Confidence Retry Score: ${pct}% (${right} / ${view.pool.length})</h2>
+        <p>
+          ${retryPassed
+            ? "Well done! You locked in the M1.2 visual and interactive design principles and unlocked your Topic 2 Mastery Badge."
+            : "Check your Topic Diagnostic below for targeted study tips, then retry whenever you feel ready."}
+        </p>
+        <div class="action-row">
+          <button id="toDiagBtn" class="btn-primary">View Topic Diagnostic</button>
+          <button id="backOverviewBtn" class="btn-secondary">Back to Topic Overview</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function renderSummary() {
+  const attempts = Object.values(appState.attempts);
+  const missedFirst = attempts.filter(a => !a.firstCorrect);
+
+  const grouped = {
+    Knowledge: missedFirst.filter(a => a.cognitiveLevel === "Knowledge"),
+    Understanding: missedFirst.filter(a => a.cognitiveLevel === "Understanding"),
+    Application: missedFirst.filter(a => a.cognitiveLevel === "Application")
+  };
+
+  function renderList(list) {
+    if (list.length === 0) {
+      return `<p style="color: var(--success); margin-bottom: 0;">✓ No first-attempt gaps in this skill area.</p>`;
+    }
+    const seen = new Set();
+    const unique = [];
+    list.forEach(item => {
+      const k = item.srCode + "::" + item.lessonTopic;
+      if (!seen.has(k)) {
+        seen.add(k);
+        unique.push(item);
+      }
+    });
+    return `<ul style="padding-left: 1.2rem; margin-bottom: 0;">
+      ${unique.map(u => `
+        <li style="margin-bottom: 0.65rem;">
+          <strong>[${u.srCode}] ${u.lessonTopic}</strong><br/>
+          <span style="font-size: 0.92em; color: var(--text-muted);">Study Tip: ${u.studyTip}</span>
+        </li>
+      `).join("")}
+    </ul>`;
+  }
+
+  return `
+    <section class="card hero-banner">
+      <h1>Topic 2 Diagnostic: Visual &amp; Interactive Design Principles</h1>
+      <p>Review your first-attempt performance across <strong>M1.2(a)–(f)</strong> grouped by Cognitive Skill Level.</p>
+      <div class="pill-row">
+        <span class="pill ${appState.mastered ? 'pill-badge' : ''}">${appState.mastered ? '★ Badge Earned' : 'Badge In Progress'}</span>
+        <span class="pill">Items Tracked: ${attempts.length}</span>
+        <span class="pill pill-retry">First-Attempt Gaps: ${missedFirst.length}</span>
+      </div>
+      ${missedFirst.length > 0 ? `
+        <div class="action-row">
+          <button id="practiceMissedBtn" class="btn-primary">Practice Missed Items (${missedFirst.length}) →</button>
+        </div>
+      ` : ""}
+    </section>
+
+    <section class="diagnostic-grid">
+      <div class="diag-card">
+        <h3>1. Knowledge to Review</h3>
+        ${renderList(grouped.Knowledge)}
+      </div>
+      <div class="diag-card">
+        <h3>2. Understanding to Strengthen</h3>
+        ${renderList(grouped.Understanding)}
+      </div>
+      <div class="diag-card">
+        <h3>3. Application to Practice</h3>
+        ${renderList(grouped.Application)}
+      </div>
+    </section>
+
+    <div class="action-row">
+      <button id="backFromSummaryBtn" class="btn-secondary">← Back to Topic Overview</button>
+    </div>
+  `;
+}
+
+function attachSummaryEvents() {
+  const pmBtn = document.getElementById("practiceMissedBtn");
+  if (pmBtn) pmBtn.addEventListener("click", () => startBurst("weakest"));
+  document.getElementById("backFromSummaryBtn").addEventListener("click", () => {
+    view.screen = "intro";
+    render();
+  });
+}
+
+applyReadingSupport();
+render();
+</script>
+</body>
+</html>

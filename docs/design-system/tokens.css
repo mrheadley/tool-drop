@@ -1,0 +1,240 @@
+/* ==========================================================================
+   Ember and Tide — Design Tokens
+   Personal design system for English B, Information Technology,
+   and CAPE Digital Media teaching materials.
+
+   Tokens marked "(source)" are the five values supplied directly.
+   Tokens marked "(derived)" are new — built to complete the system
+   described in DESIGN.md. See that file for the reasoning behind each.
+   ========================================================================== */
+
+:root {
+
+  /* --------------------------------------------------------------------
+     1. CORE LEAD COLOURS (source)
+     -------------------------------------------------------------------- */
+  --amber-glow:      #ff9900;  /* hsl(36, 100%, 50%)  — Ember lead (orange) */
+  --dodger-blue:      #0099ff;  /* hsl(204, 100%, 50%) — Tide bright accent (blue) */
+  --alabaster-grey:   #e0e0e0;  /* hsl(0, 0%, 88%)     — default light background */
+  --stormy-teal:      #156064;  /* hsl(183, 65%, 24%)  — secondary accent (teal/cyan) */
+  --ink-black:        #0d1b2a;  /* hsl(211, 53%, 11%)  — text / dark background base */
+
+  /* --------------------------------------------------------------------
+     2. TIDE BLUE FAMILY (derived — see DESIGN.md §2.2)
+     Same hue (204°) as --dodger-blue, stepped in lightness/saturation.
+     -------------------------------------------------------------------- */
+  --tide-primary:     #255b7e;  /* hsl(204, 55%, 32%) — calm body-adjacent blue */
+  --tide-bright:       var(--dodger-blue);
+  --tide-cta:         #0a72b8;  /* hsl(204, 90%, 38%) — buttons / calls to action */
+
+  /* --------------------------------------------------------------------
+     3. SECONDARY ACCENTS — tables, charts, playful highlights (derived
+     gold + coral; teal is the source stormy-teal). See DESIGN.md §2.3.
+     -------------------------------------------------------------------- */
+  --secondary-teal:   var(--stormy-teal);
+  --secondary-gold:   #f2b90d;  /* hsl(45, 90%, 50%) */
+  --secondary-coral:  #f0644c;  /* hsl(9, 85%, 62%) */
+
+  /* --------------------------------------------------------------------
+     4. SUBJECT-TINTED DARK BACKGROUNDS (derived — see DESIGN.md §2.5)
+     -------------------------------------------------------------------- */
+  --tide-dark:        var(--ink-black);   /* already blue-leaning, used as-is */
+  --ember-dark:       #241a0f;             /* hsl(30, 40%, 10%) — ink-black warmed toward amber */
+
+  /* --------------------------------------------------------------------
+     5. NEUTRAL SCALE (derived — interpolated between alabaster-grey and
+     ink-black, carrying a slight blue tint at hue 211 rather than true
+     grey, so borders/dividers feel native to the system).
+     -------------------------------------------------------------------- */
+  --neutral-0:        #ffffff;
+  --neutral-50:       #f5f7fa;
+  --neutral-100:      #e9edf2;
+  --neutral-200:      #dae0e7;
+  --neutral-300:      #bdc7d1;
+  --neutral-400:      #98a5b3;
+  --neutral-500:      #6c7f93;
+  --neutral-600:      #4e6074;
+  --neutral-700:      #364759;
+  --neutral-800:      #1e2d3e;
+  --neutral-900:      #122130;
+  --neutral-950:      var(--ink-black);
+
+  /* --------------------------------------------------------------------
+     6. SEMANTIC COLOUR ROLES
+     Map raw tokens to purpose, so components reference roles, not raw
+     colour names. This is what a component file should actually consume.
+     -------------------------------------------------------------------- */
+
+  /* Surfaces */
+  --surface-light:            var(--alabaster-grey);
+  --surface-light-alt:        var(--neutral-50);
+  --surface-dark-tide:        var(--tide-dark);
+  --surface-dark-ember:       var(--ember-dark);
+
+  /* Text */
+  --text-primary:             var(--ink-black);
+  --text-secondary:           var(--neutral-600);
+  --text-on-dark:             var(--neutral-50);
+  --text-inverse:             var(--neutral-0);
+
+  /* Tide identity (English B) */
+  --tide-accent:               var(--dodger-blue);
+  --tide-accent-quiet:          var(--tide-primary);
+  --tide-cta-bg:                var(--tide-cta);
+  --tide-cta-bg-hover:          var(--tide-primary);
+  --tide-border:                var(--tide-primary);
+
+  /* Ember identity (IT & Digital Media) */
+  --ember-accent:               var(--amber-glow);
+  --ember-cta-bg:               var(--amber-glow);
+  --ember-cta-bg-hover:         #cc7a00; /* amber-glow, darkened ~20% for hover state */
+  --ember-border:                var(--amber-glow);
+  --ember-cross-accent:          var(--dodger-blue); /* deliberate blue crossover, see DESIGN.md §2.2 */
+
+  /* Data / chart series (tables, quiz breakdowns, rubrics) */
+  --chart-series-1:            var(--secondary-teal);
+  --chart-series-2:            var(--secondary-gold);
+  --chart-series-3:            var(--secondary-coral);
+  --chart-series-4:            var(--dodger-blue);
+  --chart-series-5:            var(--amber-glow);
+
+  /* Illustration */
+  --illustration-ink:          var(--ink-black); /* single neutral ink colour, constant across subjects */
+
+  /* Borders / dividers (neutral, not subject-tinted) */
+  --border-subtle:             var(--neutral-200);
+  --border-default:            var(--neutral-300);
+
+
+  /* --------------------------------------------------------------------
+     7. TYPOGRAPHY (see DESIGN.md §3)
+     -------------------------------------------------------------------- */
+  --font-body:            "Work Sans", system-ui, sans-serif;   /* shared body/UI face, all subjects */
+  --font-display-tide:    "Newsreader", Georgia, serif;         /* Tide display: literary serif */
+  --font-display-ember:   "Sora", system-ui, sans-serif;        /* Ember display: geometric sans */
+
+  --fs-body:              1rem;        /* 16px */
+  --fs-small:             0.875rem;    /* 14px */
+  --fs-h3:                1.5rem;      /* 24px */
+  --fs-h2:                2rem;        /* 32px */
+  --fs-h1:                2.75rem;     /* 44px */
+  --fs-display:           3.5rem;      /* 56px — chapter openers / pull quotes */
+
+  --lh-body-sans:         1.55;
+  --lh-body-serif:        1.7;         /* serif body/quote text gets extra line-height */
+  --lh-heading:           1.15;
+
+  --fw-regular:           400;
+  --fw-medium:            500;
+  --fw-semibold:          600;
+  --fw-bold:              700;
+
+
+  /* --------------------------------------------------------------------
+     8. SPACING SCALE — generous and airy by default (see DESIGN.md §4)
+     -------------------------------------------------------------------- */
+  --space-1:   0.25rem;  /* 4px */
+  --space-2:   0.5rem;   /* 8px */
+  --space-3:   0.75rem;  /* 12px */
+  --space-4:   1rem;     /* 16px */
+  --space-6:   1.5rem;   /* 24px */
+  --space-8:   2rem;     /* 32px */
+  --space-12:  3rem;     /* 48px */
+  --space-16:  4rem;     /* 64px */
+  --space-24:  6rem;     /* 96px */
+
+
+  /* --------------------------------------------------------------------
+     9. SHAPE — rounded throughout, no sharp edges
+     -------------------------------------------------------------------- */
+  --radius-sm:    0.5rem;    /* 8px  — inputs, small chips */
+  --radius-md:    0.75rem;   /* 12px — cards, callout boxes */
+  --radius-lg:    1.25rem;   /* 20px — large panels, image frames */
+  --radius-full:  999px;     /* pills, avatar/badge shapes */
+
+
+  /* --------------------------------------------------------------------
+     10. ELEVATION (light, since the system leans flat + colour over shadow)
+     -------------------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(13, 27, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(13, 27, 42, 0.10);
+  --shadow-lg: 0 12px 32px rgba(13, 27, 42, 0.14);
+}
+
+
+/* ==========================================================================
+   COMPONENT-LEVEL TOKENS
+   Example mappings showing how the roles above compose into components.
+   Extend per-component as the system grows.
+   ========================================================================== */
+
+/* --- Buttons -------------------------------------------------------- */
+.btn--tide {
+  background: var(--tide-cta-bg);
+  color: var(--text-inverse);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+}
+.btn--tide:hover { background: var(--tide-cta-bg-hover); }
+
+.btn--ember {
+  background: var(--ember-cta-bg);
+  color: var(--text-inverse);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-body);
+  font-weight: var(--fw-semibold);
+}
+.btn--ember:hover { background: var(--ember-cta-bg-hover); }
+
+/* --- Callout / card boxes -------------------------------------------- */
+.card {
+  background: var(--surface-light);
+  border-radius: var(--radius-md);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-sm);
+}
+.card--tide  { border-left: 4px solid var(--tide-border); }
+.card--ember { border-left: 4px solid var(--ember-border); }
+
+/* --- Dark heading bands ------------------------------------------------ */
+.heading-band--tide {
+  background: var(--surface-dark-tide);
+  color: var(--text-on-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-6);
+}
+.heading-band--ember {
+  background: var(--surface-dark-ember);
+  color: var(--text-on-dark);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-6);
+}
+
+/* --- Display type moments (chapter openers, pull quotes) -------------- */
+.display--tide {
+  font-family: var(--font-display-tide);
+  font-size: var(--fs-display);
+  line-height: var(--lh-heading);
+  color: var(--tide-accent-quiet);
+}
+.display--ember {
+  font-family: var(--font-display-ember);
+  font-size: var(--fs-display);
+  line-height: var(--lh-heading);
+  color: var(--ember-accent);
+}
+
+/* --- Data tables / rubrics / quiz breakdowns --------------------------- */
+.data-table {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  font-family: var(--font-body);
+}
+.data-table th {
+  background: var(--neutral-100);
+  color: var(--text-primary);
+}
+.data-table .series-1 { color: var(--chart-series-1); }
+.data-table .series-2 { color: var(--chart-series-2); }
+.data-table .series-3 { color: var(--chart-series-3); }

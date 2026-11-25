@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Topic 3 Micro-Hub: Web Assets &amp; File Format Justification (M1.4)</title>
+  <style>
+    :root {
+      --bg-page: #FAF9F6;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #F2EFE9;
+      --bg-accent-soft: #EBF2EE;
+      --text-main: #1E2420;
+      --text-muted: #505B54;
+      --primary: #245B43;
+      --primary-hover: #1A4331;
+      --secondary-accent: #2B5B78;
+      --success: #1F6E43;
+      --success-bg: #E6F4EC;
+      --warning: #8A5300;
+      --warning-bg: #FFF5E4;
+      --error: #9B2C2C;
+      --error-bg: #FDECEC;
+      --border: #D9D5CC;
+      --radius: 12px;
+      --font-sans: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Roboto, Arial, sans-serif;
+      --base-size: 17px;
+      --line-height: 1.65;
+      --letter-spacing: 0.01em;
+      --word-spacing: 0.04em;
+    }
+
+    body.reading-support {
+      --base-size: 19.5px;
+      --line-height: 1.9;
+      --letter-spacing: 0.045em;
+      --word-spacing: 0.14em;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: var(--base-size);
+      line-height: var(--line-height);
+      letter-spacing: var(--letter-spacing);
+      word-spacing: var(--word-spacing);
+      transition: font-size 0.2s ease, line-height 0.2s ease, letter-spacing 0.2s ease;
+    }
+
+    header {
+      background-color: var(--bg-card);
+      border-bottom: 2px solid var(--border);
+      padding: 1rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-inner {
+      max-width: 920px;
+      margin: 0 auto;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-title {
+      font-size: 1.15em;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0;
+    }
+
+    .brand-sub {
+      font-size: 0.85em;
+      color: var(--text-muted);
+      margin: 0.15rem 0 0 0;
+    }
+
+    .header-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 0.92em;
+      letter-spacing: inherit;
+      word-spacing: inherit;
+      cursor: pointer;
+      border-radius: 8px;
+      padding: 0.6rem 1.05rem;
+      font-weight: 600;
+      border: 2px solid transparent;
+      transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.05s ease;
+    }
+
+    button:active {
+      transform: translateY(1px);
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: #FFFFFF;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+      border-color: var(--border);
+    }
+
+    .btn-secondary:hover {
+      background-color: #E5E0D7;
+    }
+
+    .btn-toggle[aria-pressed="true"] {
+      background-color: var(--bg-accent-soft);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-danger-ghost {
+      background: transparent;
+      color: var(--text-muted);
+      border-color: var(--border);
+      font-size: 0.85em;
+      padding: 0.5rem 0.8rem;
+    }
+
+    .btn-danger-ghost:hover {
+      color: var(--error);
+      border-color: var(--error);
+    }
+
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 4rem 1.25rem;
+    }
+
+    .card {
+      background-color: var(--bg-card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-banner {
+      background-color: var(--bg-accent-soft);
+      border-color: #B8D4C5;
+    }
+
+    .hero-banner h1 {
+      margin-top: 0;
+      font-size: 1.4em;
+      color: var(--primary);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      font-size: 0.8em;
+      font-weight: 600;
+      background-color: var(--bg-subtle);
+      color: var(--text-main);
+      border: 1px solid var(--border);
+    }
+
+    .pill-badge {
+      background-color: var(--success-bg);
+      color: var(--success);
+      border-color: #A7D7BC;
+    }
+
+    .pill-retry {
+      background-color: var(--warning-bg);
+      color: var(--warning);
+      border-color: #E7C389;
+    }
+
+    .framework-box {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 0.9rem;
+      margin: 1rem 0 0 0;
+    }
+
+    .framework-item {
+      background-color: var(--bg-card);
+      border: 1.5px solid #B8D4C5;
+      border-radius: 8px;
+      padding: 0.85rem 1rem;
+    }
+
+    .framework-item strong {
+      color: var(--primary);
+      display: block;
+      margin-bottom: 0.25rem;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background-color: var(--bg-subtle);
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 0.75rem 0;
+      border: 1px solid var(--border);
+    }
+
+    .progress-fill {
+      height: 100%;
+      background-color: var(--primary);
+      transition: width 0.3s ease;
+    }
+
+    .progress-fill.mastered {
+      background-color: var(--success);
+    }
+
+    /* Question Workspace */
+    .workspace-header {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.85rem;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .tag-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.45rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .scenario-box {
+      background-color: var(--bg-subtle);
+      border-left: 5px solid var(--primary);
+      padding: 1rem 1.2rem;
+      border-radius: 0 8px 8px 0;
+      margin-bottom: 1.2rem;
+    }
+
+    .question-prompt {
+      font-weight: 700;
+      font-size: 1.08em;
+      margin-bottom: 1rem;
+    }
+
+    .option-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .option-btn {
+      text-align: left;
+      background-color: var(--bg-card);
+      border: 2px solid var(--border);
+      color: var(--text-main);
+      padding: 0.9rem 1.1rem;
+      font-weight: 500;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--primary);
+      background-color: var(--bg-accent-soft);
+    }
+
+    .option-btn.selected {
+      border-color: var(--primary);
+      background-color: var(--bg-accent-soft);
+    }
+
+    .option-btn.correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    .option-btn.incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    .option-letter {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 1.5rem;
+    }
+
+    /* Tables & Classification */
+    .audit-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+    }
+
+    .audit-table th,
+    .audit-table td {
+      border: 2px solid var(--border);
+      padding: 0.8rem;
+      text-align: left;
+      vertical-align: top;
+    }
+
+    .audit-table th {
+      background-color: var(--bg-subtle);
+      font-weight: 700;
+    }
+
+    select.table-select {
+      width: 100%;
+      padding: 0.55rem;
+      font-family: inherit;
+      font-size: 0.95em;
+      border-radius: 6px;
+      border: 2px solid var(--border);
+      background-color: var(--bg-card);
+      color: var(--text-main);
+    }
+
+    select.table-select.row-correct {
+      border-color: var(--success);
+      background-color: var(--success-bg);
+    }
+
+    select.table-select.row-incorrect {
+      border-color: var(--error);
+      background-color: var(--error-bg);
+    }
+
+    /* Synthesis / Short Answer Scaffolding */
+    .hint-box {
+      background-color: var(--warning-bg);
+      border: 2px solid #E7C389;
+      border-radius: 8px;
+      padding: 0.95rem 1.1rem;
+      margin: 0.85rem 0;
+    }
+
+    textarea.synthesis-input {
+      width: 100%;
+      min-height: 145px;
+      padding: 0.9rem;
+      font-family: inherit;
+      font-size: 1em;
+      line-height: inherit;
+      letter-spacing: inherit;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background-color: var(--bg-card);
+      color: var(--text-main);
+      margin-top: 0.5rem;
+    }
+
+    textarea.synthesis-input:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .rubric-checklist {
+      background-color: var(--bg-subtle);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      padding: 1.1rem;
+      margin-top: 1rem;
+    }
+
+    .rubric-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      margin: 0.65rem 0;
+      cursor: pointer;
+    }
+
+    .rubric-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin-top: 0.2rem;
+      accent-color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .model-answer-box {
+      background-color: var(--success-bg);
+      border: 2px solid #A7D7BC;
+      border-radius: 8px;
+      padding: 1rem 1.15rem;
+      margin-top: 1rem;
+    }
+
+    .feedback-panel {
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-top: 1.2rem;
+      border: 2px solid transparent;
+    }
+
+    .feedback-panel.pass {
+      background-color: var(--success-bg);
+      border-color: #A7D7BC;
+    }
+
+    .feedback-panel.fail {
+      background-color: var(--error-bg);
+      border-color: #E5A9A9;
+    }
+
+    .action-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
+      align-items: center;
+    }
+
+    /* Diagnostic Summary */
+    .diagnostic-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1rem;
+      margin: 1rem 0;
+    }
+
+    .diag-card {
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      padding: 1.1rem;
+      background-color: var(--bg-card);
+    }
+
+    .diag-card h3 {
+      margin-top: 0;
+      font-size: 1.05em;
+      color: var(--primary);
+    }
+
+    @media (max-width: 640px) {
+      .card {
+        padding: 1.1rem;
+      }
+      .audit-table th, .audit-table td {
+        padding: 0.55rem;
+        font-size: 0.92em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <div>
+      <p class="brand-title">Topic 3 Micro-Hub: Web Assets &amp; File Format Justification (M1.4)</p>
+      <p class="brand-sub">CAPE Digital Media Unit 2 · Short Burst Practice (5–7 Mins · No Timers)</p>
+    </div>
+    <div class="header-controls">
+      <button id="readingToggleBtn" class="btn-secondary btn-toggle" aria-pressed="false" title="Increase font size, line spacing, and letter spacing">
+        Aa Reading Support: Off
+      </button>
+      <button id="homeNavBtn" class="btn-secondary">Topic Overview</button>
+      <button id="summaryNavBtn" class="btn-primary">Topic Diagnostic</button>
+    </div>
+  </div>
+</header>
+
+<main id="appRoot"></main>
+
+<script>
+/**
+ * TOPIC 3 MICRO-HUB DATA MODEL (M1.4b)
+ * Strictly aligned to CAPE Digital Media Unit 2 Syllabus Map, Lesson Map, & Mark Scheme.
+ * Scenarios: Parish Heritage & Museum Digital Archive; School Steelband Panorama Showcase.
+ */
+
+const TOPIC_META = {
+  id: "topic_3_m1_4",
+  code: "Module 1 · M1.4(b)",
+  title: "Web Assets & File Format Justification",
+  badgeName: "Web Media & Format Architect",
+  estimatedTime: "5–7 minutes",
+  mainQuestions: [
+    {
+      id: "t3_q1",
+      type: "matching",
+      srCode: "M1.4(b)",
+      lessonTopic: "Asset-to-Format Matrix: Matching Deliverables to Web Formats",
+      cognitiveLevel: "Application",
+      scenario: "You are preparing media deliverables for the 'Parish Heritage & Museum Digital Archive' website, which visitors access on both desktop computers and mobile phones.",
+      prompt: "Match each web deliverable to the single most suitable file format.",
+      choices: [
+        "PNG (or SVG) — Supports alpha transparency & crisp edges over coloured headers",
+        "JPEG (or WEBP) — Lossy compression keeps multi-photo gallery sizes small",
+        "MP4 (H.264) — Universal browser video playback with efficient streaming compression",
+        "PDF — Preserves fixed layout & printable formatting across devices"
+      ],
+      rows: [
+        {
+          label: "1. The museum's official crest/emblem placed directly over a dark emerald-green navigation banner.",
+          answer: "PNG (or SVG) — Supports alpha transparency & crisp edges over coloured headers"
+        },
+        {
+          label: "2. A gallery of 18 high-resolution photographs of historic parish landmarks loaded over mobile data.",
+          answer: "JPEG (or WEBP) — Lossy compression keeps multi-photo gallery sizes small"
+        },
+        {
+          label: "3. A 90-second documentary clip of a local potter explaining traditional clay firing techniques.",
+          answer: "MP4 (H.264) — Universal browser video playback with efficient streaming compression"
+        },
+        {
+          label: "4. A downloadable school field-trip permission and guided tour worksheet for teachers to print.",
+          answer: "PDF — Preserves fixed layout & printable formatting across devices"
+        }
+      ],
+      explanation: "PNG (or SVG) provides clean transparency over coloured headers; JPEG (or WEBP) compresses photographic detail for fast mobile loading; MP4 ensures universal browser playback; and PDF locks layout for reliable printing.",
+      studyTip: "Know the six core syllabus formats (JPEG, PNG, GIF, MP4, MP3, PDF) plus web extras (SVG, WEBP, WAV)—and remember why each exists."
+    },
+    {
+      id: "t3_q2",
+      type: "mcq",
+      srCode: "M1.4(b)",
+      lessonTopic: "Rejecting Unsuited Authoring & Archive Formats on the Web",
+      cognitiveLevel: "Knowledge",
+      scenario: "For the 'School Steelband Panorama Showcase' website, a student proposes uploading the rehearsal schedule as a .DOCX file, the band's theme song as an uncompressed .WAV file, and promotional photos bundled inside a .ZIP archive.",
+      prompt: "Why are .DOCX, uncompressed .WAV, and .ZIP rejected as primary web delivery formats in Paper 02 Q1(c)?",
+      options: [
+        "Because web browsers prohibit files larger than 10 KB.",
+        "Because .DOCX is an editable authoring format that breaks layout without Word, .WAV has huge uncompressed file sizes that stall mobile streaming, and .ZIP forces visitors to download and extract files instead of viewing them directly in the browser.",
+        "Because .WAV and .DOCX cannot be saved on Windows computers.",
+        "Because JPEG and MP3 are only allowed on desktop computers."
+      ],
+      correctIndex: 1,
+      explanation: "Web delivery requires browser-native, bandwidth-efficient formats (such as PDF for fixed documents, MP3 for compressed audio, and JPEG/WEBP for direct inline viewing)—not raw authoring (.DOCX), uncompressed studio (.WAV), or archive (.ZIP) packages.",
+      studyTip: "Never recommend .DOCX or .ZIP for direct web viewing; convert documents to PDF and stream compressed MP3/MP4/JPEG assets inline."
+    },
+    {
+      id: "t3_q3",
+      type: "audit",
+      srCode: "M1.4(b)",
+      lessonTopic: "4-Point Mark-Ladder Audit: Spotting Missing Marks in Q1(c)",
+      cognitiveLevel: "Understanding",
+      scenario: "In Paper 02 Q1(c) (4 marks), full marks require ALL FOUR elements: (1) naming a suitable format, (2) explaining why it fits the delivery PLATFORM, (3) explaining why it fits the TARGET AUDIENCE, and (4) stating a concrete technical CONSEQUENCE (file size, screen quality, transparency, or compatibility).",
+      prompt: "Score each student justification below for the 'School Steelband Panorama Showcase' using the 4-point Q1(c) mark ladder.",
+      choices: [
+        "4 Marks — Format + Platform reason + Audience reason + Concrete consequence",
+        "2 Marks — Format + generic quality/compatibility claim, but omits Platform OR Audience link",
+        "1 Mark — Names a valid format only with vague/no justification"
+      ],
+      rows: [
+        {
+          label: "Response A: 'I will use MP3 because it is a good audio format.'",
+          answer: "1 Mark — Names a valid format only with vague/no justification"
+        },
+        {
+          label: "Response B: 'I will use MP3 for the steelband's Panorama arrangement on our mobile web portal because MP3 plays natively in all smartphone browsers (platform) and compresses the audio so students and parents on limited mobile data (audience) can stream the 4-minute tune quickly without buffering (consequence).'",
+          answer: "4 Marks — Format + Platform reason + Audience reason + Concrete consequence"
+        },
+        {
+          label: "Response C: 'I will use JPEG for the Panorama rehearsal photos because JPEG uses lossy compression to keep file sizes small while maintaining good photo quality.' (No mention of platform or target audience)",
+          answer: "2 Marks — Format + generic quality/compatibility claim, but omits Platform OR Audience link"
+        },
+        {
+          label: "Response D: 'I will use PNG for the Panorama crest on our website header.'",
+          answer: "1 Mark — Names a valid format only with vague/no justification"
+        }
+      ],
+      explanation: "Response B hits all 4 marks: suitable format (MP3), platform compatibility (smartphone web browsers), target audience (students/parents on limited mobile data), and concrete consequence (small compressed file size prevents buffering). Response C states a valid technical trait but forgets platform and audience (2 marks).",
+      studyTip: "Before finishing Q1(c), check off all 4 ingredients: [1] Format + [2] Platform + [3] Audience + [4] Concrete Consequence."
+    },
+    {
+      id: "t3_q4",
+      type: "mcq",
+      srCode: "M1.4(b)",
+      lessonTopic: "Evaluating Compression & Transparency Trade-Offs (JPEG vs. PNG vs. GIF)",
+      cognitiveLevel: "Understanding",
+      scenario: "Your 'Parish Heritage & Museum Digital Archive' needs two different image assets: (Asset 1) a crisp vector-style parish map overlay with transparent background corners, and (Asset 2) a full-colour photograph of a 19th-century sugar mill.",
+      prompt: "Which pairing correctly applies image format trade-offs?",
+      options: [
+        "Asset 1: JPEG (for transparency); Asset 2: GIF (for 16 million photographic colours)",
+        "Asset 1: PNG (lossless edges + alpha transparency); Asset 2: JPEG (lossy compression handles rich photographic colour gradients at a fraction of PNG's file size)",
+        "Asset 1: MP3; Asset 2: PDF",
+        "Asset 1: BMP; Asset 2: DOCX"
+      ],
+      correctIndex: 1,
+      explanation: "JPEG does NOT support transparency and creates blurry artifacts around sharp text/map lines, whereas PNG preserves sharp edges and transparency. Conversely, a complex photograph saved as PNG creates a huge file, so JPEG is far better for photos.",
+      studyTip: "Rule of thumb: Logos, icons, and transparent overlays = PNG (or SVG). Real-world photographs = JPEG (or WEBP)."
+    },
+    {
+      id: "t3_q5",
+      type: "synthesis",
+      srCode: "M1.4(b)",
+      lessonTopic: "Micro-Synthesis: 4-Mark Audio/Video Format Justification (Try → Hint → Model Check)",
+      cognitiveLevel: "Application",
+      scenario: "Deliverable: A 3-minute audio highlight of the 'School Steelband Panorama Showcase' embedded on a responsive website accessed primarily by students and parents on smartphones.",
+      prompt: "Identify ONE suitable file format for this asset and justify why it is appropriate for BOTH the delivery platform and the target audience. (4 marks)",
+      hint: "4-Part Frame: 'Format: MP3. Platform Reason: On a responsive web platform, MP3 is natively supported by every mobile and desktop browser without extra plug-ins. Audience & Consequence: Because our target audience of students and parents listens on smartphones using mobile data, MP3 compression reduces file size significantly compared to WAV, allowing fast playback with minimal data use and clear sound quality.'",
+      rubric: [
+        "Named a suitable web-ready format (e.g., MP3).",
+        "Explained why the format fits the delivery platform (browser compatibility / native web streaming).",
+        "Explained why the format fits the target audience (students/parents on phones/mobile data).",
+        "Included a concrete technical consequence (compressed file size, fast load/no buffering, clear audio quality)."
+      ],
+      modelAnswer: "Format: MP3.\nJustification: For a responsive web platform, MP3 is natively supported across all mobile and desktop web browsers without requiring third-party plug-ins. For our target audience of students and parents listening on smartphones over mobile data plans, MP3's perceptual audio compression drastically reduces file size compared to uncompressed WAV files, ensuring the 3-minute Panorama highlight loads quickly without buffering while preserving clear musical quality."
+    },
+    {
+      id: "t3_q6",
+      type: "synthesis",
+      srCode: "M1.4(b)",
+      lessonTopic: "Micro-Synthesis: 4-Mark Image/Document Format Justification (Try → Hint → Model Check)",
+      cognitiveLevel: "Application",
+      scenario: "Deliverable: A transparent 'Parish Heritage & Museum Digital Archive' logo badge that sits on top of a textured dark-blue header bar across desktop and mobile web pages.",
+      prompt: "Identify ONE suitable file format for this asset and justify why it is appropriate for BOTH the delivery platform and the target audience. (4 marks)",
+      hint: "4-Part Frame: 'Format: PNG (or SVG). Platform Reason: Browsers render PNG/SVG natively on both desktop and mobile screens while supporting full alpha-channel transparency so no white box appears over the dark-blue header. Audience & Consequence: Visitors browsing the archive on high-DPI phones and laptops see crisp crest lettering and clean visual integration...'",
+      rubric: [
+        "Named PNG (or SVG) as the suitable format.",
+        "Explained platform suitability (native web browser rendering + transparency support over coloured header).",
+        "Connected to the target audience (archive visitors on mobile/desktop screens).",
+        "Stated a concrete technical consequence (no unsightly white background box, crisp edges/legibility)."
+      ],
+      modelAnswer: "Format: PNG.\nJustification: On a web platform, PNG is natively supported by all desktop and mobile browsers and provides full alpha-channel transparency, allowing the museum crest to sit cleanly over the dark-blue header bar without an unsightly white rectangular background. For target visitors viewing the archive on modern smartphone and laptop screens, PNG's lossless compression keeps the fine lettering and emblem edges sharp and legible."
+    }
+  ],
+  retryQuestions: [
+    {
+      id: "t3_r1",
+      type: "mcq",
+      srCode: "M1.4(b)",
+      lessonTopic: "Checking All Four Parts of a Q1(c) Justification",
+      cognitiveLevel: "Understanding",
+      scenario: "A student writes in Q1(c): 'I chose JPEG for the banner photos on my website because JPEG files are smaller.'",
+      prompt: "What is missing from this response that prevents it from scoring 4/4 marks?",
+      options: [
+        "Nothing—it already earns 4/4 marks.",
+        "It states the format and smaller file size, but fails to justify why JPEG suits the specific delivery platform (web browser compatibility/fast page rendering) AND the target audience's context (e.g., mobile users on limited bandwidth).",
+        "It forgot to write CSS code for the image.",
+        "JPEG cannot be displayed on websites."
+      ],
+      correctIndex: 1,
+      explanation: "Q1(c) awards 4 marks for linking: (1) suitable format + (2) delivery platform reason + (3) target audience reason + (4) concrete consequence (file size/quality/compatibility).",
+      studyTip: "Always explicitly mention both the platform ('on a mobile-friendly website') and the audience ('for visitors browsing on cellular data')."
+    },
+    {
+      id: "t3_r2",
+      type: "mcq",
+      srCode: "M1.4(b)",
+      lessonTopic: "Choosing the Right Format for Printable Event Schedules",
+      cognitiveLevel: "Knowledge",
+      scenario: "Visitors to a cultural festival website want to download and print a 2-page timetable so the fonts and columns stay identical on Windows, Mac, iOS, and Android.",
+      prompt: "Which file format should you choose and justify?",
+      options: [
+        "PDF",
+        "GIF",
+        "MP3",
+        "ZIP"
+      ],
+      correctIndex: 0,
+      explanation: "PDF locks typography, margins, and page layout across all operating systems and printers, making it the standard format for downloadable, printable documents.",
+      studyTip: "Printable handouts, brochures, and timetables = PDF."
+    }
+  ]
+};
+
+/**
+ * STATE & LOCALSTORAGE (Isolated Key for Topic 3)
+ */
+const STORAGE_KEY = "cape_dm_u2_topic3_m1_4_v1";
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch (e) {
+    console.warn("Storage unavailable", e);
+  }
+  return {
+    readingSupport: false,
+    completed: false,
+    bestScorePct: 0,
+    mastered: false,
+    retryUnlocked: false,
+    attempts: {}
+  };
+}
+
+let appState = loadState();
+
+function saveState() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+  } catch (e) {
+    console.warn("Could not save state", e);
+  }
+}
+
+let view = {
+  screen: "intro", // "intro" | "practice" | "summary"
+  mode: "main",    // "main" | "retry" | "weakest"
+  qIndex: 0,
+  pool: [],
+  answers: {},
+  selectedOpt: null,
+  tableSel: {}
+};
+
+function applyReadingSupport() {
+  const btn = document.getElementById("readingToggleBtn");
+  if (appState.readingSupport) {
+    document.body.classList.add("reading-support");
+    btn.setAttribute("aria-pressed", "true");
+    btn.textContent = "Aa Reading Support: On";
+  } else {
+    document.body.classList.remove("reading-support");
+    btn.setAttribute("aria-pressed", "false");
+    btn.textContent = "Aa Reading Support: Off";
+  }
+}
+
+document.getElementById("readingToggleBtn").addEventListener("click", () => {
+  appState.readingSupport = !appState.readingSupport;
+  saveState();
+  applyReadingSupport();
+});
+
+document.getElementById("homeNavBtn").addEventListener("click", () => {
+  view.screen = "intro";
+  render();
+});
+
+document.getElementById("summaryNavBtn").addEventListener("click", () => {
+  view.screen = "summary";
+  render();
+});
+
+function startBurst(mode = "main") {
+  let pool = [];
+  if (mode === "main") {
+    pool = TOPIC_META.mainQuestions;
+  } else if (mode === "retry") {
+    pool = TOPIC_META.retryQuestions;
+  } else if (mode === "weakest") {
+    const allQ = [...TOPIC_META.mainQuestions, ...TOPIC_META.retryQuestions];
+    pool = allQ.filter(q => appState.attempts[q.id] && (!appState.attempts[q.id].firstCorrect || !appState.attempts[q.id].latestCorrect));
+    if (pool.length === 0) {
+      alert("No missed questions recorded yet! Start the Topic 3 burst to test your skills.");
+      return;
+    }
+  }
+
+  view = {
+    screen: "practice",
+    mode,
+    qIndex: 0,
+    pool,
+    answers: {},
+    selectedOpt: null,
+    tableSel: {}
+  };
+  render();
+}
+
+function recordAttempt(q, isCorrect) {
+  const prev = appState.attempts[q.id];
+  appState.attempts[q.id] = {
+    firstCorrect: prev ? prev.firstCorrect : isCorrect,
+    latestCorrect: isCorrect,
+    srCode: q.srCode,
+    lessonTopic: q.lessonTopic,
+    cognitiveLevel: q.cognitiveLevel,
+    studyTip: q.studyTip
+  };
+  saveState();
+}
+
+function resetTopicProgress() {
+  if (confirm("Reset your Topic 3 progress, badge, and diagnostic history?")) {
+    const keepRead = appState.readingSupport;
+    appState = {
+      readingSupport: keepRead,
+      completed: false,
+      bestScorePct: 0,
+      mastered: false,
+      retryUnlocked: false,
+      attempts: {}
+    };
+    saveState();
+    view.screen = "intro";
+    render();
+  }
+}
+
+function render() {
+  const root = document.getElementById("appRoot");
+  if (view.screen === "intro") {
+    root.innerHTML = renderIntro();
+    attachIntroEvents();
+  } else if (view.screen === "practice") {
+    root.innerHTML = renderPractice();
+    attachPracticeEvents();
+  } else if (view.screen === "summary") {
+    root.innerHTML = renderSummary();
+    attachSummaryEvents();
+  }
+}
+
+function renderIntro() {
+  const statusPill = appState.mastered
+    ? `<span class="pill pill-badge">★ Topic Mastered (${appState.bestScorePct}%) · ${TOPIC_META.badgeName}</span>`
+    : appState.retryUnlocked
+      ? `<span class="pill pill-retry">Best Score: ${appState.bestScorePct}% · Confidence Retry Unlocked</span>`
+      : `<span class="pill">Short Burst: ${TOPIC_META.estimatedTime} · ${TOPIC_META.mainQuestions.length} Items</span>`;
+
+  return `
+    <section class="card hero-banner">
+      <div class="pill-row" style="margin-top: 0; margin-bottom: 0.6rem;">
+        <span class="pill">${TOPIC_META.code}</span>
+        ${statusPill}
+      </div>
+      <h1>${TOPIC_META.title}</h1>
+      <p>
+        Practice selecting and justifying web-ready file formats for Paper 02 Q1(c) (4 marks). In this short burst, you will match deliverables to optimal formats, eliminate unsuited authoring/archive formats, grade student responses on the 4-point mark ladder, and write complete platform-and-audience justifications.
+      </p>
+
+      <div class="framework-box">
+        <div class="framework-item">
+          <strong>1. Core Web Formats</strong>
+          Images: <em>JPEG, PNG, GIF</em> (+ SVG, WEBP)<br/>
+          Audio/Video: <em>MP3, MP4</em><br/>
+          Printable Docs: <em>PDF</em>
+        </div>
+        <div class="framework-item">
+          <strong>2. The 4-Point Q1(c) Formula</strong>
+          (1) Suitable format + (2) Platform reason + (3) Audience reason + (4) Concrete consequence (size, quality, transparency, compatibility).
+        </div>
+        <div class="framework-item">
+          <strong>3. Reject Unsuited Formats</strong>
+          Never recommend <em>.DOCX</em> (editable layout), <em>.WAV</em> (huge uncompressed size), or <em>.ZIP</em> (requires extraction) for direct web viewing.
+        </div>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill ${appState.mastered ? 'mastered' : ''}" style="width: ${appState.mastered ? 100 : appState.bestScorePct}%"></div>
+      </div>
+
+      <div class="action-row">
+        <button id="startMainBtn" class="btn-primary">
+          ${appState.completed ? "Practice Topic 3 Burst Again" : "Start Topic 3 Micro-Burst →"}
+        </button>
+        ${appState.retryUnlocked && !appState.mastered ? `
+          <button id="startRetryBtn" class="btn-secondary">Launch 2-Question Confidence Retry</button>
+        ` : ""}
+        <button id="openDiagBtn" class="btn-secondary">View Topic Diagnostic</button>
+      </div>
+    </section>
+
+    <div style="text-align: right;">
+      <button id="resetBtn" class="btn-danger-ghost">Reset Topic 3 Progress</button>
+    </div>
+  `;
+}
+
+function attachIntroEvents() {
+  document.getElementById("startMainBtn").addEventListener("click", () => startBurst("main"));
+  const retryBtn = document.getElementById("startRetryBtn");
+  if (retryBtn) retryBtn.addEventListener("click", () => startBurst("retry"));
+  document.getElementById("openDiagBtn").addEventListener("click", () => {
+    view.screen = "summary";
+    render();
+  });
+  document.getElementById("resetBtn").addEventListener("click", resetTopicProgress);
+}
+
+function renderPractice() {
+  const total = view.pool.length;
+  const idx = view.qIndex;
+
+  if (idx >= total) {
+    return renderBurstComplete();
+  }
+
+  const q = view.pool[idx];
+  const saved = view.answers[q.id];
+  const pct = Math.round((idx / total) * 100);
+  const modeLabel = view.mode === "retry"
+    ? "Confidence Retry (2 Targeted Items)"
+    : view.mode === "weakest"
+      ? "Weakest Area Practice"
+      : "Topic 3 Micro-Burst";
+
+  let bodyHtml = "";
+
+  if (q.type === "mcq") {
+    const letters = ["A", "B", "C", "D"];
+    bodyHtml = `
+      <div class="option-list">
+        ${q.options.map((opt, i) => {
+          let cls = "option-btn";
+          if (saved) {
+            if (i === q.correctIndex) cls += " correct";
+            else if (i === saved.choice && !saved.isCorrect) cls += " incorrect";
+          } else if (view.selectedOpt === i) {
+            cls += " selected";
+          }
+          return `
+            <button class="${cls}" data-opt="${i}" ${saved ? "disabled" : ""}>
+              <span class="option-letter">${letters[i]}.</span>
+              <span>${opt}</span>
+            </button>
+          `;
+        }).join("")}
+      </div>
+      ${!saved ? `<div class="action-row"><button id="checkMcqBtn" class="btn-primary">Check Answer</button></div>` : ""}
+    `;
+  } else if (q.type === "matching" || q.type === "audit") {
+    bodyHtml = `
+      <table class="audit-table">
+        <thead>
+          <tr>
+            <th>Web Deliverable / Candidate Response</th>
+            <th>Your Classification</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${q.rows.map((r, rIdx) => {
+            const val = saved ? saved.choice[rIdx] : (view.tableSel[rIdx] || "");
+            let sCls = "table-select";
+            if (saved) sCls += (val === r.answer) ? " row-correct" : " row-incorrect";
+            return `
+              <tr>
+                <td>
+                  <strong>${r.label}</strong>
+                  ${saved && val !== r.answer ? `<div style="color: var(--success); font-size: 0.9em; margin-top: 0.35rem;">✓ Correct: <strong>${r.answer}</strong></div>` : ""}
+                </td>
+                <td style="min-width: 240px;">
+                  <select class="${sCls}" data-row="${rIdx}" ${saved ? "disabled" : ""}>
+                    <option value="">-- Choose match --</option>
+                    ${q.choices.map(c => `<option value="${c}" ${val === c ? "selected" : ""}>${c}</option>`).join("")}
+                  </select>
+                </td>
+              </tr>
+            `;
+          }).join("")}
+        </tbody>
+      </table>
+      ${!saved ? `<div class="action-row"><button id="checkTableBtn" class="btn-primary">Check Classifications</button></div>` : ""}
+    `;
+  } else if (q.type === "synthesis") {
+    const draftKey = q.id + "_draft";
+    if (!view.answers[draftKey]) {
+      view.answers[draftKey] = { text: "", hintOpen: false, modelOpen: false };
+    }
+    const draft = view.answers[draftKey];
+
+    bodyHtml = `
+      <div class="action-row" style="margin-top: 0;">
+        <button id="toggleHintBtn" class="btn-secondary" type="button">
+          ${draft.hintOpen ? "Hide 4-Part Hint" : "Need a Hint? Show 4-Part Frame"}
+        </button>
+      </div>
+      ${draft.hintOpen ? `<div class="hint-box"><strong>Scaffolded 4-Part Starter:</strong><br/>${q.hint.replace(/\n/g, "<br/>")}</div>` : ""}
+
+      <label for="synBox" style="display:block; margin-top: 0.9rem; font-weight: 600;">
+        Step 1 — Draft your 4-mark justification below:
+      </label>
+      <textarea id="synBox" class="synthesis-input" placeholder="State the format, platform reason, audience reason, and concrete technical consequence..." ${saved ? "disabled" : ""}>${saved ? saved.userText : draft.text}</textarea>
+
+      ${!saved && !draft.modelOpen ? `
+        <div class="action-row">
+          <button id="showModelBtn" class="btn-primary">Compare with Model Answer &amp; Rubric</button>
+        </div>
+      ` : ""}
+
+      ${(draft.modelOpen || saved) ? `
+        <div class="model-answer-box">
+          <strong>Mark-Scheme Model Response (4/4 Marks):</strong>
+          <p style="margin-bottom: 0; white-space: pre-line;">${q.modelAnswer}</p>
+        </div>
+        <div class="rubric-checklist">
+          <strong>Step 2 — Self-Check Rubric (Tick each requirement your answer met):</strong>
+          ${q.rubric.map((item, rIdx) => `
+            <label class="rubric-item">
+              <input type="checkbox" class="rubric-cb" data-ridx="${rIdx}" ${saved ? "disabled checked" : ""} />
+              <span>${item}</span>
+            </label>
+          `).join("")}
+          ${!saved ? `
+            <div class="action-row">
+              <button id="confirmRubricBtn" class="btn-primary">Confirm Self-Check &amp; Record Result</button>
+            </div>
+          ` : ""}
+        </div>
+      ` : ""}
+    `;
+  }
+
+  const feedbackHtml = saved ? `
+    <div class="feedback-panel ${saved.isCorrect ? "pass" : "fail"}">
+      <strong>${saved.isCorrect ? "Spot on!" : "Review the mark-scheme takeaway:"}</strong>
+      <p style="margin: 0.4rem 0 0 0;">${q.explanation || "Compare your self-checked points against the 4-part model response above."}</p>
+    </div>
+    <div class="action-row">
+      <button id="nextQBtn" class="btn-primary">
+        ${idx + 1 < total ? "Next Question →" : "Finish Burst & See Score →"}
+      </button>
+    </div>
+  ` : "";
+
+  return `
+    <div class="card">
+      <div class="workspace-header">
+        <div>
+          <strong>${modeLabel}</strong>
+          <div style="font-size: 0.88em; color: var(--text-muted);">Item ${idx + 1} of ${total}</div>
+        </div>
+        <button id="exitPracticeBtn" class="btn-secondary">← Back to Overview</button>
+      </div>
+
+      <div class="progress-track">
+        <div class="progress-fill" style="width: ${pct}%"></div>
+      </div>
+
+      <div class="tag-strip">
+        <span class="pill">Syllabus: ${q.srCode}</span>
+        <span class="pill">Topic: ${q.lessonTopic}</span>
+        <span class="pill">Skill: ${q.cognitiveLevel}</span>
+      </div>
+
+      <div class="scenario-box">
+        <strong>Scenario:</strong> ${q.scenario}
+      </div>
+
+      <div class="question-prompt">${q.prompt}</div>
+
+      ${bodyHtml}
+      ${feedbackHtml}
+    </div>
+  `;
+}
+
+function attachPracticeEvents() {
+  const exitBtn = document.getElementById("exitPracticeBtn");
+  if (exitBtn) exitBtn.addEventListener("click", () => {
+    view.screen = "intro";
+    render();
+  });
+
+  const q = view.pool[view.qIndex];
+  if (!q) {
+    const retryNow = document.getElementById("retryNowBtn");
+    if (retryNow) retryNow.addEventListener("click", () => startBurst("retry"));
+    const backOver = document.getElementById("backOverviewBtn");
+    if (backOver) backOver.addEventListener("click", () => {
+      view.screen = "intro";
+      render();
+    });
+    const toDiag = document.getElementById("toDiagBtn");
+    if (toDiag) toDiag.addEventListener("click", () => {
+      view.screen = "summary";
+      render();
+    });
+    return;
+  }
+
+  if (q.type === "mcq") {
+    document.querySelectorAll(".option-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        view.selectedOpt = parseInt(btn.dataset.opt, 10);
+        render();
+      });
+    });
+    const checkBtn = document.getElementById("checkMcqBtn");
+    if (checkBtn) checkBtn.addEventListener("click", () => {
+      if (view.selectedOpt === null) {
+        alert("Select an option first.");
+        return;
+      }
+      const isCorrect = view.selectedOpt === q.correctIndex;
+      view.answers[q.id] = { isCorrect, choice: view.selectedOpt };
+      recordAttempt(q, isCorrect);
+      render();
+    });
+  }
+
+  if (q.type === "matching" || q.type === "audit") {
+    document.querySelectorAll(".table-select").forEach(sel => {
+      sel.addEventListener("change", () => {
+        view.tableSel[sel.dataset.row] = sel.value;
+      });
+    });
+    const checkTable = document.getElementById("checkTableBtn");
+    if (checkTable) checkTable.addEventListener("click", () => {
+      const chosen = {};
+      let allSet = true;
+      let right = 0;
+      q.rows.forEach((r, i) => {
+        const val = view.tableSel[i] || "";
+        if (!val) allSet = false;
+        chosen[i] = val;
+        if (val === r.answer) right++;
+      });
+      if (!allSet) {
+        alert("Please classify all rows before checking.");
+        return;
+      }
+      const isCorrect = right === q.rows.length;
+      view.answers[q.id] = { isCorrect, choice: chosen };
+      recordAttempt(q, isCorrect);
+      render();
+    });
+  }
+
+  if (q.type === "synthesis") {
+    const draftKey = q.id + "_draft";
+    const draft = view.answers[draftKey];
+    const ta = document.getElementById("synBox");
+    if (ta) ta.addEventListener("input", () => { draft.text = ta.value; });
+
+    const hintBtn = document.getElementById("toggleHintBtn");
+    if (hintBtn) hintBtn.addEventListener("click", () => {
+      draft.hintOpen = !draft.hintOpen;
+      render();
+    });
+
+    const modelBtn = document.getElementById("showModelBtn");
+    if (modelBtn) modelBtn.addEventListener("click", () => {
+      if (!draft.text || draft.text.trim().length < 15) {
+        alert("Draft at least one full sentence in the response box before opening the model answer.");
+        return;
+      }
+      draft.modelOpen = true;
+      render();
+    });
+
+    const confirmBtn = document.getElementById("confirmRubricBtn");
+    if (confirmBtn) confirmBtn.addEventListener("click", () => {
+      const cbs = document.querySelectorAll(".rubric-cb");
+      let ticked = 0;
+      cbs.forEach(cb => { if (cb.checked) ticked++; });
+      const isCorrect = ticked === q.rubric.length;
+      view.answers[q.id] = { isCorrect, userText: draft.text };
+      recordAttempt(q, isCorrect);
+      render();
+    });
+  }
+
+  const nextBtn = document.getElementById("nextQBtn");
+  if (nextBtn) nextBtn.addEventListener("click", () => {
+    view.qIndex++;
+    view.selectedOpt = null;
+    view.tableSel = {};
+    render();
+  });
+}
+
+function renderBurstComplete() {
+  let right = 0;
+  view.pool.forEach(q => {
+    if (view.answers[q.id] && view.answers[q.id].isCorrect) right++;
+  });
+  const pct = Math.round((right / view.pool.length) * 100);
+
+  if (view.mode === "weakest") {
+    return `
+      <div class="card">
+        <h2>Missed-Item Practice Complete!</h2>
+        <p>You scored <strong>${right} out of ${view.pool.length} (${pct}%)</strong> on your targeted review items.</p>
+        <div class="action-row">
+          <button id="toDiagBtn" class="btn-primary">View Updated Diagnostic</button>
+          <button id="backOverviewBtn" class="btn-secondary">Back to Overview</button>
+        </div>
+      </div>
+    `;
+  }
+
+  if (view.mode === "main") {
+    const passed = pct >= 80;
+    appState.completed = true;
+    appState.bestScorePct = Math.max(appState.bestScorePct, pct);
+    if (passed) {
+      appState.mastered = true;
+      appState.retryUnlocked = false;
+    } else if (!appState.mastered) {
+      appState.retryUnlocked = true;
+    }
+    saveState();
+
+    if (passed) {
+      return `
+        <div class="card" style="border-color: var(--success);">
+          <span class="pill pill-badge">★ Badge Unlocked: ${TOPIC_META.badgeName}</span>
+          <h2>Topic 3 Mastered! (${pct}%)</h2>
+          <p>You scored <strong>${right} / ${view.pool.length}</strong>, clearing the 80% mastery target for <strong>${TOPIC_META.code}</strong>.</p>
+          <div class="action-row">
+            <button id="toDiagBtn" class="btn-primary">View Topic Diagnostic</button>
+            <button id="backOverviewBtn" class="btn-secondary">Back to Topic Overview</button>
+          </div>
+        </div>
+      `;
+    } else {
+      return `
+        <div class="card" style="border-color: #E7C389;">
+          <span class="pill pill-retry">Score: ${pct}% · 80% Needed for Mastery Badge</span>
+          <h2>Confidence Retry Unlocked!</h2>
+          <p>
+            You got <strong>${right} / ${view.pool.length}</strong> right. Take a quick <strong>2-question Confidence Retry</strong> focused on the 4-part format justification rule to earn your <strong>${TOPIC_META.badgeName}</strong> badge.
+          </p>
+          <div class="action-row">
+            <button id="retryNowBtn" class="btn-primary">Start 2-Question Confidence Retry →</button>
+            <button id="backOverviewBtn" class="btn-secondary">Back to Topic Overview</button>
+          </div>
+        </div>
+      `;
+    }
+  } else {
+    const retryPassed = pct >= 50;
+    if (retryPassed) {
+      appState.mastered = true;
+      saveState();
+    }
+    return `
+      <div class="card" style="border-color: ${retryPassed ? "var(--success)" : "#E7C389"};">
+        <span class="pill ${retryPassed ? "pill-badge" : "pill-retry"}">
+          ${retryPassed ? "★ Badge Earned: " + TOPIC_META.badgeName : "Keep Practicing"}
+        </span>
+        <h2>Confidence Retry Score: ${pct}% (${right} / ${view.pool.length})</h2>
+        <p>
+          ${retryPassed
+            ? "Well done! You reinforced the 4-part M1.4(b) format justification framework and unlocked your Topic 3 Mastery Badge."
+            : "Check your Topic Diagnostic below for targeted study tips, then retry whenever you feel ready."}
+        </p>
+        <div class="action-row">
+          <button id="toDiagBtn" class="btn-primary">View Topic Diagnostic</button>
+          <button id="backOverviewBtn" class="btn-secondary">Back to Topic Overview</button>
+        </div>
+      </div>
+    `;
+  }
+}
+
+function renderSummary() {
+  const attempts = Object.values(appState.attempts);
+  const missedFirst = attempts.filter(a => !a.firstCorrect);
+
+  const grouped = {
+    Knowledge: missedFirst.filter(a => a.cognitiveLevel === "Knowledge"),
+    Understanding: missedFirst.filter(a => a.cognitiveLevel === "Understanding"),
+    Application: missedFirst.filter(a => a.cognitiveLevel === "Application")
+  };
+
+  function renderList(list) {
+    if (list.length === 0) {
+      return `<p style="color: var(--success); margin-bottom: 0;">✓ No first-attempt gaps in this skill area.</p>`;
+    }
+    const seen = new Set();
+    const unique = [];
+    list.forEach(item => {
+      const k = item.srCode + "::" + item.lessonTopic;
+      if (!seen.has(k)) {
+        seen.add(k);
+        unique.push(item);
+      }
+    });
+    return `<ul style="padding-left: 1.2rem; margin-bottom: 0;">
+      ${unique.map(u => `
+        <li style="margin-bottom: 0.65rem;">
+          <strong>[${u.srCode}] ${u.lessonTopic}</strong><br/>
+          <span style="font-size: 0.92em; color: var(--text-muted);">Study Tip: ${u.studyTip}</span>
+        </li>
+      `).join("")}
+    </ul>`;
+  }
+
+  return `
+    <section class="card hero-banner">
+      <h1>Topic 3 Diagnostic: Web Assets &amp; File Format Justification</h1>
+      <p>Review your first-attempt performance across <strong>M1.4(b)</strong> grouped by Cognitive Skill Level.</p>
+      <div class="pill-row">
+        <span class="pill ${appState.mastered ? 'pill-badge' : ''}">${appState.mastered ? '★ Badge Earned' : 'Badge In Progress'}</span>
+        <span class="pill">Items Tracked: ${attempts.length}</span>
+        <span class="pill pill-retry">First-Attempt Gaps: ${missedFirst.length}</span>
+      </div>
+      ${missedFirst.length > 0 ? `
+        <div class="action-row">
+          <button id="practiceMissedBtn" class="btn-primary">Practice Missed Items (${missedFirst.length}) →</button>
+        </div>
+      ` : ""}
+    </section>
+
+    <section class="diagnostic-grid">
+      <div class="diag-card">
+        <h3>1. Knowledge to Review</h3>
+        ${renderList(grouped.Knowledge)}
+      </div>
+      <div class="diag-card">
+        <h3>2. Understanding to Strengthen</h3>
+        ${renderList(grouped.Understanding)}
+      </div>
+      <div class="diag-card">
+        <h3>3. Application to Practice</h3>
+        ${renderList(grouped.Application)}
+      </div>
+    </section>
+
+    <div class="action-row">
+      <button id="backFromSummaryBtn" class="btn-secondary">← Back to Topic Overview</button>
+    </div>
+  `;
+}
+
+function attachSummaryEvents() {
+  const pmBtn = document.getElementById("practiceMissedBtn");
+  if (pmBtn) pmBtn.addEventListener("click", () => startBurst("weakest"));
+  document.getElementById("backFromSummaryBtn").addEventListener("click", () => {
+    view.screen = "intro";
+    render();
+  });
+}
+
+applyReadingSupport();
+render();
+</script>
+</body>
+</html>

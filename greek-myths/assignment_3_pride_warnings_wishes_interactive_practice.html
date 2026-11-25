@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assignment 3: Pride, Warnings & Wishes — Form 1 English B</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FAF9F6;
+      color: #1E293B;
+      line-height: 1.65;
+      transition: all 0.2s ease;
+    }
+    body.reading-support {
+      font-size: 1.15rem;
+      line-height: 1.95;
+      letter-spacing: 0.04em;
+      word-spacing: 0.12em;
+    }
+    .card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(30, 41, 59, 0.04);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <header class="sticky top-0 z-30 bg-[#FAF9F6]/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-xl bg-amber-700 text-white flex items-center justify-center font-bold">🪶</span>
+        <div>
+          <h1 class="font-extrabold text-slate-900 text-sm sm:text-base leading-tight">Assignment 3: Pride, Warnings & Wishes</h1>
+          <p class="text-xs text-slate-500">NorthGate College • Form 1 English B • 20 Marks</p>
+        </div>
+      </div>
+      <button id="readingBtn" onclick="toggleReading()" class="px-3 py-1.5 rounded-xl border border-slate-300 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-100 transition">
+        Aa Reading Support: Off
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-6 sm:py-8 space-y-6">
+
+    <!-- Student Info -->
+    <section class="card p-5 sm:p-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Student Name</label>
+          <input id="studentName" type="text" placeholder="Enter your full name..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Form 1 Class</label>
+          <input id="studentClass" type="text" placeholder="e.g., Form 1C" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm" />
+        </div>
+      </div>
+      <p class="text-xs text-slate-500 mt-3">
+        <strong>Stories Covered:</strong> <em>Daedalus and Icarus</em>, <em>Arachne the Spinner</em>, &amp; <em>King Midas</em> (Geraldine McCaughrean).
+      </p>
+    </section>
+
+    <!-- PART A: Warnings & Consequences Table -->
+    <section class="card p-5 sm:p-7 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part A • Comparison Table</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Warnings & Consequences</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">9 Marks</span>
+      </div>
+      <p class="text-sm text-slate-600">Complete the 3 missing boxes in the comparison table using details from our stories (3 marks each).</p>
+
+      <div class="space-y-4">
+        <!-- Row 1: Icarus -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded bg-amber-800 text-white text-xs font-bold">1. Icarus</span>
+          <p class="text-xs sm:text-sm text-slate-700"><strong>Warning Given:</strong> Daedalus warned him not to fly too high or too close to the sun.</p>
+          <div>
+            <label class="block text-xs font-bold text-amber-900 mb-1">Missing Box 1 — How did Icarus ignore the warning? (3 marks)</label>
+            <textarea id="t1" rows="2" placeholder="Write what Icarus did..." class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm"></textarea>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700"><strong>Result:</strong> The sun melted the wax, his feathers came unstuck, and he fell into the sea.</p>
+        </div>
+
+        <!-- Row 2: Arachne -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded bg-amber-800 text-white text-xs font-bold">2. Arachne</span>
+          <div>
+            <label class="block text-xs font-bold text-amber-900 mb-1">Missing Box 2 — What warning or advice did Arachne receive? (3 marks)</label>
+            <textarea id="t2" rows="2" placeholder="Write who warned Arachne and what she was told..." class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm"></textarea>
+          </div>
+          <p class="text-xs sm:text-sm text-slate-700"><strong>How She Ignored It:</strong> Boasted she was better than Athene and wove pictures making fun of the gods.</p>
+          <p class="text-xs sm:text-sm text-slate-700"><strong>Result:</strong> Athene turned her into the first spider.</p>
+        </div>
+
+        <!-- Row 3: King Midas -->
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+          <span class="inline-block px-2.5 py-0.5 rounded bg-amber-800 text-white text-xs font-bold">3. King Midas</span>
+          <p class="text-xs sm:text-sm text-slate-700"><strong>Warning Given:</strong> The centaur warned him that wishing for everything to turn to gold was <em>“not a good idea”</em>.</p>
+          <p class="text-xs sm:text-sm text-slate-700"><strong>How He Ignored It:</strong> Insisted on keeping his golden touch wish anyway.</p>
+          <div>
+            <label class="block text-xs font-bold text-amber-900 mb-1">Missing Box 3 — What happened as a result? (3 marks)</label>
+            <textarea id="t3" rows="2" placeholder="Write what happened to Midas’s food, drink, and family..." class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm"></textarea>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PART B: Real-World Connection -->
+    <section class="card p-5 sm:p-7 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part B • Real-World Link</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Real-World Connection</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">4 Marks</span>
+      </div>
+
+      <div class="p-4 rounded-xl bg-slate-100 border border-slate-200 italic text-slate-800 text-sm">
+        “Tariq is a talented artist who wins first place at the school art fair. When the runner-up congratulates him, Tariq laughs and says, ‘Of course I won—even the art teacher couldn’t paint as well as me!’”
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">1. Which character from this week’s stories is Tariq acting like? (1 mark)</label>
+        <select id="b_char" class="p-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold">
+          <option value="">-- Choose a character --</option>
+          <option value="Icarus">Icarus</option>
+          <option value="Arachne">Arachne</option>
+          <option value="King Midas">King Midas</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-700 mb-1">2. What lesson from that myth should Tariq learn? Answer in a complete sentence. (3 marks)</label>
+        <textarea id="b_lesson" rows="2" placeholder="Write the moral lesson for Tariq..." class="w-full p-3 rounded-xl border border-slate-300 text-sm"></textarea>
+      </div>
+    </section>
+
+    <!-- PART C: Scaffolded Critical Thinking -->
+    <section class="card p-5 sm:p-7 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part C • Critical Thinking</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Was King Midas Unlucky or Foolish?</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">7 Marks</span>
+      </div>
+
+      <button type="button" onclick="toggleHint('critHint')" class="text-xs font-semibold text-amber-800 underline">💡 Need a Hint? Show Example Story Clues</button>
+      <div id="critHint" class="hidden p-3 rounded-xl bg-blue-50 border border-blue-200 text-xs text-blue-950 space-y-1">
+        <p><strong>If Foolish:</strong> Clue 1 = He ignored the centaur’s warning that the wish was “not a good idea.” Clue 2 = He judged Pan better than Apollo just because Pan was his friend.</p>
+        <p><strong>If Unlucky:</strong> Clue 1 = He didn’t realize he wouldn’t be able to eat food or hug his son. Clue 2 = He was forced to judge between two gods alone.</p>
+      </div>
+
+      <div class="space-y-3">
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Step 1 — My Claim (1 mark): Based on the story, I believe King Midas was:</label>
+          <select id="c_claim" class="w-full sm:w-2/3 p-2.5 rounded-xl border border-slate-300 bg-white text-sm font-bold">
+            <option value="">-- Choose your claim --</option>
+            <option value="mostly foolish">mostly foolish</option>
+            <option value="mostly unlucky">mostly unlucky</option>
+            <option value="both foolish and unlucky">both foolish and unlucky</option>
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Step 2 — Story Clue 1 (2 marks): One detail from the story that proves my claim is when...</label>
+          <textarea id="c_clue1" rows="2" placeholder="Complete the sentence with a specific detail from King Midas..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Step 3 — Story Clue 2 (2 marks): Another detail that supports my claim is when...</label>
+          <textarea id="c_clue2" rows="2" placeholder="Complete the sentence with a second detail from King Midas..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-800 mb-1">Step 4 — Final Lesson (2 marks): From King Midas’s mistakes, readers learn that...</label>
+          <textarea id="c_lesson" rows="2" placeholder="Complete the final takeaway lesson..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm"></textarea>
+        </div>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="revealModels()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition shadow-sm">
+          Compare with Model Answers & Self-Check
+        </button>
+      </div>
+
+      <div id="modelsBox" class="hidden space-y-4 pt-4 border-t border-slate-200">
+        <div id="partBAutoBanner" class="p-3.5 rounded-xl text-sm font-bold"></div>
+        <div class="p-4 rounded-xl bg-green-50 border border-green-300 text-sm space-y-2">
+          <p class="font-extrabold text-green-900">Model Answers:</p>
+          <p><strong>Part A (9 marks):</strong><br>
+            1. <em>Icarus:</em> He forgot his father’s warning in the excitement of flying and soared higher and higher straight toward the hot sun.<br>
+            2. <em>Arachne:</em> An old woman (Athene in disguise) warned her to be humble, accept that she was only mortal, and apologize to Athene for boasting.<br>
+            3. <em>King Midas:</em> Everything he touched turned to hard gold—including his food, wine, and even his beloved little son when the boy hugged his knees.</p>
+          <p><strong>Part B Lesson (3 marks):</strong> Even when we are very talented, boasting and looking down on others (or teachers/authority) will lead to our downfall.</p>
+          <p><strong>Part C Critical Thinking (7 marks):</strong> Check that your two Story Clues in Steps 2 and 3 accurately come from McCaughrean’s story and directly support the Claim you chose in Step 1!</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-300 space-y-2 text-sm">
+          <p class="font-bold text-slate-900">Honest Self-Check — Written Parts (out of 19 marks):</p>
+          <div class="flex items-center gap-3">
+            <input id="writtenSelfScore" type="number" min="0" max="19" value="16" class="w-20 p-2 rounded-lg border border-slate-300 font-bold text-center bg-white" />
+            <span class="text-slate-700 font-medium">/ 19 marks (+ <span id="autoPt">0</span>/1 character match)</span>
+            <button onclick="showSummary()" class="ml-auto px-4 py-2 rounded-xl bg-amber-700 text-white font-bold text-xs sm:text-sm hover:bg-amber-800">
+              Finish & View Summary →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary Card -->
+    <section id="summaryCard" class="hidden card p-6 bg-gradient-to-br from-white to-amber-50 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-extrabold text-slate-900">🎉 Assignment 3 Complete!</h2>
+        <span id="totalBadge" class="px-4 py-1.5 rounded-full bg-green-100 text-green-900 font-extrabold text-sm"></span>
+      </div>
+      <textarea id="exportText" rows="9" readonly class="w-full p-3 rounded-xl border border-slate-300 bg-white text-xs font-mono text-slate-800"></textarea>
+      <div class="flex items-center gap-3">
+        <button onclick="copyWork()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800">📋 Copy My Completed Work</button>
+        <span id="copyStatus" class="text-xs font-bold text-green-700 hidden">✓ Copied!</span>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    let autoCharScore = 0;
+
+    function revealModels() {
+      const choice = document.getElementById('b_char').value;
+      autoCharScore = choice === 'Arachne' ? 1 : 0;
+      document.getElementById('autoPt').textContent = autoCharScore;
+
+      const banner = document.getElementById('partBAutoBanner');
+      banner.className = autoCharScore === 1
+        ? 'p-3.5 rounded-xl bg-green-100 text-green-900 text-sm font-bold'
+        : 'p-3.5 rounded-xl bg-amber-100 text-amber-950 text-sm font-bold';
+      banner.textContent = autoCharScore === 1
+        ? '✅ Part B Question 1: Correct! Tariq is acting just like Arachne (1/1 mark).'
+        : '❌ Part B Question 1: The correct match is Arachne (0/1 mark).';
+
+      document.getElementById('modelsBox').classList.remove('hidden');
+      document.getElementById('modelsBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function showSummary() {
+      const wScore = Math.min(19, Math.max(0, parseInt(document.getElementById('writtenSelfScore').value || '0', 10)));
+      const total = autoCharScore + wScore;
+      const name = document.getElementById('studentName').value.trim() || 'Student';
+      const cls = document.getElementById('studentClass').value.trim() || 'Form 1';
+
+      document.getElementById('totalBadge').textContent = `Total: ${total} / 20 Marks`;
+      document.getElementById('exportText').value = [
+        `NORTHGATE COLLEGE — FORM 1 ENGLISH B`,
+        `Assignment 3: Pride, Warnings & Wishes`,
+        `Name: ${name} | Class: ${cls} | Total Score: ${total}/20`,
+        `--------------------------------------------------`,
+        `Part A Table:`,
+        `1. Icarus: ${document.getElementById('t1').value.trim()}`,
+        `2. Arachne: ${document.getElementById('t2').value.trim()}`,
+        `3. King Midas: ${document.getElementById('t3').value.trim()}`,
+        `Part B (${document.getElementById('b_char').value}): ${document.getElementById('b_lesson').value.trim()}`,
+        `Part C Critical Thinking:`,
+        `Claim: King Midas was ${document.getElementById('c_claim').value}`,
+        `Clue 1: ${document.getElementById('c_clue1').value.trim()}`,
+        `Clue 2: ${document.getElementById('c_clue2').value.trim()}`,
+        `Lesson: ${document.getElementById('c_lesson').value.trim()}`
+      ].join('\n');
+
+      const card = document.getElementById('summaryCard');
+      card.classList.remove('hidden');
+      card.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyWork() {
+      const box = document.getElementById('exportText');
+      box.select();
+      document.execCommand('copy');
+      const s = document.getElementById('copyStatus');
+      s.classList.remove('hidden');
+      setTimeout(() => s.classList.add('hidden'), 2500);
+    }
+
+    function toggleHint(id) { document.getElementById(id).classList.toggle('hidden'); }
+    function toggleReading() {
+      document.body.classList.toggle('reading-support');
+      const on = document.body.classList.contains('reading-support');
+      const btn = document.getElementById('readingBtn');
+      btn.textContent = on ? 'Aa Reading Support: On' : 'Aa Reading Support: Off';
+      btn.classList.toggle('bg-amber-100', on);
+      btn.classList.toggle('border-amber-600', on);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assignment 1: Creation & Consequences — Form 1 English B</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FAF9F6;
+      color: #1E293B;
+      line-height: 1.65;
+      transition: all 0.2s ease;
+    }
+    body.reading-support {
+      font-size: 1.15rem;
+      line-height: 1.95;
+      letter-spacing: 0.04em;
+      word-spacing: 0.12em;
+    }
+    .card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(30, 41, 59, 0.04);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Sticky Header -->
+  <header class="sticky top-0 z-30 bg-[#FAF9F6]/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-xl bg-amber-700 text-white flex items-center justify-center font-bold">🌍</span>
+        <div>
+          <h1 class="font-extrabold text-slate-900 text-sm sm:text-base leading-tight">Assignment 1: Creation & Consequences</h1>
+          <p class="text-xs text-slate-500">NorthGate College • Form 1 English B • 20 Marks</p>
+        </div>
+      </div>
+      <button id="readingBtn" onclick="toggleReading()" class="px-3 py-1.5 rounded-xl border border-slate-300 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-100 transition">
+        Aa Reading Support: Off
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-6 sm:py-8 space-y-6">
+
+    <!-- Student Details Card -->
+    <section class="card p-5 sm:p-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Student Name</label>
+          <input id="studentName" type="text" placeholder="Enter your full name..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-amber-600" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Form 1 Class</label>
+          <input id="studentClass" type="text" placeholder="e.g., Form 1A" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-amber-600" />
+        </div>
+      </div>
+      <p class="text-xs text-slate-500 mt-3">
+        <strong>Texts Covered:</strong> <em>Mother Earth and Her Children</em> (Alice Low) &amp; <em>In the Beginning and Pandora’s Box</em> (Geraldine McCaughrean). Take your time—there is no timer!
+      </p>
+    </section>
+
+    <!-- PART A: Matching -->
+    <section class="card p-5 sm:p-7 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part A • Auto-Checked</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Character & Action Matching</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">6 Marks</span>
+      </div>
+      <p class="text-sm text-slate-600">Choose the matching action from our creation myths for each figure below.</p>
+
+      <div id="matchingContainer" class="space-y-3"></div>
+
+      <div id="partAFeedback" class="hidden p-4 rounded-xl text-sm"></div>
+      <div>
+        <button id="checkPartABtn" onclick="checkPartA()" class="px-5 py-2.5 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm">
+          Check Part A Matches
+        </button>
+      </div>
+    </section>
+
+    <!-- PART B: Reading Comprehension -->
+    <section class="card p-5 sm:p-7 space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part B • Reading & Writing</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Explaining the Natural World</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">14 Marks</span>
+      </div>
+
+      <!-- Extract Box -->
+      <div class="p-4 sm:p-5 rounded-xl bg-amber-50/70 border-l-4 border-amber-700">
+        <p class="text-xs font-bold uppercase tracking-wider text-amber-900 mb-1">From “Mother Earth and Her Children” by Alice Low</p>
+        <blockquote class="italic text-slate-800 text-sm sm:text-base">
+          “At last, Zeus and his brothers felt that they had had enough fighting. They decided to divide up the universe. Instead of arguing over which part each should have, they drew lots to settle it fairly.<br><br>
+          Hades won the underworld, the dark, gloomy kingdom beneath the earth. Poseidon won the sea, and he built himself a glittering golden palace beneath the waves. Zeus became lord of heaven, with Mount Olympus as his royal home, and he ruled over both gods and humans.”
+        </blockquote>
+      </div>
+
+      <!-- Q1 -->
+      <div class="space-y-2">
+        <label class="block font-bold text-slate-900 text-sm sm:text-base">
+          1. Why did Zeus, Poseidon, and Hades decide to “draw lots” instead of choosing their kingdoms on their own? <span class="text-amber-800">(3 marks)</span>
+        </label>
+        <button type="button" onclick="toggleHint('h1')" class="text-xs font-semibold text-amber-800 underline">💡 Show Sentence Starter</button>
+        <div id="h1" class="hidden p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-900">
+          <strong>Starter:</strong> Zeus, Poseidon, and Hades decided to draw lots because they had had enough fighting and wanted to...
+        </div>
+        <textarea id="q1" rows="2" placeholder="Write your answer in a complete sentence..." class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-amber-600"></textarea>
+      </div>
+
+      <!-- Q2 -->
+      <div class="space-y-2">
+        <label class="block font-bold text-slate-900 text-sm sm:text-base">
+          2. Which part of the universe did each brother rule after drawing lots? <span class="text-amber-800">(3 marks)</span>
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <span class="block text-xs font-bold text-slate-600 mb-1">Zeus ruled:</span>
+            <input id="q2_zeus" type="text" placeholder="e.g., ..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm" />
+          </div>
+          <div>
+            <span class="block text-xs font-bold text-slate-600 mb-1">Poseidon ruled:</span>
+            <input id="q2_poseidon" type="text" placeholder="e.g., ..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm" />
+          </div>
+          <div>
+            <span class="block text-xs font-bold text-slate-600 mb-1">Hades ruled:</span>
+            <input id="q2_hades" type="text" placeholder="e.g., ..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Q3 -->
+      <div class="space-y-2">
+        <label class="block font-bold text-slate-900 text-sm sm:text-base">
+          3. One purpose of Greek myths is to <strong>explain the natural world</strong>. Explain how this extract helped the ancient Greeks understand earthquakes, storms, or the sea. <span class="text-amber-800">(4 marks)</span>
+        </label>
+        <button type="button" onclick="toggleHint('h3')" class="text-xs font-semibold text-amber-800 underline">💡 Show Sentence Starter</button>
+        <div id="h3" class="hidden p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-900">
+          <strong>Starter:</strong> Because the ancient Greeks believed Poseidon ruled the sea and Zeus ruled the sky, they explained waves and storms as...
+        </div>
+        <textarea id="q3" rows="3" placeholder="Write your answer in complete sentences..." class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-amber-600"></textarea>
+      </div>
+
+      <!-- Q4 -->
+      <div class="space-y-2">
+        <label class="block font-bold text-slate-900 text-sm sm:text-base">
+          4. In <em>In the Beginning and Pandora’s Box</em>, Zeus punished humans by sending Pandora with a locked wooden chest. Explain why <strong>Hope</strong> coming out of the chest was so important for human beings. <span class="text-amber-800">(4 marks)</span>
+        </label>
+        <button type="button" onclick="toggleHint('h4')" class="text-xs font-semibold text-amber-800 underline">💡 Show Sentence Starter</button>
+        <div id="h4" class="hidden p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-900">
+          <strong>Starter:</strong> Hope coming out of the chest was important because after Troubles like Disease and War escaped, Hope gave humans...
+        </div>
+        <textarea id="q4" rows="3" placeholder="Write your answer in complete sentences..." class="w-full p-3 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-amber-600"></textarea>
+      </div>
+
+      <div class="pt-2">
+        <button onclick="revealPartBModels()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition shadow-sm">
+          Compare Part B with Model Answers & Self-Check
+        </button>
+      </div>
+
+      <!-- Model Answers & Self-Check -->
+      <div id="partBModels" class="hidden space-y-4 pt-4 border-t border-slate-200">
+        <div class="p-4 rounded-xl bg-green-50 border border-green-300 text-sm space-y-2">
+          <p class="font-extrabold text-green-900">Model Answers (Part B):</p>
+          <p><strong>1 (3 marks):</strong> They had had enough fighting and wanted to divide the universe fairly without starting another argument.</p>
+          <p><strong>2 (3 marks):</strong> <strong>Zeus:</strong> Heaven / the sky (with Mount Olympus as his royal home). <strong>Poseidon:</strong> The sea. <strong>Hades:</strong> The underworld.</p>
+          <p><strong>3 (4 marks):</strong> Because the ancient Greeks believed Poseidon ruled the sea and Zeus ruled the sky, they explained ocean waves, storms, and lightning as the actions and moods of these gods ruling their kingdoms.</p>
+          <p><strong>4 (4 marks):</strong> When Pandora opened the chest the first time, Troubles like Disease, War, Old Age, and Death escaped into the world. When she opened it a second time, Hope fluttered out and gave humans (and Prometheus) the courage and strength to bear those hardships.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-300 space-y-2 text-sm">
+          <p class="font-bold text-slate-900">Honest Self-Check — How many marks out of 14 did you earn on Part B?</p>
+          <div class="flex items-center gap-3">
+            <input id="partBSelfScore" type="number" min="0" max="14" value="12" class="w-20 p-2 rounded-lg border border-slate-300 font-bold text-center bg-white" />
+            <span class="text-slate-700 font-medium">/ 14 marks</span>
+            <button onclick="showSummary()" class="ml-auto px-4 py-2 rounded-xl bg-amber-700 text-white font-bold text-xs sm:text-sm hover:bg-amber-800">
+              Finish & View Summary →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Final Summary & Copy Box -->
+    <section id="summaryCard" class="hidden card p-6 bg-gradient-to-br from-white to-amber-50 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-extrabold text-slate-900">🎉 Assignment 1 Complete!</h2>
+        <span id="totalBadge" class="px-4 py-1.5 rounded-full bg-green-100 text-green-900 font-extrabold text-sm"></span>
+      </div>
+      <p class="text-sm text-slate-600">You can copy your completed work below to paste into Google Classroom, email to your teacher, or save in your study notes.</p>
+      <textarea id="exportText" rows="8" readonly class="w-full p-3 rounded-xl border border-slate-300 bg-white text-xs font-mono text-slate-800"></textarea>
+      <div class="flex flex-wrap items-center gap-3">
+        <button onclick="copyWork()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800">
+          📋 Copy My Completed Work
+        </button>
+        <span id="copyStatus" class="text-xs font-bold text-green-700 hidden">✓ Copied to clipboard!</span>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const PAIRS = [
+      { left: '1. Chaos', right: 'The dark, empty swirl of mist and nothingness at the very beginning of the universe.' },
+      { left: '2. Uranus', right: 'Locked his monstrous children (the Cyclopes and Hundred-Handed Giants) inside Mother Earth.' },
+      { left: '3. Cronus', right: 'Swallowed his own children one by one out of fear that one would overthrow him.' },
+      { left: '4. Rhea', right: 'Tricked Cronus into swallowing a stone wrapped in baby clothes so Zeus could survive.' },
+      { left: '5. Prometheus', right: 'Stole a tiny sliver of fire from the sun’s chariot inside a hollow stalk of grass.' },
+      { left: '6. Pandora', right: 'Used a big golden key to unlock a wooden chest, letting loose Troubles and Hope.' }
+    ];
+
+    let partAScore = 0;
+    let partAChecked = false;
+
+    function initMatching() {
+      const container = document.getElementById('matchingContainer');
+      const shuffled = [...PAIRS].map((p, i) => ({ text: p.right, idx: i })).sort((a, b) => a.text.localeCompare(b.text));
+      container.innerHTML = PAIRS.map((p, rowIdx) => `
+        <div id="mRow_${rowIdx}" class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5">
+          <span class="font-bold text-slate-900 sm:w-1/3 text-sm">${p.left}</span>
+          <select id="mSel_${rowIdx}" class="sm:w-2/3 p-2.5 rounded-xl border border-slate-300 bg-white text-xs sm:text-sm">
+            <option value="">-- Choose matching action --</option>
+            ${shuffled.map(o => `<option value="${o.idx}">${o.text}</option>`).join('')}
+          </select>
+        </div>
+      `).join('');
+    }
+
+    function checkPartA() {
+      let allSelected = true;
+      PAIRS.forEach((_, i) => {
+        if (document.getElementById(`mSel_${i}`).value === '') allSelected = false;
+      });
+      const fb = document.getElementById('partAFeedback');
+      if (!allSelected) {
+        fb.className = 'p-3.5 rounded-xl bg-amber-100 border border-amber-400 text-amber-950 text-sm font-semibold';
+        fb.textContent = '⚠️ Please choose a match for all 6 figures before checking!';
+        fb.classList.remove('hidden');
+        return;
+      }
+
+      partAScore = 0;
+      PAIRS.forEach((p, i) => {
+        const sel = document.getElementById(`mSel_${i}`);
+        const row = document.getElementById(`mRow_${i}`);
+        sel.disabled = true;
+        if (parseInt(sel.value, 10) === i) {
+          partAScore++;
+          row.className = 'p-3.5 rounded-xl bg-green-50 border border-green-500 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5';
+        } else {
+          row.className = 'p-3.5 rounded-xl bg-red-50 border border-red-400 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5';
+          const note = document.createElement('p');
+          note.className = 'text-xs font-bold text-green-800 sm:col-span-2';
+          note.textContent = `✓ Correct: ${p.right}`;
+          row.appendChild(note);
+        }
+      });
+
+      partAChecked = true;
+      document.getElementById('checkPartABtn').classList.add('hidden');
+      fb.className = partAScore === 6
+        ? 'p-3.5 rounded-xl bg-green-50 border border-green-300 text-green-900 text-sm font-bold'
+        : 'p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 text-sm font-semibold';
+      fb.textContent = `Part A Score: ${partAScore} / 6 marks. ${partAScore === 6 ? '🎉 Perfect match!' : 'Check the green notes above for any missed items.'}`;
+      fb.classList.remove('hidden');
+    }
+
+    function revealPartBModels() {
+      document.getElementById('partBModels').classList.remove('hidden');
+      document.getElementById('partBModels').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function showSummary() {
+      if (!partAChecked) checkPartA();
+      const bScore = Math.min(14, Math.max(0, parseInt(document.getElementById('partBSelfScore').value || '0', 10)));
+      const total = partAScore + bScore;
+      const name = document.getElementById('studentName').value.trim() || 'Student';
+      const cls = document.getElementById('studentClass').value.trim() || 'Form 1';
+
+      document.getElementById('totalBadge').textContent = `Total: ${total} / 20 Marks`;
+      const summary = [
+        `NORTHGATE COLLEGE — FORM 1 ENGLISH B`,
+        `Assignment 1: Creation & Consequences`,
+        `Name: ${name} | Class: ${cls}`,
+        `Part A Score: ${partAScore}/6 | Part B Self-Check: ${bScore}/14 | Total: ${total}/20`,
+        `--------------------------------------------------`,
+        `Part B Answers:`,
+        `Q1: ${document.getElementById('q1').value.trim() || '(No answer)'}`,
+        `Q2: Zeus = ${document.getElementById('q2_zeus').value.trim()} | Poseidon = ${document.getElementById('q2_poseidon').value.trim()} | Hades = ${document.getElementById('q2_hades').value.trim()}`,
+        `Q3: ${document.getElementById('q3').value.trim() || '(No answer)'}`,
+        `Q4: ${document.getElementById('q4').value.trim() || '(No answer)'}`
+      ].join('\n');
+
+      document.getElementById('exportText').value = summary;
+      const card = document.getElementById('summaryCard');
+      card.classList.remove('hidden');
+      card.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyWork() {
+      const box = document.getElementById('exportText');
+      box.select();
+      document.execCommand('copy');
+      const status = document.getElementById('copyStatus');
+      status.classList.remove('hidden');
+      setTimeout(() => status.classList.add('hidden'), 2500);
+    }
+
+    function toggleHint(id) {
+      document.getElementById(id).classList.toggle('hidden');
+    }
+
+    function toggleReading() {
+      document.body.classList.toggle('reading-support');
+      const on = document.body.classList.contains('reading-support');
+      const btn = document.getElementById('readingBtn');
+      btn.textContent = on ? 'Aa Reading Support: On' : 'Aa Reading Support: Off';
+      btn.classList.toggle('bg-amber-100', on);
+      btn.classList.toggle('border-amber-600', on);
+    }
+
+    window.addEventListener('DOMContentLoaded', initMatching);
+  </script>
+</body>
+</html>

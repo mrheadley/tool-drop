@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assignment 2: Seasons, Sorrow & Vanity — Form 1 English B</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FAF9F6;
+      color: #1E293B;
+      line-height: 1.65;
+      transition: all 0.2s ease;
+    }
+    body.reading-support {
+      font-size: 1.15rem;
+      line-height: 1.95;
+      letter-spacing: 0.04em;
+      word-spacing: 0.12em;
+    }
+    .card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(30, 41, 59, 0.04);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Sticky Header -->
+  <header class="sticky top-0 z-30 bg-[#FAF9F6]/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-xl bg-amber-700 text-white flex items-center justify-center font-bold">🌱</span>
+        <div>
+          <h1 class="font-extrabold text-slate-900 text-sm sm:text-base leading-tight">Assignment 2: Seasons, Sorrow & Vanity</h1>
+          <p class="text-xs text-slate-500">NorthGate College • Form 1 English B • 20 Marks</p>
+        </div>
+      </div>
+      <button id="readingBtn" onclick="toggleReading()" class="px-3 py-1.5 rounded-xl border border-slate-300 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-100 transition">
+        Aa Reading Support: Off
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-6 sm:py-8 space-y-6">
+
+    <!-- Student Details -->
+    <section class="card p-5 sm:p-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Student Name</label>
+          <input id="studentName" type="text" placeholder="Enter your full name..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-amber-600" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Form 1 Class</label>
+          <input id="studentClass" type="text" placeholder="e.g., Form 1B" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm focus:outline-none focus:border-amber-600" />
+        </div>
+      </div>
+      <p class="text-xs text-slate-500 mt-3">
+        <strong>Stories Covered:</strong> <em>Persephone and the Pomegranate Seeds</em> &amp; <em>Echo and Narcissus</em> (Geraldine McCaughrean).
+      </p>
+    </section>
+
+    <!-- PART A: Word Bank Fill-In -->
+    <section class="card p-5 sm:p-7 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part A • Auto-Checked</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Word Bank Fill-In</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">6 Marks</span>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-slate-100 border border-slate-200 text-xs sm:text-sm">
+        <span class="font-bold text-slate-800 mr-2">Word Bank:</span>
+        <span>pomegranate • Sicily • Hermes • winter • Pluto • Styx</span>
+      </div>
+
+      <div class="p-4 sm:p-5 rounded-xl bg-amber-50/40 border border-amber-200/80 text-sm sm:text-base leading-loose text-slate-800">
+        While gathering wildflowers in the woods of
+        <select id="b0" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(1)</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+          <option value="pomegranate">pomegranate</option>
+          <option value="Sicily">Sicily</option>
+          <option value="Styx">Styx</option>
+          <option value="winter">winter</option>
+        </select>,
+        Persephone was kidnapped by
+        <select id="b1" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(2)</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+          <option value="pomegranate">pomegranate</option>
+          <option value="Sicily">Sicily</option>
+          <option value="Styx">Styx</option>
+          <option value="winter">winter</option>
+        </select>,
+        the lonely King of the Underworld. As his black horses raced downward, Persephone tossed her belt of flowers into the River
+        <select id="b2" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(3)</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+          <option value="pomegranate">pomegranate</option>
+          <option value="Sicily">Sicily</option>
+          <option value="Styx">Styx</option>
+          <option value="winter">winter</option>
+        </select>
+        so her mother Demeter would find a clue. Because Demeter was heartbroken, crops stopped growing on earth, so Zeus sent
+        <select id="b3" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(4)</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+          <option value="pomegranate">pomegranate</option>
+          <option value="Sicily">Sicily</option>
+          <option value="Styx">Styx</option>
+          <option value="winter">winter</option>
+        </select>
+        in winged sandals to bring Persephone home. However, because Persephone had eaten six
+        <select id="b4" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(5)</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+          <option value="pomegranate">pomegranate</option>
+          <option value="Sicily">Sicily</option>
+          <option value="Styx">Styx</option>
+          <option value="winter">winter</option>
+        </select>
+        seeds in the Underworld, Zeus ruled that she must spend half the year underground—bringing
+        <select id="b5" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(6)</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+          <option value="pomegranate">pomegranate</option>
+          <option value="Sicily">Sicily</option>
+          <option value="Styx">Styx</option>
+          <option value="winter">winter</option>
+        </select>
+        to the earth—and half the year with her mother.
+      </div>
+
+      <div id="partAFeedback" class="hidden p-4 rounded-xl text-sm"></div>
+      <div>
+        <button id="checkPartABtn" onclick="checkPartA()" class="px-5 py-2.5 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm">
+          Check Word Bank Fill-In
+        </button>
+      </div>
+    </section>
+
+    <!-- PART B: Real-World Connections & Explaining Nature -->
+    <section class="card p-5 sm:p-7 space-y-6">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part B • Real-World & Nature</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Real-World Connections & Nature</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">14 Marks</span>
+      </div>
+
+      <!-- Scenario 1 -->
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Scenario 1 (4 Marks)</p>
+        <p class="italic text-slate-800 text-sm">
+          “During class discussions, Jaden never listens to anyone else’s ideas. He constantly interrupts his classmates just to repeat their points louder so he can always have the last word.”
+        </p>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Matching Character (1 mark):</label>
+          <select id="s1_char" class="p-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold">
+            <option value="">-- Choose Echo or Narcissus --</option>
+            <option value="Echo">Echo</option>
+            <option value="Narcissus">Narcissus</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Lesson from the Myth in ONE complete sentence (3 marks):</label>
+          <button type="button" onclick="toggleHint('h_s1')" class="text-xs font-semibold text-amber-800 underline mb-1 block">💡 Show Sentence Starter</button>
+          <div id="h_s1" class="hidden mb-2 p-2 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-900">
+            <strong>Starter:</strong> Just like Echo, Jaden should learn that interrupting others just to have the last word will...
+          </div>
+          <textarea id="s1_lesson" rows="2" placeholder="Write one complete sentence..." class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm"></textarea>
+        </div>
+      </div>
+
+      <!-- Scenario 2 -->
+      <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3">
+        <p class="text-xs font-bold uppercase tracking-wider text-slate-500">Scenario 2 (4 Marks)</p>
+        <p class="italic text-slate-800 text-sm">
+          “Brianna spends every lunch break staring at her reflection in her phone camera. When her best friend asks for help with homework, Brianna waves her away because she is too busy admiring her own hair and outfit.”
+        </p>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Matching Character (1 mark):</label>
+          <select id="s2_char" class="p-2.5 rounded-xl border border-slate-300 bg-white text-sm font-semibold">
+            <option value="">-- Choose Echo or Narcissus --</option>
+            <option value="Echo">Echo</option>
+            <option value="Narcissus">Narcissus</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Lesson from the Myth in ONE complete sentence (3 marks):</label>
+          <button type="button" onclick="toggleHint('h_s2')" class="text-xs font-semibold text-amber-800 underline mb-1 block">💡 Show Sentence Starter</button>
+          <div id="h_s2" class="hidden mb-2 p-2 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-900">
+            <strong>Starter:</strong> Just like Narcissus, Brianna should learn that being obsessed with her own appearance and ignoring true friends leads to...
+          </div>
+          <textarea id="s2_lesson" rows="2" placeholder="Write one complete sentence..." class="w-full p-2.5 rounded-xl border border-slate-300 bg-white text-sm"></textarea>
+        </div>
+      </div>
+
+      <!-- Scenario 3: Explaining Nature -->
+      <div class="space-y-3">
+        <p class="font-bold text-slate-900 text-sm sm:text-base">
+          3. Explaining Nature (6 Marks): In <em>Echo and Narcissus</em>, the ancient Greeks explained <strong>two</strong> things we still see or hear in nature today. Name both things and explain how each came to be.
+        </p>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nature Detail 1 (3 marks):</label>
+          <textarea id="n1" rows="2" placeholder="1st thing in nature and how it came to be..." class="w-full p-3 rounded-xl border border-slate-300 text-sm"></textarea>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1">Nature Detail 2 (3 marks):</label>
+          <textarea id="n2" rows="2" placeholder="2nd thing in nature and how it came to be..." class="w-full p-3 rounded-xl border border-slate-300 text-sm"></textarea>
+        </div>
+      </div>
+
+      <div>
+        <button onclick="checkPartB()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition shadow-sm">
+          Check Matches & Compare Model Answers
+        </button>
+      </div>
+
+      <div id="partBModels" class="hidden space-y-4 pt-4 border-t border-slate-200">
+        <div id="charCheckBanner" class="p-3.5 rounded-xl text-sm font-bold"></div>
+        <div class="p-4 rounded-xl bg-green-50 border border-green-300 text-sm space-y-2">
+          <p class="font-extrabold text-green-900">Model Answers (Part B):</p>
+          <p><strong>Scenario 1:</strong> <strong>Echo</strong> (1 mark). <em>Lesson:</em> Jaden should learn to listen respectfully to others instead of interrupting or always insisting on having the last word, which pushed people away from Echo.</p>
+          <p><strong>Scenario 2:</strong> <strong>Narcissus</strong> (1 mark). <em>Lesson:</em> Brianna should learn that being obsessed with her own appearance and ignoring true friends leads to loneliness and self-destruction, just as Narcissus wasted away staring at his reflection.</p>
+          <p><strong>Nature Detail 1 (3 marks):</strong> <strong>Echoes:</strong> Hera cursed Echo so she could only repeat the last words spoken to her; after she faded away in the caves, her voice remained as the echoes heard in mountains and caves.</p>
+          <p><strong>Nature Detail 2 (3 marks):</strong> <strong>The Narcissus flower:</strong> When Narcissus wasted away beside the forest pond staring at his reflection, he took root and turned into the yellow-and-white narcissus flower that grows beside water.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-300 space-y-2 text-sm">
+          <p class="font-bold text-slate-900">Honest Self-Check — Written Lessons & Nature Details (out of 12 marks):</p>
+          <div class="flex items-center gap-3">
+            <input id="partBWrittenScore" type="number" min="0" max="12" value="10" class="w-20 p-2 rounded-lg border border-slate-300 font-bold text-center bg-white" />
+            <span class="text-slate-700 font-medium">/ 12 marks (+ <span id="autoCharPts">0</span>/2 character match marks)</span>
+            <button onclick="showSummary()" class="ml-auto px-4 py-2 rounded-xl bg-amber-700 text-white font-bold text-xs sm:text-sm hover:bg-amber-800">
+              Finish & View Summary →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary Card -->
+    <section id="summaryCard" class="hidden card p-6 bg-gradient-to-br from-white to-amber-50 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-extrabold text-slate-900">🎉 Assignment 2 Complete!</h2>
+        <span id="totalBadge" class="px-4 py-1.5 rounded-full bg-green-100 text-green-900 font-extrabold text-sm"></span>
+      </div>
+      <textarea id="exportText" rows="8" readonly class="w-full p-3 rounded-xl border border-slate-300 bg-white text-xs font-mono text-slate-800"></textarea>
+      <div class="flex items-center gap-3">
+        <button onclick="copyWork()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800">📋 Copy My Completed Work</button>
+        <span id="copyStatus" class="text-xs font-bold text-green-700 hidden">✓ Copied!</span>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const ANSWERS = ['Sicily', 'Pluto', 'Styx', 'Hermes', 'pomegranate', 'winter'];
+    let partAScore = 0;
+    let partAChecked = false;
+    let charMatchScore = 0;
+
+    function checkPartA() {
+      let allFilled = true;
+      ANSWERS.forEach((_, i) => {
+        if (!document.getElementById(`b${i}`).value) allFilled = false;
+      });
+      const fb = document.getElementById('partAFeedback');
+      if (!allFilled) {
+        fb.className = 'p-3.5 rounded-xl bg-amber-100 border border-amber-400 text-amber-950 text-sm font-semibold';
+        fb.textContent = '⚠️ Please choose a word from the Word Bank for all 6 blanks!';
+        fb.classList.remove('hidden');
+        return;
+      }
+
+      partAScore = 0;
+      ANSWERS.forEach((ans, i) => {
+        const sel = document.getElementById(`b${i}`);
+        sel.disabled = true;
+        if (sel.value === ans) {
+          partAScore++;
+          sel.className = 'mx-1 px-2.5 py-1 rounded-lg border-2 border-green-600 bg-green-100 font-bold text-green-900 text-sm';
+        } else {
+          sel.className = 'mx-1 px-2.5 py-1 rounded-lg border-2 border-red-500 bg-red-100 font-bold text-red-900 text-sm';
+          const tag = document.createElement('span');
+          tag.className = 'text-xs font-bold text-green-800 bg-green-100 px-2 py-0.5 rounded ml-1';
+          tag.textContent = `✓ ${ans}`;
+          sel.insertAdjacentElement('afterend', tag);
+        }
+      });
+
+      partAChecked = true;
+      document.getElementById('checkPartABtn').classList.add('hidden');
+      fb.className = partAScore === 6
+        ? 'p-3.5 rounded-xl bg-green-50 border border-green-300 text-green-900 text-sm font-bold'
+        : 'p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 text-sm font-semibold';
+      fb.textContent = `Part A Score: ${partAScore} / 6 marks.`;
+      fb.classList.remove('hidden');
+    }
+
+    function checkPartB() {
+      const c1 = document.getElementById('s1_char').value;
+      const c2 = document.getElementById('s2_char').value;
+      charMatchScore = (c1 === 'Echo' ? 1 : 0) + (c2 === 'Narcissus' ? 1 : 0);
+
+      document.getElementById('autoCharPts').textContent = charMatchScore;
+      const banner = document.getElementById('charCheckBanner');
+      banner.className = charMatchScore === 2
+        ? 'p-3.5 rounded-xl bg-green-100 text-green-900 text-sm font-bold'
+        : 'p-3.5 rounded-xl bg-amber-100 text-amber-950 text-sm font-bold';
+      banner.textContent = `Character Matches: ${charMatchScore} / 2 marks (Scenario 1 = Echo, Scenario 2 = Narcissus).`;
+
+      document.getElementById('partBModels').classList.remove('hidden');
+      document.getElementById('partBModels').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function showSummary() {
+      if (!partAChecked) checkPartA();
+      const wScore = Math.min(12, Math.max(0, parseInt(document.getElementById('partBWrittenScore').value || '0', 10)));
+      const total = partAScore + charMatchScore + wScore;
+      const name = document.getElementById('studentName').value.trim() || 'Student';
+      const cls = document.getElementById('studentClass').value.trim() || 'Form 1';
+
+      document.getElementById('totalBadge').textContent = `Total: ${total} / 20 Marks`;
+      document.getElementById('exportText').value = [
+        `NORTHGATE COLLEGE — FORM 1 ENGLISH B`,
+        `Assignment 2: Seasons, Sorrow & Vanity`,
+        `Name: ${name} | Class: ${cls}`,
+        `Part A: ${partAScore}/6 | Character Matches: ${charMatchScore}/2 | Written Self-Check: ${wScore}/12 | Total: ${total}/20`,
+        `--------------------------------------------------`,
+        `Scenario 1 (${document.getElementById('s1_char').value}): ${document.getElementById('s1_lesson').value.trim()}`,
+        `Scenario 2 (${document.getElementById('s2_char').value}): ${document.getElementById('s2_lesson').value.trim()}`,
+        `Nature 1: ${document.getElementById('n1').value.trim()}`,
+        `Nature 2: ${document.getElementById('n2').value.trim()}`
+      ].join('\n');
+
+      const card = document.getElementById('summaryCard');
+      card.classList.remove('hidden');
+      card.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyWork() {
+      const box = document.getElementById('exportText');
+      box.select();
+      document.execCommand('copy');
+      const s = document.getElementById('copyStatus');
+      s.classList.remove('hidden');
+      setTimeout(() => s.classList.add('hidden'), 2500);
+    }
+
+    function toggleHint(id) { document.getElementById(id).classList.toggle('hidden'); }
+    function toggleReading() {
+      document.body.classList.toggle('reading-support');
+      const on = document.body.classList.contains('reading-support');
+      const btn = document.getElementById('readingBtn');
+      btn.textContent = on ? 'Aa Reading Support: On' : 'Aa Reading Support: Off';
+      btn.classList.toggle('bg-amber-100', on);
+      btn.classList.toggle('border-amber-600', on);
+    }
+  </script>
+</body>
+</html>

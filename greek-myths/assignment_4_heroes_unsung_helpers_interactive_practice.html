@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Assignment 4: Heroes & Unsung Helpers — Form 1 English B</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #FAF9F6;
+      color: #1E293B;
+      line-height: 1.65;
+      transition: all 0.2s ease;
+    }
+    body.reading-support {
+      font-size: 1.15rem;
+      line-height: 1.95;
+      letter-spacing: 0.04em;
+      word-spacing: 0.12em;
+    }
+    .card {
+      background: #FFFFFF;
+      border: 1px solid #E2E8F0;
+      border-radius: 1rem;
+      box-shadow: 0 2px 10px rgba(30, 41, 59, 0.04);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <header class="sticky top-0 z-30 bg-[#FAF9F6]/95 backdrop-blur border-b border-slate-200">
+    <div class="max-w-3xl mx-auto px-4 py-3 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-2.5">
+        <span class="w-9 h-9 rounded-xl bg-amber-700 text-white flex items-center justify-center font-bold">🛡️</span>
+        <div>
+          <h1 class="font-extrabold text-slate-900 text-sm sm:text-base leading-tight">Assignment 4: Heroes & Unsung Helpers</h1>
+          <p class="text-xs text-slate-500">NorthGate College • Form 1 English B • 20 Marks</p>
+        </div>
+      </div>
+      <button id="readingBtn" onclick="toggleReading()" class="px-3 py-1.5 rounded-xl border border-slate-300 bg-white text-slate-700 text-xs font-semibold hover:bg-slate-100 transition">
+        Aa Reading Support: Off
+      </button>
+    </div>
+  </header>
+
+  <main class="flex-1 max-w-3xl w-full mx-auto px-4 py-6 sm:py-8 space-y-6">
+
+    <!-- Student Details -->
+    <section class="card p-5 sm:p-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Student Name</label>
+          <input id="studentName" type="text" placeholder="Enter your full name..." class="w-full p-2.5 rounded-xl border border-slate-300 text-sm" />
+        </div>
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">Form 1 Class</label>
+          <input id="studentClass" type="text" placeholder="e.g., Form 1A" class="w-full p-2.5 rounded-xl border border-slate-300 text-sm" />
+        </div>
+      </div>
+      <p class="text-xs text-slate-500 mt-3">
+        <strong>Story Covered:</strong> <em>Perseus</em> (Geraldine McCaughrean) — Focus on Minor & Helpful Characters.
+      </p>
+    </section>
+
+    <!-- PART A: Unsung Helpers Word Bank -->
+    <section class="card p-5 sm:p-7 space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part A • Auto-Checked (2 Marks Each)</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">The Unsung Helpers Word Bank</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">10 Marks</span>
+      </div>
+
+      <div class="p-3.5 rounded-xl bg-slate-100 border border-slate-200 text-xs sm:text-sm">
+        <span class="font-bold text-slate-800 mr-2">Word Bank:</span>
+        <span>Athene • Dictys • Pluto • Hermes • Grey Sisters</span>
+      </div>
+
+      <div class="p-4 sm:p-5 rounded-xl bg-amber-50/40 border border-amber-200/80 text-sm sm:text-base leading-loose text-slate-800">
+        When King Acrisius locked Danaë and baby Perseus in a wooden chest and cast them into the sea, a kind fisherman named
+        <select id="b0" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(1)</option>
+          <option value="Athene">Athene</option>
+          <option value="Dictys">Dictys</option>
+          <option value="Grey Sisters">Grey Sisters</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+        </select>
+        rescued them and raised Perseus like a son. Years later, when King Polydectes tricked Perseus into fetching Medusa’s head, the god
+        <select id="b1" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(2)</option>
+          <option value="Athene">Athene</option>
+          <option value="Dictys">Dictys</option>
+          <option value="Grey Sisters">Grey Sisters</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+        </select>
+        lent him winged shoes and a curved sword, while the goddess
+        <select id="b2" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(3)</option>
+          <option value="Athene">Athene</option>
+          <option value="Dictys">Dictys</option>
+          <option value="Grey Sisters">Grey Sisters</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+        </select>
+        gave him a brightly polished shield to use as a mirror. Next, Perseus snatched the single shared eye of the Three
+        <select id="b3" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(4)</option>
+          <option value="Athene">Athene</option>
+          <option value="Dictys">Dictys</option>
+          <option value="Grey Sisters">Grey Sisters</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+        </select>
+        so they would tell him where to find the Nymphs of the North. Finally, using
+        <select id="b4" class="mx-1 px-2.5 py-1 rounded-lg border-2 border-amber-300 bg-white font-bold text-slate-900 text-sm">
+          <option value="">(5)</option>
+          <option value="Athene">Athene</option>
+          <option value="Dictys">Dictys</option>
+          <option value="Grey Sisters">Grey Sisters</option>
+          <option value="Hermes">Hermes</option>
+          <option value="Pluto">Pluto</option>
+        </select>’s
+        helmet of invisibility, Perseus slipped away safely after beheading Medusa.
+      </div>
+
+      <div id="partAFeedback" class="hidden p-4 rounded-xl text-sm"></div>
+      <div>
+        <button id="checkPartABtn" onclick="checkPartA()" class="px-5 py-2.5 rounded-xl bg-amber-700 text-white font-bold text-sm hover:bg-amber-800 transition shadow-sm">
+          Check Word Bank Fill-In
+        </button>
+      </div>
+    </section>
+
+    <!-- PART B: Minor Character Spotlight -->
+    <section class="card p-5 sm:p-7 space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div>
+          <span class="text-xs font-bold uppercase tracking-wider text-amber-800">Part B • Character Impact</span>
+          <h2 class="text-lg sm:text-xl font-bold text-slate-900">Minor Character Spotlight</h2>
+        </div>
+        <span class="px-3 py-1 rounded-full bg-amber-100 text-amber-900 text-xs font-bold">10 Marks</span>
+      </div>
+
+      <p class="text-sm text-slate-600">Choose <strong>ONE</strong> helpful character from <em>Perseus</em> and answer both questions in complete sentences.</p>
+
+      <div>
+        <label class="block text-xs font-bold text-slate-800 mb-1">1. Character Chosen:</label>
+        <select id="chosenChar" class="w-full sm:w-2/3 p-2.5 rounded-xl border border-slate-300 bg-white text-sm font-bold">
+          <option value="Dictys (the fisherman)">Dictys (the fisherman)</option>
+          <option value="Athene (goddess of wisdom)">Athene (goddess of wisdom)</option>
+          <option value="Andromeda (the princess chained to the rock)">Andromeda (the princess chained to the rock)</option>
+        </select>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block text-sm font-bold text-slate-900">
+          2. Describe <strong>what</strong> this character did (or gave) during Perseus’s story. <span class="text-amber-800">(4 marks)</span>
+        </label>
+        <textarea id="q_what" rows="2" placeholder="Describe their action or gift in complete sentences..." class="w-full p-3 rounded-xl border border-slate-300 text-sm"></textarea>
+      </div>
+
+      <div class="space-y-2">
+        <label class="block text-sm font-bold text-slate-900">
+          3. Explain <strong>how</strong> the ending of the story would have been different without this character’s choice or gift. <span class="text-amber-800">(6 marks)</span>
+        </label>
+        <button type="button" onclick="toggleHint('h_how')" class="text-xs font-semibold text-amber-800 underline">💡 Show Sentence Starter</button>
+        <div id="h_how" class="hidden p-2.5 rounded-lg bg-blue-50 border border-blue-200 text-xs text-blue-900">
+          <strong>Starter:</strong> Without this character’s help, Perseus would not have been able to... and the story would have ended with...
+        </div>
+        <textarea id="q_how" rows="3" placeholder="Explain how the story’s outcome would change..." class="w-full p-3 rounded-xl border border-slate-300 text-sm"></textarea>
+      </div>
+
+      <div>
+        <button onclick="revealModels()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800 transition shadow-sm">
+          Compare with Model Answers & Self-Check
+        </button>
+      </div>
+
+      <div id="modelsBox" class="hidden space-y-4 pt-4 border-t border-slate-200">
+        <div class="p-4 rounded-xl bg-green-50 border border-green-300 text-sm space-y-2">
+          <p class="font-extrabold text-green-900">Model Examples (Part B):</p>
+          <p><strong>If you chose Athene:</strong> <em>What she did (4 marks):</em> Athene gave Perseus her brightly polished shield to use as a mirror and guided his hand when he swung Hermes’s sword. <em>How the ending changes (6 marks):</em> Without Athene’s mirrored shield, Perseus would have looked directly at Medusa’s face and turned to stone immediately, meaning he would never have returned to save his mother Danaë from King Polydectes.</p>
+          <p><strong>If you chose Dictys:</strong> <em>What he did (4 marks):</em> Dictys hauled the wooden chest out of his fishing nets, sheltered Danaë and baby Perseus in his shack, and raised Perseus kindly. <em>How the ending changes (6 marks):</em> Without Dictys’s kindness, Danaë and baby Perseus would have drowned or starved inside the locked wooden chest at sea, and Perseus would never have grown up to become a hero.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-amber-50 border border-amber-300 space-y-2 text-sm">
+          <p class="font-bold text-slate-900">Honest Self-Check — Part B Score (out of 10 marks):</p>
+          <div class="flex items-center gap-3">
+            <input id="partBSelfScore" type="number" min="0" max="10" value="8" class="w-20 p-2 rounded-lg border border-slate-300 font-bold text-center bg-white" />
+            <span class="text-slate-700 font-medium">/ 10 marks</span>
+            <button onclick="showSummary()" class="ml-auto px-4 py-2 rounded-xl bg-amber-700 text-white font-bold text-xs sm:text-sm hover:bg-amber-800">
+              Finish & View Summary →
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Summary Card -->
+    <section id="summaryCard" class="hidden card p-6 bg-gradient-to-br from-white to-amber-50 space-y-4">
+      <div class="flex items-center justify-between">
+        <h2 class="text-xl font-extrabold text-slate-900">🎉 Assignment 4 Complete!</h2>
+        <span id="totalBadge" class="px-4 py-1.5 rounded-full bg-green-100 text-green-900 font-extrabold text-sm"></span>
+      </div>
+      <textarea id="exportText" rows="8" readonly class="w-full p-3 rounded-xl border border-slate-300 bg-white text-xs font-mono text-slate-800"></textarea>
+      <div class="flex items-center gap-3">
+        <button onclick="copyWork()" class="px-5 py-2.5 rounded-xl bg-slate-900 text-white font-bold text-sm hover:bg-slate-800">📋 Copy My Completed Work</button>
+        <span id="copyStatus" class="text-xs font-bold text-green-700 hidden">✓ Copied!</span>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const ANSWERS = ['Dictys', 'Hermes', 'Athene', 'Grey Sisters', 'Pluto'];
+    let partAScore = 0;
+    let partAChecked = false;
+
+    function checkPartA() {
+      let allFilled = true;
+      ANSWERS.forEach((_, i) => {
+        if (!document.getElementById(`b${i}`).value) allFilled = false;
+      });
+      const fb = document.getElementById('partAFeedback');
+      if (!allFilled) {
+        fb.className = 'p-3.5 rounded-xl bg-amber-100 border border-amber-400 text-amber-950 text-sm font-semibold';
+        fb.textContent = '⚠️ Please choose a character from the Word Bank for all 5 blanks!';
+        fb.classList.remove('hidden');
+        return;
+      }
+
+      partAScore = 0;
+      ANSWERS.forEach((ans, i) => {
+        const sel = document.getElementById(`b${i}`);
+        sel.disabled = true;
+        if (sel.value === ans) {
+          partAScore += 2;
+          sel.className = 'mx-1 px-2.5 py-1 rounded-lg border-2 border-green-600 bg-green-100 font-bold text-green-900 text-sm';
+        } else {
+          sel.className = 'mx-1 px-2.5 py-1 rounded-lg border-2 border-red-500 bg-red-100 font-bold text-red-900 text-sm';
+          const tag = document.createElement('span');
+          tag.className = 'text-xs font-bold text-green-800 bg-green-100 px-2 py-0.5 rounded ml-1';
+          tag.textContent = `✓ ${ans}`;
+          sel.insertAdjacentElement('afterend', tag);
+        }
+      });
+
+      partAChecked = true;
+      document.getElementById('checkPartABtn').classList.add('hidden');
+      fb.className = partAScore === 10
+        ? 'p-3.5 rounded-xl bg-green-50 border border-green-300 text-green-900 text-sm font-bold'
+        : 'p-3.5 rounded-xl bg-amber-50 border border-amber-300 text-amber-950 text-sm font-semibold';
+      fb.textContent = `Part A Score: ${partAScore} / 10 marks (2 marks per blank).`;
+      fb.classList.remove('hidden');
+    }
+
+    function revealModels() {
+      document.getElementById('modelsBox').classList.remove('hidden');
+      document.getElementById('modelsBox').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function showSummary() {
+      if (!partAChecked) checkPartA();
+      const bScore = Math.min(10, Math.max(0, parseInt(document.getElementById('partBSelfScore').value || '0', 10)));
+      const total = partAScore + bScore;
+      const name = document.getElementById('studentName').value.trim() || 'Student';
+      const cls = document.getElementById('studentClass').value.trim() || 'Form 1';
+
+      document.getElementById('totalBadge').textContent = `Total: ${total} / 20 Marks`;
+      document.getElementById('exportText').value = [
+        `NORTHGATE COLLEGE — FORM 1 ENGLISH B`,
+        `Assignment 4: Heroes & Unsung Helpers (Perseus)`,
+        `Name: ${name} | Class: ${cls}`,
+        `Part A: ${partAScore}/10 | Part B Self-Check: ${bScore}/10 | Total: ${total}/20`,
+        `--------------------------------------------------`,
+        `Character Chosen: ${document.getElementById('chosenChar').value}`,
+        `What they did: ${document.getElementById('q_what').value.trim()}`,
+        `How ending changes: ${document.getElementById('q_how').value.trim()}`
+      ].join('\n');
+
+      const card = document.getElementById('summaryCard');
+      card.classList.remove('hidden');
+      card.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function copyWork() {
+      const box = document.getElementById('exportText');
+      box.select();
+      document.execCommand('copy');
+      const s = document.getElementById('copyStatus');
+      s.classList.remove('hidden');
+      setTimeout(() => s.classList.add('hidden'), 2500);
+    }
+
+    function toggleHint(id) { document.getElementById(id).classList.toggle('hidden'); }
+    function toggleReading() {
+      document.body.classList.toggle('reading-support');
+      const on = document.body.classList.contains('reading-support');
+      const btn = document.getElementById('readingBtn');
+      btn.textContent = on ? 'Aa Reading Support: On' : 'Aa Reading Support: Off';
+      btn.classList.toggle('bg-amber-100', on);
+      btn.classList.toggle('border-amber-600', on);
+    }
+  </script>
+</body>
+</html>
