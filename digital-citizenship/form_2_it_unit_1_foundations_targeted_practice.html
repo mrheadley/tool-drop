@@ -1,0 +1,1352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form 2 IT — Unit 1: Foundations of Digital Citizenship Practice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Calm, dyslexia-friendly palette & typography */
+    :root {
+      --bg-cream: #FAF9F6;
+      --card-surface: #FFFFFF;
+      --text-slate: #1E293B;
+      --text-muted: #475569;
+      --teal-primary: #0F766E;
+      --teal-soft: #F0FDFA;
+      --amber-accent: #D97706;
+      --amber-soft: #FFFBEB;
+      --emerald-success: #15803D;
+      --emerald-soft: #F0FDF4;
+      --rose-retry: #BE123C;
+      --rose-soft: #FFF1F2;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-slate);
+      font-family: Verdana, 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      letter-spacing: 0.015em;
+      transition: font-size 0.2s ease, line-height 0.2s ease;
+    }
+
+    body.reading-support {
+      font-size: 1.125rem;
+      line-height: 1.85;
+      letter-spacing: 0.03em;
+      word-spacing: 0.08em;
+    }
+
+    .card-haven {
+      background-color: var(--card-surface);
+      border: 2px solid #E2E8F0;
+      border-radius: 1rem;
+      box-shadow: 0 4px 14px rgba(30, 41, 59, 0.04);
+    }
+
+    .option-btn {
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--teal-primary);
+      background-color: var(--teal-soft);
+    }
+
+    .option-selected {
+      border-color: var(--teal-primary) !important;
+      background-color: var(--teal-soft) !important;
+      box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2);
+    }
+
+    .option-correct {
+      border-color: var(--emerald-success) !important;
+      background-color: var(--emerald-soft) !important;
+      color: #14532D !important;
+    }
+
+    .option-wrong {
+      border-color: var(--rose-retry) !important;
+      background-color: var(--rose-soft) !important;
+      color: #881337 !important;
+    }
+
+    select.calm-select {
+      background-color: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-radius: 0.65rem;
+      padding: 0.55rem 0.75rem;
+      color: var(--text-slate);
+      font-family: inherit;
+      width: 100%;
+    }
+
+    select.calm-select:focus {
+      outline: none;
+      border-color: var(--teal-primary);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Top Sticky Header -->
+  <header class="bg-white border-b-2 border-slate-200 sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-3 h-3 rounded-full bg-teal-700"></span>
+          <span class="text-xs font-bold uppercase tracking-wider text-teal-800">Form 2 IT • Unit 1 Targeted Practice (Lessons 1–2)</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold text-slate-900">Foundations of Digital Citizenship</h1>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="readingToggleBtn" type="button" onclick="toggleReadingSupport()"
+          class="px-3.5 py-2 rounded-xl border-2 border-teal-700 text-teal-800 font-semibold text-sm hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-600">
+          Aa Reading Support: Off
+        </button>
+        <button type="button" onclick="openReviewSummary()"
+          class="px-3.5 py-2 rounded-xl border-2 border-emerald-700 text-emerald-800 font-semibold text-sm hover:bg-emerald-50 focus:outline-none">
+          My Review Plan
+        </button>
+        <button type="button" onclick="confirmResetModal()"
+          class="px-3 py-2 rounded-xl border-2 border-slate-300 text-slate-600 text-sm hover:bg-slate-100 focus:outline-none">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Stage Mastery Progress Bar & Pills -->
+    <div class="bg-slate-50 border-t border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-3">
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-600 mb-2">
+          <span>Unit 1 Mastery Progress (4 Stages)</span>
+          <span id="masteryCountText">0 of 4 Stages Mastered</span>
+        </div>
+        <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden mb-3">
+          <div id="masteryProgressBar" class="bg-teal-700 h-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <nav id="stageNavPills" class="grid grid-cols-2 sm:grid-cols-4 gap-2" aria-label="Unit 1 Practice Stages">
+          <!-- Populated dynamically -->
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6 sm:py-8">
+    <div class="mb-6 p-4 rounded-2xl bg-teal-50/80 border-2 border-teal-200 flex items-start gap-3">
+      <div class="text-teal-800 mt-0.5 shrink-0" aria-hidden="true">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="text-sm text-slate-800">
+        <strong>Calm, step-by-step practice:</strong> No timers and no pressure. Work through all 4 stages of <strong>Unit 1 (Lessons 1–2)</strong>. Score <strong>80% or higher</strong> on a stage to earn its Mastery Badge—or take a quick 2-question Confidence Retry.
+      </div>
+    </div>
+
+    <div id="stageContainer" class="animate-fade"></div>
+  </main>
+
+  <footer class="border-t border-slate-200 bg-white py-4 mt-10">
+    <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-500">
+      Form 2 Information Technology • Unit 1: Foundations of Digital Citizenship (Lessons 1–2)
+    </div>
+  </footer>
+
+  <!-- Custom Reset Modal -->
+  <div id="resetModal" class="hidden fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border-2 border-slate-200 max-w-md w-full p-6 shadow-xl">
+      <h2 class="text-lg font-bold text-slate-900 mb-2">Reset Unit 1 Progress?</h2>
+      <p class="text-sm text-slate-600 mb-5">This will clear your earned badges and answers for Unit 1 so you can practice all four stages again from scratch.</p>
+      <div class="flex justify-end gap-3">
+        <button type="button" onclick="closeResetModal()" class="px-4 py-2.5 rounded-xl border-2 border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50">
+          Keep My Progress
+        </button>
+        <button type="button" onclick="executeReset()" class="px-4 py-2.5 rounded-xl bg-rose-700 text-white font-semibold text-sm hover:bg-rose-800">
+          Yes, Start Fresh
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       UNIT 1 TARGETED PRACTICE DATA (100% ORIGINAL SCENARIOS & CHARACTERS)
+       ========================================================================= */
+    const STAGES = [
+      {
+        id: 1,
+        shortTitle: "Stage 1",
+        title: "Core Concepts & Misconception Buster",
+        sowRef: "Lesson 1: Digital Citizen Definition, Classroom Mirror & Rights/Responsibilities",
+        summary: "Test your understanding of what a digital citizen is, how classroom rules mirror online communities, and common myths.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: Foundations Check (4 Questions)",
+            instruction: "Select the best answer for each question, then click Check Part A.",
+            questions: [
+              {
+                id: "s1_q1",
+                sowTopic: "Lesson 1: Defining the Digital Citizen",
+                skillLevel: "Knowledge",
+                studyTip: "Memorise the core definition: a digital citizen uses technology safely, responsibly, and respectfully to learn, create, and participate.",
+                prompt: "In our Form 2 course, what is the complete definition of a 'digital citizen'?",
+                options: [
+                  "A. Someone who memorises a rulebook so they never get punished at school.",
+                  "B. Someone who uses technology safely, responsibly, and respectfully to learn, create, and participate.",
+                  "C. Someone who knows how to write code and fix broken tablets.",
+                  "D. Someone who stays off the internet until they finish secondary school."
+                ],
+                correctIndex: 1,
+                explanation: "Digital citizenship is a set of powers—not just rules—used safely, responsibly, and respectfully to learn, create, and participate."
+              },
+              {
+                id: "s1_q2",
+                sowTopic: "Lesson 1: Classroom-to-Internet Mirror",
+                skillLevel: "Understanding",
+                studyTip: "Review how everyday classroom expectations (asking before borrowing, not shouting over others) mirror online responsibilities.",
+                prompt: "In class, we compared online communities to a shared classroom. Which online action mirrors the classroom rule 'Ask before borrowing a classmate's pencil'?",
+                options: [
+                  "A. Asking permission before posting or tagging a photo of a friend.",
+                  "B. Posting a hundred laughing emojis in a class study chat.",
+                  "C. Sharing your school portal password with your best friend.",
+                  "D. Turning off Wi-Fi during lunch break."
+                ],
+                correctIndex: 0,
+                explanation: "Asking before posting or tagging someone's photo shows the exact same respect for boundaries as asking before borrowing a classmate's things."
+              },
+              {
+                id: "s1_q3",
+                sowTopic: "Lesson 1–2: Digital Rights & Responsibilities",
+                skillLevel: "Understanding",
+                studyTip: "Remember: freedom of expression lets you share opinions, but it has limits—it never includes threats, lies, or hurting others.",
+                prompt: "Darius argues, 'Freedom of expression online means I can post nasty rumours about a rival football team's goalkeeper because it's just my opinion.' Why is Darius mistaken?",
+                options: [
+                  "A. Because freedom of expression only applies to adults over age 21.",
+                  "B. Because rights come with responsibilities—expression is protected, but not when used to spread lies or hurt people.",
+                  "C. Because football players are not allowed to have social media accounts.",
+                  "D. Because opinions are illegal on sports websites."
+                ],
+                correctIndex: 1,
+                explanation: "You can say you think another team played better, but expression is not absolute—your responsibility is not to use your voice to harm or lie about people."
+              },
+              {
+                id: "s1_q4",
+                sowTopic: "Lesson 1: Busting Digital Citizenship Misconceptions",
+                skillLevel: "Knowledge",
+                studyTip: "Review the 'Common Misconceptions' table in Lesson 1—especially why online actions still have real consequences even behind a nickname.",
+                prompt: "Which statement about digital citizenship is TRUE?",
+                options: [
+                  "A. Using a nickname makes you completely anonymous, so offline rules do not apply.",
+                  "B. Only students need to learn digital citizenship; adults already know everything.",
+                  "C. The human rights and responsibilities you have offline apply equally online.",
+                  "D. If a picture is public on the internet, you can use it however you want without credit."
+                ],
+                correctIndex: 2,
+                explanation: "Online actions are real actions with lasting consequences—the same human rights and responsibilities apply both online and offline."
+              }
+            ]
+          }
+        ],
+        retry: [
+          {
+            id: "s1_r1",
+            prompt: "Why is sharing your password with a friend compared to lending out your house key?",
+            options: [
+              "A. Because once someone has the key, they can walk into your 'digital room' whenever they want and you lose control.",
+              "B. Because passwords stop working if two people know them."
+            ],
+            correctIndex: 0,
+            explanation: "Keeping your password private protects your personal space and security."
+          },
+          {
+            id: "s1_r2",
+            prompt: "In the Be Internet Awesome pledge (Smart, Alert, Strong, Kind, Brave), what does 'Brave' encourage you to do?",
+            options: [
+              "A. When in doubt or when something feels wrong online, talk it out with a trusted adult.",
+              "B. Argue loudly with strangers in comment sections."
+            ],
+            correctIndex: 0,
+            explanation: "'Brave — when in doubt, talk it out' reminds you to seek help from a trusted adult whenever you face a tricky online situation."
+          }
+        ]
+      },
+      {
+        id: 2,
+        shortTitle: "Stage 2",
+        title: "Rings of Responsibility Tracer",
+        sowRef: "Lesson 1–2: The Three Rings of Responsibility (Self, Community, World)",
+        summary: "Trace how one online choice ripples outward from yourself, to the people you know, to the wider world.",
+        blocks: [
+          {
+            type: "classifier",
+            blockTitle: "Part A: Trace the Ripple (4 Scenario Cards)",
+            instruction: "Read each ripple effect below and identify which Ring of Responsibility (Self, Community, or World) it describes.",
+            items: [
+              {
+                id: "s2_c1",
+                sowTopic: "Lesson 1–2: Rings of Responsibility (World Ring)",
+                skillLevel: "Application",
+                studyTip: "The World ring covers strangers and the wider public—people you will never meet in person.",
+                label: "1. Andre spots a fake giveaway scam in a public game forum and reports it to the moderators, protecting hundreds of players he has never met.",
+                choices: ["Self ring", "Community ring", "World ring"],
+                correct: "World ring",
+                explanation: "Reporting a public scam protects strangers across the wider online world—that is the outer World ring."
+              },
+              {
+                id: "s2_c2",
+                sowTopic: "Lesson 1–2: Rings of Responsibility (Community Ring)",
+                skillLevel: "Application",
+                studyTip: "The Community ring covers people you actually know—friends, classmates, family, and teammates.",
+                label: "2. Tasha leaves an encouraging comment on her classmate's drama club video, lifting her friend's confidence at school.",
+                choices: ["Self ring", "Community ring", "World ring"],
+                correct: "Community ring",
+                explanation: "Lifting up a classmate you know strengthens your immediate Community ring."
+              },
+              {
+                id: "s2_c3",
+                sowTopic: "Lesson 1–2: Rings of Responsibility (Self Ring)",
+                skillLevel: "Application",
+                studyTip: "The Self ring is the middle ring—your own wellbeing, safety, reputation, and future.",
+                label: "3. Jamal stays up past midnight scrolling random clips and wakes up too exhausted to focus during his morning IT class.",
+                choices: ["Self ring", "Community ring", "World ring"],
+                correct: "Self ring",
+                explanation: "Losing sleep and hurting your own focus is a direct impact on the middle ring: the Self ring."
+              },
+              {
+                id: "s2_c4",
+                sowTopic: "Lesson 1–2: Rings of Responsibility (World Ring)",
+                skillLevel: "Application",
+                studyTip: "When a local post is reshared publicly beyond your school to people you don't know, it reaches the World ring.",
+                label: "4. A cruel joke posted in a Form 2 chat gets screenshotted and reposted on a public page where total strangers start mocking it.",
+                choices: ["Self ring", "Community ring", "World ring"],
+                correct: "World ring",
+                explanation: "Once strangers outside your school see and share the post, the ripple has reached the World ring."
+              }
+            ]
+          }
+        ],
+        retry: [
+          {
+            id: "s2_r1",
+            prompt: "What are the three Rings of Responsibility in order from the inside out?",
+            options: [
+              "A. Self → Community → World",
+              "B. World → School → Family",
+              "C. Privacy → Security → Access"
+            ],
+            correctIndex: 0,
+            explanation: "The three rings start with Yourself in the middle, followed by your Community (people you know), and then the wider World."
+          },
+          {
+            id: "s2_r2",
+            prompt: "Can a single online action touch ALL THREE rings of responsibility at the same time?",
+            options: [
+              "A. Yes — one choice (like sharing a rumour or posting helpful work) can affect you, your friends, and strangers at once.",
+              "B. No — an action can only ever affect one ring."
+            ],
+            correctIndex: 0,
+            explanation: "Like ripples on water, one online choice can spread across Self, Community, and World all at once."
+          }
+        ]
+      },
+      {
+        id: 3,
+        shortTitle: "Stage 3",
+        title: "Tech User Styles & Media Balance",
+        sowRef: "Lesson 1–2: Three Kinds of Digital Natives & Intentional Agency",
+        summary: "Classify Avoiders, Minimalists, and Enthusiastic Participants—and distinguish quality/agency from counting hours.",
+        blocks: [
+          {
+            type: "classifier",
+            blockTitle: "Part A: Classify the Digital Native Style (3 Profiles)",
+            instruction: "Match each Form 2 student's habits to their tech-user style (Avoider, Minimalist, or Enthusiastic participant).",
+            items: [
+              {
+                id: "s3_c1",
+                sowTopic: "Lesson 1–2: Three Kinds of Tech Users (Minimalist)",
+                skillLevel: "Application",
+                studyTip: "Minimalists accept tech as part of life, use it sparingly when needed (homework, quick texts), and prefer offline fun.",
+                label: "1. Nia uses the library tablet to look up science facts for homework and messages her mom after netball, but prefers board games and cycling with cousins after school.",
+                choices: ["Avoider", "Minimalist", "Enthusiastic participant"],
+                correct: "Minimalist",
+                explanation: "Nia uses tech purposefully when genuinely needed and prefers offline options when practical."
+              },
+              {
+                id: "s3_c2",
+                sowTopic: "Lesson 1–2: Three Kinds of Tech Users (Enthusiastic Participant)",
+                skillLevel: "Application",
+                studyTip: "Enthusiastic participants actively embrace technology for learning, games, hobbies, and communication.",
+                label: "2. Ravi loves testing new music-making apps, collaborates with friends on digital posters, and uses online tutorials to learn guitar chords.",
+                choices: ["Avoider", "Minimalist", "Enthusiastic participant"],
+                correct: "Enthusiastic participant",
+                explanation: "Ravi actively embraces technology across creative hobbies, communication, and learning."
+              },
+              {
+                id: "s3_c3",
+                sowTopic: "Lesson 1–2: Three Kinds of Tech Users (Avoider)",
+                skillLevel: "Application",
+                studyTip: "Avoiders steer clear of technology whenever possible—remember, this is just a personal style, never 'lazy' or 'uncool'.",
+                label: "3. Simone keeps her phone switched off in her backpack most days, has no social media profiles, and always asks teachers for printed paper worksheets.",
+                choices: ["Avoider", "Minimalist", "Enthusiastic participant"],
+                correct: "Avoider",
+                explanation: "Simone steers clear of technology as much as possible even though she grew up in the digital age."
+              }
+            ]
+          },
+          {
+            type: "mcq",
+            blockTitle: "Part B: Quality & Agency vs. Counting Minutes",
+            instruction: "Choose the best answer based on our Unit 1 reading on media balance.",
+            questions: [
+              {
+                id: "s3_q1",
+                sowTopic: "Lesson 1–2: Quality Over Raw Screen-Time Minutes",
+                skillLevel: "Understanding",
+                studyTip: "Compare two hours of aimless scrolling with two hours of building a creative project—intentionality matters more than raw minutes.",
+                prompt: "On Saturday afternoon, Keon spends two hours building a digital animation for art club, while his cousin spends two hours aimlessly swiping random videos without remembering any of them. What does our course say about these two hours?",
+                options: [
+                  "A. Both are equally unhealthy because the raw number of screen-time minutes is identical.",
+                  "B. What you do and how intentional you are matter far more than the raw number of minutes on a clock.",
+                  "C. Keon should quit art club because screens are always harmful."
+                ],
+                correctIndex: 1,
+                explanation: "The clock cannot tell aimless scrolling apart from purposeful creation—quality and intentionality matter more than counting raw minutes."
+              }
+            ]
+          }
+        ],
+        retry: [
+          {
+            id: "s3_r1",
+            prompt: "Can a student be an 'Enthusiastic participant' when playing music or coding, and a 'Minimalist' when it comes to social media?",
+            options: [
+              "A. Yes — people move between groups depending on the activity and over time.",
+              "B. No — once you fit one group, you stay in it forever."
+            ],
+            correctIndex: 0,
+            explanation: "These three groups are a flexible thinking tool—most people are a mix depending on the activity!"
+          },
+          {
+            id: "s3_r2",
+            prompt: "What does building personal 'agency' over your tech use mean?",
+            options: [
+              "A. Understanding your own needs and choosing balanced habits on purpose, rather than letting apps decide for you.",
+              "B. Letting your friends pick every app on your phone."
+            ],
+            correctIndex: 0,
+            explanation: "Agency means being the one in the driver's seat—choosing when, why, and how long you use technology."
+          }
+        ]
+      },
+      {
+        id: 4,
+        shortTitle: "Stage 4",
+        title: "Scenario Synthesis: The Steelpan Group Chat",
+        sowRef: "Lesson 1–2: Applying Rights, Responsibilities & Personal Media Plans",
+        summary: "Read a brand-new Form 2 scenario and practice writing clear, exam-style answers with hints and self-check rubrics.",
+        blocks: [
+          {
+            type: "scenario_intro",
+            title: "Practice Scenario: The School Steelpan Group Chat",
+            text: "Camille and Devon-Lee are Form 2 students in the school steelpan ensemble. Their conductor creates a WhatsApp group strictly for sharing rehearsal times and sheet music. One evening, a member starts flooding the chat with 40 off-topic memes, making it hard for students to find tomorrow's rehearsal time. Meanwhile, Camille notices she has been checking the chat every two minutes during family dinner."
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Prompt 1: Rights, Responsibilities & Rings (2 Marks)",
+            sowTopic: "Lesson 1–2: Applying Rights/Responsibilities & Rings",
+            skillLevel: "Application",
+            studyTip: "Connect the member's spam to the right of fair access/learning and the Community ring (classmates missing rehearsal info).",
+            prompt: "Explain how flooding the steelpan chat with 40 off-topic memes affects the Community ring and breaks a digital responsibility.",
+            hint: "Sentence starter: \"This affects the Community ring because other steelpan members cannot... It breaks the responsibility to...\"",
+            checklist: [
+              "I explained how the spam harms classmates in the Community ring (e.g., burying important rehearsal times).",
+              "I named a matching responsibility (e.g., keeping shared spaces tidy/respectful or not spamming so everyone has fair access to information)."
+            ],
+            modelAnswer: "This affects the Community ring because other steelpan members cannot easily find tomorrow's rehearsal time. It breaks the digital responsibility to keep shared online spaces respectful and avoid spamming so everyone has fair access to the information."
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Prompt 2: Designing a Personal Media Plan (2 Marks)",
+            sowTopic: "Lesson 1–2: Personal Media Balance & Agency",
+            skillLevel: "Application",
+            studyTip: "Practice suggesting specific, realistic habits like 'no phone at the dinner table' or 'checking messages at set times'.",
+            prompt: "Suggest TWO practical rules Camille could add to her personal 'media plan' so her phone use supports both her offline family time and her steelpan rehearsals.",
+            hint: "Sentence starter: \"First, Camille could keep her phone... during family dinner. Second, she could check the steelpan chat...\"",
+            checklist: [
+              "I included a clear offline boundary (e.g., no phone at the dinner table / leave phone in another room during meals).",
+              "I included an intentional checking habit (e.g., check the steelpan chat at one set time after dinner rather than every two minutes)."
+            ],
+            modelAnswer: "First, Camille can make the dinner table a phone-free zone by leaving her phone in her bag during family meals. Second, she can check the steelpan chat at one set time after dinner instead of checking every two minutes."
+          }
+        ],
+        retry: [
+          {
+            id: "s4_r1",
+            prompt: "Which classroom rule best mirrors 'Do not flood a class project chat with 40 off-topic messages'?",
+            options: [
+              "A. Do not shout over others while the class is trying to work.",
+              "B. Always bring two pencils to an exam."
+            ],
+            correctIndex: 0,
+            explanation: "Spamming a shared group chat drowns out everyone else's voice just like shouting over classmates in a room."
+          },
+          {
+            id: "s4_r2",
+            prompt: "Why does a personal media plan work best when it fits your own daily routine?",
+            options: [
+              "A. Because healthy balance looks different for each person, and realistic rules you choose yourself are easier to keep.",
+              "B. Because everyone in the world must follow the exact same bedtime timer."
+            ],
+            correctIndex: 0,
+            explanation: "Your media plan is yours—setting specific, realistic habits around meals and homework builds lasting balance."
+          }
+        ]
+      }
+    ];
+
+    /* =========================================================================
+       STATE MANAGEMENT & DIAGNOSTIC LOGGING
+       ========================================================================= */
+    const STORAGE_KEY = "f2_unit1_targeted_practice_v1";
+
+    let state = {
+      activeStageId: 1,
+      readingSupport: false,
+      showSummary: false,
+      stages: {
+        1: { done: false, score: 0, total: 4, mastered: false, retryPassed: false },
+        2: { done: false, score: 0, total: 4, mastered: false, retryPassed: false },
+        3: { done: false, score: 0, total: 4, mastered: false, retryPassed: false },
+        4: { done: false, score: 0, total: 4, mastered: false, retryPassed: false }
+      },
+      diagnostics: {},
+      answers: {},
+      blockFeedback: {}
+    };
+
+    function loadState() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.stages) {
+            state.stages = { ...state.stages, ...parsed.stages };
+            state.activeStageId = parsed.activeStageId || 1;
+            state.readingSupport = !!parsed.readingSupport;
+            state.diagnostics = parsed.diagnostics || {};
+            state.answers = parsed.answers || {};
+            state.blockFeedback = parsed.blockFeedback || {};
+          }
+        }
+      } catch (e) {}
+      applyReadingSupportClass();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          activeStageId: state.activeStageId,
+          readingSupport: state.readingSupport,
+          stages: state.stages,
+          diagnostics: state.diagnostics,
+          answers: state.answers,
+          blockFeedback: state.blockFeedback
+        }));
+      } catch (e) {}
+    }
+
+    /* =========================================================================
+       ACCESSIBILITY & MODAL CONTROLS
+       ========================================================================= */
+    function toggleReadingSupport() {
+      state.readingSupport = !state.readingSupport;
+      applyReadingSupportClass();
+      saveState();
+    }
+
+    function applyReadingSupportClass() {
+      const btn = document.getElementById("readingToggleBtn");
+      if (state.readingSupport) {
+        document.body.classList.add("reading-support");
+        btn.textContent = "Aa Reading Support: On";
+        btn.classList.add("bg-teal-700", "text-white");
+        btn.classList.remove("text-teal-800");
+      } else {
+        document.body.classList.remove("reading-support");
+        btn.textContent = "Aa Reading Support: Off";
+        btn.classList.remove("bg-teal-700", "text-white");
+        btn.classList.add("text-teal-800");
+      }
+    }
+
+    function confirmResetModal() {
+      document.getElementById("resetModal").classList.remove("hidden");
+    }
+
+    function closeResetModal() {
+      document.getElementById("resetModal").classList.add("hidden");
+    }
+
+    function executeReset() {
+      localStorage.removeItem(STORAGE_KEY);
+      state.answers = {};
+      state.blockFeedback = {};
+      state.diagnostics = {};
+      state.showSummary = false;
+      state.activeStageId = 1;
+      for (let i = 1; i <= 4; i++) {
+        state.stages[i] = { done: false, score: 0, total: 4, mastered: false, retryPassed: false };
+      }
+      closeResetModal();
+      renderAll();
+    }
+
+    function selectStage(stageId) {
+      state.activeStageId = stageId;
+      state.showSummary = false;
+      saveState();
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openReviewSummary() {
+      state.showSummary = true;
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* =========================================================================
+       HEADER PROGRESS PILLS
+       ========================================================================= */
+    function renderHeaderProgress() {
+      const masteredCount = Object.values(state.stages).filter(s => s.mastered).length;
+      document.getElementById("masteryCountText").textContent = `${masteredCount} of 4 Stages Mastered`;
+      document.getElementById("masteryProgressBar").style.width = `${(masteredCount / 4) * 100}%`;
+
+      const nav = document.getElementById("stageNavPills");
+      nav.innerHTML = STAGES.map(stage => {
+        const st = state.stages[stage.id];
+        const isActive = !state.showSummary && state.activeStageId === stage.id;
+
+        let badgeLabel = "Start";
+        let badgeStyle = "bg-slate-200 text-slate-700";
+        if (st.mastered) {
+          badgeLabel = "Mastered ★";
+          badgeStyle = "bg-emerald-700 text-white";
+        } else if (st.done) {
+          badgeLabel = "Retry Ready";
+          badgeStyle = "bg-amber-600 text-white";
+        }
+
+        const activeRing = isActive
+          ? "border-teal-700 bg-teal-50 ring-2 ring-teal-600/30"
+          : "border-slate-300 bg-white hover:border-teal-600";
+
+        return `
+          <button type="button" onclick="selectStage(${stage.id})"
+            class="p-2.5 rounded-xl border-2 text-left transition flex flex-col justify-between ${activeRing}">
+            <div class="flex items-center justify-between gap-1 mb-1">
+              <span class="font-bold text-xs text-slate-900">${stage.shortTitle}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badgeStyle}">${badgeLabel}</span>
+            </div>
+            <span class="text-xs text-slate-600 line-clamp-1">${stage.title}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    /* =========================================================================
+       INTERACTION & MASTERY EVALUATION
+       ========================================================================= */
+    function selectMcqOption(qId, optIndex) {
+      state.answers[qId] = optIndex;
+      renderStage();
+    }
+
+    function selectClassifierChoice(itemId, value) {
+      state.answers[itemId] = value;
+    }
+
+    function toggleHint(hintId) {
+      const el = document.getElementById(hintId);
+      if (el) el.classList.toggle("hidden");
+    }
+
+    function checkBlock(stageId, blockIndex) {
+      const stage = STAGES.find(s => s.id === stageId);
+      const block = stage.blocks[blockIndex];
+      const fbKey = `st${stageId}_b${blockIndex}`;
+
+      if (block.type === "mcq") {
+        const unanswered = block.questions.some(q => state.answers[q.id] === undefined);
+        if (unanswered) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Pick an answer for every question in this section first, then click Check!"
+          };
+          renderStage();
+          return;
+        }
+        let correctCount = 0;
+        block.questions.forEach(q => {
+          const isCorrect = state.answers[q.id] === q.correctIndex;
+          if (isCorrect) correctCount++;
+          if (!state.diagnostics[q.id]) {
+            state.diagnostics[q.id] = {
+              stageId: stage.id,
+              stageTitle: `${stage.shortTitle}: ${stage.title}`,
+              sowTopic: q.sowTopic,
+              skillLevel: q.skillLevel,
+              studyTip: q.studyTip,
+              masteredOnFirstTry: isCorrect
+            };
+          }
+        });
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          correctCount,
+          totalCount: block.questions.length
+        };
+      } else if (block.type === "classifier") {
+        const unanswered = block.items.some(item => !state.answers[item.id]);
+        if (unanswered) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Choose an option from every dropdown menu first, then click Check!"
+          };
+          renderStage();
+          return;
+        }
+        let correctCount = 0;
+        block.items.forEach(item => {
+          const isCorrect = state.answers[item.id] === item.correct;
+          if (isCorrect) correctCount++;
+          if (!state.diagnostics[item.id]) {
+            state.diagnostics[item.id] = {
+              stageId: stage.id,
+              stageTitle: `${stage.shortTitle}: ${stage.title}`,
+              sowTopic: item.sowTopic,
+              skillLevel: item.skillLevel,
+              studyTip: item.studyTip,
+              masteredOnFirstTry: isCorrect
+            };
+          }
+        });
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          correctCount,
+          totalCount: block.items.length
+        };
+      } else if (block.type === "scaffolded") {
+        const textId = `scaffold_st${stageId}_b${blockIndex}`;
+        const textVal = (document.getElementById(textId)?.value || "").trim();
+        state.answers[textId] = textVal;
+        if (textVal.length < 12) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Write a 1–2 sentence response in the box first (click the Hint button if you'd like a starter!)."
+          };
+          renderStage();
+          return;
+        }
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          revealedModel: true
+        };
+      }
+
+      recalculateStageMastery(stageId);
+      renderAll();
+    }
+
+    function confirmScaffoldSelfCheck(stageId, blockIndex, earnedPoints) {
+      const stage = STAGES.find(s => s.id === stageId);
+      const block = stage.blocks[blockIndex];
+      const scoreKey = `scaffold_score_st${stageId}_b${blockIndex}`;
+      state.answers[scoreKey] = earnedPoints;
+
+      const diagId = `diag_st${stageId}_b${blockIndex}`;
+      if (!state.diagnostics[diagId]) {
+        state.diagnostics[diagId] = {
+          stageId: stage.id,
+          stageTitle: `${stage.shortTitle}: ${stage.title}`,
+          sowTopic: block.sowTopic,
+          skillLevel: block.skillLevel,
+          studyTip: block.studyTip,
+          masteredOnFirstTry: earnedPoints === 2
+        };
+      }
+
+      recalculateStageMastery(stageId);
+      renderAll();
+    }
+
+    function recalculateStageMastery(stageId) {
+      const stage = STAGES.find(s => s.id === stageId);
+      const st = state.stages[stageId];
+      let earned = 0;
+      let total = 0;
+      let allInteractiveBlocksDone = true;
+
+      stage.blocks.forEach((block, idx) => {
+        if (block.type === "scenario_intro") return;
+        const fb = state.blockFeedback[`st${stageId}_b${idx}`];
+
+        if (block.type === "mcq") {
+          total += block.questions.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          else allInteractiveBlocksDone = false;
+        } else if (block.type === "classifier") {
+          total += block.items.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          else allInteractiveBlocksDone = false;
+        } else if (block.type === "scaffolded") {
+          total += 2;
+          const selfPts = state.answers[`scaffold_score_st${stageId}_b${idx}`];
+          if (selfPts !== undefined) earned += selfPts;
+          else allInteractiveBlocksDone = false;
+        }
+      });
+
+      st.score = earned;
+      st.total = total;
+      st.done = allInteractiveBlocksDone;
+
+      const pct = total > 0 ? (earned / total) * 100 : 0;
+      if (allInteractiveBlocksDone && (pct >= 80 || st.retryPassed)) {
+        st.mastered = true;
+      }
+      saveState();
+    }
+
+    function checkConfidenceRetry(stageId) {
+      const stage = STAGES.find(s => s.id === stageId);
+      const retryFbKey = `st${stageId}_retry`;
+      const unanswered = stage.retry.some(q => state.answers[q.id] === undefined);
+
+      if (unanswered) {
+        state.blockFeedback[retryFbKey] = {
+          incomplete: true,
+          message: "Answer both Confidence Retry questions first!"
+        };
+        renderStage();
+        return;
+      }
+
+      let correct = 0;
+      stage.retry.forEach(q => {
+        if (state.answers[q.id] === q.correctIndex) correct++;
+      });
+
+      state.blockFeedback[retryFbKey] = {
+        checked: true,
+        correctCount: correct,
+        totalCount: stage.retry.length
+      };
+
+      if (correct === stage.retry.length) {
+        state.stages[stageId].mastered = true;
+        state.stages[stageId].retryPassed = true;
+        saveState();
+      }
+      renderAll();
+    }
+
+    /* =========================================================================
+       RENDER STAGE VIEW & PERSONALIZED SCHEME-OF-WORK REVIEW PLAN
+       ========================================================================= */
+    function renderStage() {
+      const container = document.getElementById("stageContainer");
+
+      if (state.showSummary) {
+        renderReviewSummary(container);
+        return;
+      }
+
+      const stage = STAGES.find(s => s.id === state.activeStageId);
+      const st = state.stages[stage.id];
+      const pct = st.total > 0 ? Math.round((st.score / st.total) * 100) : 0;
+
+      const blocksHtml = stage.blocks.map((block, bIdx) => {
+        if (block.type === "scenario_intro") {
+          return `
+            <div class="p-5 rounded-2xl bg-teal-50 border-2 border-teal-300 mb-6">
+              <span class="text-xs font-bold uppercase tracking-wider text-teal-800">Read Carefully Before Answering</span>
+              <h3 class="text-lg font-bold text-slate-900 mt-0.5 mb-2">${block.title}</h3>
+              <p class="text-sm sm:text-base text-slate-800 leading-relaxed">${block.text}</p>
+            </div>
+          `;
+        }
+
+        const fbKey = `st${stage.id}_b${bIdx}`;
+        const fb = state.blockFeedback[fbKey];
+
+        if (block.type === "mcq") {
+          const isChecked = fb && fb.checked;
+          const qHtml = block.questions.map((q, qIdx) => {
+            const chosen = state.answers[q.id];
+            const optsHtml = q.options.map((opt, oIdx) => {
+              let cls = "border-slate-300 bg-white text-slate-800";
+              if (isChecked) {
+                if (oIdx === q.correctIndex) cls = "option-correct font-semibold";
+                else if (chosen === oIdx) cls = "option-wrong";
+                else cls = "border-slate-200 bg-slate-50 text-slate-500";
+              } else if (chosen === oIdx) {
+                cls = "option-selected font-semibold";
+              }
+              return `
+                <button type="button" ${isChecked ? "disabled" : ""}
+                  onclick="selectMcqOption('${q.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm sm:text-base ${cls}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            const expHtml = isChecked ? `
+              <div class="mt-3 p-3.5 rounded-xl text-sm ${chosen === q.correctIndex ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${chosen === q.correctIndex ? 'Spot on!' : "Let's check the clue:"}</strong> ${q.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="mb-6 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-3">${qIdx + 1}. ${q.prompt}</p>
+                <div class="space-y-2.5">${optsHtml}</div>
+                ${expHtml}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                ${isChecked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-5">${block.instruction}</p>
+              ${qHtml}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!isChecked ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkBlock(${stage.id}, ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check Answers
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        if (block.type === "classifier") {
+          const isChecked = fb && fb.checked;
+          const itemsHtml = block.items.map(item => {
+            const currentVal = state.answers[item.id] || "";
+            const isRight = currentVal === item.correct;
+            const optionsMarkup = [
+              `<option value="">-- Choose best match --</option>`,
+              ...item.choices.map(c => `<option value="${c}" ${currentVal === c ? "selected" : ""}>${c}</option>`)
+            ].join("");
+
+            const itemFb = isChecked ? `
+              <div class="mt-2.5 p-3 rounded-xl text-sm ${isRight ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${isRight ? '✓ Correct:' : `✓ Best match is "${item.correct}":`}</strong> ${item.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-3 last:mb-0">
+                <p class="text-sm sm:text-base font-medium text-slate-900 mb-2.5">${item.label}</p>
+                <select ${isChecked ? "disabled" : ""}
+                  onchange="selectClassifierChoice('${item.id}', this.value)"
+                  class="calm-select text-sm sm:text-base">
+                  ${optionsMarkup}
+                </select>
+                ${itemFb}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                ${isChecked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-4">${block.instruction}</p>
+              ${itemsHtml}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!isChecked ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkBlock(${stage.id}, ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check Matches
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        if (block.type === "scaffolded") {
+          const textId = `scaffold_st${stage.id}_b${bIdx}`;
+          const savedText = state.answers[textId] || "";
+          const isRevealed = fb && fb.revealedModel;
+          const selfScore = state.answers[`scaffold_score_st${stage.id}_b${bIdx}`];
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900">2 Marks • Self-Check</span>
+              </div>
+              <p class="text-sm sm:text-base font-medium text-slate-900 mb-3">${block.prompt}</p>
+
+              <div class="mb-3">
+                <button type="button" onclick="toggleHint('hint_st${stage.id}_b${bIdx}')"
+                  class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100">
+                  💡 Need a Sentence Starter? (Show/Hide Hint)
+                </button>
+                <div id="hint_st${stage.id}_b${bIdx}" class="hidden mt-2 p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-sm text-slate-800">
+                  ${block.hint}
+                </div>
+              </div>
+
+              <textarea id="${textId}" rows="3" ${isRevealed ? "readonly" : ""}
+                placeholder="Write your 1–2 sentence answer here..."
+                class="w-full p-3.5 rounded-xl border-2 border-slate-300 text-slate-900 text-sm sm:text-base focus:outline-none focus:border-teal-700">${savedText}</textarea>
+
+              ${fb && fb.incomplete ? `<p class="mt-3 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+
+              ${!isRevealed ? `
+                <div class="mt-4">
+                  <button type="button" onclick="checkBlock(${stage.id}, ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Compare with Model Answer
+                  </button>
+                </div>
+              ` : `
+                <div class="mt-4 p-4 rounded-xl bg-teal-50 border-2 border-teal-200 animate-fade">
+                  <p class="text-xs font-bold uppercase tracking-wider text-teal-800 mb-1">Teacher Model Answer (2 Marks)</p>
+                  <p class="text-sm text-slate-900 mb-3">${block.modelAnswer}</p>
+                  <p class="text-xs font-bold text-slate-700 mb-1.5">Check your own answer honestly against these 2 points:</p>
+                  <ul class="list-disc pl-5 text-sm text-slate-800 space-y-1 mb-4">
+                    ${block.checklist.map(c => `<li>${c}</li>`).join("")}
+                  </ul>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-bold text-slate-700 mr-1">How did you do?</span>
+                    <button type="button" onclick="confirmScaffoldSelfCheck(${stage.id}, ${bIdx}, 2)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 2 ? 'bg-emerald-700 text-white border-emerald-700' : 'bg-white text-emerald-800 border-emerald-600 hover:bg-emerald-50'}">
+                      ★ Got Both Points (2/2)
+                    </button>
+                    <button type="button" onclick="confirmScaffoldSelfCheck(${stage.id}, ${bIdx}, 1)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 1 ? 'bg-amber-600 text-white border-amber-600' : 'bg-white text-amber-800 border-amber-500 hover:bg-amber-50'}">
+                      Got 1 Point (1/2)
+                    </button>
+                  </div>
+                </div>
+              `}
+            </section>
+          `;
+        }
+        return "";
+      }).join("");
+
+      // Stage Mastery Banner or Confidence Retry
+      let masteryFooterHtml = "";
+      if (st.done) {
+        if (st.mastered) {
+          const nextStage = STAGES.find(s => s.id === stage.id + 1);
+          const allFourMastered = Object.values(state.stages).every(s => s.mastered);
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-emerald-50 border-2 border-emerald-500 animate-fade mb-6">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span class="inline-block px-3 py-1 rounded-full bg-emerald-700 text-white text-xs font-bold mb-2">
+                    ★ ${stage.shortTitle} Mastery Badge Earned!
+                  </span>
+                  <h3 class="text-xl font-bold text-emerald-950">Great job on ${stage.title}!</h3>
+                  <p class="text-sm text-emerald-900 mt-1">
+                    ${st.retryPassed ? "You locked in the concepts through the Confidence Retry!" : `You scored ${pct}%—solid mastery of this topic!`}
+                  </p>
+                </div>
+                <div>
+                  ${allFourMastered ? `
+                    <button type="button" onclick="openReviewSummary()"
+                      class="px-5 py-3 rounded-xl bg-emerald-700 text-white font-bold text-sm hover:bg-emerald-800 shadow">
+                      View My Unit 1 Review Plan →
+                    </button>
+                  ` : nextStage ? `
+                    <button type="button" onclick="selectStage(${nextStage.id})"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      Continue to ${nextStage.shortTitle} →
+                    </button>
+                  ` : `
+                    <button type="button" onclick="openReviewSummary()"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      View My Unit 1 Review Plan →
+                    </button>
+                  `}
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          const retryFb = state.blockFeedback[`st${stage.id}_retry`];
+          const retryQHtml = stage.retry.map((rq, rIdx) => {
+            const rChosen = state.answers[rq.id];
+            const rChecked = retryFb && retryFb.checked;
+            const rOpts = rq.options.map((opt, oIdx) => {
+              let cls = "border-slate-300 bg-white text-slate-800";
+              if (rChecked) {
+                if (oIdx === rq.correctIndex) cls = "option-correct font-semibold";
+                else if (rChosen === oIdx) cls = "option-wrong";
+              } else if (rChosen === oIdx) {
+                cls = "option-selected font-semibold";
+              }
+              return `
+                <button type="button" ${rChecked && rChosen === rq.correctIndex ? "disabled" : ""}
+                  onclick="selectMcqOption('${rq.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm ${cls}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            return `
+              <div class="mb-5 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-2.5">${rIdx + 1}. ${rq.prompt}</p>
+                <div class="space-y-2">${rOpts}</div>
+                ${rChecked ? `
+                  <p class="mt-2 text-xs sm:text-sm p-3 rounded-xl ${rChosen === rq.correctIndex ? 'bg-emerald-50 text-emerald-950 border border-emerald-300' : 'bg-rose-50 text-rose-950 border border-rose-300'}">
+                    ${rq.explanation}
+                  </p>
+                ` : ""}
+              </div>
+            `;
+          }).join("");
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-amber-50 border-2 border-amber-400 animate-fade mb-6">
+              <span class="inline-block px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-bold mb-2">
+                Confidence Retry • Almost at 80% (${pct}%)
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 mb-1">Let's lock in those tricky ideas!</h3>
+              <p class="text-sm text-slate-700 mb-5">
+                Answer these 2 quick booster questions to earn your <strong>${stage.shortTitle} Mastery Badge</strong>.
+              </p>
+              ${retryQHtml}
+              ${retryFb && retryFb.incomplete ? `<p class="mt-3 text-sm font-semibold text-rose-800">${retryFb.message}</p>` : ""}
+              <div class="mt-5">
+                <button type="button" onclick="checkConfidenceRetry(${stage.id})"
+                  class="px-5 py-3 rounded-xl bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 shadow-sm">
+                  Submit Confidence Retry
+                </button>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      container.innerHTML = `
+        <div class="mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-800">${stage.shortTitle} • ${stage.sowRef}</span>
+            ${st.mastered ? `<span class="text-xs font-bold text-emerald-700">★ Mastered</span>` : ""}
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">${stage.title}</h2>
+          <p class="text-sm text-slate-600 mt-1">${stage.summary}</p>
+        </div>
+
+        ${blocksHtml}
+        ${masteryFooterHtml}
+      `;
+    }
+
+    function renderReviewSummary(container) {
+      const masteredCount = Object.values(state.stages).filter(s => s.mastered).length;
+      const diagEntries = Object.values(state.diagnostics);
+
+      const skillLevels = ["Knowledge", "Understanding", "Application"];
+      const skillStats = {};
+      skillLevels.forEach(lvl => {
+        const items = diagEntries.filter(d => d.skillLevel === lvl);
+        const passed = items.filter(d => d.masteredOnFirstTry).length;
+        const pct = items.length > 0 ? Math.round((passed / items.length) * 100) : null;
+        skillStats[lvl] = { total: items.length, passed, pct };
+      });
+
+      function getMissedBySkill(lvl) {
+        const missed = diagEntries.filter(d => d.skillLevel === lvl && !d.masteredOnFirstTry);
+        const grouped = {};
+        missed.forEach(m => {
+          if (!grouped[m.sowTopic]) {
+            grouped[m.sowTopic] = { ...m };
+          }
+        });
+        return Object.values(grouped);
+      }
+
+      const knowledgeReview = getMissedBySkill("Knowledge");
+      const understandingReview = getMissedBySkill("Understanding");
+      const applicationReview = getMissedBySkill("Application");
+      const totalMissed = diagEntries.filter(d => !d.masteredOnFirstTry).length;
+
+      let weakestStageId = null;
+      let maxMisses = 0;
+      STAGES.forEach(s => {
+        const misses = diagEntries.filter(d => d.stageId === s.id && !d.masteredOnFirstTry).length;
+        if (misses > maxMisses) {
+          maxMisses = misses;
+          weakestStageId = s.id;
+        }
+      });
+
+      const skillCardsHtml = skillLevels.map(lvl => {
+        const st = skillStats[lvl];
+        const desc = lvl === "Knowledge"
+          ? "Definitions & key rules"
+          : lvl === "Understanding"
+          ? "How models & mirrors work"
+          : "Classifying scenarios & plans";
+        const barColor = st.pct === null ? "bg-slate-300" : st.pct >= 80 ? "bg-emerald-600" : st.pct >= 50 ? "bg-amber-500" : "bg-rose-600";
+
+        return `
+          <div class="p-4 rounded-xl border-2 border-slate-200 bg-slate-50/70 text-left">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-bold text-slate-900 text-sm">${lvl}</span>
+              <span class="text-xs font-bold text-teal-900">${st.pct !== null ? `${st.pct}% (${st.passed}/${st.total})` : "Not tried yet"}</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-2">${desc}</p>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div class="${barColor} h-full transition-all duration-300" style="width: ${st.pct !== null ? st.pct : 0}%"></div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      function renderGroup(title, subtitle, badgeBg, items, emptyText) {
+        if (diagEntries.length === 0) {
+          return `
+            <div class="p-4 rounded-xl border border-slate-200 bg-white text-left">
+              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${badgeBg} mb-1">${title}</span>
+              <p class="text-xs text-slate-500">Complete at least one stage to see your personalized ${title.toLowerCase()} feedback.</p>
+            </div>
+          `;
+        }
+        if (items.length === 0) {
+          return `
+            <div class="p-4 rounded-xl border-2 border-emerald-200 bg-emerald-50/50 text-left">
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-700 text-white">${title}</span>
+                <span class="text-xs font-bold text-emerald-800">★ 100% First-Try Mastery!</span>
+              </div>
+              <p class="text-sm text-emerald-950">${emptyText}</p>
+            </div>
+          `;
+        }
+        return `
+          <div class="p-4 rounded-xl border-2 border-amber-200 bg-white text-left">
+            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${badgeBg} mb-1">${title}</span>
+            <p class="text-xs text-slate-600 mb-3">${subtitle}</p>
+            <ul class="space-y-2.5">
+              ${items.map(item => `
+                <li class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+                    <span class="text-xs font-bold text-teal-800">${item.stageTitle}</span>
+                    <button type="button" onclick="selectStage(${item.stageId})" class="text-xs font-bold text-teal-700 underline hover:text-teal-900">
+                      Revisit Stage ${item.stageId} →
+                    </button>
+                  </div>
+                  <p class="font-bold text-sm text-slate-900">${item.sowTopic}</p>
+                  <p class="text-xs sm:text-sm text-slate-700 mt-1"><strong>Study Action:</strong> ${item.studyTip}</p>
+                </li>
+              `).join("")}
+            </ul>
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="card-haven p-6 sm:p-8 text-center mb-6">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 text-2xl font-bold mb-4">★</div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+            ${masteredCount === 4 ? "Unit 1 Mastered! Ready for the Exam!" : `Unit 1 Progress: ${masteredCount} of 4 Stages Mastered`}
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto mb-6">
+            Here is your Scheme-of-Work review breakdown for <strong>Unit 1: Foundations of Digital Citizenship (Lessons 1–2)</strong>.
+          </p>
+
+          <div class="mb-6">
+            <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">1. Cognitive Skill Breakdown (First-Try Accuracy)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">${skillCardsHtml}</div>
+          </div>
+
+          <div class="mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700">2. Personalized Scheme-of-Work Review Plan</h3>
+              ${weakestStageId ? `
+                <button type="button" onclick="selectStage(${weakestStageId})"
+                  class="px-3.5 py-1.5 rounded-xl bg-amber-600 text-white text-xs font-bold hover:bg-amber-700 shadow-sm">
+                  ⚡ Practice Weakest Stage (Stage ${weakestStageId})
+                </button>
+              ` : ""}
+            </div>
+
+            ${diagEntries.length > 0 && totalMissed === 0 ? `
+              <div class="p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-500 text-left mb-4">
+                <p class="font-bold text-emerald-950 text-base mb-1">🌟 100% First-Try Mastery Across Unit 1!</p>
+                <p class="text-sm text-emerald-900">You nailed every Knowledge, Understanding, and Application question on your first try.</p>
+              </div>
+            ` : ""}
+
+            <div class="space-y-3">
+              ${renderGroup("Knowledge to Review", "Unit 1 definitions and rules to revisit:", "bg-teal-100 text-teal-900", knowledgeReview, "You mastered all Unit 1 definitions and key facts on your first try!")}
+              ${renderGroup("Understanding to Strengthen", "Unit 1 concepts to review deeper:", "bg-amber-100 text-amber-900", understandingReview, "Your understanding of rights, responsibilities, and media balance is rock-solid!")}
+              ${renderGroup("Application to Practice", "Scenario skills to sharpen:", "bg-rose-100 text-rose-900", applicationReview, "You applied the Rings of Responsibility and tech-user styles with 100% accuracy!")}
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button type="button" onclick="selectStage(1)" class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800">
+              Back to Stage 1
+            </button>
+            <button type="button" onclick="confirmResetModal()" class="px-5 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-100">
+              Reset Unit 1 Practice
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      renderHeaderProgress();
+      renderStage();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadState();
+      renderAll();
+    });
+  </script>
+</body>
+</html>

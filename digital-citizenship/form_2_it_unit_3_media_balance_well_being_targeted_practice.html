@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form 2 IT — Unit 3: Media Balance & Digital Well-being Targeted Practice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Calm, dyslexia-friendly palette & typography */
+    :root {
+      --bg-cream: #FAF9F6;
+      --card-surface: #FFFFFF;
+      --border-soft: #E5E7EB;
+      --text-slate: #1E293B;
+      --text-muted: #475569;
+      --teal-primary: #0F766E;
+      --teal-soft: #F0FDFA;
+      --amber-accent: #D97706;
+      --amber-soft: #FFFBEB;
+      --emerald-success: #15803D;
+      --emerald-soft: #F0FDF4;
+      --rose-retry: #BE123C;
+      --rose-soft: #FFF1F2;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-slate);
+      font-family: Verdana, 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      letter-spacing: 0.015em;
+      transition: font-size 0.2s ease, line-height 0.2s ease;
+    }
+
+    /* Reading Support Accessibility Toggle */
+    body.reading-support {
+      font-size: 1.15rem;
+      line-height: 1.85;
+      letter-spacing: 0.03em;
+      word-spacing: 0.08em;
+    }
+
+    .card-haven {
+      background-color: var(--card-surface);
+      border: 2px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: 0 4px 14px rgba(30, 41, 59, 0.04);
+    }
+
+    .option-btn {
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--teal-primary);
+      background-color: var(--teal-soft);
+    }
+
+    .option-selected {
+      border-color: var(--teal-primary) !important;
+      background-color: var(--teal-soft) !important;
+      box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2);
+    }
+
+    .option-correct {
+      border-color: var(--emerald-success) !important;
+      background-color: var(--emerald-soft) !important;
+      color: #14532D !important;
+    }
+
+    .option-wrong {
+      border-color: var(--rose-retry) !important;
+      background-color: var(--rose-soft) !important;
+      color: #881337 !important;
+    }
+
+    select.calm-select {
+      background-color: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-radius: 0.65rem;
+      padding: 0.6rem 0.8rem;
+      color: var(--text-slate);
+      font-family: inherit;
+      width: 100%;
+    }
+
+    select.calm-select:focus {
+      outline: none;
+      border-color: var(--teal-primary);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Sticky Header -->
+  <header class="bg-white border-b-2 border-slate-200 sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-3 h-3 rounded-full bg-teal-700"></span>
+          <span class="text-xs font-bold uppercase tracking-wider text-teal-800">Form 2 IT • Unit 3 Targeted Practice (Lessons 5–8)</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold text-slate-900">Media Balance &amp; Digital Well-being</h1>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="readingToggleBtn" type="button" onclick="toggleReadingSupport()"
+          class="px-3.5 py-2 rounded-xl border-2 border-teal-700 text-teal-800 font-semibold text-sm hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-600">
+          Aa Reading Support: Off
+        </button>
+        <button type="button" onclick="openReviewSummary()"
+          class="px-3.5 py-2 rounded-xl border-2 border-emerald-700 text-emerald-800 font-semibold text-sm hover:bg-emerald-50 focus:outline-none">
+          My Review Plan
+        </button>
+        <button type="button" onclick="confirmResetModal()"
+          class="px-3 py-2 rounded-xl border-2 border-rose-200 text-rose-700 text-sm font-semibold hover:bg-rose-50 focus:outline-none">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Mastery Progress Bar & Mission Pills -->
+    <div class="bg-slate-50 border-t border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-3">
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-600 mb-2">
+          <span>Unit 3 Mastery Progress (3 Missions)</span>
+          <span id="masteryCountText">0 of 3 Missions Mastered</span>
+        </div>
+        <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden mb-3">
+          <div id="masteryProgressBar" class="bg-teal-700 h-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <nav id="missionNavPills" class="grid grid-cols-1 sm:grid-cols-3 gap-2" aria-label="Unit 3 Practice Missions">
+          <!-- Populated dynamically -->
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6 sm:py-8">
+    <div class="mb-6 p-4 rounded-2xl bg-teal-50/80 border-2 border-teal-200 flex items-start gap-3">
+      <div class="text-teal-800 mt-0.5 shrink-0" aria-hidden="true">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="text-sm text-slate-800">
+        <strong>No timers. No pressure.</strong> Practice <strong>Unit 3: Media Balance &amp; Digital Well-being (Lessons 5–8)</strong> at your own pace. Score <strong>80% or higher</strong> on a mission to earn its Mastery Badge—or take a quick 2-question Confidence Retry!
+      </div>
+    </div>
+
+    <div id="missionContainer" class="animate-fade"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 bg-white py-4 mt-10">
+    <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-500">
+      Form 2 Information Technology • Unit 3: Media Balance &amp; Digital Well-being (Lessons 5–8)
+    </div>
+  </footer>
+
+  <!-- Custom Reset Modal -->
+  <div id="resetModal" class="hidden fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border-2 border-slate-200 max-w-md w-full p-6 shadow-xl">
+      <h2 class="text-lg font-bold text-slate-900 mb-2">Reset Unit 3 Practice?</h2>
+      <p class="text-sm text-slate-600 mb-5">This will clear your earned badges, answers, and review diagnostics for Unit 3 so you can start fresh.</p>
+      <div class="flex justify-end gap-3">
+        <button type="button" onclick="closeResetModal()" class="px-4 py-2.5 rounded-xl border-2 border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50">
+          Keep My Progress
+        </button>
+        <button type="button" onclick="executeReset()" class="px-4 py-2.5 rounded-xl bg-rose-700 text-white font-semibold text-sm hover:bg-rose-800">
+          Yes, Start Fresh
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       UNIT 3 TARGETED PRACTICE DATA (LESSONS 5–8 — 100% ORIGINAL SCENARIOS)
+       ========================================================================= */
+    const MISSIONS = [
+      {
+        id: "3.1",
+        shortTitle: "Mission 3.1",
+        title: "The Attention Economy & Design Hooks",
+        sowRef: "Lesson 5: Attention Economy, Variable Rewards & Stopping Cues",
+        summary: "Understand how free apps earn money from your attention and spot design tricks like variable rewards and removed stopping cues.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: How the Attention Economy Works (3 Questions)",
+            instruction: "Select the best answer for each question, then click Check Part A.",
+            questions: [
+              {
+                id: "m31_q1",
+                sowTopic: "Lesson 5: The Attention Economy Business Model",
+                skillLevel: "Knowledge",
+                studyTip: "Remember: in the attention economy, human attention and screen time are the scarce resource apps sell to advertisers.",
+                prompt: "In the 'attention economy', what is the scarce, valuable resource that free social media and video apps compete to capture?",
+                options: [
+                  "A. Your phone's storage space and battery percentage.",
+                  "B. Your human attention and screen time, which can be sold to advertisers.",
+                  "C. Your school library card number.",
+                  "D. Your Wi-Fi router's download speed."
+                ],
+                correctIndex: 1,
+                explanation: "There are only 24 hours in a day—apps compete for your scarce attention and time so they can show targeted ads."
+              },
+              {
+                id: "m31_q2",
+                sowTopic: "Lesson 5: Variable Rewards & Pull-to-Refresh",
+                skillLevel: "Understanding",
+                studyTip: "Connect pull-to-refresh and unpredictable likes/notifications with variable rewards—the same anticipation loop used in slot machines.",
+                prompt: "Why do designers use 'pull-to-refresh' feeds and unpredictable notification timing instead of showing new posts on a fixed schedule?",
+                options: [
+                  "A. Because variable rewards trigger brain anticipation—not knowing if the next swipe brings something exciting keeps you checking.",
+                  "B. Because phones run out of internet data if posts load automatically.",
+                  "C. Because fixed schedules are banned on mobile phones."
+                ],
+                correctIndex: 0,
+                explanation: "Variable rewards create curiosity and anticipation—just like pulling a slot-machine lever—encouraging you to keep checking."
+              },
+              {
+                id: "m31_q3",
+                sowTopic: "Lesson 5: Removed Stopping Cues (Infinite Scroll & Autoplay)",
+                skillLevel: "Understanding",
+                studyTip: "Compare a printed book (which has chapters and a back cover as stopping cues) with infinite scroll and autoplay (which remove natural pauses).",
+                prompt: "How is reading a printed novel different from scrolling a video app that uses infinite scroll and autoplay?",
+                options: [
+                  "A. A printed novel has natural stopping cues (chapters and a last page), while infinite scroll and autoplay remove pauses so you keep watching.",
+                  "B. A printed novel never ends, whereas video apps shut down every five minutes.",
+                  "C. Infinite scroll helps you fall asleep faster than reading a book."
+                ],
+                correctIndex: 0,
+                explanation: "Chapters and page endings act as natural stopping cues that ask 'Do you want to keep going?' Infinite scroll and autoplay erase those pauses."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            blockTitle: "Part B: App Design Hook Classifier (4 Items)",
+            instruction: "Classify each everyday phone moment into the design hook or healthy habit it represents.",
+            items: [
+              {
+                id: "m31_c1",
+                sowTopic: "Lesson 5: Variable Rewards & Notifications",
+                skillLevel: "Application",
+                studyTip: "Bright red notification badges and unpredictable pings act as variable-reward triggers pulling you back into the app.",
+                label: "1. While doing maths homework, Shania sees a bright red badge pop up on her phone screen and taps it wondering who commented.",
+                choices: ["Variable rewards / Notification hook", "Removed stopping cues", "Intentional 3-second pause"],
+                correct: "Variable rewards / Notification hook",
+                explanation: "Red badges and mystery notifications use curiosity and variable rewards to interrupt your focus."
+              },
+              {
+                id: "m31_c2",
+                sowTopic: "Lesson 5: Removed Stopping Cues (Autoplay)",
+                skillLevel: "Application",
+                studyTip: "When the next clip starts counting down and playing without you tapping anything, that is autoplay removing a stopping cue.",
+                label: "2. Tariq finishes watching one cricket highlight clip, and the next video starts playing automatically before he even touches the screen.",
+                choices: ["Variable rewards / Notification hook", "Removed stopping cues", "Intentional 3-second pause"],
+                correct: "Removed stopping cues",
+                explanation: "Autoplay removes the natural pause at the end of a video so you keep watching effortlessly."
+              },
+              {
+                id: "m31_c3",
+                sowTopic: "Lesson 5: Removed Stopping Cues (Infinite Scroll)",
+                skillLevel: "Application",
+                studyTip: "A feed with no bottom page—loading fresh posts forever as you flick your thumb—is infinite scroll.",
+                label: "3. Nadine keeps flicking her thumb upward on a photo app for 35 minutes because new posts load endlessly with no 'Next Page' button.",
+                choices: ["Variable rewards / Notification hook", "Removed stopping cues", "Intentional 3-second pause"],
+                correct: "Removed stopping cues",
+                explanation: "Infinite scroll removes the bottom of the page so your brain never gets a clear stopping signal."
+              },
+              {
+                id: "m31_c4",
+                sowTopic: "Lesson 7: The 'Why Am I Opening This?' 3-Second Pause",
+                skillLevel: "Application",
+                studyTip: "Taking a 3-second breath before unlocking your phone and asking 'Why am I opening this?' breaks automatic hooks.",
+                label: "4. Before tapping his social app, Devon pauses for three seconds and asks himself, 'Why am I opening this right now?'",
+                choices: ["Variable rewards / Notification hook", "Removed stopping cues", "Intentional 3-second pause"],
+                correct: "Intentional 3-second pause",
+                explanation: "The 3-second 'Why am I opening this?' pause puts you back in charge instead of reacting on autopilot."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Part C: Outsmarting Design Hooks (2 Marks)",
+            sowTopic: "Lesson 5: Protective Settings Against Design Hooks",
+            skillLevel: "Application",
+            studyTip: "Practice naming concrete settings changes: turning off autoplay, muting non-essential notifications, or setting an app time limit.",
+            prompt: "Name TWO specific phone or app settings a Form 2 student can change to fight back against variable rewards and removed stopping cues, and explain how one of them helps.",
+            hint: "Sentence starter: \"Two settings a student can change are turning off... and muting... Turning off... helps because...\"",
+            checklist: [
+              "I named TWO specific settings (e.g., turning off autoplay, muting non-essential notifications, setting an app timer, or turning off red notification badges).",
+              "I explained how at least one setting adds back a natural stopping cue or reduces automatic distractions."
+            ],
+            modelAnswer: "A student can turn off autoplay and mute non-essential notifications (or set a daily app timer). Turning off autoplay puts back a natural stopping cue at the end of each video so you have to decide on purpose before watching another one."
+          }
+        ],
+        retry: [
+          {
+            id: "m31_r1",
+            prompt: "Why does pulling down to refresh a feed feel so hard to stop?",
+            options: [
+              "A. Because variable rewards mean you never know if the next refresh holds an exciting surprise, triggering anticipation.",
+              "B. Because the refresh button breaks if you do not press it ten times."
+            ],
+            correctIndex: 0,
+            explanation: "Variable rewards rely on unpredictability—just like a slot machine—to keep you pulling down again."
+          },
+          {
+            id: "m31_r2",
+            prompt: "Which of these is an example of a 'removed stopping cue'?",
+            options: [
+              "A. Infinite scroll loading new posts endlessly without a bottom of the page.",
+              "B. A printed magazine ending at the back cover."
+            ],
+            correctIndex: 0,
+            explanation: "Infinite scroll removes the natural endpoint that would normally prompt you to put your phone down."
+          }
+        ]
+      },
+      {
+        id: "3.2",
+        shortTitle: "Mission 3.2",
+        title: "Thinking Traps & The Four-Step Reframe",
+        sowRef: "Lesson 6: Digital Stress, Thinking Traps & CBT Reframing",
+        summary: "Recognise mind-reading, all-or-nothing thinking, catastrophizing, and negative filter—and practice calm, accurate reframing.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: Thinking Traps & Reframing Foundations (3 Questions)",
+            instruction: "Select the best answer for each question, then click Check Part A.",
+            questions: [
+              {
+                id: "m32_q1",
+                sowTopic: "Lesson 6: Identifying Thinking Traps",
+                skillLevel: "Knowledge",
+                studyTip: "Know the four thinking traps: Mind-reading (guessing feelings), All-or-nothing (always/never extremes), Catastrophizing (worst-case disaster), Negative filter (ignoring positives).",
+                prompt: "Which thinking trap happens when you focus ONLY on one small criticism and completely ignore ten kind, supportive comments?",
+                options: [
+                  "A. Negative filter",
+                  "B. Mind-reading",
+                  "C. Variable rewards",
+                  "D. Active footprint"
+                ],
+                correctIndex: 0,
+                explanation: "A negative filter acts like dark sunglasses—letting only the single negative detail through while blocking out all positive evidence."
+              },
+              {
+                id: "m32_q2",
+                sowTopic: "Lesson 6: The Four-Step Reframe Process",
+                skillLevel: "Knowledge",
+                studyTip: "Memorise the 4 steps: 1. Catch & name the trap → 2. Check the real evidence → 3. Ask what you'd tell a friend → 4. Write a balanced reframe.",
+                prompt: "What is the FIRST step in the Four-Step Reframe when you notice an anxious or upset thought after looking at your phone?",
+                options: [
+                  "A. Catch and name the thinking trap.",
+                  "B. Send an angry reply demanding an explanation.",
+                  "C. Force yourself to pretend nothing ever bothers you."
+                ],
+                correctIndex: 0,
+                explanation: "Step 1 is simply noticing the thought and naming the trap (for example, 'Aha, I'm mind-reading right now')."
+              },
+              {
+                id: "m32_q3",
+                sowTopic: "Lesson 6: Balanced Reframing vs. Fake Positivity",
+                skillLevel: "Understanding",
+                studyTip: "Remember: reframing is NOT fake cheerfulness—it is replacing an exaggerated thought with a calmer, realistic thought that fits the facts.",
+                prompt: "How is a healthy 'reframe' different from fake positivity?",
+                options: [
+                  "A. A healthy reframe looks honestly at the real evidence to find a calmer, accurate thought, rather than pretending problems don't exist.",
+                  "B. A healthy reframe means deleting all your friends from your phone.",
+                  "C. There is no difference—reframing means saying 'Everything is 100% perfect!' even when you are sad."
+                ],
+                correctIndex: 0,
+                explanation: "Reframing respects real feelings while testing exaggerated thoughts against the actual facts."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            blockTitle: "Part B: Thinking Trap Spotter & Reframer (3 Scenarios)",
+            instruction: "Read each brand-new scenario and identify the thinking trap the student fell into.",
+            items: [
+              {
+                id: "m32_c1",
+                sowTopic: "Lesson 6: Thinking Trap — Mind-Reading",
+                skillLevel: "Application",
+                studyTip: "Texts lack facial expressions and tone—assuming someone is angry from a short reply or 'Seen' receipt is mind-reading.",
+                label: "1. Andre asks his cousin if he wants to play football after school. His cousin reads the message ('Seen 3:15 PM') and doesn't reply for an hour. Andre thinks, 'He's annoyed with me and doesn't want to hang out anymore.'",
+                choices: ["Mind-reading", "All-or-nothing thinking", "Catastrophizing", "Negative filter"],
+                correct: "Mind-reading",
+                explanation: "Andre is guessing what his cousin feels without evidence—his cousin might just be on the bus or eating lunch."
+              },
+              {
+                id: "m32_c2",
+                sowTopic: "Lesson 6: Thinking Trap — All-or-Nothing Thinking",
+                skillLevel: "Application",
+                studyTip: "Look for extreme words like 'always', 'never', 'total failure', or 'nobody' after one small setback.",
+                label: "2. Brianna makes one small rhythm mistake during a recorded steelpan practice clip and thinks, 'I always mess everything up—I'm a total failure at music.'",
+                choices: ["Mind-reading", "All-or-nothing thinking", "Catastrophizing", "Negative filter"],
+                correct: "All-or-nothing thinking",
+                explanation: "Using extreme words like 'always' and 'total failure' over one small slip is all-or-nothing thinking."
+              },
+              {
+                id: "m32_c3",
+                sowTopic: "Lesson 6: Thinking Trap — Catastrophizing",
+                skillLevel: "Application",
+                studyTip: "Snowballing a minor everyday slip into a permanent, life-ruining disaster is catastrophizing.",
+                label: "3. Omari accidentally sends a funny sticker to the class homework chat instead of his family chat, deletes it immediately, and thinks, 'Everyone in Form 2 will laugh at me for the rest of secondary school!'",
+                choices: ["Mind-reading", "All-or-nothing thinking", "Catastrophizing", "Negative filter"],
+                correct: "Catastrophizing",
+                explanation: "Omari is snowballing a tiny, harmless slip into a huge, permanent disaster."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Part C: Write a Balanced Reframe (2 Marks)",
+            sowTopic: "Lesson 6: Applying the Four-Step Reframe",
+            skillLevel: "Application",
+            studyTip: "Use Step 3 ('What would I tell a good friend in this situation?') to write a calm, evidence-based thought.",
+            prompt: "Look back at Brianna in Scenario 2 above (she made one small rhythm mistake in a steelpan clip and thought, 'I always mess everything up—I'm a total failure at music'). Write a calm, realistic REFRAMED thought Brianna could tell herself instead.",
+            hint: "Sentence starter: \"I made one small rhythm mistake in this practice clip, which doesn't mean I always mess up—I can...\"",
+            checklist: [
+              "I replaced extreme all-or-nothing words ('always', 'total failure') with accurate evidence (it was just one small mistake).",
+              "My reframed thought sounds calm, encouraging, and realistic (like advice you would give a good friend)."
+            ],
+            modelAnswer: "I made one small rhythm mistake in this practice video, not a total failure. Everyone makes slips while practicing—I can replay that bar a few times and get it smooth."
+          }
+        ],
+        retry: [
+          {
+            id: "m32_r1",
+            prompt: "Why do text messages and 'Seen' receipts trigger mind-reading so easily?",
+            options: [
+              "A. Because digital messages have no facial expressions or tone of voice, so our brain fills in the blank with worries.",
+              "B. Because messaging apps deliberately hide replies from friends."
+            ],
+            correctIndex: 0,
+            explanation: "Without tone of voice or body language, it is easy to guess someone's mood inaccurately."
+          },
+          {
+            id: "m32_r2",
+            prompt: "Which question helps you test a thinking trap against real evidence?",
+            options: [
+              "A. 'What would I say to my best friend if they had this exact same worry?'",
+              "B. 'How can I make this problem sound even worse?'"
+            ],
+            correctIndex: 0,
+            explanation: "Asking what you would tell a friend quickly reveals a kinder, more realistic perspective."
+          }
+        ]
+      },
+      {
+        id: "3.3",
+        shortTitle: "Mission 3.3",
+        title: "Tech Habits Audit, Habit Swap & Values Compass",
+        sowRef: "Lessons 7–8: Cue → Routine → Reward, Intentional Use & Values Compass",
+        summary: "Audit mindless vs. intentional habits, break automatic habit loops with a Habit Swap, and steer by your Values Compass.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: Habit Loops & Values Compass (3 Questions)",
+            instruction: "Select the best answer for each question, then click Check Part A.",
+            questions: [
+              {
+                id: "m33_q1",
+                sowTopic: "Lesson 7: The Cue → Routine → Reward Habit Loop",
+                skillLevel: "Knowledge",
+                studyTip: "Memorise the 3 parts of a habit loop: Cue (the trigger like boredom or a buzz) → Routine (the automatic action) → Reward (the relief or distraction).",
+                prompt: "In a habit loop (Cue → Routine → Reward), what is the 'Cue'?",
+                options: [
+                  "A. The trigger—such as feeling bored after homework, seeing your phone on the desk, or hearing a buzz—that starts the automatic habit.",
+                  "B. The final grade you receive on your IT exam.",
+                  "C. Deleting an app permanently from your phone."
+                ],
+                correctIndex: 0,
+                explanation: "A cue is the internal feeling (boredom, stress) or external signal (phone sight, buzz) that sparks the automatic routine."
+              },
+              {
+                id: "m33_q2",
+                sowTopic: "Lesson 7: How a Habit Swap Works",
+                skillLevel: "Understanding",
+                studyTip: "Remember: a Habit Swap keeps the same cue and reward, but swaps in a healthier routine and changes your environment.",
+                prompt: "Why does a 'Habit Swap' work better than simply telling yourself, 'I'll use willpower and never touch my phone'?",
+                options: [
+                  "A. Because habits run on autopilot—keeping the same cue (like 4:00 p.m. boredom) while swapping in an easy, healthier routine satisfies the need without fighting autopilot.",
+                  "B. Because willpower only works on weekends.",
+                  "C. Because phones automatically lock themselves if you have willpower."
+                ],
+                correctIndex: 0,
+                explanation: "Swapping the routine and adjusting your environment (like putting your phone in another room) works with your brain's habit loop rather than relying on tiring willpower."
+              },
+              {
+                id: "m33_q3",
+                sowTopic: "Lesson 8: The Values Compass (Kindness, Connection, Balance)",
+                skillLevel: "Understanding",
+                studyTip: "Think of your Values Compass (kindness, connection, balance, curiosity) as a navigation check: 'Does this screen habit move me toward my values or away from them?'",
+                prompt: "How do we use the 'Values Compass' (kindness, connection, balance) to evaluate our daily tech habits?",
+                options: [
+                  "A. By asking whether a habit moves us toward the person we want to be or pulls us away from our real-life relationships, rest, and goals.",
+                  "B. By counting who has the highest number of followers in Form 2.",
+                  "C. By banning all communication with friends after school."
+                ],
+                correctIndex: 0,
+                explanation: "Your Values Compass checks alignment—helping you keep tech habits that support kindness, real connection, and balance, and adjust habits that undercut them."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            blockTitle: "Part B: Mindless vs. Intentional & Values Alignment Sort (4 Scenarios)",
+            instruction: "Classify each student's tech moment using Lesson 7–8 concepts.",
+            items: [
+              {
+                id: "m33_c1",
+                sowTopic: "Lesson 7: Mindless Scrolling vs. Intentional Use",
+                skillLevel: "Application",
+                studyTip: "Opening an app with a clear purpose, doing that task, and closing it is intentional use.",
+                label: "1. Selena opens YouTube to watch one 4-minute tutorial on tying a cricket bat grip, practices the grip, and closes her laptop.",
+                choices: ["Intentional use (supports values)", "Mindless scrolling (drifts from values)", "Effective Habit Swap"],
+                correct: "Intentional use (supports values)",
+                explanation: "Selena used technology purposefully to learn a skill and stopped once she achieved her goal."
+              },
+              {
+                id: "m33_c2",
+                sowTopic: "Lesson 7–8: Mindless Scrolling & Values Drift",
+                skillLevel: "Application",
+                studyTip: "Picking up your phone automatically out of boredom and losing track of time while ignoring people around you is mindless scrolling.",
+                label: "2. During his grandmother's Sunday visit, Kevon pulls out his phone without thinking and scrolls random clips for 45 minutes while barely joining the family conversation.",
+                choices: ["Intentional use (supports values)", "Mindless scrolling (drifts from values)", "Effective Habit Swap"],
+                correct: "Mindless scrolling (drifts from values)",
+                explanation: "Kevon scrolled automatically out of habit, drifting away from his value of family connection."
+              },
+              {
+                id: "m33_c3",
+                sowTopic: "Lesson 7: Designing an Effective Habit Swap",
+                skillLevel: "Application",
+                studyTip: "Putting a book or sketchbook where your phone usually sits keeps the relaxation reward while swapping the routine.",
+                label: "3. Noticing she always reaches for her phone when stressed after school (Cue), Nia leaves her phone in the kitchen and spends 15 minutes sketching in her notebook (New Routine).",
+                choices: ["Intentional use (supports values)", "Mindless scrolling (drifts from values)", "Effective Habit Swap"],
+                correct: "Effective Habit Swap",
+                explanation: "Nia kept her after-school stress cue and relaxation reward, changed her environment, and swapped in a healthier routine."
+              },
+              {
+                id: "m33_c4",
+                sowTopic: "Lesson 8: Intentional Use Supporting Connection",
+                skillLevel: "Application",
+                studyTip: "Using tech on purpose to encourage a friend or stay in touch with relatives aligns with kindness and connection.",
+                label: "4. Anika sets aside 10 minutes after homework to voice-note her grandmother in Tobago and share photos from her school art show.",
+                choices: ["Intentional use (supports values)", "Mindless scrolling (drifts from values)", "Effective Habit Swap"],
+                correct: "Intentional use (supports values)",
+                explanation: "Anika used technology intentionally to strengthen family connection and kindness."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Part C: Values Compass & Habit Swap Builder (2 Marks)",
+            sowTopic: "Lessons 7–8: Applying Habit Loop & Values Compass",
+            skillLevel: "Application",
+            studyTip: "Identify the Cue → Routine → Values clash first, then suggest a realistic Habit Swap that changes the environment.",
+            prompt: "Scenario: Every afternoon at 4:30 p.m. when Devon finishes school and feels tired (Cue), he flops onto his bed and watches gaming streams until 7:30 p.m. (Routine), leaving no time to walk his dog or finish his science homework—even though 'responsibility' and 'caring for his pet' are two of his top values. Suggest ONE specific Habit Swap (including an environment change) to help Devon.",
+            hint: "Sentence starter: \"When Devon gets home at 4:30 p.m. feeling tired, he can swap his routine by leaving his phone in... and immediately... for 20 minutes before any screen time.\"",
+            checklist: [
+              "I suggested a specific replacement routine at the 4:30 p.m. cue (e.g., walking his dog first or taking a 15-minute snack/rest break before homework).",
+              "I included a smart environment or stopping-cue adjustment (e.g., charging his phone outside his bedroom until homework and dog-walking are done)."
+            ],
+            modelAnswer: "At 4:30 p.m., Devon can leave his phone charging in the living room (changing his environment) and immediately walk his dog for 20 minutes as his after-school reset. Once his dog is walked and his homework is done, he can watch one or two gaming videos intentionally with a timer."
+          }
+        ],
+        retry: [
+          {
+            id: "m33_r1",
+            prompt: "What are the three parts of a Habit Loop in order?",
+            options: [
+              "A. Cue → Routine → Reward",
+              "B. Timer → Battery → Wi-Fi",
+              "C. Public → Private → Deleted"
+            ],
+            correctIndex: 0,
+            explanation: "Every habit runs on a three-part loop: a Cue triggers an automatic Routine, which delivers a Reward."
+          },
+          {
+            id: "m33_r2",
+            prompt: "Which question best uses the 'Values Compass'?",
+            options: [
+              "A. 'Does the way I'm using my phone right now match my values of kindness, connection, and balance?'",
+              "B. 'How can I stay awake scrolling even longer tonight?'"
+            ],
+            correctIndex: 0,
+            explanation: "The Values Compass checks whether your daily screen habits match what truly matters to you."
+          }
+        ]
+      }
+    ];
+
+    /* =========================================================================
+       STATE MANAGEMENT (LOCALSTORAGE PERSISTENCE + FIRST-TRY DIAGNOSTIC LOG)
+       ========================================================================= */
+    const STORAGE_KEY = "f2_unit3_mastery_v1";
+    const READING_KEY = "f2_unit3_reading_support";
+
+    let state = {
+      activeMissionId: "3.1",
+      readingSupport: false,
+      showSummary: false,
+      missions: {
+        "3.1": { done: false, score: 0, total: 9, mastered: false, retryPassed: false },
+        "3.2": { done: false, score: 0, total: 8, mastered: false, retryPassed: false },
+        "3.3": { done: false, score: 0, total: 9, mastered: false, retryPassed: false }
+      },
+      diagnostics: {},
+      answers: {},
+      blockFeedback: {}
+    };
+
+    function loadState() {
+      try {
+        const savedReading = localStorage.getItem(READING_KEY);
+        if (savedReading !== null) {
+          state.readingSupport = savedReading === "true";
+        }
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.missions) {
+            state.missions = { ...state.missions, ...parsed.missions };
+            state.activeMissionId = parsed.activeMissionId || "3.1";
+            if (savedReading === null && parsed.readingSupport !== undefined) {
+              state.readingSupport = !!parsed.readingSupport;
+            }
+            state.diagnostics = parsed.diagnostics || {};
+            state.answers = parsed.answers || {};
+            state.blockFeedback = parsed.blockFeedback || {};
+          }
+        }
+      } catch (e) {}
+      applyReadingSupportClass();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(READING_KEY, String(state.readingSupport));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          activeMissionId: state.activeMissionId,
+          readingSupport: state.readingSupport,
+          missions: state.missions,
+          diagnostics: state.diagnostics,
+          answers: state.answers,
+          blockFeedback: state.blockFeedback
+        }));
+      } catch (e) {}
+    }
+
+    /* =========================================================================
+       ACCESSIBILITY & MODAL CONTROLS
+       ========================================================================= */
+    function toggleReadingSupport() {
+      state.readingSupport = !state.readingSupport;
+      applyReadingSupportClass();
+      saveState();
+    }
+
+    function applyReadingSupportClass() {
+      const btn = document.getElementById("readingToggleBtn");
+      if (state.readingSupport) {
+        document.body.classList.add("reading-support");
+        btn.textContent = "Aa Reading Support: On";
+        btn.classList.add("bg-teal-700", "text-white");
+        btn.classList.remove("text-teal-800");
+      } else {
+        document.body.classList.remove("reading-support");
+        btn.textContent = "Aa Reading Support: Off";
+        btn.classList.remove("bg-teal-700", "text-white");
+        btn.classList.add("text-teal-800");
+      }
+    }
+
+    function confirmResetModal() {
+      document.getElementById("resetModal").classList.remove("hidden");
+    }
+
+    function closeResetModal() {
+      document.getElementById("resetModal").classList.add("hidden");
+    }
+
+    function executeReset() {
+      localStorage.removeItem(STORAGE_KEY);
+      state.answers = {};
+      state.blockFeedback = {};
+      state.diagnostics = {};
+      state.showSummary = false;
+      state.activeMissionId = "3.1";
+      state.missions = {
+        "3.1": { done: false, score: 0, total: 9, mastered: false, retryPassed: false },
+        "3.2": { done: false, score: 0, total: 8, mastered: false, retryPassed: false },
+        "3.3": { done: false, score: 0, total: 9, mastered: false, retryPassed: false }
+      };
+      saveState();
+      closeResetModal();
+      renderAll();
+    }
+
+    function selectMission(missionId) {
+      state.activeMissionId = missionId;
+      state.showSummary = false;
+      saveState();
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openReviewSummary() {
+      state.showSummary = true;
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* =========================================================================
+       HEADER PROGRESS PILLS
+       ========================================================================= */
+    function renderHeaderProgress() {
+      const masteredCount = Object.values(state.missions).filter(m => m.mastered).length;
+      document.getElementById("masteryCountText").textContent = `${masteredCount} of 3 Missions Mastered`;
+      document.getElementById("masteryProgressBar").style.width = `${(masteredCount / 3) * 100}%`;
+
+      const nav = document.getElementById("missionNavPills");
+      nav.innerHTML = MISSIONS.map(m => {
+        const st = state.missions[m.id];
+        const isActive = !state.showSummary && state.activeMissionId === m.id;
+
+        let badgeLabel = "Start";
+        let badgeStyle = "bg-slate-200 text-slate-700";
+        if (st.mastered) {
+          badgeLabel = "Mastered ★";
+          badgeStyle = "bg-emerald-700 text-white";
+        } else if (st.done) {
+          badgeLabel = "Retry Ready";
+          badgeStyle = "bg-amber-600 text-white";
+        }
+
+        const activeRing = isActive
+          ? "border-teal-700 bg-teal-50 ring-2 ring-teal-600/30"
+          : "border-slate-300 bg-white hover:border-teal-600";
+
+        return `
+          <button type="button" onclick="selectMission('${m.id}')"
+            class="p-2.5 rounded-xl border-2 text-left transition flex flex-col justify-between ${activeRing}">
+            <div class="flex items-center justify-between gap-1 mb-1">
+              <span class="font-bold text-xs text-slate-900">${m.shortTitle}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badgeStyle}">${badgeLabel}</span>
+            </div>
+            <span class="text-xs text-slate-600 line-clamp-1">${m.title}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    /* =========================================================================
+       INTERACTION & MASTERY EVALUATION
+       ========================================================================= */
+    function selectMcqOption(qId, optIndex) {
+      state.answers[qId] = optIndex;
+      renderMission();
+    }
+
+    function selectClassifierChoice(itemId, value) {
+      state.answers[itemId] = value;
+    }
+
+    function toggleHint(hintId) {
+      const el = document.getElementById(hintId);
+      if (el) el.classList.toggle("hidden");
+    }
+
+    function checkBlock(missionId, blockIndex) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const block = mission.blocks[blockIndex];
+      const fbKey = `m${missionId}_b${blockIndex}`;
+
+      if (block.type === "mcq") {
+        const unanswered = block.questions.some(q => state.answers[q.id] === undefined);
+        if (unanswered) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Pick an answer for every question in this part first, then click Check!"
+          };
+          renderMission();
+          return;
+        }
+        let correctCount = 0;
+        block.questions.forEach(q => {
+          const isCorrect = state.answers[q.id] === q.correctIndex;
+          if (isCorrect) correctCount++;
+          if (!state.diagnostics[q.id]) {
+            state.diagnostics[q.id] = {
+              missionId: mission.id,
+              missionTitle: `${mission.shortTitle}: ${mission.title}`,
+              sowTopic: q.sowTopic,
+              skillLevel: q.skillLevel,
+              studyTip: q.studyTip,
+              masteredOnFirstTry: isCorrect
+            };
+          }
+        });
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          correctCount,
+          totalCount: block.questions.length
+        };
+      } else if (block.type === "classifier") {
+        const unanswered = block.items.some(item => !state.answers[item.id]);
+        if (unanswered) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Choose an option from every dropdown menu first, then click Check!"
+          };
+          renderMission();
+          return;
+        }
+        let correctCount = 0;
+        block.items.forEach(item => {
+          const isCorrect = state.answers[item.id] === item.correct;
+          if (isCorrect) correctCount++;
+          if (!state.diagnostics[item.id]) {
+            state.diagnostics[item.id] = {
+              missionId: mission.id,
+              missionTitle: `${mission.shortTitle}: ${mission.title}`,
+              sowTopic: item.sowTopic,
+              skillLevel: item.skillLevel,
+              studyTip: item.studyTip,
+              masteredOnFirstTry: isCorrect
+            };
+          }
+        });
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          correctCount,
+          totalCount: block.items.length
+        };
+      } else if (block.type === "scaffolded") {
+        const textId = `scaffold_m${missionId}_b${blockIndex}`;
+        const textVal = (document.getElementById(textId)?.value || "").trim();
+        state.answers[textId] = textVal;
+        if (textVal.length < 12) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Write a 1–2 sentence response in the box first (click the Hint button if you'd like a starter!)."
+          };
+          renderMission();
+          return;
+        }
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          revealedModel: true
+        };
+      }
+
+      recalculateMissionMastery(missionId);
+      renderAll();
+    }
+
+    function confirmScaffoldSelfCheck(missionId, blockIndex, earnedPoints) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const block = mission.blocks[blockIndex];
+      const scoreKey = `scaffold_score_m${missionId}_b${blockIndex}`;
+      state.answers[scoreKey] = earnedPoints;
+
+      const diagId = `diag_m${missionId}_b${blockIndex}`;
+      if (!state.diagnostics[diagId]) {
+        state.diagnostics[diagId] = {
+          missionId: mission.id,
+          missionTitle: `${mission.shortTitle}: ${mission.title}`,
+          sowTopic: block.sowTopic,
+          skillLevel: block.skillLevel,
+          studyTip: block.studyTip,
+          masteredOnFirstTry: earnedPoints === 2
+        };
+      }
+
+      recalculateMissionMastery(missionId);
+      renderAll();
+    }
+
+    function recalculateMissionMastery(missionId) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const st = state.missions[missionId];
+      let earned = 0;
+      let total = 0;
+      let allInteractiveBlocksDone = true;
+
+      mission.blocks.forEach((block, idx) => {
+        const fb = state.blockFeedback[`m${missionId}_b${idx}`];
+        if (block.type === "mcq") {
+          total += block.questions.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          else allInteractiveBlocksDone = false;
+        } else if (block.type === "classifier") {
+          total += block.items.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          else allInteractiveBlocksDone = false;
+        } else if (block.type === "scaffolded") {
+          total += 2;
+          const selfPts = state.answers[`scaffold_score_m${missionId}_b${idx}`];
+          if (selfPts !== undefined) earned += selfPts;
+          else allInteractiveBlocksDone = false;
+        }
+      });
+
+      st.score = earned;
+      st.total = total;
+      st.done = allInteractiveBlocksDone;
+
+      const pct = total > 0 ? (earned / total) * 100 : 0;
+      if (allInteractiveBlocksDone && (pct >= 80 || st.retryPassed)) {
+        st.mastered = true;
+      }
+      saveState();
+    }
+
+    function checkConfidenceRetry(missionId) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const retryFbKey = `m${missionId}_retry`;
+      const unanswered = mission.retry.some(q => state.answers[q.id] === undefined);
+
+      if (unanswered) {
+        state.blockFeedback[retryFbKey] = {
+          incomplete: true,
+          message: "Answer both Confidence Retry questions first!"
+        };
+        renderMission();
+        return;
+      }
+
+      let correct = 0;
+      mission.retry.forEach(q => {
+        if (state.answers[q.id] === q.correctIndex) correct++;
+      });
+
+      state.blockFeedback[retryFbKey] = {
+        checked: true,
+        correctCount: correct,
+        totalCount: mission.retry.length
+      };
+
+      if (correct === mission.retry.length) {
+        state.missions[missionId].mastered = true;
+        state.missions[missionId].retryPassed = true;
+        saveState();
+      }
+      renderAll();
+    }
+
+    /* =========================================================================
+       RENDER MISSION VIEW & PERSONALIZED SCHEME-OF-WORK REVIEW PLAN
+       ========================================================================= */
+    function renderMission() {
+      const container = document.getElementById("missionContainer");
+
+      if (state.showSummary) {
+        renderReviewSummary(container);
+        return;
+      }
+
+      const mission = MISSIONS.find(m => m.id === state.activeMissionId);
+      const st = state.missions[mission.id];
+      const pct = st.total > 0 ? Math.round((st.score / st.total) * 100) : 0;
+
+      const blocksHtml = mission.blocks.map((block, bIdx) => {
+        const fbKey = `m${mission.id}_b${bIdx}`;
+        const fb = state.blockFeedback[fbKey];
+
+        if (block.type === "mcq") {
+          const isChecked = fb && fb.checked;
+          const qHtml = block.questions.map((q, qIdx) => {
+            const chosen = state.answers[q.id];
+            const optsHtml = q.options.map((opt, oIdx) => {
+              let cls = "border-slate-300 bg-white text-slate-800";
+              if (isChecked) {
+                if (oIdx === q.correctIndex) cls = "option-correct font-semibold";
+                else if (chosen === oIdx) cls = "option-wrong";
+                else cls = "border-slate-200 bg-slate-50 text-slate-500";
+              } else if (chosen === oIdx) {
+                cls = "option-selected font-semibold";
+              }
+              return `
+                <button type="button" ${isChecked ? "disabled" : ""}
+                  onclick="selectMcqOption('${q.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm sm:text-base ${cls}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            const expHtml = isChecked ? `
+              <div class="mt-3 p-3.5 rounded-xl text-sm ${chosen === q.correctIndex ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${chosen === q.correctIndex ? 'Spot on!' : "Let's check the clue:"}</strong> ${q.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="mb-6 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-3">${qIdx + 1}. ${q.prompt}</p>
+                <div class="space-y-2.5">${optsHtml}</div>
+                ${expHtml}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                ${isChecked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-5">${block.instruction}</p>
+              ${qHtml}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!isChecked ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkBlock('${mission.id}', ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check Answers
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        if (block.type === "classifier") {
+          const isChecked = fb && fb.checked;
+          const itemsHtml = block.items.map(item => {
+            const currentVal = state.answers[item.id] || "";
+            const isRight = currentVal === item.correct;
+            const optionsMarkup = [
+              `<option value="">-- Choose best match --</option>`,
+              ...item.choices.map(c => `<option value="${c}" ${currentVal === c ? "selected" : ""}>${c}</option>`)
+            ].join("");
+
+            const itemFb = isChecked ? `
+              <div class="mt-2.5 p-3 rounded-xl text-sm ${isRight ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${isRight ? '✓ Correct:' : `✓ Best match is "${item.correct}":`}</strong> ${item.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-3 last:mb-0">
+                <p class="text-sm sm:text-base font-medium text-slate-900 mb-2.5">${item.label}</p>
+                <select ${isChecked ? "disabled" : ""}
+                  onchange="selectClassifierChoice('${item.id}', this.value)"
+                  class="calm-select text-sm sm:text-base">
+                  ${optionsMarkup}
+                </select>
+                ${itemFb}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                ${isChecked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-4">${block.instruction}</p>
+              ${itemsHtml}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!isChecked ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkBlock('${mission.id}', ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check Matches
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        if (block.type === "scaffolded") {
+          const textId = `scaffold_m${mission.id}_b${bIdx}`;
+          const savedText = state.answers[textId] || "";
+          const isRevealed = fb && fb.revealedModel;
+          const selfScore = state.answers[`scaffold_score_m${mission.id}_b${bIdx}`];
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900">2 Marks • Self-Check</span>
+              </div>
+              <p class="text-sm sm:text-base font-medium text-slate-900 mb-3">${block.prompt}</p>
+
+              <div class="mb-3">
+                <button type="button" onclick="toggleHint('hint_m${mission.id}_b${bIdx}')"
+                  class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100">
+                  💡 Need a Hint / Sentence Starter? (Show/Hide)
+                </button>
+                <div id="hint_m${mission.id}_b${bIdx}" class="hidden mt-2 p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-sm text-slate-800">
+                  ${block.hint}
+                </div>
+              </div>
+
+              <textarea id="${textId}" rows="3" ${isRevealed ? "readonly" : ""}
+                placeholder="Write your 1–2 sentence answer here..."
+                class="w-full p-3.5 rounded-xl border-2 border-slate-300 text-slate-900 text-sm sm:text-base focus:outline-none focus:border-teal-700">${savedText}</textarea>
+
+              ${fb && fb.incomplete ? `<p class="mt-3 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+
+              ${!isRevealed ? `
+                <div class="mt-4">
+                  <button type="button" onclick="checkBlock('${mission.id}', ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Compare with Model Answer &amp; Self-Check
+                  </button>
+                </div>
+              ` : `
+                <div class="mt-4 p-4 rounded-xl bg-teal-50 border-2 border-teal-200 animate-fade">
+                  <p class="text-xs font-bold uppercase tracking-wider text-teal-800 mb-1">Teacher Model Answer (2 Marks)</p>
+                  <p class="text-sm text-slate-900 mb-3">${block.modelAnswer}</p>
+                  <p class="text-xs font-bold text-slate-700 mb-1.5">Check your own answer honestly against these 2 key ideas:</p>
+                  <ul class="list-disc pl-5 text-sm text-slate-800 space-y-1 mb-4">
+                    ${block.checklist.map(c => `<li>${c}</li>`).join("")}
+                  </ul>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-bold text-slate-700 mr-1">Honest Self-Check:</span>
+                    <button type="button" onclick="confirmScaffoldSelfCheck('${mission.id}', ${bIdx}, 2)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 2 ? 'bg-emerald-700 text-white border-emerald-700' : 'bg-white text-emerald-800 border-emerald-600 hover:bg-emerald-50'}">
+                      ★ I got both key ideas (2/2)
+                    </button>
+                    <button type="button" onclick="confirmScaffoldSelfCheck('${mission.id}', ${bIdx}, 1)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 1 ? 'bg-amber-600 text-white border-amber-600' : 'bg-white text-amber-800 border-amber-500 hover:bg-amber-50'}">
+                      I got 1 idea (1/2)
+                    </button>
+                    <button type="button" onclick="confirmScaffoldSelfCheck('${mission.id}', ${bIdx}, 0)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 0 ? 'bg-rose-700 text-white border-rose-700' : 'bg-white text-rose-800 border-rose-400 hover:bg-rose-50'}">
+                      Still learning (0/2)
+                    </button>
+                  </div>
+                </div>
+              `}
+            </section>
+          `;
+        }
+        return "";
+      }).join("");
+
+      // Mission Mastery Banner or Confidence Retry
+      let masteryFooterHtml = "";
+      if (st.done) {
+        if (st.mastered) {
+          const currentIdx = MISSIONS.findIndex(m => m.id === mission.id);
+          const nextMission = MISSIONS[currentIdx + 1];
+          const allMastered = Object.values(state.missions).every(m => m.mastered);
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-emerald-50 border-2 border-emerald-500 animate-fade mb-6">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span class="inline-block px-3 py-1 rounded-full bg-emerald-700 text-white text-xs font-bold mb-2">
+                    ★ ${mission.shortTitle} Mastery Badge Earned!
+                  </span>
+                  <h3 class="text-xl font-bold text-emerald-950">Great job on ${mission.title}!</h3>
+                  <p class="text-sm text-emerald-900 mt-1">
+                    ${st.retryPassed ? "You locked in the concepts through the Confidence Retry!" : `You scored ${pct}%—strong mastery of this mission!`}
+                  </p>
+                </div>
+                <div>
+                  ${allMastered ? `
+                    <button type="button" onclick="openReviewSummary()"
+                      class="px-5 py-3 rounded-xl bg-emerald-700 text-white font-bold text-sm hover:bg-emerald-800 shadow">
+                      View My Unit 3 Review Plan →
+                    </button>
+                  ` : nextMission ? `
+                    <button type="button" onclick="selectMission('${nextMission.id}')"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      Continue to ${nextMission.shortTitle} →
+                    </button>
+                  ` : `
+                    <button type="button" onclick="openReviewSummary()"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      View My Unit 3 Review Plan →
+                    </button>
+                  `}
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          const retryFb = state.blockFeedback[`m${mission.id}_retry`];
+          const retryQHtml = mission.retry.map((rq, rIdx) => {
+            const rChosen = state.answers[rq.id];
+            const rChecked = retryFb && retryFb.checked;
+            const rOpts = rq.options.map((opt, oIdx) => {
+              let cls = "border-slate-300 bg-white text-slate-800";
+              if (rChecked) {
+                if (oIdx === rq.correctIndex) cls = "option-correct font-semibold";
+                else if (rChosen === oIdx) cls = "option-wrong";
+              } else if (rChosen === oIdx) {
+                cls = "option-selected font-semibold";
+              }
+              return `
+                <button type="button" ${rChecked && rChosen === rq.correctIndex ? "disabled" : ""}
+                  onclick="selectMcqOption('${rq.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm ${cls}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            return `
+              <div class="mb-5 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-2.5">${rIdx + 1}. ${rq.prompt}</p>
+                <div class="space-y-2">${rOpts}</div>
+                ${rChecked ? `
+                  <p class="mt-2 text-xs sm:text-sm p-3 rounded-xl ${rChosen === rq.correctIndex ? 'bg-emerald-50 text-emerald-950 border border-emerald-300' : 'bg-rose-50 text-rose-950 border border-rose-300'}">
+                    ${rq.explanation}
+                  </p>
+                ` : ""}
+              </div>
+            `;
+          }).join("");
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-amber-50 border-2 border-amber-400 animate-fade mb-6">
+              <span class="inline-block px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-bold mb-2">
+                Confidence Retry • Almost at 80% (${pct}%)
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 mb-1">Let's lock in those tricky ideas!</h3>
+              <p class="text-sm text-slate-700 mb-5">
+                Answer these 2 quick booster questions to earn your <strong>${mission.shortTitle} Mastery Badge</strong>.
+              </p>
+              ${retryQHtml}
+              ${retryFb && retryFb.incomplete ? `<p class="mt-3 text-sm font-semibold text-rose-800">${retryFb.message}</p>` : ""}
+              <div class="mt-5">
+                <button type="button" onclick="checkConfidenceRetry('${mission.id}')"
+                  class="px-5 py-3 rounded-xl bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 shadow-sm">
+                  Submit Confidence Retry
+                </button>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      container.innerHTML = `
+        <div class="mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-800">${mission.shortTitle} • ${mission.sowRef}</span>
+            ${st.mastered ? `<span class="text-xs font-bold text-emerald-700">★ Mastered</span>` : ""}
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">${mission.title}</h2>
+          <p class="text-sm text-slate-600 mt-1">${mission.summary}</p>
+        </div>
+
+        ${blocksHtml}
+        ${masteryFooterHtml}
+      `;
+    }
+
+    function renderReviewSummary(container) {
+      const masteredCount = Object.values(state.missions).filter(m => m.mastered).length;
+      const readinessPct = Math.round((masteredCount / 3) * 100);
+      const diagEntries = Object.values(state.diagnostics);
+
+      const skillLevels = ["Knowledge", "Understanding", "Application"];
+      const skillStats = {};
+      skillLevels.forEach(lvl => {
+        const items = diagEntries.filter(d => d.skillLevel === lvl);
+        const passed = items.filter(d => d.masteredOnFirstTry).length;
+        const pct = items.length > 0 ? Math.round((passed / items.length) * 100) : null;
+        skillStats[lvl] = { total: items.length, passed, pct };
+      });
+
+      function getMissedBySkill(lvl) {
+        const missed = diagEntries.filter(d => d.skillLevel === lvl && !d.masteredOnFirstTry);
+        const grouped = {};
+        missed.forEach(m => {
+          if (!grouped[m.sowTopic]) {
+            grouped[m.sowTopic] = { ...m };
+          }
+        });
+        return Object.values(grouped);
+      }
+
+      const knowledgeReview = getMissedBySkill("Knowledge");
+      const understandingReview = getMissedBySkill("Understanding");
+      const applicationReview = getMissedBySkill("Application");
+      const totalMissed = diagEntries.filter(d => !d.masteredOnFirstTry).length;
+
+      let weakestMissionId = null;
+      let maxMisses = 0;
+      MISSIONS.forEach(m => {
+        const misses = diagEntries.filter(d => d.missionId === m.id && !d.masteredOnFirstTry).length;
+        if (misses > maxMisses) {
+          maxMisses = misses;
+          weakestMissionId = m.id;
+        }
+      });
+
+      const badgesHtml = MISSIONS.map(m => {
+        const st = state.missions[m.id];
+        return `
+          <div class="p-3.5 rounded-xl border-2 ${st.mastered ? 'border-emerald-400 bg-emerald-50/70' : 'border-slate-200 bg-slate-50'} text-left flex items-center justify-between gap-2">
+            <div>
+              <p class="text-xs font-bold text-teal-800">${m.shortTitle}</p>
+              <p class="text-xs sm:text-sm font-bold text-slate-900">${m.title}</p>
+            </div>
+            <span class="shrink-0 text-xs font-bold px-2.5 py-1 rounded-full ${st.mastered ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-700'}">
+              ${st.mastered ? 'Mastered ★' : 'Pending'}
+            </span>
+          </div>
+        `;
+      }).join("");
+
+      const skillCardsHtml = skillLevels.map(lvl => {
+        const st = skillStats[lvl];
+        const desc = lvl === "Knowledge"
+          ? "Terms, hooks & trap names"
+          : lvl === "Understanding"
+          ? "How loops & reframes work"
+          : "Spotting traps & building Habit Swaps";
+        const barColor = st.pct === null ? "bg-slate-300" : st.pct >= 80 ? "bg-emerald-600" : st.pct >= 50 ? "bg-amber-500" : "bg-rose-600";
+
+        return `
+          <div class="p-4 rounded-xl border-2 border-slate-200 bg-slate-50/70 text-left">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-bold text-slate-900 text-sm">${lvl}</span>
+              <span class="text-xs font-bold text-teal-900">${st.pct !== null ? `${st.pct}% (${st.passed}/${st.total})` : "Not tried yet"}</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-2">${desc}</p>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div class="${barColor} h-full transition-all duration-300" style="width: ${st.pct !== null ? st.pct : 0}%"></div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      function renderGroup(title, subtitle, badgeBg, items, emptyText) {
+        if (diagEntries.length === 0) {
+          return `
+            <div class="p-4 rounded-xl border border-slate-200 bg-white text-left">
+              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${badgeBg} mb-1">${title}</span>
+              <p class="text-xs text-slate-500">Complete at least one mission to see your personalized ${title.toLowerCase()} feedback.</p>
+            </div>
+          `;
+        }
+        if (items.length === 0) {
+          return `
+            <div class="p-4 rounded-xl border-2 border-emerald-200 bg-emerald-50/50 text-left">
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-700 text-white">${title}</span>
+                <span class="text-xs font-bold text-emerald-800">★ 100% First-Try Mastery!</span>
+              </div>
+              <p class="text-sm text-emerald-950">${emptyText}</p>
+            </div>
+          `;
+        }
+        return `
+          <div class="p-4 rounded-xl border-2 border-amber-200 bg-white text-left">
+            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${badgeBg} mb-1">${title}</span>
+            <p class="text-xs text-slate-600 mb-3">${subtitle}</p>
+            <ul class="space-y-2.5">
+              ${items.map(item => `
+                <li class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+                    <span class="text-xs font-bold text-teal-800">${item.missionTitle}</span>
+                    <button type="button" onclick="selectMission('${item.missionId}')" class="text-xs font-bold text-teal-700 underline hover:text-teal-900">
+                      Revisit ${item.missionId} →
+                    </button>
+                  </div>
+                  <p class="font-bold text-sm text-slate-900">${item.sowTopic}</p>
+                  <p class="text-xs sm:text-sm text-slate-700 mt-1"><strong>Study Action:</strong> ${item.studyTip}</p>
+                </li>
+              `).join("")}
+            </ul>
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="card-haven p-6 sm:p-8 text-center mb-6">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 text-2xl font-bold mb-4">★</div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+            ${masteredCount === 3 ? "Unit 3 Mastered! Ready for the Exam!" : `Unit 3 Readiness: ${readinessPct}% (${masteredCount} of 3 Missions Mastered)`}
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto mb-6">
+            Here is your Scheme-of-Work review breakdown for <strong>Unit 3: Media Balance &amp; Digital Well-being (Lessons 5–8)</strong>.
+          </p>
+
+          <!-- Mission Badges -->
+          <div class="mb-6">
+            <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">1. Unit 3 Mission Badges</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">${badgesHtml}</div>
+          </div>
+
+          <!-- 3-Column Cognitive Skill Breakdown -->
+          <div class="mb-6">
+            <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">2. Cognitive Skill Breakdown (First-Try Accuracy)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">${skillCardsHtml}</div>
+          </div>
+
+          <!-- Personalized Scheme-of-Work Review Plan -->
+          <div class="mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700">3. Personalized Scheme-of-Work Review Plan</h3>
+              ${weakestMissionId ? `
+                <button type="button" onclick="selectMission('${weakestMissionId}')"
+                  class="px-3.5 py-1.5 rounded-xl bg-amber-600 text-white text-xs font-bold hover:bg-amber-700 shadow-sm">
+                  ⚡ Jump to Weakest Mission (Mission ${weakestMissionId})
+                </button>
+              ` : ""}
+            </div>
+
+            ${diagEntries.length > 0 && totalMissed === 0 ? `
+              <div class="p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-500 text-left mb-4">
+                <p class="font-bold text-emerald-950 text-base mb-1">🌟 100% First-Try Mastery Across Unit 3!</p>
+                <p class="text-sm text-emerald-900">You nailed every Knowledge, Understanding, and Application question on your very first attempt.</p>
+              </div>
+            ` : ""}
+
+            <div class="space-y-3">
+              ${renderGroup("Knowledge to Review", "Unit 3 terms and definitions to revisit:", "bg-teal-100 text-teal-900", knowledgeReview, "You mastered all Unit 3 terms, design hooks, and thinking-trap definitions on your first try!")}
+              ${renderGroup("Understanding to Strengthen", "Unit 3 concepts to review deeper:", "bg-amber-100 text-amber-900", understandingReview, "Your understanding of variable rewards, stopping cues, reframing, and the Values Compass is super strong!")}
+              ${renderGroup("Application to Practice", "Scenario and diagnostic skills to sharpen:", "bg-rose-100 text-rose-900", applicationReview, "You diagnosed thinking traps, design hooks, and Habit Swaps with 100% accuracy!")}
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            ${weakestMissionId ? `
+              <button type="button" onclick="selectMission('${weakestMissionId}')"
+                class="px-5 py-3 rounded-xl bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 shadow-sm">
+                Jump to Weakest Mission (${weakestMissionId})
+              </button>
+            ` : ""}
+            <button type="button" onclick="selectMission('3.1')" class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800">
+              Back to Mission 3.1
+            </button>
+            <button type="button" onclick="confirmResetModal()" class="px-5 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-100">
+              Reset Unit 3 Practice
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      renderHeaderProgress();
+      renderMission();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadState();
+      renderAll();
+    });
+  </script>
+</body>
+</html>

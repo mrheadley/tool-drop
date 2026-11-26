@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form 2 IT — Unit 5: Privacy, Security &amp; Big Data Targeted Practice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Calm, dyslexia-friendly palette & typography */
+    :root {
+      --bg-cream: #FAF9F6;
+      --card-surface: #FFFFFF;
+      --border-soft: #E2E8F0;
+      --text-slate: #1E293B;
+      --text-muted: #475569;
+      --teal-primary: #0F766E;
+      --teal-soft: #F0FDFA;
+      --amber-accent: #D97706;
+      --amber-soft: #FFFBEB;
+      --emerald-success: #15803D;
+      --emerald-soft: #F0FDF4;
+      --rose-retry: #BE123C;
+      --rose-soft: #FFF1F2;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-slate);
+      font-family: Verdana, 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      letter-spacing: 0.015em;
+      transition: font-size 0.2s ease, line-height 0.2s ease;
+    }
+
+    /* Reading Support Accessibility Toggle */
+    body.reading-support {
+      font-size: 1.15rem;
+      line-height: 1.85;
+      letter-spacing: 0.03em;
+      word-spacing: 0.08em;
+    }
+
+    .card-haven {
+      background-color: var(--card-surface);
+      border: 2px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: 0 4px 14px rgba(30, 41, 59, 0.04);
+    }
+
+    .option-btn {
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--teal-primary);
+      background-color: var(--teal-soft);
+    }
+
+    .option-selected {
+      border-color: var(--teal-primary) !important;
+      background-color: var(--teal-soft) !important;
+      box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2);
+    }
+
+    .option-correct {
+      border-color: var(--emerald-success) !important;
+      background-color: var(--emerald-soft) !important;
+      color: #14532D !important;
+    }
+
+    .option-wrong {
+      border-color: var(--rose-retry) !important;
+      background-color: var(--rose-soft) !important;
+      color: #881337 !important;
+    }
+
+    select.calm-select {
+      background-color: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-radius: 0.65rem;
+      padding: 0.6rem 0.8rem;
+      color: var(--text-slate);
+      font-family: inherit;
+      width: 100%;
+    }
+
+    select.calm-select:focus {
+      outline: none;
+      border-color: var(--teal-primary);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Sticky Header -->
+  <header class="bg-white border-b-2 border-slate-200 sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-3 h-3 rounded-full bg-teal-700"></span>
+          <span class="text-xs font-bold uppercase tracking-wider text-teal-800">Form 2 IT • Unit 5 Targeted Practice (Lessons 12–14)</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold text-slate-900">Privacy, Security &amp; Big Data</h1>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="readingToggleBtn" type="button" onclick="toggleReadingSupport()"
+          class="px-3.5 py-2 rounded-xl border-2 border-teal-700 text-teal-800 font-semibold text-sm hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-600">
+          Aa Reading Support: Off
+        </button>
+        <button type="button" onclick="openReviewSummary()"
+          class="px-3.5 py-2 rounded-xl border-2 border-emerald-700 text-emerald-800 font-semibold text-sm hover:bg-emerald-50 focus:outline-none">
+          My Review Plan
+        </button>
+        <button type="button" onclick="confirmResetModal()"
+          class="px-3 py-2 rounded-xl border-2 border-rose-200 text-rose-700 text-sm font-semibold hover:bg-rose-50 focus:outline-none">
+          Reset Practice Data
+        </button>
+      </div>
+    </div>
+
+    <!-- Mastery Progress Bar & Mission Pills -->
+    <div class="bg-slate-50 border-t border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-3">
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-600 mb-2">
+          <span>Unit 5 Mastery Progress (3 Missions)</span>
+          <span id="masteryCountText">0 of 3 Missions Mastered</span>
+        </div>
+        <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden mb-3">
+          <div id="masteryProgressBar" class="bg-teal-700 h-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <nav id="missionNavPills" class="grid grid-cols-1 sm:grid-cols-3 gap-2" aria-label="Unit 5 Practice Missions">
+          <!-- Populated dynamically -->
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6 sm:py-8">
+    <div class="mb-6 p-4 rounded-2xl bg-teal-50/80 border-2 border-teal-200 flex items-start gap-3">
+      <div class="text-teal-800 mt-0.5 shrink-0" aria-hidden="true">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="text-sm text-slate-800">
+        <strong>No timers. No stress.</strong> Practice <strong>Unit 5: Privacy, Security &amp; Big Data (Lessons 12–14)</strong> step by step. Score <strong>80% or higher</strong> on a mission to earn its Mastery Badge—or take a 2-question Confidence Retry to level up!
+      </div>
+    </div>
+
+    <div id="missionContainer" class="animate-fade"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 bg-white py-4 mt-10">
+    <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-500">
+      Form 2 Information Technology • Unit 5: Privacy, Security &amp; Big Data (Lessons 12–14)
+    </div>
+  </footer>
+
+  <!-- Custom Reset Modal -->
+  <div id="resetModal" class="hidden fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border-2 border-slate-200 max-w-md w-full p-6 shadow-xl">
+      <h2 class="text-lg font-bold text-slate-900 mb-2">Reset Unit 5 Practice Data?</h2>
+      <p class="text-sm text-slate-600 mb-5">This will clear your earned badges, answers, and review diagnostics for Unit 5 so you can start fresh.</p>
+      <div class="flex justify-end gap-3">
+        <button type="button" onclick="closeResetModal()" class="px-4 py-2.5 rounded-xl border-2 border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50">
+          Keep My Progress
+        </button>
+        <button type="button" onclick="executeReset()" class="px-4 py-2.5 rounded-xl bg-rose-700 text-white font-semibold text-sm hover:bg-rose-800">
+          Yes, Start Fresh
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       UNIT 5 TARGETED PRACTICE DATA (LESSONS 12–14 — 100% ORIGINAL SCENARIOS)
+       ========================================================================= */
+    const MISSIONS = [
+      {
+        id: "5.1",
+        shortTitle: "Mission 1",
+        title: "Scams & Schemes — Reading the Bait",
+        sowRef: "Lesson 12: Scams, Phishing, Malware, Identity Theft & Playbook",
+        summary: "Spot the six red flags, apply the WHO/WHAT/WHY check, and use the Playbook: verify → don't click → report and tell.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: Threats & Verification Code Traps (3 Questions)",
+            instruction: "Select the best answer for each question, then click Check Answers.",
+            questions: [
+              {
+                id: "m51_q1",
+                sowTopic: "Lesson 12: Phishing vs. Malware vs. Identity Theft",
+                skillLevel: "Knowledge",
+                studyTip: "Compare: Phishing = fake bait tricking you into handing over secrets; Malware = harmful software sneaking onto a device; Identity theft = stealing personal details to impersonate you.",
+                prompt: "What is the key difference between phishing, malware, and identity theft?",
+                options: [
+                  "A. Phishing uses fake messages to trick you into giving away secrets; malware is harmful software that infects a device; identity theft is stealing personal details to pretend to be you.",
+                  "B. Phishing only happens on desktop computers, while malware only happens on tablets.",
+                  "C. Identity theft is a useful cookie that remembers your school password.",
+                  "D. Malware is a safe security update sent by text message."
+                ],
+                correctIndex: 0,
+                explanation: "Phishing is the deceptive bait/hook, malware is harmful code installed on a device, and identity theft happens when criminals misuse your stolen personal details."
+              },
+              {
+                id: "m51_q2",
+                sowTopic: "Lesson 12: Why Real Companies Never Ask for Passwords or Verification Codes",
+                skillLevel: "Understanding",
+                studyTip: "Remember: genuine banks, schools, and apps NEVER ask for your password or one-time 6-digit verification code by message—only scammers need your code to break in.",
+                prompt: "Why do legitimate banks, mobile carriers, and school IT teams NEVER send a text or DM asking for your password or 6-digit verification code?",
+                options: [
+                  "A. Because real organisations already manage their systems without needing your secret password, whereas a 6-digit verification code is the key that unlocks your account for an intruder.",
+                  "B. Because 6-digit verification codes expire after ten years.",
+                  "C. Because mobile networks block numbers inside text messages."
+                ],
+                correctIndex: 0,
+                explanation: "One-time verification codes exist to prove YOU are logging in—anyone asking you to forward that code is trying to hijack your account."
+              },
+              {
+                id: "m51_q3",
+                sowTopic: "Lesson 12: The 'Hacked Friend' Scam & Six Red Flags",
+                skillLevel: "Understanding",
+                studyTip: "Watch for the 'hacked friend' pattern: urgent pressure + asking for a verification code or gift card + odd tone. Verify out-of-band (call or ask in person)!",
+                prompt: "Your classmate Keron DMs you at 8:30 p.m.: 'yo bro quick favor!! i locked myself out of my phone, i sent a 6-digit code to ur number by mistake, screenshot it to me RIGHT NOW pls!!' Why is this almost certainly a 'hacked friend' scam?",
+                options: [
+                  "A. Because Keron's account was likely hijacked, and the scammer actually triggered a password-reset code for YOUR account so they can steal yours next.",
+                  "B. Because screenshots cannot be sent after 8:00 p.m.",
+                  "C. Because friends always need your 6-digit code to fix their phone screen."
+                ],
+                correctIndex: 0,
+                explanation: "In the 'hacked friend' scam, an attacker uses a compromised friend's profile, creates urgency, and tricks you into handing over your own login reset code."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            blockTitle: "Part B: Inbox Audit — Bait or Real? (3 Messages)",
+            instruction: "Apply the WHO / WHAT / WHY three-question check and the six red flags to diagnose each message.",
+            items: [
+              {
+                id: "m51_c1",
+                sowTopic: "Lesson 12: Inbox Audit — Fake Courier Fee Bait",
+                skillLevel: "Application",
+                studyTip: "Check the 6 red flags: unknown sender, lookalike link, fake urgency ('returned in 2 hours'), and asking for a small card fee.",
+                label: "Message 1 (SMS from +1-868-555-0194): \"TT-Post-Express Alert: Your parcel #4092 is on hold due to an unpaid $14.50 TTD customs fee. Pay within 2 hours at http://ttpost-parcel-verify.info or it will be destroyed.\"",
+                choices: ["Bait (Phishing / Scam)", "Real (Safe Official Notice)"],
+                correct: "Bait (Phishing / Scam)",
+                explanation: "Red flags everywhere: random phone number, fake urgency ('within 2 hours'), threat of destruction, and a lookalike domain ('ttpost-parcel-verify.info') fishing for card details."
+              },
+              {
+                id: "m51_c2",
+                sowTopic: "Lesson 12: Inbox Audit — Verifying Official School Domains",
+                skillLevel: "Application",
+                studyTip: "Use WHO/WHAT/WHY: known sender (PE teacher), expected context (upcoming Sports Day), official .edu.tt domain, and asks for zero passwords or codes.",
+                label: "Message 2 (Email from coach.williams@stmarys-sec.edu.tt): \"Subject: Form 2 House Relays — Signed Parent Slip Reminder. Good afternoon Form 2, please bring your printed parent permission slip to the Sports Room by Friday at 12:30 p.m. No reply needed.\"",
+                choices: ["Bait (Phishing / Scam)", "Real (Safe Official Notice)"],
+                correct: "Real (Safe Official Notice)",
+                explanation: "WHO/WHAT/WHY passes cleanly: verified school '.edu.tt' address, matches real school Sports Day context, no suspicious links, and asks for no passwords or money."
+              },
+              {
+                id: "m51_c3",
+                sowTopic: "Lesson 12: Inbox Audit — Hacked Friend Verification Code Trap",
+                skillLevel: "Application",
+                studyTip: "Even if the profile photo belongs to a friend, asking for a 6-digit SMS code with urgent pressure is a classic account-takeover trap.",
+                label: "Message 3 (DM from cousin's account): \"Hey!! Entering a Caribbean youth dance contest and they sent a 6-digit vote code to your SMS—send me the numbers super fast before voting closes!!\"",
+                choices: ["Bait (Phishing / Scam)", "Real (Safe Official Notice)"],
+                correct: "Bait (Phishing / Scam)",
+                explanation: "Classic 'hacked friend' bait: false urgency ('super fast') + trying to steal a 6-digit SMS verification code that actually belongs to your account."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Part C: Emergency Playbook Action Plan (2 Marks)",
+            sowTopic: "Lesson 12: Playbook — Verify → Don't Click → Report and Tell",
+            skillLevel: "Application",
+            studyTip: "When someone already clicked a phishing link or typed a password, act fast: disconnect/close, change the password on a clean device, turn on 2FA, and report/tell a trusted adult.",
+            prompt: "Your friend Brianna tells you at break: 'I just tapped a link offering free streaming music and typed in my email and password—now the page is frozen!' Using our Lesson 12 Playbook ('verify → don't click → report and tell'), give Brianna a clear 2-step rescue plan right now.",
+            hint: "Sentence starter: \"First, do not click anything else on that page—immediately go to the official email app/site on a safe device and change your... Second, report the message and tell...\"",
+            checklist: [
+              "I told Brianna to stop clicking on the fake page and immediately change her email password (and turn on two-factor authentication) using the real, official app or website.",
+              "I included 'report and tell'—reporting the scam message/link and telling a trusted adult (parent or IT teacher) right away."
+            ],
+            modelAnswer: "First, close that fake page without clicking anything else, open the real email app or official website, and change your password immediately (turning on two-factor authentication too). Second, follow 'report and tell'—report the scam link in the app and tell a trusted adult or IT teacher right away."
+          }
+        ],
+        retry: [
+          {
+            id: "m51_r1",
+            prompt: "What are the three questions in our 'WHO / WHAT / WHY' check before trusting an unexpected message?",
+            options: [
+              "A. WHO actually sent it? WHAT are they asking me to do or give? WHY is there sudden urgency or a prize/threat?",
+              "B. WHO has the fastest Wi-Fi? WHAT phone model do I own? WHY is my screen bright?"
+            ],
+            correctIndex: 0,
+            explanation: "Checking WHO sent it, WHAT they want, and WHY they are rushing you catches almost every scam before you click."
+          },
+          {
+            id: "m51_r2",
+            prompt: "What is the correct order of our Lesson 12 Scam Playbook?",
+            options: [
+              "A. Verify → don't click → report and tell.",
+              "B. Click fast → type your password → share with friends."
+            ],
+            correctIndex: 0,
+            explanation: "Always verify out-of-band, don't click suspicious links, and report and tell a trusted adult."
+          }
+        ]
+      },
+      {
+        id: "5.2",
+        shortTitle: "Mission 2",
+        title: "Data Literacy — Who Knows What About You?",
+        sowRef: "Lesson 13: Free Apps, Cookies, Data Brokers, Incognito & Data Portraits",
+        summary: "Unpack 'If the product is free, you are the product', sort useful vs. tracking cookies, and trace how digital crumbs form a portrait.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: Free Apps, Data Brokers & Incognito Myths (2 Questions)",
+            instruction: "Select the best answer for each question, then click Check Answers.",
+            questions: [
+              {
+                id: "m52_q1",
+                sowTopic: "Lesson 13: 'If the Product Is Free, You Are the Product' & Data Brokers",
+                skillLevel: "Knowledge",
+                studyTip: "Remember: free apps earn billions by tracking your clicks, likes, and location, bundling that data via data brokers, and selling targeted ad space.",
+                prompt: "In Lesson 13, what does the phrase 'If the product is free, you are the product' mean, and what role do 'data brokers' play?",
+                options: [
+                  "A. Free apps make money by collecting your personal data and habits, which data brokers combine and sell to advertisers so they can target ads at you.",
+                  "B. Free apps pay students cash every time they watch a video.",
+                  "C. Data brokers are school technicians who repair broken laptop screens."
+                ],
+                correctIndex: 0,
+                explanation: "When you don't pay with money, you pay with your attention and data—data brokers assemble profiles from multiple apps to power targeted ads."
+              },
+              {
+                id: "m52_q2",
+                sowTopic: "Lesson 13: Incognito Mode Limits vs. Microphone Listening Myths",
+                skillLevel: "Understanding",
+                studyTip: "Know two key facts: (1) Incognito mode only stops local browser history on your device—websites, Wi-Fi, and logged-in accounts still see you; (2) eerie ads come from data inference, not secret microphones.",
+                prompt: "Devon searches for trail running shoes in an Incognito/Private browser window while logged into his video account, and later sees shoe ads everywhere. Why did this happen?",
+                options: [
+                  "A. Incognito mode only stops your device from saving local history—it does NOT hide your activity from websites you log into, your Wi-Fi network, or data trackers.",
+                  "B. Because Incognito mode turns on your phone's microphone to listen to your conversations.",
+                  "C. Because shoe stores guess every student's shoe size randomly."
+                ],
+                correctIndex: 0,
+                explanation: "Incognito mode only keeps history off your local browser—logged-in accounts, websites, and network providers can still track your activity and infer your interests."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            blockTitle: "Part B: Useful Cookie or Tracking Cookie? (6 Items)",
+            instruction: "Sort each browser cookie job into 'Useful Cookie (Functional)' or 'Tracking Cookie (Targeted Ads)'.",
+            items: [
+              {
+                id: "m52_c1",
+                sowTopic: "Lesson 13: Useful Cookies vs. Tracking Cookies",
+                skillLevel: "Application",
+                studyTip: "Remembering items inside your shopping basket while you browse a single store is a helpful functional cookie.",
+                label: "1. Keeping two geometry sets inside your online school-supply cart while you click to another page on the same shop.",
+                choices: ["Useful Cookie (Functional)", "Tracking Cookie (Targeted Ads)"],
+                correct: "Useful Cookie (Functional)",
+                explanation: "Remembering your active shopping cart on one site is a useful functional cookie."
+              },
+              {
+                id: "m52_c2",
+                sowTopic: "Lesson 13: Useful Cookies vs. Tracking Cookies",
+                skillLevel: "Application",
+                studyTip: "Third-party cookies that follow you from website to website to build an ad profile are tracking cookies.",
+                label: "2. Following you from a sports news site to a recipe blog and then to a music site so every banner shows the same sneakers.",
+                choices: ["Useful Cookie (Functional)", "Tracking Cookie (Targeted Ads)"],
+                correct: "Tracking Cookie (Targeted Ads)",
+                explanation: "Cross-site tracking that follows you across unrelated websites to serve ads is a tracking cookie."
+              },
+              {
+                id: "m52_c3",
+                sowTopic: "Lesson 13: Useful Cookies vs. Tracking Cookies",
+                skillLevel: "Application",
+                studyTip: "Saving your chosen language or dark-mode preference on a learning portal is a useful cookie.",
+                label: "3. Remembering that you switched a revision website to larger font size and high-contrast mode.",
+                choices: ["Useful Cookie (Functional)", "Tracking Cookie (Targeted Ads)"],
+                correct: "Useful Cookie (Functional)",
+                explanation: "Remembering your accessibility and display settings on a site makes the site work smoothly for you."
+              },
+              {
+                id: "m52_c4",
+                sowTopic: "Lesson 13: Useful Cookies vs. Tracking Cookies",
+                skillLevel: "Application",
+                studyTip: "Recording how many seconds you pause on different video topics to feed an ad profile is tracking.",
+                label: "4. Recording which video categories you pause on longest so an ad network can guess your hobbies and sell ad slots.",
+                choices: ["Useful Cookie (Functional)", "Tracking Cookie (Targeted Ads)"],
+                correct: "Tracking Cookie (Targeted Ads)",
+                explanation: "Profiling your interests for advertising networks is a tracking cookie function."
+              },
+              {
+                id: "m52_c5",
+                sowTopic: "Lesson 13: Useful Cookies vs. Tracking Cookies",
+                skillLevel: "Application",
+                studyTip: "Keeping you signed into your school learning portal while you move between assignments is a useful session cookie.",
+                label: "5. Keeping you signed into your school's homework portal so you don't have to re-type your password on every single page.",
+                choices: ["Useful Cookie (Functional)", "Tracking Cookie (Targeted Ads)"],
+                correct: "Useful Cookie (Functional)",
+                explanation: "Maintaining your active login session on a portal you chose to use is a useful cookie."
+              },
+              {
+                id: "m52_c6",
+                sowTopic: "Lesson 13: Useful Cookies vs. Tracking Cookies",
+                skillLevel: "Application",
+                studyTip: "Sharing your browsing trail with dozens of outside ad partners is a tracking cookie.",
+                label: "6. Sending your browsing list to 40 outside marketing companies when you click 'Accept All' on a random quiz website.",
+                choices: ["Useful Cookie (Functional)", "Tracking Cookie (Targeted Ads)"],
+                correct: "Tracking Cookie (Targeted Ads)",
+                explanation: "Broadcasting your browsing activity to outside ad partners is classic tracking cookie behaviour."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Part C: Data Point to Portrait Synthesis (2 Marks)",
+            sowTopic: "Lesson 13: Data Portraits (Interests, Habits, Identity, Location) & Personalisation",
+            skillLevel: "Application",
+            studyTip: "Connect at least two digital crumbs (location, habits/timing, interests, identity) to explain how an app builds a 'data portrait' and personalises your feed/ads.",
+            prompt: "Read these four digital crumbs left by a Form 2 student over one week:\n• Location: Walks past a bakery near Queen's Park Savannah every weekday at 3:40 p.m.\n• Interests: Watches 12 steelpan arranging tutorials and searches 'tenor pan sticks'.\n• Habits: Scrolls videos mostly between 8:00 p.m. and 9:30 p.m.\n• Identity: Lists age 13 and 'Port of Spain' on a public profile.\n\nIn 2–3 sentences, explain how companies combine these crumbs into a 'data portrait' and give ONE example of how they use it for targeted ads or feed personalisation.",
+            hint: "Sentence starter: \"Companies combine these four crumbs into a data portrait showing a 13-year-old steelpan player in Port of Spain who gets hungry after school. They use this portrait to personalise...\"",
+            checklist: [
+              "I explained how combining separate clues (location, interests, habits, identity) builds an accurate 'data portrait' of who the student is.",
+              "I gave a specific example of targeted ads or personalisation (e.g., showing snack/bakery ads around 3:30 p.m. or recommending music/steelpan gear at 8:00 p.m.)."
+            ],
+            modelAnswer: "Companies combine those separate clues into a detailed data portrait: a 13-year-old steelpan musician in Port of Spain who passes a bakery at 3:40 p.m. and watches videos at night. Advertisers use that portrait to serve targeted snack ads right before 3:40 p.m. or recommend tenor pan sticks during their 8:00 p.m. scroll."
+          }
+        ],
+        retry: [
+          {
+            id: "m52_r1",
+            prompt: "Why do ads sometimes feel as though your phone is 'listening' to you even when your microphone is off?",
+            options: [
+              "A. Because companies combine your searches, location, friends' activity, and browsing cookies to predict what you want with surprising accuracy.",
+              "B. Because every free app secretly records every word spoken in your bedroom."
+            ],
+            correctIndex: 0,
+            explanation: "Data inference—piecing together location, shared Wi-Fi, searches, and cookies—predicts interests without needing a microphone."
+          },
+          {
+            id: "m52_r2",
+            prompt: "What is the smart habit when a website pops up a cookie banner with 'Accept All' vs. 'Manage Preferences / Essential Only'?",
+            options: [
+              "A. Choose 'Essential Only' or reject tracking cookies so the site still works while blocking cross-site ad trackers.",
+              "B. Always tap 'Accept All' on every website as fast as possible."
+            ],
+            correctIndex: 0,
+            explanation: "Selecting essential/functional cookies only lets the website work properly while cutting off unnecessary ad tracking."
+          }
+        ]
+      },
+      {
+        id: "5.3",
+        shortTitle: "Mission 3",
+        title: "Respecting Others' Privacy — Ask Before You Post",
+        sowRef: "Lesson 14: Consent, Tagging Is Sharing, Personal vs. Shared Privacy & Empathy Check",
+        summary: "Apply informed and freely given consent, distinguish personal vs. shared privacy, and use the Empathy Check before posting.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: Tagging, Shared Privacy & Screenshot Risk (2 Questions)",
+            instruction: "Select the best answer for each question, then click Check Answers.",
+            questions: [
+              {
+                id: "m53_q1",
+                sowTopic: "Lesson 14: Tagging Is Sharing & Personal vs. Shared Privacy",
+                skillLevel: "Understanding",
+                studyTip: "Compare Personal privacy (controlling your own account settings) with Shared privacy (protecting information, photos, and locations that belong to someone else too).",
+                prompt: "Maya has a public account and tags her friend Jada—whose own account is strictly private—in a photo taken outside Jada's house. Why is 'tagging is sharing' a violation of SHARED privacy?",
+                options: [
+                  "A. Because tagging links Jada's name and home location to Maya's public audience, overriding Jada's own private settings without her consent.",
+                  "B. Because tagging automatically turns Jada's phone battery down to 1%.",
+                  "C. Because private accounts are not allowed to appear in group photos."
+                ],
+                correctIndex: 0,
+                explanation: "Personal privacy covers your own settings, while shared privacy means respecting others' boundaries—tagging exposes a private friend to your public audience."
+              },
+              {
+                id: "m53_q2",
+                sowTopic: "Lesson 14: Informed & Freely Given Consent + Screenshot Risk",
+                skillLevel: "Understanding",
+                studyTip: "Consent must be informed (knowing where it goes) and freely given (no guilt-tripping), and even private stories carry screenshot risk.",
+                prompt: "Why does posting an embarrassing photo of a classmate to a 'Close Friends' story STILL carry a privacy risk even if you trust most people on the list?",
+                options: [
+                  "A. Because anyone viewing the story can take a screenshot or screen-record it and forward it outside the group, and you never got their informed, freely given consent.",
+                  "B. Because 'Close Friends' stories automatically post to public billboards after an hour.",
+                  "C. Because screenshots only work on public profiles."
+                ],
+                correctIndex: 0,
+                explanation: "Once shared digitally, screenshot risk means you lose control over copies—and true consent requires asking the person first without pressure."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            blockTitle: "Part B: Consent Compass — Post, Ask, or Don't? (4 Scenarios)",
+            instruction: "Use the Consent Compass and Empathy Check to decide whether each action is 'Post (Safe to Share)', 'Ask First (Get Informed Consent)', or 'Don't Post (Respect Boundaries)'.",
+            items: [
+              {
+                id: "m53_c1",
+                sowTopic: "Lesson 14: Consent Compass — Embarrassing / Vulnerable Moments",
+                skillLevel: "Application",
+                studyTip: "Apply the Empathy Check: 'How would I feel if someone posted me tripping or crying?' Never post vulnerable or embarrassing moments.",
+                label: "1. Recording a classmate tripping on the stairs during lunch and thinking about posting it as a funny reel.",
+                choices: ["Post (Safe to Share)", "Ask First (Get Informed Consent)", "Don't Post (Respect Boundaries)"],
+                correct: "Don't Post (Respect Boundaries)",
+                explanation: "Don't post! The Empathy Check makes it clear—humiliating or vulnerable moments harm dignity and should never be shared."
+              },
+              {
+                id: "m53_c2",
+                sowTopic: "Lesson 14: Consent Compass — Group Photos & Tagging",
+                skillLevel: "Application",
+                studyTip: "Before uploading or tagging friends in a group photo, let them preview the photo and know where it will be posted (informed, freely given consent).",
+                label: "2. You took a great group selfie with three teammates after winning the Form 2 debate and want to post and tag them on your public page.",
+                choices: ["Post (Safe to Share)", "Ask First (Get Informed Consent)", "Don't Post (Respect Boundaries)"],
+                correct: "Ask First (Get Informed Consent)",
+                explanation: "Ask first! Show your teammates the photo, tell them it will be public, and let them decide freely whether to be posted or tagged."
+              },
+              {
+                id: "m53_c3",
+                sowTopic: "Lesson 14: Consent Compass — Personal Creative Work",
+                skillLevel: "Application",
+                studyTip: "Sharing your own original artwork with zero personal location clues or other people in the frame respects everyone's privacy.",
+                label: "3. Posting a close-up photo of your own watercolour painting of a scarlet ibis on your art page, with no faces or home address visible.",
+                choices: ["Post (Safe to Share)", "Ask First (Get Informed Consent)", "Don't Post (Respect Boundaries)"],
+                correct: "Post (Safe to Share)",
+                explanation: "Safe to share! It features only your own artwork and reveals no private details about yourself or others."
+              },
+              {
+                id: "m53_c4",
+                sowTopic: "Lesson 14: Consent Compass — Private Chats & Secrets",
+                skillLevel: "Application",
+                studyTip: "Private DMs and personal family news shared in confidence belong to shared privacy—never screenshot and broadcast them.",
+                label: "4. Screenshotting a private DM where a friend confided that they are nervous about moving to a new neighbourhood, and sharing it in a larger group chat.",
+                choices: ["Post (Safe to Share)", "Ask First (Get Informed Consent)", "Don't Post (Respect Boundaries)"],
+                correct: "Don't Post (Respect Boundaries)",
+                explanation: "Don't post! Broadcasting someone's private confidence breaks trust and violates shared privacy."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Part C: Empathy Check & 'Say It Out Loud' Script (2 Marks)",
+            sowTopic: "Lesson 14: Empathy Check & Respectful Consent / Takedown Communication",
+            skillLevel: "Application",
+            studyTip: "Use calm, clear 'I' language without guilt-tripping: state what you'd like removed (or ask clearly before posting) and give an easy 'no-pressure' out.",
+            prompt: "Scenario: Your friend Malik just posted a photo from your birthday lime where you are mid-bite with your eyes half-closed, and he tagged your account. Use the Empathy Check and our 'Say It Out Loud' skill to write a respectful 2-sentence message asking Malik to untag you or take the photo down.",
+            hint: "Sentence starter: \"Hey Malik, thanks for celebrating with me! Could you please untag me or take down that mid-bite photo because...\"",
+            checklist: [
+              "My message is polite, calm, and respectful—keeping the friendship warm without insulting Malik.",
+              "I clearly asked him to remove the tag or delete the photo so my shared privacy is respected."
+            ],
+            modelAnswer: "Hey Malik, I had such a great time at the lime with you! Would you mind untagging me or taking down that photo where my eyes are half-closed? I'd really appreciate keeping that one off my profile."
+          }
+        ],
+        retry: [
+          {
+            id: "m53_r1",
+            prompt: "What makes consent 'informed and freely given' before posting someone else's photo?",
+            options: [
+              "A. They see the exact photo, know which platform/audience will see it, and can say 'no' without being teased or pressured.",
+              "B. You post the photo first and tell them 'relax, it's just a joke' if they complain."
+            ],
+            correctIndex: 0,
+            explanation: "True consent happens BEFORE posting, with clear information and zero pressure."
+          },
+          {
+            id: "m53_r2",
+            prompt: "What is the 'Empathy Check' before hitting post on a photo or video of someone else?",
+            options: [
+              "A. Pausing to ask: 'How would I feel if someone posted this exact moment of me without asking?'",
+              "B. Checking how many filters will make the photo get the most views."
+            ],
+            correctIndex: 0,
+            explanation: "Putting yourself in the other person's shoes stops thoughtless posts before they cause hurt."
+          }
+        ]
+      }
+    ];
+
+    /* =========================================================================
+       STATE MANAGEMENT (LOCALSTORAGE PERSISTENCE + FIRST-TRY DIAGNOSTIC LOG)
+       ========================================================================= */
+    const STORAGE_KEY = "f2_unit5_privacy_v1";
+    const READING_KEY = "f2_unit5_reading_support";
+
+    let state = {
+      activeMissionId: "5.1",
+      readingSupport: false,
+      showSummary: false,
+      missions: {
+        "5.1": { done: false, score: 0, total: 8, mastered: false, retryPassed: false },
+        "5.2": { done: false, score: 0, total: 10, mastered: false, retryPassed: false },
+        "5.3": { done: false, score: 0, total: 8, mastered: false, retryPassed: false }
+      },
+      diagnostics: {},
+      answers: {},
+      blockFeedback: {}
+    };
+
+    function loadState() {
+      try {
+        const savedReading = localStorage.getItem(READING_KEY);
+        if (savedReading !== null) {
+          state.readingSupport = savedReading === "true";
+        }
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.missions) {
+            state.missions = { ...state.missions, ...parsed.missions };
+            state.activeMissionId = parsed.activeMissionId || "5.1";
+            if (savedReading === null && parsed.readingSupport !== undefined) {
+              state.readingSupport = !!parsed.readingSupport;
+            }
+            state.diagnostics = parsed.diagnostics || {};
+            state.answers = parsed.answers || {};
+            state.blockFeedback = parsed.blockFeedback || {};
+          }
+        }
+      } catch (e) {}
+      applyReadingSupportClass();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(READING_KEY, String(state.readingSupport));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          activeMissionId: state.activeMissionId,
+          readingSupport: state.readingSupport,
+          missions: state.missions,
+          diagnostics: state.diagnostics,
+          answers: state.answers,
+          blockFeedback: state.blockFeedback
+        }));
+      } catch (e) {}
+    }
+
+    /* =========================================================================
+       ACCESSIBILITY & MODAL CONTROLS
+       ========================================================================= */
+    function toggleReadingSupport() {
+      state.readingSupport = !state.readingSupport;
+      applyReadingSupportClass();
+      saveState();
+    }
+
+    function applyReadingSupportClass() {
+      const btn = document.getElementById("readingToggleBtn");
+      if (state.readingSupport) {
+        document.body.classList.add("reading-support");
+        btn.textContent = "Aa Reading Support: On";
+        btn.classList.add("bg-teal-700", "text-white");
+        btn.classList.remove("text-teal-800");
+      } else {
+        document.body.classList.remove("reading-support");
+        btn.textContent = "Aa Reading Support: Off";
+        btn.classList.remove("bg-teal-700", "text-white");
+        btn.classList.add("text-teal-800");
+      }
+    }
+
+    function confirmResetModal() {
+      document.getElementById("resetModal").classList.remove("hidden");
+    }
+
+    function closeResetModal() {
+      document.getElementById("resetModal").classList.add("hidden");
+    }
+
+    function executeReset() {
+      localStorage.removeItem(STORAGE_KEY);
+      state.answers = {};
+      state.blockFeedback = {};
+      state.diagnostics = {};
+      state.showSummary = false;
+      state.activeMissionId = "5.1";
+      state.missions = {
+        "5.1": { done: false, score: 0, total: 8, mastered: false, retryPassed: false },
+        "5.2": { done: false, score: 0, total: 10, mastered: false, retryPassed: false },
+        "5.3": { done: false, score: 0, total: 8, mastered: false, retryPassed: false }
+      };
+      saveState();
+      closeResetModal();
+      renderAll();
+    }
+
+    function selectMission(missionId) {
+      state.activeMissionId = missionId;
+      state.showSummary = false;
+      saveState();
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openReviewSummary() {
+      state.showSummary = true;
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* =========================================================================
+       HEADER PROGRESS PILLS
+       ========================================================================= */
+    function renderHeaderProgress() {
+      const masteredCount = Object.values(state.missions).filter(m => m.mastered).length;
+      document.getElementById("masteryCountText").textContent = `${masteredCount} of 3 Missions Mastered`;
+      document.getElementById("masteryProgressBar").style.width = `${(masteredCount / 3) * 100}%`;
+
+      const nav = document.getElementById("missionNavPills");
+      nav.innerHTML = MISSIONS.map(m => {
+        const st = state.missions[m.id];
+        const isActive = !state.showSummary && state.activeMissionId === m.id;
+
+        let badgeLabel = "Start";
+        let badgeStyle = "bg-slate-200 text-slate-700";
+        if (st.mastered) {
+          badgeLabel = "Mastered ★";
+          badgeStyle = "bg-emerald-700 text-white";
+        } else if (st.done) {
+          badgeLabel = "Retry Ready";
+          badgeStyle = "bg-amber-600 text-white";
+        }
+
+        const activeRing = isActive
+          ? "border-teal-700 bg-teal-50 ring-2 ring-teal-600/30"
+          : "border-slate-300 bg-white hover:border-teal-600";
+
+        return `
+          <button type="button" onclick="selectMission('${m.id}')"
+            class="p-2.5 rounded-xl border-2 text-left transition flex flex-col justify-between ${activeRing}">
+            <div class="flex items-center justify-between gap-1 mb-1">
+              <span class="font-bold text-xs text-slate-900">${m.shortTitle}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badgeStyle}">${badgeLabel}</span>
+            </div>
+            <span class="text-xs text-slate-600 line-clamp-1">${m.title}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    /* =========================================================================
+       INTERACTION & MASTERY EVALUATION
+       ========================================================================= */
+    function selectMcqOption(qId, optIndex) {
+      state.answers[qId] = optIndex;
+      renderMission();
+    }
+
+    function selectClassifierChoice(itemId, value) {
+      state.answers[itemId] = value;
+    }
+
+    function toggleHint(hintId) {
+      const el = document.getElementById(hintId);
+      if (el) el.classList.toggle("hidden");
+    }
+
+    function checkBlock(missionId, blockIndex) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const block = mission.blocks[blockIndex];
+      const fbKey = `m${missionId}_b${blockIndex}`;
+
+      if (block.type === "mcq") {
+        const unanswered = block.questions.some(q => state.answers[q.id] === undefined);
+        if (unanswered) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Pick an answer for every question in this part first, then click Check!"
+          };
+          renderMission();
+          return;
+        }
+        let correctCount = 0;
+        block.questions.forEach(q => {
+          const isCorrect = state.answers[q.id] === q.correctIndex;
+          if (isCorrect) correctCount++;
+          if (!state.diagnostics[q.id]) {
+            state.diagnostics[q.id] = {
+              missionId: mission.id,
+              missionTitle: `${mission.shortTitle}: ${mission.title}`,
+              sowTopic: q.sowTopic,
+              skillLevel: q.skillLevel,
+              studyTip: q.studyTip,
+              masteredOnFirstTry: isCorrect
+            };
+          }
+        });
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          correctCount,
+          totalCount: block.questions.length
+        };
+      } else if (block.type === "classifier") {
+        const unanswered = block.items.some(item => !state.answers[item.id]);
+        if (unanswered) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Choose an option from every dropdown menu first, then click Check!"
+          };
+          renderMission();
+          return;
+        }
+        let correctCount = 0;
+        block.items.forEach(item => {
+          const isCorrect = state.answers[item.id] === item.correct;
+          if (isCorrect) correctCount++;
+          if (!state.diagnostics[item.id]) {
+            state.diagnostics[item.id] = {
+              missionId: mission.id,
+              missionTitle: `${mission.shortTitle}: ${mission.title}`,
+              sowTopic: item.sowTopic,
+              skillLevel: item.skillLevel,
+              studyTip: item.studyTip,
+              masteredOnFirstTry: isCorrect
+            };
+          }
+        });
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          correctCount,
+          totalCount: block.items.length
+        };
+      } else if (block.type === "scaffolded") {
+        const textId = `scaffold_m${missionId}_b${blockIndex}`;
+        const textVal = (document.getElementById(textId)?.value || "").trim();
+        state.answers[textId] = textVal;
+        if (textVal.length < 12) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Write a 2–3 sentence response in the box first (click the Hint button if you'd like a starter!)."
+          };
+          renderMission();
+          return;
+        }
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          revealedModel: true
+        };
+      }
+
+      recalculateMissionMastery(missionId);
+      renderAll();
+    }
+
+    function confirmScaffoldSelfCheck(missionId, blockIndex, earnedPoints) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const block = mission.blocks[blockIndex];
+      const scoreKey = `scaffold_score_m${missionId}_b${blockIndex}`;
+      state.answers[scoreKey] = earnedPoints;
+
+      const diagId = `diag_m${missionId}_b${blockIndex}`;
+      if (!state.diagnostics[diagId]) {
+        state.diagnostics[diagId] = {
+          missionId: mission.id,
+          missionTitle: `${mission.shortTitle}: ${mission.title}`,
+          sowTopic: block.sowTopic,
+          skillLevel: block.skillLevel,
+          studyTip: block.studyTip,
+          masteredOnFirstTry: earnedPoints === 2
+        };
+      }
+
+      recalculateMissionMastery(missionId);
+      renderAll();
+    }
+
+    function recalculateMissionMastery(missionId) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const st = state.missions[missionId];
+      let earned = 0;
+      let total = 0;
+      let allInteractiveBlocksDone = true;
+
+      mission.blocks.forEach((block, idx) => {
+        const fb = state.blockFeedback[`m${missionId}_b${idx}`];
+        if (block.type === "mcq") {
+          total += block.questions.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          else allInteractiveBlocksDone = false;
+        } else if (block.type === "classifier") {
+          total += block.items.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          else allInteractiveBlocksDone = false;
+        } else if (block.type === "scaffolded") {
+          total += 2;
+          const selfPts = state.answers[`scaffold_score_m${missionId}_b${idx}`];
+          if (selfPts !== undefined) earned += selfPts;
+          else allInteractiveBlocksDone = false;
+        }
+      });
+
+      st.score = earned;
+      st.total = total;
+      st.done = allInteractiveBlocksDone;
+
+      const pct = total > 0 ? (earned / total) * 100 : 0;
+      if (allInteractiveBlocksDone && (pct >= 80 || st.retryPassed)) {
+        st.mastered = true;
+      }
+      saveState();
+    }
+
+    function checkConfidenceRetry(missionId) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const retryFbKey = `m${missionId}_retry`;
+      const unanswered = mission.retry.some(q => state.answers[q.id] === undefined);
+
+      if (unanswered) {
+        state.blockFeedback[retryFbKey] = {
+          incomplete: true,
+          message: "Answer both Confidence Retry questions first!"
+        };
+        renderMission();
+        return;
+      }
+
+      let correct = 0;
+      mission.retry.forEach(q => {
+        if (state.answers[q.id] === q.correctIndex) correct++;
+      });
+
+      state.blockFeedback[retryFbKey] = {
+        checked: true,
+        correctCount: correct,
+        totalCount: mission.retry.length
+      };
+
+      if (correct === mission.retry.length) {
+        state.missions[missionId].mastered = true;
+        state.missions[missionId].retryPassed = true;
+        saveState();
+      }
+      renderAll();
+    }
+
+    /* =========================================================================
+       RENDER MISSION VIEW & PERSONALIZED SCHEME-OF-WORK REVIEW PLAN
+       ========================================================================= */
+    function renderMission() {
+      const container = document.getElementById("missionContainer");
+
+      if (state.showSummary) {
+        renderReviewSummary(container);
+        return;
+      }
+
+      const mission = MISSIONS.find(m => m.id === state.activeMissionId);
+      const st = state.missions[mission.id];
+      const pct = st.total > 0 ? Math.round((st.score / st.total) * 100) : 0;
+
+      const blocksHtml = mission.blocks.map((block, bIdx) => {
+        const fbKey = `m${mission.id}_b${bIdx}`;
+        const fb = state.blockFeedback[fbKey];
+
+        if (block.type === "mcq") {
+          const isChecked = fb && fb.checked;
+          const qHtml = block.questions.map((q, qIdx) => {
+            const chosen = state.answers[q.id];
+            const optsHtml = q.options.map((opt, oIdx) => {
+              let cls = "border-slate-300 bg-white text-slate-800";
+              if (isChecked) {
+                if (oIdx === q.correctIndex) cls = "option-correct font-semibold";
+                else if (chosen === oIdx) cls = "option-wrong";
+                else cls = "border-slate-200 bg-slate-50 text-slate-500";
+              } else if (chosen === oIdx) {
+                cls = "option-selected font-semibold";
+              }
+              return `
+                <button type="button" ${isChecked ? "disabled" : ""}
+                  onclick="selectMcqOption('${q.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm sm:text-base ${cls}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            const expHtml = isChecked ? `
+              <div class="mt-3 p-3.5 rounded-xl text-sm ${chosen === q.correctIndex ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${chosen === q.correctIndex ? 'Spot on!' : "Let's check the clue:"}</strong> ${q.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="mb-6 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-3">${qIdx + 1}. ${q.prompt}</p>
+                <div class="space-y-2.5">${optsHtml}</div>
+                ${expHtml}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                ${isChecked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-5">${block.instruction}</p>
+              ${qHtml}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!isChecked ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkBlock('${mission.id}', ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check Answers
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        if (block.type === "classifier") {
+          const isChecked = fb && fb.checked;
+          const itemsHtml = block.items.map(item => {
+            const currentVal = state.answers[item.id] || "";
+            const isRight = currentVal === item.correct;
+            const optionsMarkup = [
+              `<option value="">-- Choose best match --</option>`,
+              ...item.choices.map(c => `<option value="${c}" ${currentVal === c ? "selected" : ""}>${c}</option>`)
+            ].join("");
+
+            const itemFb = isChecked ? `
+              <div class="mt-2.5 p-3 rounded-xl text-sm ${isRight ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${isRight ? '✓ Correct:' : `✓ Best match is "${item.correct}":`}</strong> ${item.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-3 last:mb-0">
+                <p class="text-sm sm:text-base font-medium text-slate-900 mb-2.5">${item.label}</p>
+                <select ${isChecked ? "disabled" : ""}
+                  onchange="selectClassifierChoice('${item.id}', this.value)"
+                  class="calm-select text-sm sm:text-base">
+                  ${optionsMarkup}
+                </select>
+                ${itemFb}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                ${isChecked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-4">${block.instruction}</p>
+              ${itemsHtml}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!isChecked ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkBlock('${mission.id}', ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check Matches
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        if (block.type === "scaffolded") {
+          const textId = `scaffold_m${mission.id}_b${bIdx}`;
+          const savedText = state.answers[textId] || "";
+          const isRevealed = fb && fb.revealedModel;
+          const selfScore = state.answers[`scaffold_score_m${mission.id}_b${bIdx}`];
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900">2 Marks • Self-Check</span>
+              </div>
+              <p class="text-sm sm:text-base font-medium text-slate-900 mb-3 whitespace-pre-line">${block.prompt}</p>
+
+              <div class="mb-3">
+                <button type="button" onclick="toggleHint('hint_m${mission.id}_b${bIdx}')"
+                  class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100">
+                  💡 Need a Hint / Sentence Starter? (Show/Hide)
+                </button>
+                <div id="hint_m${mission.id}_b${bIdx}" class="hidden mt-2 p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-sm text-slate-800">
+                  ${block.hint}
+                </div>
+              </div>
+
+              <textarea id="${textId}" rows="3" ${isRevealed ? "readonly" : ""}
+                placeholder="Write your 2–3 sentence response here..."
+                class="w-full p-3.5 rounded-xl border-2 border-slate-300 text-slate-900 text-sm sm:text-base focus:outline-none focus:border-teal-700">${savedText}</textarea>
+
+              ${fb && fb.incomplete ? `<p class="mt-3 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+
+              ${!isRevealed ? `
+                <div class="mt-4">
+                  <button type="button" onclick="checkBlock('${mission.id}', ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Compare with Model Answer &amp; Self-Check
+                  </button>
+                </div>
+              ` : `
+                <div class="mt-4 p-4 rounded-xl bg-teal-50 border-2 border-teal-200 animate-fade">
+                  <p class="text-xs font-bold uppercase tracking-wider text-teal-800 mb-1">Teacher Model Answer (2 Marks)</p>
+                  <p class="text-sm text-slate-900 mb-3 whitespace-pre-line">${block.modelAnswer}</p>
+                  <p class="text-xs font-bold text-slate-700 mb-1.5">Check your own answer honestly against these 2 key ideas:</p>
+                  <ul class="list-disc pl-5 text-sm text-slate-800 space-y-1 mb-4">
+                    ${block.checklist.map(c => `<li>${c}</li>`).join("")}
+                  </ul>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-bold text-slate-700 mr-1">Honest Self-Check:</span>
+                    <button type="button" onclick="confirmScaffoldSelfCheck('${mission.id}', ${bIdx}, 2)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 2 ? 'bg-emerald-700 text-white border-emerald-700' : 'bg-white text-emerald-800 border-emerald-600 hover:bg-emerald-50'}">
+                      ★ I got both key ideas (2/2)
+                    </button>
+                    <button type="button" onclick="confirmScaffoldSelfCheck('${mission.id}', ${bIdx}, 1)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 1 ? 'bg-amber-600 text-white border-amber-600' : 'bg-white text-amber-800 border-amber-500 hover:bg-amber-50'}">
+                      I got 1 idea (1/2)
+                    </button>
+                    <button type="button" onclick="confirmScaffoldSelfCheck('${mission.id}', ${bIdx}, 0)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 0 ? 'bg-rose-700 text-white border-rose-700' : 'bg-white text-rose-800 border-rose-400 hover:bg-rose-50'}">
+                      Still learning (0/2)
+                    </button>
+                  </div>
+                </div>
+              `}
+            </section>
+          `;
+        }
+        return "";
+      }).join("");
+
+      // Mission Mastery Banner or Confidence Retry
+      let masteryFooterHtml = "";
+      if (st.done) {
+        if (st.mastered) {
+          const currentIdx = MISSIONS.findIndex(m => m.id === mission.id);
+          const nextMission = MISSIONS[currentIdx + 1];
+          const allMastered = Object.values(state.missions).every(m => m.mastered);
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-emerald-50 border-2 border-emerald-500 animate-fade mb-6">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span class="inline-block px-3 py-1 rounded-full bg-emerald-700 text-white text-xs font-bold mb-2">
+                    ★ ${mission.shortTitle} Mastery Badge Earned!
+                  </span>
+                  <h3 class="text-xl font-bold text-emerald-950">Great job on ${mission.title}!</h3>
+                  <p class="text-sm text-emerald-900 mt-1">
+                    ${st.retryPassed ? "You locked in the concepts through the Confidence Retry!" : `You scored ${pct}%—strong mastery of this mission!`}
+                  </p>
+                </div>
+                <div>
+                  ${allMastered ? `
+                    <button type="button" onclick="openReviewSummary()"
+                      class="px-5 py-3 rounded-xl bg-emerald-700 text-white font-bold text-sm hover:bg-emerald-800 shadow">
+                      View My Unit 5 Review Plan →
+                    </button>
+                  ` : nextMission ? `
+                    <button type="button" onclick="selectMission('${nextMission.id}')"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      Continue to ${nextMission.shortTitle} →
+                    </button>
+                  ` : `
+                    <button type="button" onclick="openReviewSummary()"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      View My Unit 5 Review Plan →
+                    </button>
+                  `}
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          const retryFb = state.blockFeedback[`m${mission.id}_retry`];
+          const retryQHtml = mission.retry.map((rq, rIdx) => {
+            const rChosen = state.answers[rq.id];
+            const rChecked = retryFb && retryFb.checked;
+            const rOpts = rq.options.map((opt, oIdx) => {
+              let cls = "border-slate-300 bg-white text-slate-800";
+              if (rChecked) {
+                if (oIdx === rq.correctIndex) cls = "option-correct font-semibold";
+                else if (rChosen === oIdx) cls = "option-wrong";
+              } else if (rChosen === oIdx) {
+                cls = "option-selected font-semibold";
+              }
+              return `
+                <button type="button" ${rChecked && rChosen === rq.correctIndex ? "disabled" : ""}
+                  onclick="selectMcqOption('${rq.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm ${cls}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            return `
+              <div class="mb-5 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-2.5">${rIdx + 1}. ${rq.prompt}</p>
+                <div class="space-y-2">${rOpts}</div>
+                ${rChecked ? `
+                  <p class="mt-2 text-xs sm:text-sm p-3 rounded-xl ${rChosen === rq.correctIndex ? 'bg-emerald-50 text-emerald-950 border border-emerald-300' : 'bg-rose-50 text-rose-950 border border-rose-300'}">
+                    ${rq.explanation}
+                  </p>
+                ` : ""}
+              </div>
+            `;
+          }).join("");
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-amber-50 border-2 border-amber-400 animate-fade mb-6">
+              <span class="inline-block px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-bold mb-2">
+                Confidence Retry • Almost at 80% (${pct}%)
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 mb-1">Let's lock in those tricky ideas!</h3>
+              <p class="text-sm text-slate-700 mb-5">
+                Answer these 2 quick booster questions to earn your <strong>${mission.shortTitle} Mastery Badge</strong>.
+              </p>
+              ${retryQHtml}
+              ${retryFb && retryFb.incomplete ? `<p class="mt-3 text-sm font-semibold text-rose-800">${retryFb.message}</p>` : ""}
+              <div class="mt-5">
+                <button type="button" onclick="checkConfidenceRetry('${mission.id}')"
+                  class="px-5 py-3 rounded-xl bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 shadow-sm">
+                  Submit Confidence Retry
+                </button>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      container.innerHTML = `
+        <div class="mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-800">${mission.shortTitle} • ${mission.sowRef}</span>
+            ${st.mastered ? `<span class="text-xs font-bold text-emerald-700">★ Mastered</span>` : ""}
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">${mission.title}</h2>
+          <p class="text-sm text-slate-600 mt-1">${mission.summary}</p>
+        </div>
+
+        ${blocksHtml}
+        ${masteryFooterHtml}
+      `;
+    }
+
+    function renderReviewSummary(container) {
+      const masteredCount = Object.values(state.missions).filter(m => m.mastered).length;
+      const readinessPct = Math.round((masteredCount / 3) * 100);
+      const diagEntries = Object.values(state.diagnostics);
+
+      const skillLevels = ["Knowledge", "Understanding", "Application"];
+      const skillStats = {};
+      skillLevels.forEach(lvl => {
+        const items = diagEntries.filter(d => d.skillLevel === lvl);
+        const passed = items.filter(d => d.masteredOnFirstTry).length;
+        const pct = items.length > 0 ? Math.round((passed / items.length) * 100) : null;
+        skillStats[lvl] = { total: items.length, passed, pct };
+      });
+
+      function getMissedBySkill(lvl) {
+        const missed = diagEntries.filter(d => d.skillLevel === lvl && !d.masteredOnFirstTry);
+        const grouped = {};
+        missed.forEach(m => {
+          if (!grouped[m.sowTopic]) {
+            grouped[m.sowTopic] = { ...m };
+          }
+        });
+        return Object.values(grouped);
+      }
+
+      const knowledgeReview = getMissedBySkill("Knowledge");
+      const understandingReview = getMissedBySkill("Understanding");
+      const applicationReview = getMissedBySkill("Application");
+      const totalMissed = diagEntries.filter(d => !d.masteredOnFirstTry).length;
+
+      let weakestMissionId = null;
+      let maxMisses = 0;
+      MISSIONS.forEach(m => {
+        const misses = diagEntries.filter(d => d.missionId === m.id && !d.masteredOnFirstTry).length;
+        if (misses > maxMisses) {
+          maxMisses = misses;
+          weakestMissionId = m.id;
+        }
+      });
+
+      const badgesHtml = MISSIONS.map(m => {
+        const st = state.missions[m.id];
+        return `
+          <div class="p-3.5 rounded-xl border-2 ${st.mastered ? 'border-emerald-400 bg-emerald-50/70' : 'border-slate-200 bg-slate-50'} text-left flex items-center justify-between gap-2">
+            <div>
+              <p class="text-xs font-bold text-teal-800">${m.shortTitle}</p>
+              <p class="text-xs sm:text-sm font-bold text-slate-900">${m.title}</p>
+            </div>
+            <span class="shrink-0 text-xs font-bold px-2.5 py-1 rounded-full ${st.mastered ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-700'}">
+              ${st.mastered ? 'Mastered ★' : 'Pending'}
+            </span>
+          </div>
+        `;
+      }).join("");
+
+      const skillCardsHtml = skillLevels.map(lvl => {
+        const st = skillStats[lvl];
+        const desc = lvl === "Knowledge"
+          ? "Threats, data brokers & key terms"
+          : lvl === "Understanding"
+          ? "Why scams, incognito & tagging work"
+          : "Inbox audits, cookies & Consent Compass";
+        const barColor = st.pct === null ? "bg-slate-300" : st.pct >= 80 ? "bg-emerald-600" : st.pct >= 50 ? "bg-amber-500" : "bg-rose-600";
+
+        return `
+          <div class="p-4 rounded-xl border-2 border-slate-200 bg-slate-50/70 text-left">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-bold text-slate-900 text-sm">${lvl}</span>
+              <span class="text-xs font-bold text-teal-900">${st.pct !== null ? `${st.pct}% (${st.passed}/${st.total})` : "Not tried yet"}</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-2">${desc}</p>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div class="${barColor} h-full transition-all duration-300" style="width: ${st.pct !== null ? st.pct : 0}%"></div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      function renderGroup(title, subtitle, badgeBg, items, emptyText) {
+        if (diagEntries.length === 0) {
+          return `
+            <div class="p-4 rounded-xl border border-slate-200 bg-white text-left">
+              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${badgeBg} mb-1">${title}</span>
+              <p class="text-xs text-slate-500">Complete at least one mission to see your personalized ${title.toLowerCase()} feedback.</p>
+            </div>
+          `;
+        }
+        if (items.length === 0) {
+          return `
+            <div class="p-4 rounded-xl border-2 border-emerald-200 bg-emerald-50/50 text-left">
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-700 text-white">${title}</span>
+                <span class="text-xs font-bold text-emerald-800">★ 100% First-Try Mastery!</span>
+              </div>
+              <p class="text-sm text-emerald-950">${emptyText}</p>
+            </div>
+          `;
+        }
+        return `
+          <div class="p-4 rounded-xl border-2 border-amber-200 bg-white text-left">
+            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${badgeBg} mb-1">${title}</span>
+            <p class="text-xs text-slate-600 mb-3">${subtitle}</p>
+            <ul class="space-y-2.5">
+              ${items.map(item => `
+                <li class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+                    <span class="text-xs font-bold text-teal-800">${item.missionTitle}</span>
+                    <button type="button" onclick="selectMission('${item.missionId}')" class="text-xs font-bold text-teal-700 underline hover:text-teal-900">
+                      Revisit ${item.missionId} →
+                    </button>
+                  </div>
+                  <p class="font-bold text-sm text-slate-900">${item.sowTopic}</p>
+                  <p class="text-xs sm:text-sm text-slate-700 mt-1"><strong>Study Action:</strong> ${item.studyTip}</p>
+                </li>
+              `).join("")}
+            </ul>
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="card-haven p-6 sm:p-8 text-center mb-6">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 text-2xl font-bold mb-4">★</div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+            ${masteredCount === 3 ? "Unit 5 Mastered! Ready for the Exam!" : `Unit 5 Readiness: ${readinessPct}% (${masteredCount} of 3 Missions Mastered)`}
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto mb-6">
+            Here is your Scheme-of-Work review breakdown for <strong>Unit 5: Privacy, Security &amp; Big Data (Lessons 12–14)</strong>.
+          </p>
+
+          <!-- Mission Badges -->
+          <div class="mb-6">
+            <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">1. Unit 5 Mission Badges</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">${badgesHtml}</div>
+          </div>
+
+          <!-- 3-Column Cognitive Skill Breakdown -->
+          <div class="mb-6">
+            <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">2. Cognitive Skill Breakdown (First-Try Accuracy)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">${skillCardsHtml}</div>
+          </div>
+
+          <!-- Personalized Scheme-of-Work Review Plan -->
+          <div class="mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700">3. Personalized Study Focus Plan</h3>
+              ${weakestMissionId ? `
+                <button type="button" onclick="selectMission('${weakestMissionId}')"
+                  class="px-3.5 py-1.5 rounded-xl bg-amber-600 text-white text-xs font-bold hover:bg-amber-700 shadow-sm">
+                  ⚡ Jump to Weakest Mission (Mission ${weakestMissionId})
+                </button>
+              ` : ""}
+            </div>
+
+            ${diagEntries.length > 0 && totalMissed === 0 ? `
+              <div class="p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-500 text-left mb-4">
+                <p class="font-bold text-emerald-950 text-base mb-1">🌟 100% First-Try Mastery Across Unit 5!</p>
+                <p class="text-sm text-emerald-900">You nailed every Knowledge, Understanding, and Application question on your very first attempt.</p>
+              </div>
+            ` : ""}
+
+            <div class="space-y-3">
+              ${renderGroup("Knowledge to Review", "Unit 5 terms and definitions to revisit:", "bg-teal-100 text-teal-900", knowledgeReview, "You mastered phishing, malware, identity theft, and data broker definitions on your first try!")}
+              ${renderGroup("Understanding to Strengthen", "Unit 5 concepts to review deeper:", "bg-amber-100 text-amber-900", understandingReview, "Your understanding of verification-code traps, incognito limits, and shared privacy is super strong!")}
+              ${renderGroup("Application to Practice", "Scenario and diagnostic skills to sharpen:", "bg-rose-100 text-rose-900", applicationReview, "You aced the Inbox Audit, Cookie Sort, Data Portrait, and Consent Compass on your first attempt!")}
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            ${weakestMissionId ? `
+              <button type="button" onclick="selectMission('${weakestMissionId}')"
+                class="px-5 py-3 rounded-xl bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 shadow-sm">
+                Jump to Weakest Mission (${weakestMissionId})
+              </button>
+            ` : ""}
+            <button type="button" onclick="selectMission('5.1')" class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800">
+              Back to Mission 1
+            </button>
+            <button type="button" onclick="confirmResetModal()" class="px-5 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-100">
+              Reset Practice Data
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      renderHeaderProgress();
+      renderMission();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadState();
+      renderAll();
+    });
+  </script>
+</body>
+</html>

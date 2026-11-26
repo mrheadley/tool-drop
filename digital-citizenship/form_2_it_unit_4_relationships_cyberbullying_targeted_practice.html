@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form 2 IT — Unit 4: Relationships, Communication &amp; Cyberbullying Targeted Practice</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Calm, dyslexia-friendly palette & typography */
+    :root {
+      --bg-cream: #FAF9F6;
+      --card-surface: #FFFFFF;
+      --border-soft: #E2E8F0;
+      --text-slate: #1E293B;
+      --text-muted: #475569;
+      --teal-primary: #0F766E;
+      --teal-soft: #F0FDFA;
+      --amber-accent: #D97706;
+      --amber-soft: #FFFBEB;
+      --emerald-success: #15803D;
+      --emerald-soft: #F0FDF4;
+      --rose-retry: #BE123C;
+      --rose-soft: #FFF1F2;
+    }
+
+    body {
+      background-color: var(--bg-cream);
+      color: var(--text-slate);
+      font-family: Verdana, 'Segoe UI', system-ui, -apple-system, sans-serif;
+      line-height: 1.65;
+      letter-spacing: 0.015em;
+      transition: font-size 0.2s ease, line-height 0.2s ease;
+    }
+
+    /* Reading Support Accessibility Toggle */
+    body.reading-support {
+      font-size: 1.15rem;
+      line-height: 1.85;
+      letter-spacing: 0.03em;
+      word-spacing: 0.08em;
+    }
+
+    .card-haven {
+      background-color: var(--card-surface);
+      border: 2px solid var(--border-soft);
+      border-radius: 1rem;
+      box-shadow: 0 4px 14px rgba(30, 41, 59, 0.04);
+    }
+
+    .option-btn {
+      transition: all 0.15s ease;
+      text-align: left;
+    }
+
+    .option-btn:hover:not(:disabled) {
+      border-color: var(--teal-primary);
+      background-color: var(--teal-soft);
+    }
+
+    .option-selected {
+      border-color: var(--teal-primary) !important;
+      background-color: var(--teal-soft) !important;
+      box-shadow: 0 0 0 2px rgba(15, 118, 110, 0.2);
+    }
+
+    .option-correct {
+      border-color: var(--emerald-success) !important;
+      background-color: var(--emerald-soft) !important;
+      color: #14532D !important;
+    }
+
+    .option-wrong {
+      border-color: var(--rose-retry) !important;
+      background-color: var(--rose-soft) !important;
+      color: #881337 !important;
+    }
+
+    select.calm-select {
+      background-color: #FFFFFF;
+      border: 2px solid #CBD5E1;
+      border-radius: 0.65rem;
+      padding: 0.6rem 0.8rem;
+      color: var(--text-slate);
+      font-family: inherit;
+      width: 100%;
+    }
+
+    select.calm-select:focus {
+      outline: none;
+      border-color: var(--teal-primary);
+      box-shadow: 0 0 0 3px rgba(15, 118, 110, 0.15);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade {
+      animation: fadeIn 0.25s ease-out forwards;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- Sticky Header -->
+  <header class="bg-white border-b-2 border-slate-200 sticky top-0 z-30">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-3">
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="inline-block w-3 h-3 rounded-full bg-teal-700"></span>
+          <span class="text-xs font-bold uppercase tracking-wider text-teal-800">Form 2 IT • Unit 4 Targeted Practice (Lessons 9–11)</span>
+        </div>
+        <h1 class="text-lg sm:text-xl font-bold text-slate-900">Relationships, Communication &amp; Cyberbullying</h1>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-2">
+        <button id="readingToggleBtn" type="button" onclick="toggleReadingSupport()"
+          class="px-3.5 py-2 rounded-xl border-2 border-teal-700 text-teal-800 font-semibold text-sm hover:bg-teal-50 focus:outline-none focus:ring-2 focus:ring-teal-600">
+          Aa Reading Support: Off
+        </button>
+        <button type="button" onclick="openReviewSummary()"
+          class="px-3.5 py-2 rounded-xl border-2 border-emerald-700 text-emerald-800 font-semibold text-sm hover:bg-emerald-50 focus:outline-none">
+          My Unit 4 Review Plan
+        </button>
+        <button type="button" onclick="confirmResetModal()"
+          class="px-3 py-2 rounded-xl border-2 border-rose-200 text-rose-700 text-sm font-semibold hover:bg-rose-50 focus:outline-none">
+          Reset
+        </button>
+      </div>
+    </div>
+
+    <!-- Mastery Progress Bar & Mission Pills -->
+    <div class="bg-slate-50 border-t border-slate-200">
+      <div class="max-w-4xl mx-auto px-4 py-3">
+        <div class="flex items-center justify-between text-xs font-semibold text-slate-600 mb-2">
+          <span>Unit 4 Mastery Progress (3 Missions)</span>
+          <span id="masteryCountText">0 of 3 Missions Mastered</span>
+        </div>
+        <div class="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden mb-3">
+          <div id="masteryProgressBar" class="bg-teal-700 h-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <nav id="missionNavPills" class="grid grid-cols-1 sm:grid-cols-3 gap-2" aria-label="Unit 4 Practice Missions">
+          <!-- Populated dynamically -->
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Workspace -->
+  <main class="flex-1 max-w-4xl w-full mx-auto px-4 py-6 sm:py-8">
+    <div class="mb-6 p-4 rounded-2xl bg-teal-50/80 border-2 border-teal-200 flex items-start gap-3">
+      <div class="text-teal-800 mt-0.5 shrink-0" aria-hidden="true">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div class="text-sm text-slate-800">
+        <strong>No timers. No pressure.</strong> Practice <strong>Unit 4: Relationships, Communication &amp; Cyberbullying (Lessons 9–11)</strong> step by step. Score <strong>80% or higher</strong> on a mission to earn its Mastery Badge—or unlock a quick 2-question Confidence Retry!
+      </div>
+    </div>
+
+    <div id="missionContainer" class="animate-fade"></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-slate-200 bg-white py-4 mt-10">
+    <div class="max-w-4xl mx-auto px-4 text-center text-xs text-slate-500">
+      Form 2 Information Technology • Unit 4: Relationships, Communication &amp; Cyberbullying (Lessons 9–11)
+    </div>
+  </footer>
+
+  <!-- Custom Reset Modal -->
+  <div id="resetModal" class="hidden fixed inset-0 bg-slate-900/50 z-50 flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl border-2 border-slate-200 max-w-md w-full p-6 shadow-xl">
+      <h2 class="text-lg font-bold text-slate-900 mb-2">Reset Unit 4 Progress?</h2>
+      <p class="text-sm text-slate-600 mb-5">This will clear your earned badges, answers, and review diagnostics for Unit 4 so you can start fresh.</p>
+      <div class="flex justify-end gap-3">
+        <button type="button" onclick="closeResetModal()" class="px-4 py-2.5 rounded-xl border-2 border-slate-300 text-slate-700 font-semibold text-sm hover:bg-slate-50">
+          Keep My Progress
+        </button>
+        <button type="button" onclick="executeReset()" class="px-4 py-2.5 rounded-xl bg-rose-700 text-white font-semibold text-sm hover:bg-rose-800">
+          Yes, Start Fresh
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* =========================================================================
+       UNIT 4 TARGETED PRACTICE DATA (LESSONS 9–11 — 100% ORIGINAL SCENARIOS)
+       ========================================================================= */
+    const MISSIONS = [
+      {
+        id: "4.1",
+        shortTitle: "Mission 1",
+        title: "Defining Cyberbullying & The Three-Legged Stool",
+        sowRef: "Lesson 9: Conflict vs. Cyberbullying & Three-Legged Stool",
+        summary: "Test all three legs of the Three-Legged Stool (intentional harm, repetition, power imbalance) to separate ordinary conflict from cyberbullying.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: Three-Legged Stool Foundations (3 Questions)",
+            instruction: "Choose the best answer for each question, then click Check Part A.",
+            questions: [
+              {
+                id: "m41_q1",
+                sowTopic: "Lesson 9: The Three-Legged Stool Model",
+                skillLevel: "Knowledge",
+                studyTip: "Memorise all three legs of the Three-Legged Stool: 1. Intentional harm, 2. Repetition, and 3. Power imbalance.",
+                prompt: "In our Form 2 course, what are the three legs of the 'Three-Legged Stool' required for online behaviour to be classified as cyberbullying?",
+                options: [
+                  "A. Intentional harm, repetition, and a power imbalance.",
+                  "B. Anonymity, public comments, and blocking.",
+                  "C. Anger, jealousy, and a single heated message.",
+                  "D. Typing in all caps, using emojis, and muting a chat."
+                ],
+                correctIndex: 0,
+                explanation: "Just like a stool needs all three legs to stand, cyberbullying requires intentional harm, repetition over time, and a power imbalance."
+              },
+              {
+                id: "m41_q2",
+                sowTopic: "Lesson 9: Conflict vs. Cyberbullying",
+                skillLevel: "Understanding",
+                studyTip: "Compare a two-way disagreement between equals (conflict) with repeated, one-sided targeting where one person has more power (cyberbullying).",
+                prompt: "Two Form 2 classmates, Tariq and Zane, disagree over who should present first for their science group, exchange one annoyed text each, and work it out at lunch. Why is this a CONFLICT rather than cyberbullying?",
+                options: [
+                  "A. It happened between equals, was a one-time disagreement rather than repeated targeting, and lacked a power imbalance.",
+                  "B. Because science project arguments never hurt anyone's feelings.",
+                  "C. Because messages sent during school hours cannot count as cyberbullying."
+                ],
+                correctIndex: 0,
+                explanation: "A two-way disagreement between equals that isn't repeated over time is an ordinary conflict—not cyberbullying."
+              },
+              {
+                id: "m41_q3",
+                sowTopic: "Lesson 9: Power Imbalance Online",
+                skillLevel: "Understanding",
+                studyTip: "Remember: online power imbalance doesn't require physical size—it can come from popularity, age, group numbers, or controlling private photos.",
+                prompt: "How can a 'power imbalance' exist online even when two students are the exact same physical size?",
+                options: [
+                  "A. One person has many followers, is older, rallies a group against one target, or holds embarrassing screenshots.",
+                  "B. One person uses a newer phone brand than the other.",
+                  "C. One person types with two thumbs instead of one."
+                ],
+                correctIndex: 0,
+                explanation: "Online power imbalance comes from social reach, group numbers, age/status, or controlling private images—not physical strength."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            blockTitle: "Part B: Conflict vs. Cyberbullying Sorter (4 Scenarios)",
+            instruction: "Apply the Three-Legged Stool to each brand-new scenario and decide whether it is an Ordinary Conflict or Cyberbullying.",
+            items: [
+              {
+                id: "m41_c1",
+                sowTopic: "Lesson 9: Applying the Three-Legged Stool",
+                skillLevel: "Application",
+                studyTip: "Check for all three legs: deliberate insults, happening repeatedly over days, and a crowd/popular group targeting one person.",
+                label: "1. A popular Form 4 student and five friends create a fake account to post edited photos mocking a quiet Form 2 newcomer every evening for two weeks.",
+                choices: ["Ordinary Conflict", "Cyberbullying"],
+                correct: "Cyberbullying",
+                explanation: "All three legs are present: intentional harm, repetition (every evening for two weeks), and power imbalance (older group vs. one newcomer)."
+              },
+              {
+                id: "m41_c2",
+                sowTopic: "Lesson 9: Conflict vs. Cyberbullying",
+                skillLevel: "Application",
+                studyTip: "One sharp comment between two friends who are equals, with no ongoing harassment, is a conflict.",
+                label: "2. Best friends Maya and Keisha argue in DMs about who forgot to bring the poster board for class, say 'whatever, leave me alone', and make up the next morning.",
+                choices: ["Ordinary Conflict", "Cyberbullying"],
+                correct: "Ordinary Conflict",
+                explanation: "This is a one-time disagreement between two equals—missing both repetition and a power imbalance."
+              },
+              {
+                id: "m41_c3",
+                sowTopic: "Lesson 9: Applying the Three-Legged Stool",
+                skillLevel: "Application",
+                studyTip: "Notice when someone uses admin power or group pressure repeatedly to exclude and demean one classmate.",
+                label: "3. The admin of a Form 2 art showcase forum repeatedly deletes only Mateo's drawings, posts 'nobody wants your trash art here' three days in a row, and locks him out from replying.",
+                choices: ["Ordinary Conflict", "Cyberbullying"],
+                correct: "Cyberbullying",
+                explanation: "Intentional harm + repetition (three days in a row) + power imbalance (forum admin locking Mateo out) makes this cyberbullying."
+              },
+              {
+                id: "m41_c4",
+                sowTopic: "Lesson 9: Conflict vs. Cyberbullying",
+                skillLevel: "Application",
+                studyTip: "A blunt or poorly worded comment with no intent to harass repeatedly is a misunderstanding/conflict.",
+                label: "4. During an online chess match, Andre writes 'that move made zero sense lol' once, and his opponent replies 'watch me win anyway'.",
+                choices: ["Ordinary Conflict", "Cyberbullying"],
+                correct: "Ordinary Conflict",
+                explanation: "Competitive banter in a single exchange between equals lacks repetition and ongoing targeted harm."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Part C: Three-Legged Stool Proof (2 Marks)",
+            sowTopic: "Lesson 9: Proving Cyberbullying with the Three-Legged Stool",
+            skillLevel: "Application",
+            studyTip: "Always name all three legs explicitly and tie each one to a specific fact from the story.",
+            prompt: "Look back at Scenario 3 above (the art forum admin deleting Mateo's drawings and insulting him three days in a row). In 2–3 sentences, prove why this meets ALL THREE legs of the Three-Legged Stool.",
+            hint: "Sentence starter: \"This is cyberbullying because: (1) Intentional harm: the admin deliberately... (2) Repetition: it happened... (3) Power imbalance: the admin had...\"",
+            checklist: [
+              "I proved Intentional Harm (deliberately insulting Mateo's art to hurt/humiliate him).",
+              "I proved Repetition (happened three days in a row) AND Power Imbalance (the admin used moderator power to lock Mateo out)."
+            ],
+            modelAnswer: "This is cyberbullying because it has all three legs of the stool: (1) Intentional harm—the admin deliberately insulted Mateo's drawings to humiliate him; (2) Repetition—it happened three days in a row; and (3) Power imbalance—the admin used moderator controls to block Mateo from replying."
+          }
+        ],
+        retry: [
+          {
+            id: "m41_r1",
+            prompt: "If a situation has intentional harm and a power imbalance, but only happened ONCE by accident, why does the Three-Legged Stool tell us to examine it carefully before labelling it cyberbullying?",
+            options: [
+              "A. Because a three-legged stool needs all three legs—including repetition—even though a single cruel act is still wrong and needs to be addressed.",
+              "B. Because one-time mean messages are totally fine and allowed."
+            ],
+            correctIndex: 0,
+            explanation: "A single cruel post is still harmful and unacceptable, while 'cyberbullying' specifically describes repeated, targeted harm with a power imbalance."
+          },
+          {
+            id: "m41_r2",
+            prompt: "Which of these is an example of a 'power imbalance' in a school group chat?",
+            options: [
+              "A. Ten students ganging up to mock one classmate who has no allies in the chat.",
+              "B. Two teammates debating which football player scored the best goal."
+            ],
+            correctIndex: 0,
+            explanation: "Ten against one creates a clear numerical power imbalance."
+          }
+        ]
+      },
+      {
+        id: "4.2",
+        shortTitle: "Mission 2",
+        title: "Harassment Vocab, Witness Roles & Netiquette",
+        sowRef: "Lesson 10: Flaming, Trolling, Pile-ons, Disinhibition, Roles & Netiquette",
+        summary: "Distinguish flaming, trolling, pile-ons, and online disinhibition; classify witness roles; and fix 'wrong room' netiquette slips.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: Online Behaviour & Disinhibition Check (3 Questions)",
+            instruction: "Select the best answer for each question, then click Check Part A.",
+            questions: [
+              {
+                id: "m42_q1",
+                sowTopic: "Lesson 10: Flaming vs. Trolling vs. Pile-on",
+                skillLevel: "Knowledge",
+                studyTip: "Compare: Flaming = angry direct personal insults; Trolling = posting bait to provoke arguments; Pile-on / Cyber-mob = many people attacking one person together.",
+                prompt: "In a school music forum, dozens of users suddenly jump into one student's comment section all at once to mock her singing voice. Which term describes many people ganging up on one target together?",
+                options: [
+                  "A. A pile-on (or cyber-mob)",
+                  "B. Healthy curation",
+                  "C. Mind-reading",
+                  "D. A useful cookie"
+                ],
+                correctIndex: 0,
+                explanation: "When a crowd piles into the comments to attack or mock one person together, it is called a pile-on or cyber-mob."
+              },
+              {
+                id: "m42_q2",
+                sowTopic: "Lesson 10: Flaming vs. Trolling",
+                skillLevel: "Knowledge",
+                studyTip: "Trolling tries to bait a thread into chaos; flaming attacks a person directly with hostile, angry insults.",
+                prompt: "What is the key difference between 'flaming' and 'trolling'?",
+                options: [
+                  "A. Flaming attacks a person directly with angry, hostile insults, while trolling posts provocative bait to derail a thread and get reactions.",
+                  "B. Flaming only happens on school computers, while trolling only happens on phones.",
+                  "C. Trolling is polite feedback, while flaming is a compliment."
+                ],
+                correctIndex: 0,
+                explanation: "Flaming is a direct burst of angry personal insults; trolling is deliberate baiting meant to spark drama and derail a conversation."
+              },
+              {
+                id: "m42_q3",
+                sowTopic: "Lesson 10: Online Disinhibition",
+                skillLevel: "Understanding",
+                studyTip: "Connect 'online disinhibition' to missing social cues: not seeing someone's face, tears, or tone weakens normal social brakes.",
+                prompt: "Why does 'online disinhibition' cause some students to type harsh insults in a group chat that they would never say face-to-face in the schoolyard?",
+                options: [
+                  "A. Without seeing the other person's facial expression, body language, or immediate hurt, normal social brakes weaken behind a screen.",
+                  "B. Because phone keyboards automatically change polite words into rude ones.",
+                  "C. Because group chats reward insults with extra data."
+                ],
+                correctIndex: 0,
+                explanation: "Screens hide facial expressions and immediate human emotion, lowering the social brakes that normally keep people respectful in person."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            blockTitle: "Part B: Drama Club Group Chat — Witness Role Detective (4 Items)",
+            instruction: "Scenario: During a Form 2 Drama Club WhatsApp chat, someone posts a mean voice note mocking Sasha's audition monologue. Classify each witness's role:",
+            items: [
+              {
+                id: "m42_c1",
+                sowTopic: "Lesson 10: Witness Roles — Reinforcer",
+                skillLevel: "Application",
+                studyTip: "Reinforcers laugh at, repost, or cheer on mean behaviour—giving the bully an audience.",
+                label: "1. Tariq replies with '💀💀💀 replay that part again!!' and forwards the clip to another chat.",
+                choices: ["Reinforcer", "Passive Bystander", "Upstander", "Ally"],
+                correct: "Reinforcer",
+                explanation: "Tariq laughs along and spreads the clip, acting as a Reinforcer who fuels the harm."
+              },
+              {
+                id: "m42_c2",
+                sowTopic: "Lesson 10: Witness Roles — Passive Bystander",
+                skillLevel: "Application",
+                studyTip: "Passive bystanders watch the harm happen and stay silent, which often feels like silent approval to the target.",
+                label: "2. Camille listens to the voice note, feels uncomfortable, and closes WhatsApp without saying or doing anything.",
+                choices: ["Reinforcer", "Passive Bystander", "Upstander", "Ally"],
+                correct: "Passive Bystander",
+                explanation: "Camille witnesses the harm and remains silent—a Passive Bystander."
+              },
+              {
+                id: "m42_c3",
+                sowTopic: "Lesson 10: Witness Roles — Upstander",
+                skillLevel: "Application",
+                studyTip: "Upstanders take visible or practical action to interrupt the harm—such as speaking up calmly or alerting the club moderator/teacher.",
+                label: "3. Malik writes in the chat: 'Not cool—we're all practicing here, delete that,' and alerts the drama club teacher.",
+                choices: ["Reinforcer", "Passive Bystander", "Upstander", "Ally"],
+                correct: "Upstander",
+                explanation: "Malik speaks up to interrupt the harm and alerts a trusted adult—acting as an Upstander."
+              },
+              {
+                id: "m42_c4",
+                sowTopic: "Lesson 10: Witness Roles — Ally",
+                skillLevel: "Application",
+                studyTip: "Allies support the target directly and quietly—such as sending a kind private message or sitting with them at break.",
+                label: "4. Nia messages Sasha privately: 'Your audition was brave and really good—don't listen to them. Want to run lines together tomorrow?'",
+                choices: ["Reinforcer", "Passive Bystander", "Upstander", "Ally"],
+                correct: "Ally",
+                explanation: "Nia reaches out privately to comfort and stand beside Sasha—acting as an Ally."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Part C: Netiquette 'Wrong Room' Rewrite (2 Marks)",
+            sowTopic: "Lesson 10: Digital Etiquette / Netiquette ('Right Tools, Wrong Room')",
+            skillLevel: "Application",
+            studyTip: "Remember: emailing a teacher is a formal 'room'—always include a clear Subject line, polite greeting, full sentences, and your name/class.",
+            prompt: "In class, we compared bad netiquette to 'wearing muddy football boots to a wedding' (right tools, wrong room). Rewrite this email sent by a Form 2 student to their Science teacher (Ms. Baptiste):\n\nSubject: (blank)\nMessage: \"hey miss i missed class today cuz of dentist send the hw slides asap thx\"",
+            hint: "Sentence starter: \"Subject: Form 2 Science Homework Slides — [Your Name] | Good afternoon Ms. Baptiste, I missed today's class because of a dental appointment. Could you please share...\"",
+            checklist: [
+              "I added a clear, specific Subject line AND a polite greeting (e.g., 'Good afternoon Ms. Baptiste,').",
+              "I replaced text-speak ('cuz', 'asap', 'thx') with a polite, full-sentence request and signed my name."
+            ],
+            modelAnswer: "Subject: Form 2 Science Notes Request — [Student Name]\n\nGood afternoon Ms. Baptiste,\n\nI missed today's Science class because of a dental appointment. Could you please share the homework slides when you have a moment?\n\nThank you,\n[Student Name], Form 2"
+          }
+        ],
+        retry: [
+          {
+            id: "m42_r1",
+            prompt: "What does 'netiquette' (digital etiquette) mean?",
+            options: [
+              "A. Matching your tone, language, and manners to the specific online 'room' or audience you are communicating with.",
+              "B. Using the exact same text-slang in school emails as you use in gaming chats."
+            ],
+            correctIndex: 0,
+            explanation: "Netiquette means reading the room—knowing that a formal email to a teacher requires different manners than a casual chat with friends."
+          },
+          {
+            id: "m42_r2",
+            prompt: "How is an 'Ally' different from a 'Passive Bystander' during online drama?",
+            options: [
+              "A. An Ally actively supports the target privately or offline, whereas a Passive Bystander watches and does nothing.",
+              "B. An Ally laughs at the jokes, whereas a Passive Bystander reports them."
+            ],
+            correctIndex: 0,
+            explanation: "Even if you don't post publicly in a group chat, reaching out privately to support the target makes you an Ally instead of a Passive Bystander."
+          }
+        ]
+      },
+      {
+        id: "4.3",
+        shortTitle: "Mission 3",
+        title: "STAND, Don't Feed the Troll & Safe Support",
+        sowRef: "Lesson 11: STAND Strategy, Bystander Effect & Safety Over Secrecy",
+        summary: "Apply STAND and Don't Feed the Troll to stop escalation safely and support a friend without keeping unsafe secrets.",
+        blocks: [
+          {
+            type: "mcq",
+            blockTitle: "Part A: STAND & Bystander Effect Decisions (3 Questions)",
+            instruction: "Select the best answer for each question, then click Check Part A.",
+            questions: [
+              {
+                id: "m43_q1",
+                sowTopic: "Lesson 11: Never Retaliate & Don't Feed the Troll",
+                skillLevel: "Understanding",
+                studyTip: "Remember: retaliating feeds the troll the angry reaction they want, escalates the fight, and can get you blamed too.",
+                prompt: "Why does the 'N' in STAND stand for 'Never retaliate' (and why do we say 'Don't Feed the Troll')?",
+                options: [
+                  "A. Insulting a bully back gives them the emotional reaction they want, escalates the conflict, and can make you look like part of the problem.",
+                  "B. Because replying angrily automatically deletes your own phone photos.",
+                  "C. Because bullies always stop immediately if you insult them louder."
+                ],
+                correctIndex: 0,
+                explanation: "Trolls and bullies thrive on dramatic reactions. Refusing to retaliate starves the conflict while you save evidence and report."
+              },
+              {
+                id: "m43_q2",
+                sowTopic: "Lesson 11: Overcoming the Bystander Effect",
+                skillLevel: "Understanding",
+                studyTip: "The Bystander Effect happens when everyone assumes 'someone else will help'—one small action breaks the freeze.",
+                prompt: "Thirty students see a cruel post in a year-group chat, yet nobody says anything because everyone thinks, 'Someone else will handle it.' What is this psychological pattern called?",
+                options: [
+                  "A. The Bystander Effect",
+                  "B. Variable rewards",
+                  "C. Active footprint",
+                  "D. Catastrophizing"
+                ],
+                correctIndex: 0,
+                explanation: "The Bystander Effect occurs when the presence of many onlookers makes each person assume someone else will step in."
+              },
+              {
+                id: "m43_q3",
+                sowTopic: "Lesson 11: Safety Over Secrecy (Tell a Trusted Adult)",
+                skillLevel: "Application",
+                studyTip: "When a friend is being bullied or threatened and asks you to 'promise not to tell anyone', safety ALWAYS comes before secrecy.",
+                prompt: "Your friend Lucas shows you repeated threatening DMs from an unknown account and says, 'Swear you won't tell a teacher or my parents—it'll just make things worse.' What is the right STAND move?",
+                options: [
+                  "A. Explain kindly that his safety matters more than keeping a secret, and offer to go WITH him to tell a trusted adult.",
+                  "B. Keep the secret completely so you don't break your promise.",
+                  "C. Log into Lucas's account and threaten the sender back."
+                ],
+                correctIndex: 0,
+                explanation: "Safety always comes before secrecy. Offering to walk WITH Lucas to a trusted adult supports him without leaving him to face threats alone."
+              }
+            ]
+          },
+          {
+            type: "classifier",
+            blockTitle: "Part B: Build the Safe 3-Step Action Plan (3 Items)",
+            instruction: "Scenario: An unknown account keeps leaving hostile comments under Elena's school robotics posts and tagging her in mean memes. Put the three 'Don't Feed the Troll / STAND' steps in smart order:",
+            items: [
+              {
+                id: "m43_c1",
+                sowTopic: "Lesson 11: Step 1 — Save Evidence Before Blocking",
+                skillLevel: "Application",
+                studyTip: "Always take screenshots (showing usernames, messages, and timestamps) BEFORE blocking or deleting so you have proof.",
+                label: "Step 1 (Before blocking or deleting anything):",
+                choices: [
+                  "Save clear screenshots showing the messages, username, and timestamps as evidence.",
+                  "Write an angry paragraph under every meme to defend yourself.",
+                  "Delete your own robotics account and never post again."
+                ],
+                correct: "Save clear screenshots showing the messages, username, and timestamps as evidence.",
+                explanation: "Saving screenshots first preserves proof before posts disappear or accounts get blocked."
+              },
+              {
+                id: "m43_c2",
+                sowTopic: "Lesson 11: Step 2 — Block & Alert the Platform",
+                skillLevel: "Application",
+                studyTip: "Use platform tools to block the account and report the harassment without engaging in an argument.",
+                label: "Step 2 (Cutting off contact safely):",
+                choices: [
+                  "Do not reply—use the platform's Block and Report tools to cut off contact and alert moderators.",
+                  "Ask all your friends to spam the unknown account back.",
+                  "Reply with 'I'm reporting you!' ten times in a row."
+                ],
+                correct: "Do not reply—use the platform's Block and Report tools to cut off contact and alert moderators.",
+                explanation: "Blocking and reporting without replying stops the troll from getting a reaction and alerts platform moderators."
+              },
+              {
+                id: "m43_c3",
+                sowTopic: "Lesson 11: Step 3 — Tell a Trusted Adult & Defend/Support",
+                skillLevel: "Application",
+                studyTip: "Share the screenshots with a trusted adult (parent, teacher, or school counsellor) and step away from the screen to reset.",
+                label: "Step 3 (Getting real-world backup & resetting):",
+                choices: [
+                  "Show the screenshots to a trusted adult (parent, teacher, or counsellor) and step away from the screen.",
+                  "Keep checking the account every five minutes to see if they made a new profile.",
+                  "Blame yourself for posting about robotics in the first place."
+                ],
+                correct: "Show the screenshots to a trusted adult (parent, teacher, or counsellor) and step away from the screen.",
+                explanation: "Involving a trusted adult brings real-world support, and stepping away helps you reset calmly."
+              }
+            ]
+          },
+          {
+            type: "scaffolded",
+            blockTitle: "Part C: Supporting a Target Safely (2 Marks)",
+            sowTopic: "Lesson 11: Applying STAND (Speak Up / Defend / Tell an Adult)",
+            skillLevel: "Application",
+            studyTip: "Combine two STAND actions: (1) direct peer support/allyship to remind the target it's not their fault, and (2) involving a trusted adult or reporting.",
+            prompt: "Imagine you are Elena's classmate and you see the mean memes being shared in a Form 2 chat. Using at least TWO letters from STAND (Speak up if safe, Tell a trusted adult, Alert the platform, Never retaliate, Defend/Support), write 2–3 sentences explaining what you would say and do to support Elena safely.",
+            hint: "Sentence starter: \"First, I would Defend/Support Elena by messaging her privately to say... Second, I would Alert the platform and Tell a trusted adult by...\"",
+            checklist: [
+              "I named and applied at least TWO specific STAND actions (e.g., Defend/Support Elena privately, Speak up calmly if safe, Alert/report the posts, or Tell a trusted adult).",
+              "My plan avoids retaliation (no insulting the bully back) and keeps everyone safe."
+            ],
+            modelAnswer: "First, I would Defend and Support Elena by sending her a private message reminding her that her robotics work is great and the bullying is not her fault. Second, I would save screenshots, Alert the platform by reporting the mean memes, and go with Elena to Tell a trusted adult at school—without retaliating in the chat."
+          }
+        ],
+        retry: [
+          {
+            id: "m43_r1",
+            prompt: "What do the five letters of S-T-A-N-D stand for?",
+            options: [
+              "A. Speak up (if safe), Tell a trusted adult, Alert the platform, Never retaliate, Defend & support.",
+              "B. Shout back, Tag everyone, Argue loudly, Never tell adults, Delete your account."
+            ],
+            correctIndex: 0,
+            explanation: "STAND gives you five safe, calm choices so you never have to fight a bully alone or escalate the harm."
+          },
+          {
+            id: "m43_r2",
+            prompt: "Why should you take screenshots BEFORE blocking someone who is harassing you?",
+            options: [
+              "A. Because once you block or report an account, the messages may disappear—screenshots preserve proof for a trusted adult or moderator.",
+              "B. Because blocking only works if you have a screenshot saved."
+            ],
+            correctIndex: 0,
+            explanation: "Screenshots capture the username, exact wording, and time so you have clear evidence ready."
+          }
+        ]
+      }
+    ];
+
+    /* =========================================================================
+       STATE MANAGEMENT (LOCALSTORAGE PERSISTENCE + FIRST-TRY DIAGNOSTIC LOG)
+       ========================================================================= */
+    const STORAGE_KEY = "f2_u4_practice_v1";
+    const READING_KEY = "f2_u4_reading_support";
+
+    let state = {
+      activeMissionId: "4.1",
+      readingSupport: false,
+      showSummary: false,
+      missions: {
+        "4.1": { done: false, score: 0, total: 9, mastered: false, retryPassed: false },
+        "4.2": { done: false, score: 0, total: 9, mastered: false, retryPassed: false },
+        "4.3": { done: false, score: 0, total: 8, mastered: false, retryPassed: false }
+      },
+      diagnostics: {},
+      answers: {},
+      blockFeedback: {}
+    };
+
+    function loadState() {
+      try {
+        const savedReading = localStorage.getItem(READING_KEY);
+        if (savedReading !== null) {
+          state.readingSupport = savedReading === "true";
+        }
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const parsed = JSON.parse(saved);
+          if (parsed && parsed.missions) {
+            state.missions = { ...state.missions, ...parsed.missions };
+            state.activeMissionId = parsed.activeMissionId || "4.1";
+            if (savedReading === null && parsed.readingSupport !== undefined) {
+              state.readingSupport = !!parsed.readingSupport;
+            }
+            state.diagnostics = parsed.diagnostics || {};
+            state.answers = parsed.answers || {};
+            state.blockFeedback = parsed.blockFeedback || {};
+          }
+        }
+      } catch (e) {}
+      applyReadingSupportClass();
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(READING_KEY, String(state.readingSupport));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
+          activeMissionId: state.activeMissionId,
+          readingSupport: state.readingSupport,
+          missions: state.missions,
+          diagnostics: state.diagnostics,
+          answers: state.answers,
+          blockFeedback: state.blockFeedback
+        }));
+      } catch (e) {}
+    }
+
+    /* =========================================================================
+       ACCESSIBILITY & MODAL CONTROLS
+       ========================================================================= */
+    function toggleReadingSupport() {
+      state.readingSupport = !state.readingSupport;
+      applyReadingSupportClass();
+      saveState();
+    }
+
+    function applyReadingSupportClass() {
+      const btn = document.getElementById("readingToggleBtn");
+      if (state.readingSupport) {
+        document.body.classList.add("reading-support");
+        btn.textContent = "Aa Reading Support: On";
+        btn.classList.add("bg-teal-700", "text-white");
+        btn.classList.remove("text-teal-800");
+      } else {
+        document.body.classList.remove("reading-support");
+        btn.textContent = "Aa Reading Support: Off";
+        btn.classList.remove("bg-teal-700", "text-white");
+        btn.classList.add("text-teal-800");
+      }
+    }
+
+    function confirmResetModal() {
+      document.getElementById("resetModal").classList.remove("hidden");
+    }
+
+    function closeResetModal() {
+      document.getElementById("resetModal").classList.add("hidden");
+    }
+
+    function executeReset() {
+      localStorage.removeItem(STORAGE_KEY);
+      state.answers = {};
+      state.blockFeedback = {};
+      state.diagnostics = {};
+      state.showSummary = false;
+      state.activeMissionId = "4.1";
+      state.missions = {
+        "4.1": { done: false, score: 0, total: 9, mastered: false, retryPassed: false },
+        "4.2": { done: false, score: 0, total: 9, mastered: false, retryPassed: false },
+        "4.3": { done: false, score: 0, total: 8, mastered: false, retryPassed: false }
+      };
+      saveState();
+      closeResetModal();
+      renderAll();
+    }
+
+    function selectMission(missionId) {
+      state.activeMissionId = missionId;
+      state.showSummary = false;
+      saveState();
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function openReviewSummary() {
+      state.showSummary = true;
+      renderAll();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    /* =========================================================================
+       HEADER PROGRESS PILLS
+       ========================================================================= */
+    function renderHeaderProgress() {
+      const masteredCount = Object.values(state.missions).filter(m => m.mastered).length;
+      document.getElementById("masteryCountText").textContent = `${masteredCount} of 3 Missions Mastered`;
+      document.getElementById("masteryProgressBar").style.width = `${(masteredCount / 3) * 100}%`;
+
+      const nav = document.getElementById("missionNavPills");
+      nav.innerHTML = MISSIONS.map(m => {
+        const st = state.missions[m.id];
+        const isActive = !state.showSummary && state.activeMissionId === m.id;
+
+        let badgeLabel = "Start";
+        let badgeStyle = "bg-slate-200 text-slate-700";
+        if (st.mastered) {
+          badgeLabel = "Mastered ★";
+          badgeStyle = "bg-emerald-700 text-white";
+        } else if (st.done) {
+          badgeLabel = "Retry Ready";
+          badgeStyle = "bg-amber-600 text-white";
+        }
+
+        const activeRing = isActive
+          ? "border-teal-700 bg-teal-50 ring-2 ring-teal-600/30"
+          : "border-slate-300 bg-white hover:border-teal-600";
+
+        return `
+          <button type="button" onclick="selectMission('${m.id}')"
+            class="p-2.5 rounded-xl border-2 text-left transition flex flex-col justify-between ${activeRing}">
+            <div class="flex items-center justify-between gap-1 mb-1">
+              <span class="font-bold text-xs text-slate-900">${m.shortTitle}</span>
+              <span class="text-[10px] font-bold px-2 py-0.5 rounded-full ${badgeStyle}">${badgeLabel}</span>
+            </div>
+            <span class="text-xs text-slate-600 line-clamp-1">${m.title}</span>
+          </button>
+        `;
+      }).join("");
+    }
+
+    /* =========================================================================
+       INTERACTION & MASTERY EVALUATION
+       ========================================================================= */
+    function selectMcqOption(qId, optIndex) {
+      state.answers[qId] = optIndex;
+      renderMission();
+    }
+
+    function selectClassifierChoice(itemId, value) {
+      state.answers[itemId] = value;
+    }
+
+    function toggleHint(hintId) {
+      const el = document.getElementById(hintId);
+      if (el) el.classList.toggle("hidden");
+    }
+
+    function checkBlock(missionId, blockIndex) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const block = mission.blocks[blockIndex];
+      const fbKey = `m${missionId}_b${blockIndex}`;
+
+      if (block.type === "mcq") {
+        const unanswered = block.questions.some(q => state.answers[q.id] === undefined);
+        if (unanswered) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Pick an answer for every question in this part first, then click Check!"
+          };
+          renderMission();
+          return;
+        }
+        let correctCount = 0;
+        block.questions.forEach(q => {
+          const isCorrect = state.answers[q.id] === q.correctIndex;
+          if (isCorrect) correctCount++;
+          if (!state.diagnostics[q.id]) {
+            state.diagnostics[q.id] = {
+              missionId: mission.id,
+              missionTitle: `${mission.shortTitle}: ${mission.title}`,
+              sowTopic: q.sowTopic,
+              skillLevel: q.skillLevel,
+              studyTip: q.studyTip,
+              masteredOnFirstTry: isCorrect
+            };
+          }
+        });
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          correctCount,
+          totalCount: block.questions.length
+        };
+      } else if (block.type === "classifier") {
+        const unanswered = block.items.some(item => !state.answers[item.id]);
+        if (unanswered) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Choose an option from every dropdown menu first, then click Check!"
+          };
+          renderMission();
+          return;
+        }
+        let correctCount = 0;
+        block.items.forEach(item => {
+          const isCorrect = state.answers[item.id] === item.correct;
+          if (isCorrect) correctCount++;
+          if (!state.diagnostics[item.id]) {
+            state.diagnostics[item.id] = {
+              missionId: mission.id,
+              missionTitle: `${mission.shortTitle}: ${mission.title}`,
+              sowTopic: item.sowTopic,
+              skillLevel: item.skillLevel,
+              studyTip: item.studyTip,
+              masteredOnFirstTry: isCorrect
+            };
+          }
+        });
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          correctCount,
+          totalCount: block.items.length
+        };
+      } else if (block.type === "scaffolded") {
+        const textId = `scaffold_m${missionId}_b${blockIndex}`;
+        const textVal = (document.getElementById(textId)?.value || "").trim();
+        state.answers[textId] = textVal;
+        if (textVal.length < 12) {
+          state.blockFeedback[fbKey] = {
+            incomplete: true,
+            message: "Write a 2–3 sentence response in the box first (click the Hint button if you'd like a starter!)."
+          };
+          renderMission();
+          return;
+        }
+        state.blockFeedback[fbKey] = {
+          checked: true,
+          revealedModel: true
+        };
+      }
+
+      recalculateMissionMastery(missionId);
+      renderAll();
+    }
+
+    function confirmScaffoldSelfCheck(missionId, blockIndex, earnedPoints) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const block = mission.blocks[blockIndex];
+      const scoreKey = `scaffold_score_m${missionId}_b${blockIndex}`;
+      state.answers[scoreKey] = earnedPoints;
+
+      const diagId = `diag_m${missionId}_b${blockIndex}`;
+      if (!state.diagnostics[diagId]) {
+        state.diagnostics[diagId] = {
+          missionId: mission.id,
+          missionTitle: `${mission.shortTitle}: ${mission.title}`,
+          sowTopic: block.sowTopic,
+          skillLevel: block.skillLevel,
+          studyTip: block.studyTip,
+          masteredOnFirstTry: earnedPoints === 2
+        };
+      }
+
+      recalculateMissionMastery(missionId);
+      renderAll();
+    }
+
+    function recalculateMissionMastery(missionId) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const st = state.missions[missionId];
+      let earned = 0;
+      let total = 0;
+      let allInteractiveBlocksDone = true;
+
+      mission.blocks.forEach((block, idx) => {
+        const fb = state.blockFeedback[`m${missionId}_b${idx}`];
+        if (block.type === "mcq") {
+          total += block.questions.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          else allInteractiveBlocksDone = false;
+        } else if (block.type === "classifier") {
+          total += block.items.length;
+          if (fb && fb.checked) earned += fb.correctCount;
+          else allInteractiveBlocksDone = false;
+        } else if (block.type === "scaffolded") {
+          total += 2;
+          const selfPts = state.answers[`scaffold_score_m${missionId}_b${idx}`];
+          if (selfPts !== undefined) earned += selfPts;
+          else allInteractiveBlocksDone = false;
+        }
+      });
+
+      st.score = earned;
+      st.total = total;
+      st.done = allInteractiveBlocksDone;
+
+      const pct = total > 0 ? (earned / total) * 100 : 0;
+      if (allInteractiveBlocksDone && (pct >= 80 || st.retryPassed)) {
+        st.mastered = true;
+      }
+      saveState();
+    }
+
+    function checkConfidenceRetry(missionId) {
+      const mission = MISSIONS.find(m => m.id === missionId);
+      const retryFbKey = `m${missionId}_retry`;
+      const unanswered = mission.retry.some(q => state.answers[q.id] === undefined);
+
+      if (unanswered) {
+        state.blockFeedback[retryFbKey] = {
+          incomplete: true,
+          message: "Answer both Confidence Retry questions first!"
+        };
+        renderMission();
+        return;
+      }
+
+      let correct = 0;
+      mission.retry.forEach(q => {
+        if (state.answers[q.id] === q.correctIndex) correct++;
+      });
+
+      state.blockFeedback[retryFbKey] = {
+        checked: true,
+        correctCount: correct,
+        totalCount: mission.retry.length
+      };
+
+      if (correct === mission.retry.length) {
+        state.missions[missionId].mastered = true;
+        state.missions[missionId].retryPassed = true;
+        saveState();
+      }
+      renderAll();
+    }
+
+    /* =========================================================================
+       RENDER MISSION VIEW & PERSONALIZED SCHEME-OF-WORK REVIEW PLAN
+       ========================================================================= */
+    function renderMission() {
+      const container = document.getElementById("missionContainer");
+
+      if (state.showSummary) {
+        renderReviewSummary(container);
+        return;
+      }
+
+      const mission = MISSIONS.find(m => m.id === state.activeMissionId);
+      const st = state.missions[mission.id];
+      const pct = st.total > 0 ? Math.round((st.score / st.total) * 100) : 0;
+
+      const blocksHtml = mission.blocks.map((block, bIdx) => {
+        const fbKey = `m${mission.id}_b${bIdx}`;
+        const fb = state.blockFeedback[fbKey];
+
+        if (block.type === "mcq") {
+          const isChecked = fb && fb.checked;
+          const qHtml = block.questions.map((q, qIdx) => {
+            const chosen = state.answers[q.id];
+            const optsHtml = q.options.map((opt, oIdx) => {
+              let cls = "border-slate-300 bg-white text-slate-800";
+              if (isChecked) {
+                if (oIdx === q.correctIndex) cls = "option-correct font-semibold";
+                else if (chosen === oIdx) cls = "option-wrong";
+                else cls = "border-slate-200 bg-slate-50 text-slate-500";
+              } else if (chosen === oIdx) {
+                cls = "option-selected font-semibold";
+              }
+              return `
+                <button type="button" ${isChecked ? "disabled" : ""}
+                  onclick="selectMcqOption('${q.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm sm:text-base ${cls}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            const expHtml = isChecked ? `
+              <div class="mt-3 p-3.5 rounded-xl text-sm ${chosen === q.correctIndex ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${chosen === q.correctIndex ? 'Spot on!' : "Let's check the clue:"}</strong> ${q.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="mb-6 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-3">${qIdx + 1}. ${q.prompt}</p>
+                <div class="space-y-2.5">${optsHtml}</div>
+                ${expHtml}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                ${isChecked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-5">${block.instruction}</p>
+              ${qHtml}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!isChecked ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkBlock('${mission.id}', ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check Answers
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        if (block.type === "classifier") {
+          const isChecked = fb && fb.checked;
+          const itemsHtml = block.items.map(item => {
+            const currentVal = state.answers[item.id] || "";
+            const isRight = currentVal === item.correct;
+            const optionsMarkup = [
+              `<option value="">-- Choose best match --</option>`,
+              ...item.choices.map(c => `<option value="${c}" ${currentVal === c ? "selected" : ""}>${c}</option>`)
+            ].join("");
+
+            const itemFb = isChecked ? `
+              <div class="mt-2.5 p-3 rounded-xl text-sm ${isRight ? 'bg-emerald-50 border border-emerald-300 text-emerald-950' : 'bg-amber-50 border border-amber-300 text-amber-950'}">
+                <strong>${isRight ? '✓ Correct:' : `✓ Best match is "${item.correct}":`}</strong> ${item.explanation}
+              </div>
+            ` : "";
+
+            return `
+              <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 mb-3 last:mb-0">
+                <p class="text-sm sm:text-base font-medium text-slate-900 mb-2.5">${item.label}</p>
+                <select ${isChecked ? "disabled" : ""}
+                  onchange="selectClassifierChoice('${item.id}', this.value)"
+                  class="calm-select text-sm sm:text-base">
+                  ${optionsMarkup}
+                </select>
+                ${itemFb}
+              </div>
+            `;
+          }).join("");
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                ${isChecked ? `<span class="text-xs font-bold px-3 py-1 rounded-full bg-teal-100 text-teal-900">Score: ${fb.correctCount}/${fb.totalCount}</span>` : ""}
+              </div>
+              <p class="text-sm text-slate-600 mb-4">${block.instruction}</p>
+              ${itemsHtml}
+              ${fb && fb.incomplete ? `<p class="mt-4 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+              ${!isChecked ? `
+                <div class="mt-5">
+                  <button type="button" onclick="checkBlock('${mission.id}', ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Check Matches
+                  </button>
+                </div>
+              ` : ""}
+            </section>
+          `;
+        }
+
+        if (block.type === "scaffolded") {
+          const textId = `scaffold_m${mission.id}_b${bIdx}`;
+          const savedText = state.answers[textId] || "";
+          const isRevealed = fb && fb.revealedModel;
+          const selfScore = state.answers[`scaffold_score_m${mission.id}_b${bIdx}`];
+
+          return `
+            <section class="card-haven p-5 sm:p-6 mb-6">
+              <div class="flex items-center justify-between flex-wrap gap-2 mb-2">
+                <h3 class="text-base sm:text-lg font-bold text-teal-900">${block.blockTitle}</h3>
+                <span class="text-xs font-bold px-3 py-1 rounded-full bg-amber-100 text-amber-900">2 Marks • Self-Check</span>
+              </div>
+              <p class="text-sm sm:text-base font-medium text-slate-900 mb-3 whitespace-pre-line">${block.prompt}</p>
+
+              <div class="mb-3">
+                <button type="button" onclick="toggleHint('hint_m${mission.id}_b${bIdx}')"
+                  class="text-xs font-bold text-amber-800 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-lg hover:bg-amber-100">
+                  💡 Need a Hint / Sentence Starter? (Show/Hide)
+                </button>
+                <div id="hint_m${mission.id}_b${bIdx}" class="hidden mt-2 p-3 rounded-xl bg-amber-50/70 border border-amber-200 text-sm text-slate-800">
+                  ${block.hint}
+                </div>
+              </div>
+
+              <textarea id="${textId}" rows="3" ${isRevealed ? "readonly" : ""}
+                placeholder="Write your response here..."
+                class="w-full p-3.5 rounded-xl border-2 border-slate-300 text-slate-900 text-sm sm:text-base focus:outline-none focus:border-teal-700">${savedText}</textarea>
+
+              ${fb && fb.incomplete ? `<p class="mt-3 text-sm font-semibold text-amber-800 bg-amber-50 p-3 rounded-xl border border-amber-300">${fb.message}</p>` : ""}
+
+              ${!isRevealed ? `
+                <div class="mt-4">
+                  <button type="button" onclick="checkBlock('${mission.id}', ${bIdx})"
+                    class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow-sm">
+                    Compare with Model Answer &amp; Self-Check
+                  </button>
+                </div>
+              ` : `
+                <div class="mt-4 p-4 rounded-xl bg-teal-50 border-2 border-teal-200 animate-fade">
+                  <p class="text-xs font-bold uppercase tracking-wider text-teal-800 mb-1">Teacher Model Answer (2 Marks)</p>
+                  <p class="text-sm text-slate-900 mb-3 whitespace-pre-line">${block.modelAnswer}</p>
+                  <p class="text-xs font-bold text-slate-700 mb-1.5">Check your own answer honestly against these 2 key ideas:</p>
+                  <ul class="list-disc pl-5 text-sm text-slate-800 space-y-1 mb-4">
+                    ${block.checklist.map(c => `<li>${c}</li>`).join("")}
+                  </ul>
+                  <div class="flex flex-wrap items-center gap-2">
+                    <span class="text-xs font-bold text-slate-700 mr-1">Honest Self-Check:</span>
+                    <button type="button" onclick="confirmScaffoldSelfCheck('${mission.id}', ${bIdx}, 2)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 2 ? 'bg-emerald-700 text-white border-emerald-700' : 'bg-white text-emerald-800 border-emerald-600 hover:bg-emerald-50'}">
+                      ★ I got both key ideas (2/2)
+                    </button>
+                    <button type="button" onclick="confirmScaffoldSelfCheck('${mission.id}', ${bIdx}, 1)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 1 ? 'bg-amber-600 text-white border-amber-600' : 'bg-white text-amber-800 border-amber-500 hover:bg-amber-50'}">
+                      I got 1 idea (1/2)
+                    </button>
+                    <button type="button" onclick="confirmScaffoldSelfCheck('${mission.id}', ${bIdx}, 0)"
+                      class="px-3.5 py-2 rounded-xl text-xs font-bold border-2 ${selfScore === 0 ? 'bg-rose-700 text-white border-rose-700' : 'bg-white text-rose-800 border-rose-400 hover:bg-rose-50'}">
+                      Still learning (0/2)
+                    </button>
+                  </div>
+                </div>
+              `}
+            </section>
+          `;
+        }
+        return "";
+      }).join("");
+
+      // Mission Mastery Banner or Confidence Retry
+      let masteryFooterHtml = "";
+      if (st.done) {
+        if (st.mastered) {
+          const currentIdx = MISSIONS.findIndex(m => m.id === mission.id);
+          const nextMission = MISSIONS[currentIdx + 1];
+          const allMastered = Object.values(state.missions).every(m => m.mastered);
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-emerald-50 border-2 border-emerald-500 animate-fade mb-6">
+              <div class="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <span class="inline-block px-3 py-1 rounded-full bg-emerald-700 text-white text-xs font-bold mb-2">
+                    ★ ${mission.shortTitle} Mastery Badge Earned!
+                  </span>
+                  <h3 class="text-xl font-bold text-emerald-950">Great job on ${mission.title}!</h3>
+                  <p class="text-sm text-emerald-900 mt-1">
+                    ${st.retryPassed ? "You locked in the concepts through the Confidence Retry!" : `You scored ${pct}%—strong mastery of this mission!`}
+                  </p>
+                </div>
+                <div>
+                  ${allMastered ? `
+                    <button type="button" onclick="openReviewSummary()"
+                      class="px-5 py-3 rounded-xl bg-emerald-700 text-white font-bold text-sm hover:bg-emerald-800 shadow">
+                      View My Unit 4 Review Plan →
+                    </button>
+                  ` : nextMission ? `
+                    <button type="button" onclick="selectMission('${nextMission.id}')"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      Continue to ${nextMission.shortTitle} →
+                    </button>
+                  ` : `
+                    <button type="button" onclick="openReviewSummary()"
+                      class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800 shadow">
+                      View My Unit 4 Review Plan →
+                    </button>
+                  `}
+                </div>
+              </div>
+            </div>
+          `;
+        } else {
+          const retryFb = state.blockFeedback[`m${mission.id}_retry`];
+          const retryQHtml = mission.retry.map((rq, rIdx) => {
+            const rChosen = state.answers[rq.id];
+            const rChecked = retryFb && retryFb.checked;
+            const rOpts = rq.options.map((opt, oIdx) => {
+              let cls = "border-slate-300 bg-white text-slate-800";
+              if (rChecked) {
+                if (oIdx === rq.correctIndex) cls = "option-correct font-semibold";
+                else if (rChosen === oIdx) cls = "option-wrong";
+              } else if (rChosen === oIdx) {
+                cls = "option-selected font-semibold";
+              }
+              return `
+                <button type="button" ${rChecked && rChosen === rq.correctIndex ? "disabled" : ""}
+                  onclick="selectMcqOption('${rq.id}', ${oIdx})"
+                  class="option-btn w-full p-3.5 rounded-xl border-2 text-sm ${cls}">
+                  ${opt}
+                </button>
+              `;
+            }).join("");
+
+            return `
+              <div class="mb-5 last:mb-0">
+                <p class="font-semibold text-slate-900 mb-2.5">${rIdx + 1}. ${rq.prompt}</p>
+                <div class="space-y-2">${rOpts}</div>
+                ${rChecked ? `
+                  <p class="mt-2 text-xs sm:text-sm p-3 rounded-xl ${rChosen === rq.correctIndex ? 'bg-emerald-50 text-emerald-950 border border-emerald-300' : 'bg-rose-50 text-rose-950 border border-rose-300'}">
+                    ${rq.explanation}
+                  </p>
+                ` : ""}
+              </div>
+            `;
+          }).join("");
+
+          masteryFooterHtml = `
+            <div class="p-6 rounded-2xl bg-amber-50 border-2 border-amber-400 animate-fade mb-6">
+              <span class="inline-block px-3 py-1 rounded-full bg-amber-600 text-white text-xs font-bold mb-2">
+                Confidence Retry • Almost at 80% (${pct}%)
+              </span>
+              <h3 class="text-lg font-bold text-slate-900 mb-1">Let's lock in those tricky ideas!</h3>
+              <p class="text-sm text-slate-700 mb-5">
+                Answer these 2 quick booster questions to earn your <strong>${mission.shortTitle} Mastery Badge</strong>.
+              </p>
+              ${retryQHtml}
+              ${retryFb && retryFb.incomplete ? `<p class="mt-3 text-sm font-semibold text-rose-800">${retryFb.message}</p>` : ""}
+              <div class="mt-5">
+                <button type="button" onclick="checkConfidenceRetry('${mission.id}')"
+                  class="px-5 py-3 rounded-xl bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 shadow-sm">
+                  Submit Confidence Retry
+                </button>
+              </div>
+            </div>
+          `;
+        }
+      }
+
+      container.innerHTML = `
+        <div class="mb-6">
+          <div class="flex flex-wrap items-center justify-between gap-2 mb-1">
+            <span class="text-xs font-bold uppercase tracking-wider text-teal-800">${mission.shortTitle} • ${mission.sowRef}</span>
+            ${st.mastered ? `<span class="text-xs font-bold text-emerald-700">★ Mastered</span>` : ""}
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900">${mission.title}</h2>
+          <p class="text-sm text-slate-600 mt-1">${mission.summary}</p>
+        </div>
+
+        ${blocksHtml}
+        ${masteryFooterHtml}
+      `;
+    }
+
+    function renderReviewSummary(container) {
+      const masteredCount = Object.values(state.missions).filter(m => m.mastered).length;
+      const readinessPct = Math.round((masteredCount / 3) * 100);
+      const diagEntries = Object.values(state.diagnostics);
+
+      const skillLevels = ["Knowledge", "Understanding", "Application"];
+      const skillStats = {};
+      skillLevels.forEach(lvl => {
+        const items = diagEntries.filter(d => d.skillLevel === lvl);
+        const passed = items.filter(d => d.masteredOnFirstTry).length;
+        const pct = items.length > 0 ? Math.round((passed / items.length) * 100) : null;
+        skillStats[lvl] = { total: items.length, passed, pct };
+      });
+
+      function getMissedBySkill(lvl) {
+        const missed = diagEntries.filter(d => d.skillLevel === lvl && !d.masteredOnFirstTry);
+        const grouped = {};
+        missed.forEach(m => {
+          if (!grouped[m.sowTopic]) {
+            grouped[m.sowTopic] = { ...m };
+          }
+        });
+        return Object.values(grouped);
+      }
+
+      const knowledgeReview = getMissedBySkill("Knowledge");
+      const understandingReview = getMissedBySkill("Understanding");
+      const applicationReview = getMissedBySkill("Application");
+      const totalMissed = diagEntries.filter(d => !d.masteredOnFirstTry).length;
+
+      let weakestMissionId = null;
+      let maxMisses = 0;
+      MISSIONS.forEach(m => {
+        const misses = diagEntries.filter(d => d.missionId === m.id && !d.masteredOnFirstTry).length;
+        if (misses > maxMisses) {
+          maxMisses = misses;
+          weakestMissionId = m.id;
+        }
+      });
+
+      const badgesHtml = MISSIONS.map(m => {
+        const st = state.missions[m.id];
+        return `
+          <div class="p-3.5 rounded-xl border-2 ${st.mastered ? 'border-emerald-400 bg-emerald-50/70' : 'border-slate-200 bg-slate-50'} text-left flex items-center justify-between gap-2">
+            <div>
+              <p class="text-xs font-bold text-teal-800">${m.shortTitle}</p>
+              <p class="text-xs sm:text-sm font-bold text-slate-900">${m.title}</p>
+            </div>
+            <span class="shrink-0 text-xs font-bold px-2.5 py-1 rounded-full ${st.mastered ? 'bg-emerald-700 text-white' : 'bg-slate-200 text-slate-700'}">
+              ${st.mastered ? 'Mastered ★' : 'Pending'}
+            </span>
+          </div>
+        `;
+      }).join("");
+
+      const skillCardsHtml = skillLevels.map(lvl => {
+        const st = skillStats[lvl];
+        const desc = lvl === "Knowledge"
+          ? "Definitions, Stool & vocab"
+          : lvl === "Understanding"
+          ? "Why escalation & STAND work"
+          : "Roles, netiquette & action plans";
+        const barColor = st.pct === null ? "bg-slate-300" : st.pct >= 80 ? "bg-emerald-600" : st.pct >= 50 ? "bg-amber-500" : "bg-rose-600";
+
+        return `
+          <div class="p-4 rounded-xl border-2 border-slate-200 bg-slate-50/70 text-left">
+            <div class="flex items-center justify-between mb-1">
+              <span class="font-bold text-slate-900 text-sm">${lvl}</span>
+              <span class="text-xs font-bold text-teal-900">${st.pct !== null ? `${st.pct}% (${st.passed}/${st.total})` : "Not tried yet"}</span>
+            </div>
+            <p class="text-xs text-slate-600 mb-2">${desc}</p>
+            <div class="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+              <div class="${barColor} h-full transition-all duration-300" style="width: ${st.pct !== null ? st.pct : 0}%"></div>
+            </div>
+          </div>
+        `;
+      }).join("");
+
+      function renderGroup(title, subtitle, badgeBg, items, emptyText) {
+        if (diagEntries.length === 0) {
+          return `
+            <div class="p-4 rounded-xl border border-slate-200 bg-white text-left">
+              <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${badgeBg} mb-1">${title}</span>
+              <p class="text-xs text-slate-500">Complete at least one mission to see your personalized ${title.toLowerCase()} feedback.</p>
+            </div>
+          `;
+        }
+        if (items.length === 0) {
+          return `
+            <div class="p-4 rounded-xl border-2 border-emerald-200 bg-emerald-50/50 text-left">
+              <div class="flex items-center justify-between gap-2 mb-1">
+                <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-700 text-white">${title}</span>
+                <span class="text-xs font-bold text-emerald-800">★ 100% First-Try Mastery!</span>
+              </div>
+              <p class="text-sm text-emerald-950">${emptyText}</p>
+            </div>
+          `;
+        }
+        return `
+          <div class="p-4 rounded-xl border-2 border-amber-200 bg-white text-left">
+            <span class="inline-block px-2.5 py-0.5 rounded-full text-xs font-bold ${badgeBg} mb-1">${title}</span>
+            <p class="text-xs text-slate-600 mb-3">${subtitle}</p>
+            <ul class="space-y-2.5">
+              ${items.map(item => `
+                <li class="p-3 rounded-lg bg-slate-50 border border-slate-200">
+                  <div class="flex flex-wrap items-center justify-between gap-1 mb-1">
+                    <span class="text-xs font-bold text-teal-800">${item.missionTitle}</span>
+                    <button type="button" onclick="selectMission('${item.missionId}')" class="text-xs font-bold text-teal-700 underline hover:text-teal-900">
+                      Revisit ${item.missionId} →
+                    </button>
+                  </div>
+                  <p class="font-bold text-sm text-slate-900">${item.sowTopic}</p>
+                  <p class="text-xs sm:text-sm text-slate-700 mt-1"><strong>Study Action:</strong> ${item.studyTip}</p>
+                </li>
+              `).join("")}
+            </ul>
+          </div>
+        `;
+      }
+
+      container.innerHTML = `
+        <div class="card-haven p-6 sm:p-8 text-center mb-6">
+          <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 text-emerald-800 text-2xl font-bold mb-4">★</div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-2">
+            ${masteredCount === 3 ? "Unit 4 Mastered! Ready for the Exam!" : `Unit 4 Readiness: ${readinessPct}% (${masteredCount} of 3 Missions Mastered)`}
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto mb-6">
+            Here is your Scheme-of-Work review breakdown for <strong>Unit 4: Relationships, Communication &amp; Cyberbullying (Lessons 9–11)</strong>.
+          </p>
+
+          <!-- Mission Badges -->
+          <div class="mb-6">
+            <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">1. Unit 4 Mission Badges</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2.5">${badgesHtml}</div>
+          </div>
+
+          <!-- 3-Column Cognitive Skill Breakdown -->
+          <div class="mb-6">
+            <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700 mb-3">2. Cognitive Skill Breakdown (First-Try Accuracy)</h3>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">${skillCardsHtml}</div>
+          </div>
+
+          <!-- Personalized Scheme-of-Work Review Plan -->
+          <div class="mb-6">
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-3">
+              <h3 class="text-left text-sm font-bold uppercase tracking-wider text-slate-700">3. Personalized Scheme-of-Work Review Plan</h3>
+              ${weakestMissionId ? `
+                <button type="button" onclick="selectMission('${weakestMissionId}')"
+                  class="px-3.5 py-1.5 rounded-xl bg-amber-600 text-white text-xs font-bold hover:bg-amber-700 shadow-sm">
+                  ⚡ Jump to Weakest Mission (Mission ${weakestMissionId})
+                </button>
+              ` : ""}
+            </div>
+
+            ${diagEntries.length > 0 && totalMissed === 0 ? `
+              <div class="p-5 rounded-2xl bg-emerald-50 border-2 border-emerald-500 text-left mb-4">
+                <p class="font-bold text-emerald-950 text-base mb-1">🌟 100% First-Try Mastery Across Unit 4!</p>
+                <p class="text-sm text-emerald-900">You nailed every Knowledge, Understanding, and Application question on your very first attempt.</p>
+              </div>
+            ` : ""}
+
+            <div class="space-y-3">
+              ${renderGroup("Knowledge to Review", "Unit 4 terms and definitions to revisit:", "bg-teal-100 text-teal-900", knowledgeReview, "You mastered the Three-Legged Stool, flaming, trolling, and pile-on definitions on your first try!")}
+              ${renderGroup("Understanding to Strengthen", "Unit 4 concepts to review deeper:", "bg-amber-100 text-amber-900", understandingReview, "Your understanding of conflict vs. cyberbullying, online disinhibition, Bystander Effect, and why not to retaliate is super strong!")}
+              ${renderGroup("Application to Practice", "Scenario and diagnostic skills to sharpen:", "bg-rose-100 text-rose-900", applicationReview, "You classified witness roles, fixed netiquette emails, and built STAND action plans with 100% accuracy!")}
+            </div>
+          </div>
+
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            ${weakestMissionId ? `
+              <button type="button" onclick="selectMission('${weakestMissionId}')"
+                class="px-5 py-3 rounded-xl bg-amber-600 text-white font-bold text-sm hover:bg-amber-700 shadow-sm">
+                Jump to Weakest Mission (${weakestMissionId})
+              </button>
+            ` : ""}
+            <button type="button" onclick="selectMission('4.1')" class="px-5 py-3 rounded-xl bg-teal-700 text-white font-bold text-sm hover:bg-teal-800">
+              Back to Mission 1
+            </button>
+            <button type="button" onclick="confirmResetModal()" class="px-5 py-3 rounded-xl border-2 border-slate-300 text-slate-700 font-bold text-sm hover:bg-slate-100">
+              Reset Unit 4 Progress
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAll() {
+      renderHeaderProgress();
+      renderMission();
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      loadState();
+      renderAll();
+    });
+  </script>
+</body>
+</html>
